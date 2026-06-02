@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inglese - Present Simple</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FAF6EE;
+    --card:#FFFFFF;
+    --ink:#2F2A24;
+    --accent:#C8651B;
+    --accent-soft:#F3E2D0;
+    --green:#3E8E5A;
+    --green-soft:#E2F0E6;
+    --red:#C2492F;
+    --red-soft:#F6E1DB;
+    --blue:#3B6EA5;
+    --blue-soft:#E2ECF5;
+    --purple:#7B5EA7;
+    --purple-soft:#EDE8F5;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:"Lexend","Trebuchet MS",Verdana,sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.7;
+    letter-spacing:0.3px;
+    padding:24px 14px 60px;
+  }
+  .wrap{max-width:620px;margin:0 auto;}
+  h1{color:var(--accent);font-size:1.7rem;text-align:center;margin:0 0 6px;}
+  .sub{text-align:center;color:#8a7f70;margin:0 0 26px;font-size:1rem;}
+  .card{
+    background:var(--card);border-radius:18px;padding:22px 20px;
+    margin-bottom:22px;box-shadow:0 4px 14px rgba(0,0,0,0.06);
+    border:1px solid #efe7da;
+  }
+  .card h2{margin:0 0 14px;font-size:1.25rem;color:var(--accent);display:flex;align-items:center;gap:8px;}
+  table{width:100%;border-collapse:collapse;margin:6px 0;}
+  td,th{padding:10px;text-align:center;border-bottom:2px solid var(--accent-soft);font-size:1.05rem;}
+  th{color:var(--accent);}
+  .cell-base{background:var(--blue-soft);border-radius:8px;font-weight:bold;color:var(--blue);}
+  .cell-s{background:var(--green-soft);border-radius:8px;font-weight:bold;color:var(--green);}
+  .cell-neg{background:var(--red-soft);border-radius:8px;font-weight:bold;color:var(--red);}
+  .cell-int{background:var(--purple-soft);border-radius:8px;font-weight:bold;color:var(--purple);}
+  .saybtn{
+    background:var(--blue-soft);color:var(--blue);border:none;border-radius:10px;
+    padding:6px 12px;font-size:0.95rem;cursor:pointer;font-family:inherit;
+  }
+  .tip{background:var(--accent-soft);border-radius:10px;padding:10px 14px;font-size:0.98rem;margin-top:10px;}
+  .tip-blue{background:var(--blue-soft);border-radius:10px;padding:10px 14px;font-size:0.98rem;margin-top:10px;color:var(--blue);}
+  .tip-green{background:var(--green-soft);border-radius:10px;padding:10px 14px;font-size:0.98rem;margin-top:10px;color:var(--green);}
+  .tip-red{background:var(--red-soft);border-radius:10px;padding:10px 14px;font-size:0.98rem;margin-top:10px;color:var(--red);}
+  .uso-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:10px 0;}
+  .uso-box{background:var(--bg);border:2px solid var(--accent-soft);border-radius:14px;padding:12px;text-align:center;font-size:0.97rem;}
+  .uso-box .icon{font-size:1.6rem;display:block;margin-bottom:4px;}
+  .spec-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0;}
+  .spec-box{background:var(--green-soft);border-radius:12px;padding:10px 14px;font-size:0.97rem;}
+  .spec-box b{color:var(--green);}
+  /* flashcard */
+  .flashcards{display:flex;flex-direction:column;gap:12px;margin-top:4px;}
+  .fc{background:var(--bg);border:2px solid var(--accent-soft);border-radius:14px;
+    padding:16px;cursor:pointer;font-size:1.1rem;transition:all .2s;}
+  .fc:hover{border-color:var(--accent);}
+  .fc .en{font-weight:bold;color:var(--ink);}
+  .fc .it{color:var(--green);margin-top:6px;display:none;font-size:1rem;}
+  .fc.open .it{display:block;}
+  .fc .hint-tap{font-size:0.85rem;color:#aaa;margin-top:4px;}
+  /* esercizi */
+  .ex{margin:18px 0;}
+  .qnum{font-weight:bold;color:var(--accent);}
+  .qtext{font-size:1.15rem;margin:6px 0 8px;}
+  .qhint{background:var(--blue-soft);color:var(--blue);border-radius:10px;padding:8px 12px;font-size:0.95rem;margin-bottom:10px;}
+  .options{display:flex;gap:10px;flex-wrap:wrap;}
+  .opt{flex:1;min-width:80px;background:var(--bg);border:2px solid var(--accent-soft);
+    border-radius:12px;padding:14px;font-size:1.1rem;cursor:pointer;
+    text-align:center;font-family:inherit;color:var(--ink);transition:all .15s;}
+  .opt:hover{border-color:var(--accent);}
+  .opt.correct{background:var(--green-soft);border-color:var(--green);color:var(--green);font-weight:bold;}
+  .opt.wrong{background:var(--red-soft);border-color:var(--red);color:var(--red);}
+  .feedback{margin-top:12px;font-size:1.05rem;font-weight:bold;min-height:26px;}
+  .feedback.ok{color:var(--green);}
+  .feedback.no{color:var(--red);}
+  .progress{text-align:center;font-size:1.1rem;margin:10px 0 0;color:#8a7f70;}
+  .star{font-size:1.4rem;}
+  .restart{display:block;margin:20px auto 0;background:var(--accent);color:#fff;border:none;
+    border-radius:12px;padding:12px 24px;font-size:1.05rem;cursor:pointer;font-family:inherit;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>⏱️ Present Simple</h1>
+  <p class="sub">le azioni di tutti i giorni</p>
+
+  <!-- A COSA SERVE -->
+  <div class="card">
+    <h2>💡 A cosa serve?</h2>
+    <div class="uso-grid">
+      <div class="uso-box"><span class="icon">🔁</span>Abitudini e routine<br><small><i>I wake up at 7.</i></small> <button class="saybtn" onclick="say('I wake up at 7')">🔊</button></div>
+      <div class="uso-box"><span class="icon">📅</span>Cose che si ripetono<br><small><i>She goes to school.</i></small> <button class="saybtn" onclick="say('She goes to school')">🔊</button></div>
+      <div class="uso-box"><span class="icon">🌍</span>Cose sempre vere<br><small><i>The sun rises in the east.</i></small> <button class="saybtn" onclick="say('The sun rises in the east')">🔊</button></div>
+    </div>
+    <div class="tip">🎨 <b>In italiano</b> corrisponde al presente indicativo: <i>mangio, lavoro, studio…</i></div>
+  </div>
+
+  <!-- AFFERMATIVA -->
+  <div class="card">
+    <h2>✅ Forma affermativa</h2>
+    <table>
+      <tr><th>Pronome</th><th>Verbo (es. <i>work</i>)</th><th>Ascolta</th></tr>
+      <tr><td>I</td><td class="cell-base">work</td><td><button class="saybtn" onclick="say('I work')">🔊</button></td></tr>
+      <tr><td>You</td><td class="cell-base">work</td><td><button class="saybtn" onclick="say('You work')">🔊</button></td></tr>
+      <tr><td>He</td><td class="cell-s">works</td><td><button class="saybtn" onclick="say('He works')">🔊</button></td></tr>
+      <tr><td>She</td><td class="cell-s">works</td><td><button class="saybtn" onclick="say('She works')">🔊</button></td></tr>
+      <tr><td>It</td><td class="cell-s">works</td><td><button class="saybtn" onclick="say('It works')">🔊</button></td></tr>
+      <tr><td>We</td><td class="cell-base">work</td><td><button class="saybtn" onclick="say('We work')">🔊</button></td></tr>
+      <tr><td>They</td><td class="cell-base">work</td><td><button class="saybtn" onclick="say('They work')">🔊</button></td></tr>
+    </table>
+    <div class="tip">🎯 <b>Regola:</b> <span style="color:var(--blue)">I/You/We/They → verbo base</span> · <span style="color:var(--green)">He/She/It → verbo + <b>s</b></span></div>
+
+    <h2 style="margin-top:18px;">⚠️ Casi speciali della -s</h2>
+    <div class="spec-grid">
+      <div class="spec-box"><b>-o / -ss / -sh / -ch / -x → +es</b><br>go → <b>goes</b> <button class="saybtn" onclick="say('goes')">🔊</button><br>watch → <b>watches</b> <button class="saybtn" onclick="say('watches')">🔊</button><br>wash → <b>washes</b> <button class="saybtn" onclick="say('washes')">🔊</button></div>
+      <div class="spec-box"><b>consonante + y → ies</b><br>study → <b>studies</b> <button class="saybtn" onclick="say('studies')">🔊</button><br>fly → <b>flies</b> <button class="saybtn" onclick="say('flies')">🔊</button><br>carry → <b>carries</b> <button class="saybtn" onclick="say('carries')">🔊</button></div>
+    </div>
+    <div class="tip-blue">💡 <b>Eccezione:</b> <i>have</i> → <b>has</b> (non "haves"!)</div>
+  </div>
+
+  <!-- NEGATIVA -->
+  <div class="card">
+    <h2>❌ Forma negativa</h2>
+    <table>
+      <tr><th>Pronome</th><th>Negazione + verbo</th><th>Ascolta</th></tr>
+      <tr><td>I / You / We / They</td><td class="cell-neg">don't + verbo base</td><td><button class="saybtn" onclick="say('I don\'t work')">🔊</button></td></tr>
+      <tr><td>He / She / It</td><td class="cell-neg">doesn't + verbo base</td><td><button class="saybtn" onclick="say('She doesn\'t work')">🔊</button></td></tr>
+    </table>
+    <div class="tip-red">⚠️ <b>Attenzione!</b> Con <b>doesn't</b> il verbo torna alla forma base — senza la -s!<br>✗ She doesn't <s>works</s> &nbsp;&nbsp; ✓ She <b>doesn't work</b> <button class="saybtn" onclick="say('She doesn\'t work')">🔊</button></div>
+  </div>
+
+  <!-- INTERROGATIVA -->
+  <div class="card">
+    <h2>❓ Forma interrogativa</h2>
+    <table>
+      <tr><th>Pronome</th><th>Struttura</th><th>Esempio</th><th>Ascolta</th></tr>
+      <tr><td>I / You / We / They</td><td class="cell-int">Do + sogg. + verbo?</td><td><i>Do you work?</i></td><td><button class="saybtn" onclick="say('Do you work?')">🔊</button></td></tr>
+      <tr><td>He / She / It</td><td class="cell-int">Does + sogg. + verbo?</td><td><i>Does she work?</i></td><td><button class="saybtn" onclick="say('Does she work?')">🔊</button></td></tr>
+    </table>
+    <div class="tip-blue">💡 Anche qui, con <b>Does</b> il verbo resta senza -s:<br>✗ Does she <s>works</s>? &nbsp;&nbsp; ✓ <b>Does she work?</b> <button class="saybtn" onclick="say('Does she work?')">🔊</button></div>
+  </div>
+
+  <!-- FLASHCARD -->
+  <div class="card">
+    <h2>🃏 Flashcard — tocca per tradurre!</h2>
+    <div class="flashcards">
+      <div class="fc" onclick="flip(this)">
+        <div class="en">She studies English every day. 📚 <button class="saybtn" onclick="event.stopPropagation();say('She studies English every day')">🔊</button></div>
+        <div class="it">Lei studia inglese ogni giorno.</div>
+        <div class="hint-tap">👆 tocca per vedere la traduzione</div>
+      </div>
+      <div class="fc" onclick="flip(this)">
+        <div class="en">They don't eat meat. 🥗 <button class="saybtn" onclick="event.stopPropagation();say('They don\'t eat meat')">🔊</button></div>
+        <div class="it">Loro non mangiano carne.</div>
+        <div class="hint-tap">👆 tocca per vedere la traduzione</div>
+      </div>
+      <div class="fc" onclick="flip(this)">
+        <div class="en">Does he go to the gym? 💪 <button class="saybtn" onclick="event.stopPropagation();say('Does he go to the gym?')">🔊</button></div>
+        <div class="it">Lui va in palestra?</div>
+        <div class="hint-tap">👆 tocca per vedere la traduzione</div>
+      </div>
+      <div class="fc" onclick="flip(this)">
+        <div class="en">My cat sleeps a lot. 😴 <button class="saybtn" onclick="event.stopPropagation();say('My cat sleeps a lot')">🔊</button></div>
+        <div class="it">Il mio gatto dorme molto.</div>
+        <div class="hint-tap">👆 tocca per vedere la traduzione</div>
+      </div>
+      <div class="fc" onclick="flip(this)">
+        <div class="en">We don't work on Sundays. ☀️ <button class="saybtn" onclick="event.stopPropagation();say('We don\'t work on Sundays')">🔊</button></div>
+        <div class="it">Noi non lavoriamo la domenica.</div>
+        <div class="hint-tap">👆 tocca per vedere la traduzione</div>
+      </div>
+      <div class="fc" onclick="flip(this)">
+        <div class="en">Do you like pizza? 🍕 <button class="saybtn" onclick="event.stopPropagation();say('Do you like pizza?')">🔊</button></div>
+        <div class="it">Ti piace la pizza?</div>
+        <div class="hint-tap">👆 tocca per vedere la traduzione</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ESERCIZI GUIDATI -->
+  <div class="card">
+    <h2>✏️ Esercizi guidati</h2>
+    <p style="margin-top:0;color:#8a7f70;">Leggi prima il suggerimento 💡, poi scegli la risposta giusta!</p>
+    <div id="guided"></div>
+    <div class="progress" id="gprogress"></div>
+    <button class="restart" id="grestartBtn" style="display:none;" onclick="startGuided()">🔄 Riprova gli esercizi</button>
+  </div>
+
+  <!-- QUIZ FINALE -->
+  <div class="card">
+    <h2>✅ Quiz finale</h2>
+    <p style="margin-top:0;color:#8a7f70;">Hai capito tutto? Mettiti alla prova! 🎯</p>
+    <div id="quiz"></div>
+    <div class="progress" id="progress"></div>
+    <button class="restart" id="restartBtn" style="display:none;" onclick="startQuiz()">🔄 Ricomincia il quiz</button>
+  </div>
+</div>
+
+<script>
+  // Pronuncia — identica a TO-BE.html
+  function say(text){
+    try{
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = "en-US";
+      u.rate = 0.85;
+      speechSynthesis.cancel();
+      speechSynthesis.speak(u);
+    }catch(e){}
+  }
+
+  function flip(el){ el.classList.toggle("open"); }
+
+  function escQ(s){ return s.replace(/'/g, "\\'"); }
+
+  // ESERCIZI GUIDATI
+  const guided = [
+    {
+      q:"She ____ (study) English every evening. 📚",
+      hint:"💡 Il soggetto è She → he/she/it. 'Study' finisce in consonante + y → togli la y e aggiungi ies!",
+      opts:["study","studys","studies"], correct:2,
+      full:"She studies English every evening."
+    },
+    {
+      q:"They ____ (play) football on Saturdays. ⚽",
+      hint:"💡 Il soggetto è They → non è he/she/it. Il verbo resta alla forma base!",
+      opts:["plays","play","plaies"], correct:1,
+      full:"They play football on Saturdays."
+    },
+    {
+      q:"He ____ not like coffee. ☕  (scegli la negazione giusta)",
+      hint:"💡 Il soggetto è He → he/she/it. Con he/she/it la negazione è 'doesn't', non 'don't'!",
+      opts:["don't","doesn't","don't not"], correct:1,
+      full:"He doesn't like coffee."
+    },
+    {
+      q:"____ she speak French? 🇫🇷  (forma interrogativa)",
+      hint:"💡 Il soggetto è She → he/she/it. Per fare una domanda con he/she/it si usa Does, non Do!",
+      opts:["Do","Does","Is"], correct:1,
+      full:"Does she speak French?"
+    },
+    {
+      q:"She doesn't ____ TV in the morning. 📺  (scegli la forma giusta di 'watch')",
+      hint:"💡 Dopo 'doesn't' il verbo torna sempre alla forma BASE — senza la -s!",
+      opts:["watches","watch","watchs"], correct:1,
+      full:"She doesn't watch TV in the morning."
+    },
+    {
+      q:"He ____ (go) to school by bus. 🚌",
+      hint:"💡 Il soggetto è He → he/she/it. 'Go' finisce in -o → aggiungi -es, non solo -s!",
+      opts:["go","gos","goes"], correct:2,
+      full:"He goes to school by bus."
+    },
+  ];
+
+  let gc=0, gs=0;
+  function startGuided(){ gc=0; gs=0; document.getElementById("grestartBtn").style.display="none"; showGuided(); }
+  function showGuided(){
+    const el=document.getElementById("guided");
+    const pr=document.getElementById("gprogress");
+    if(gc>=guided.length){
+      el.innerHTML="";
+      const pct=gs/guided.length;
+      const n=pct===1?5:pct>=0.67?4:pct>=0.5?3:2;
+      let stars=""; for(let i=0;i<n;i++) stars+="⭐";
+      const msg=pct===1?"Bravissima! Hai capito tutto! 🏆":pct>=0.5?"Quasi! Riprova per sicurezza 💪":"Allenati ancora, ci riesci! 🌱";
+      pr.innerHTML=`<div class="star">${stars}</div>${gs}/${guided.length} giuste<br><b>${msg}</b>`;
+      document.getElementById("grestartBtn").style.display="block";
+      return;
+    }
+    const item=guided[gc];
+    pr.textContent=`Esercizio ${gc+1} di ${guided.length}`;
+    el.innerHTML=`
+      <div class="ex">
+        <div class="qnum">Esercizio ${gc+1}</div>
+        <div class="qtext">${item.q} <button class="saybtn" onclick="say('${escQ(item.full)}')">🔊</button></div>
+        <div class="qhint">${item.hint}</div>
+        <div class="options">
+          ${item.opts.map((o,i)=>`<button class="opt" onclick="gAnswer(${i})">${o}</button>`).join("")}
+        </div>
+        <div class="feedback" id="gfb"></div>
+      </div>
+    `;
+  }
+  function gAnswer(i){
+    const item=guided[gc];
+    const opts=document.querySelectorAll("#guided .opt");
+    const fb=document.getElementById("gfb");
+    if(i===item.correct){
+      opts[i].classList.add("correct");
+      fb.textContent="✅ Giusto! "+item.full; fb.className="feedback ok";
+      gs++; say(item.full);
+      opts.forEach(o=>o.disabled=true);
+      setTimeout(()=>{ gc++; showGuided(); },1800);
+    } else {
+      opts[i].classList.add("wrong");
+      fb.textContent="Riprova! Guarda il suggerimento 💡"; fb.className="feedback no";
+    }
+  }
+
+  // QUIZ FINALE
+  const questions = [
+    {q:"She ____ cats. 🐱  (like)", opts:["like","likes","likees"], correct:1, full:"She likes cats."},
+    {q:"They ____ go to school on Sunday.", opts:["doesn't","don't","not"], correct:1, full:"They don't go to school on Sunday."},
+    {q:"____ he play guitar? 🎸", opts:["Do","Is","Does"], correct:2, full:"Does he play guitar?"},
+    {q:"He ____ TV every night. 📺  (watch)", opts:["watchs","watch","watches"], correct:2, full:"He watches TV every night."},
+    {q:"I ____ English at school. 📖  (study)", opts:["studies","studys","study"], correct:2, full:"I study English at school."},
+    {q:"She doesn't ____ coffee. ☕  (drink)", opts:["drinks","drinking","drink"], correct:2, full:"She doesn't drink coffee."},
+    {q:"____ they live in Rome? 🏛️", opts:["Does","Do","Are"], correct:1, full:"Do they live in Rome?"},
+    {q:"My dog ____ a lot. 🐶  (eat)", opts:["eat","eats","eatss"], correct:1, full:"My dog eats a lot."},
+  ];
+
+  let current=0, score=0;
+  function startQuiz(){ current=0; score=0; document.getElementById("restartBtn").style.display="none"; showQuestion(); }
+  function showQuestion(){
+    const quiz=document.getElementById("quiz");
+    const prog=document.getElementById("progress");
+    if(current>=questions.length){
+      quiz.innerHTML="";
+      const pct=score/questions.length;
+      const n=pct===1?5:pct>=0.75?4:pct>=0.5?3:pct>=0.25?2:1;
+      let stars=""; for(let i=0;i<n;i++) stars+="⭐";
+      const msg=pct===1?"Perfetto! Hai imparato il Present Simple! 🏆":pct>=0.5?"Bravissima, ci sei quasi! 💪":"Bene, riprova: si impara ripetendo! 🌱";
+      prog.innerHTML=`<div class="star">${stars}</div>${score}/${questions.length} giuste<br><b>${msg}</b>`;
+      document.getElementById("restartBtn").style.display="block";
+      return;
+    }
+    const item=questions[current];
+    prog.textContent=`Domanda ${current+1} di ${questions.length}`;
+    quiz.innerHTML=`
+      <div class="ex">
+        <div class="qnum">Domanda ${current+1}</div>
+        <div class="qtext">${item.q} <button class="saybtn" onclick="say('${escQ(item.full)}')">🔊</button></div>
+        <div class="options">
+          ${item.opts.map((o,i)=>`<button class="opt" onclick="answer(${i})">${o}</button>`).join("")}
+        </div>
+        <div class="feedback" id="fb"></div>
+      </div>
+    `;
+  }
+  function answer(i){
+    const item=questions[current];
+    const opts=document.querySelectorAll("#quiz .opt");
+    const fb=document.getElementById("fb");
+    if(i===item.correct){
+      opts[i].classList.add("correct");
+      fb.textContent="✅ Giusto! "+item.full; fb.className="feedback ok";
+      score++; say(item.full);
+      opts.forEach(o=>o.disabled=true);
+      setTimeout(()=>{ current++; showQuestion(); },1600);
+    } else {
+      opts[i].classList.add("wrong");
+      fb.textContent="Riprova! 🙂"; fb.className="feedback no";
+    }
+  }
+
+  startGuided();
+  startQuiz();
+</script>
+</body>
+</html>
