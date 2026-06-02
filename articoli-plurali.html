@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inglese - Articoli e Plurali</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FAF6EE;
+    --card:#FFFFFF;
+    --ink:#2F2A24;
+    --accent:#C8651B;
+    --accent-soft:#F3E2D0;
+    --green:#3E8E5A;
+    --green-soft:#E2F0E6;
+    --red:#C2492F;
+    --red-soft:#F6E1DB;
+    --blue:#3B6EA5;
+    --blue-soft:#E2ECF5;
+    --purple:#7B5EA7;
+    --purple-soft:#EDE8F5;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:"Lexend","Trebuchet MS",Verdana,sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.7;
+    letter-spacing:0.3px;
+    padding:24px 14px 60px;
+  }
+  .wrap{max-width:620px;margin:0 auto;}
+  h1{color:var(--accent);font-size:1.7rem;text-align:center;margin:0 0 6px;}
+  .sub{text-align:center;color:#8a7f70;margin:0 0 26px;font-size:1rem;}
+  .card{
+    background:var(--card);border-radius:18px;padding:22px 20px;
+    margin-bottom:22px;box-shadow:0 4px 14px rgba(0,0,0,0.06);
+    border:1px solid #efe7da;
+  }
+  .card h2{margin:0 0 14px;font-size:1.25rem;color:var(--accent);display:flex;align-items:center;gap:8px;}
+  table{width:100%;border-collapse:collapse;margin:6px 0;}
+  td,th{padding:10px;text-align:center;border-bottom:2px solid var(--accent-soft);font-size:1.05rem;}
+  th{color:var(--accent);}
+  .cell-a{background:var(--blue-soft);border-radius:8px;font-weight:bold;color:var(--blue);}
+  .cell-an{background:var(--green-soft);border-radius:8px;font-weight:bold;color:var(--green);}
+  .cell-the{background:var(--purple-soft);border-radius:8px;font-weight:bold;color:var(--purple);}
+  .cell-s{background:var(--accent-soft);border-radius:8px;font-weight:bold;color:var(--accent);}
+  .cell-irr{background:var(--red-soft);border-radius:8px;font-weight:bold;color:var(--red);}
+  .saybtn{
+    background:var(--blue-soft);color:var(--blue);border:none;border-radius:10px;
+    padding:6px 12px;font-size:0.95rem;cursor:pointer;font-family:inherit;
+  }
+  .tip{background:var(--accent-soft);border-radius:10px;padding:10px 14px;font-size:0.98rem;margin-top:10px;}
+  .tip2{background:var(--blue-soft);border-radius:10px;padding:10px 14px;font-size:0.98rem;margin-top:10px;color:var(--blue);}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0;}
+  .col-box{border-radius:14px;padding:14px 16px;}
+  .col-box.a{background:var(--blue-soft);}
+  .col-box.an{background:var(--green-soft);}
+  .col-box h3{margin:0 0 8px;font-size:1.05rem;}
+  .col-box h3.a{color:var(--blue);}
+  .col-box h3.an{color:var(--green);}
+  .col-box ul{list-style:none;padding:0;margin:0;font-size:1rem;}
+  .col-box ul li{padding:3px 0;}
+  /* Flashcard */
+  .flashcards{display:flex;flex-direction:column;gap:12px;margin-top:4px;}
+  .fc{
+    background:var(--bg);border:2px solid var(--accent-soft);border-radius:14px;
+    padding:16px;cursor:pointer;font-size:1.1rem;transition:all .2s;
+  }
+  .fc:hover{border-color:var(--accent);}
+  .fc .en{font-weight:bold;color:var(--ink);}
+  .fc .it{color:var(--green);margin-top:6px;display:none;font-size:1rem;}
+  .fc.open .it{display:block;}
+  .fc .hint-tap{font-size:0.85rem;color:#aaa;margin-top:4px;}
+  /* Esercizi */
+  .ex{margin:18px 0;}
+  .qnum{font-weight:bold;color:var(--accent);}
+  .qtext{font-size:1.15rem;margin:6px 0 8px;}
+  .qhint{background:var(--blue-soft);color:var(--blue);border-radius:10px;padding:8px 12px;font-size:0.95rem;margin-bottom:10px;}
+  .options{display:flex;gap:10px;flex-wrap:wrap;}
+  .opt{
+    flex:1;min-width:80px;background:var(--bg);border:2px solid var(--accent-soft);
+    border-radius:12px;padding:14px;font-size:1.1rem;cursor:pointer;
+    text-align:center;font-family:inherit;color:var(--ink);transition:all .15s;
+  }
+  .opt:hover{border-color:var(--accent);}
+  .opt.correct{background:var(--green-soft);border-color:var(--green);color:var(--green);font-weight:bold;}
+  .opt.wrong{background:var(--red-soft);border-color:var(--red);color:var(--red);}
+  .feedback{margin-top:12px;font-size:1.05rem;font-weight:bold;min-height:26px;}
+  .feedback.ok{color:var(--green);}
+  .feedback.no{color:var(--red);}
+  .progress{text-align:center;font-size:1.1rem;margin:10px 0 0;color:#8a7f70;}
+  .star{font-size:1.4rem;}
+  .restart{
+    display:block;margin:20px auto 0;background:var(--accent);color:#fff;border:none;
+    border-radius:12px;padding:12px 24px;font-size:1.05rem;cursor:pointer;font-family:inherit;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>📖 Articoli e Plurali</h1>
+  <p class="sub">a, an, the — e come cambia il nome al plurale</p>
+
+  <!-- A / AN -->
+  <div class="card">
+    <h2>🔤 A oppure AN?</h2>
+    <p style="margin:0 0 12px;color:#8a7f70;">La scelta dipende dal <b>suono</b> della parola che segue, non dalla lettera.</p>
+    <div class="two-col">
+      <div class="col-box a">
+        <h3 class="a">A — suono consonantico</h3>
+        <ul>
+          <li><b>a</b> book 📚 <button class="saybtn" onclick="say('a book')">🔊</button></li>
+          <li><b>a</b> cat 🐱 <button class="saybtn" onclick="say('a cat')">🔊</button></li>
+          <li><b>a</b> dog 🐶 <button class="saybtn" onclick="say('a dog')">🔊</button></li>
+          <li><b>a</b> university 🎓 <button class="saybtn" onclick="say('a university')">🔊</button></li>
+        </ul>
+      </div>
+      <div class="col-box an">
+        <h3 class="an">AN — suono vocalico</h3>
+        <ul>
+          <li><b>an</b> apple 🍎 <button class="saybtn" onclick="say('an apple')">🔊</button></li>
+          <li><b>an</b> egg 🥚 <button class="saybtn" onclick="say('an egg')">🔊</button></li>
+          <li><b>an</b> orange 🍊 <button class="saybtn" onclick="say('an orange')">🔊</button></li>
+          <li><b>an</b> hour ⏰ <button class="saybtn" onclick="say('an hour')">🔊</button></li>
+        </ul>
+      </div>
+    </div>
+    <div class="tip">
+      ⚠️ <b>Attenzione alle eccezioni:</b><br>
+      <b>a university</b> → la "u" si pronuncia <i>"yu"</i> (suono consonantico)<br>
+      <b>an hour</b> → la "h" è muta, si sente solo la "o" (suono vocalico)
+    </div>
+  </div>
+
+  <!-- THE -->
+  <div class="card">
+    <h2>🎯 L'articolo THE</h2>
+    <p style="margin:0 0 10px;">Si usa <b>the</b> quando parliamo di qualcosa di <b>specifico</b>, già noto, o unico al mondo.</p>
+    <table>
+      <tr><th>Situazione</th><th>Esempio</th><th>Ascolta</th></tr>
+      <tr><td style="text-align:left;">Cosa già menzionata</td><td class="cell-the">the book</td><td><button class="saybtn" onclick="say('the book')">🔊</button></td></tr>
+      <tr><td style="text-align:left;">Cosa unica al mondo</td><td class="cell-the">the sun</td><td><button class="saybtn" onclick="say('the sun')">🔊</button></td></tr>
+      <tr><td style="text-align:left;">Cosa specifica</td><td class="cell-the">the dog next door</td><td><button class="saybtn" onclick="say('the dog next door')">🔊</button></td></tr>
+    </table>
+    <div class="tip2">💡 <b>Trucco:</b> "a/an" = uno qualsiasi → <i>a cat</i> (un gatto qualunque). "the" = quello specifico → <i>the cat</i> (il gatto di cui abbiamo già parlato).</div>
+  </div>
+
+  <!-- PLURALI -->
+  <div class="card">
+    <h2>📝 Come si forma il plurale</h2>
+    <table>
+      <tr><th>Regola</th><th>Singolare</th><th>Plurale</th><th>Ascolta</th></tr>
+      <tr>
+        <td style="text-align:left;font-size:0.95rem;">Regola generale: <b>+s</b></td>
+        <td>book</td><td class="cell-s">books</td>
+        <td><button class="saybtn" onclick="say('books')">🔊</button></td>
+      </tr>
+      <tr>
+        <td style="text-align:left;font-size:0.95rem;">Dopo s/x/ch/sh: <b>+es</b></td>
+        <td>box</td><td class="cell-s">boxes</td>
+        <td><button class="saybtn" onclick="say('boxes')">🔊</button></td>
+      </tr>
+      <tr>
+        <td style="text-align:left;font-size:0.95rem;">Dopo s/x/ch/sh: <b>+es</b></td>
+        <td>church</td><td class="cell-s">churches</td>
+        <td><button class="saybtn" onclick="say('churches')">🔊</button></td>
+      </tr>
+      <tr>
+        <td style="text-align:left;font-size:0.95rem;">Consonante + y → <b>ies</b></td>
+        <td>baby</td><td class="cell-s">babies</td>
+        <td><button class="saybtn" onclick="say('babies')">🔊</button></td>
+      </tr>
+      <tr>
+        <td style="text-align:left;font-size:0.95rem;">Consonante + y → <b>ies</b></td>
+        <td>city</td><td class="cell-s">cities</td>
+        <td><button class="saybtn" onclick="say('cities')">🔊</button></td>
+      </tr>
+      <tr>
+        <td style="text-align:left;font-size:0.95rem;">Irregolare</td>
+        <td>man</td><td class="cell-irr">men</td>
+        <td><button class="saybtn" onclick="say('men')">🔊</button></td>
+      </tr>
+      <tr>
+        <td style="text-align:left;font-size:0.95rem;">Irregolare</td>
+        <td>child</td><td class="cell-irr">children</td>
+        <td><button class="saybtn" onclick="say('children')">🔊</button></td>
+      </tr>
+      <tr>
+        <td style="text-align:left;font-size:0.95rem;">Irregolare</td>
+        <td>foot</td><td class="cell-irr">feet</td>
+        <td><button class="saybtn" onclick="say('feet')">🔊</button></td>
+      </tr>
+      <tr>
+        <td style="text-align:left;font-size:0.95rem;">Irregolare</td>
+        <td>tooth</td><td class="cell-irr">teeth</td>
+        <td><button class="saybtn" onclick="say('teeth')">🔊</button></td>
+      </tr>
+    </table>
+    <div class="tip">🎨 <b>Trucco colori:</b> <span style="color:var(--accent)"><b>arancione</b> = regola normale</span> · <span style="color:var(--red)"><b>rosso</b> = irregolare, da memorizzare!</span></div>
+  </div>
+
+  <!-- FLASHCARD -->
+  <div class="card">
+    <h2>🃏 Flashcard — tocca per tradurre!</h2>
+    <div class="flashcards">
+      <div class="fc" onclick="flip(this)">
+        <div class="en">I have a dog and an iguana. 🐶🦎 <button class="saybtn" onclick="event.stopPropagation();say('I have a dog and an iguana')">🔊</button></div>
+        <div class="it">Ho un cane e un'iguana.</div>
+        <div class="hint-tap">👆 tocca per vedere la traduzione</div>
+      </div>
+      <div class="fc" onclick="flip(this)">
+        <div class="en">The children play in the park. 🌳 <button class="saybtn" onclick="event.stopPropagation();say('The children play in the park')">🔊</button></div>
+        <div class="it">I bambini giocano al parco.</div>
+        <div class="hint-tap">👆 tocca per vedere la traduzione</div>
+      </div>
+      <div class="fc" onclick="flip(this)">
+        <div class="en">She is an artist. 🎨 <button class="saybtn" onclick="event.stopPropagation();say('She is an artist')">🔊</button></div>
+        <div class="it">Lei è un'artista.</div>
+        <div class="hint-tap">👆 tocca per vedere la traduzione</div>
+      </div>
+      <div class="fc" onclick="flip(this)">
+        <div class="en">My feet are cold. 🥶 <button class="saybtn" onclick="event.stopPropagation();say('My feet are cold')">🔊</button></div>
+        <div class="it">Ho i piedi freddi.</div>
+        <div class="hint-tap">👆 tocca per vedere la traduzione</div>
+      </div>
+      <div class="fc" onclick="flip(this)">
+        <div class="en">There are three boxes on the table. 📦 <button class="saybtn" onclick="event.stopPropagation();say('There are three boxes on the table')">🔊</button></div>
+        <div class="it">Ci sono tre scatole sul tavolo.</div>
+        <div class="hint-tap">👆 tocca per vedere la traduzione</div>
+      </div>
+      <div class="fc" onclick="flip(this)">
+        <div class="en">It is a university, not a school. 🎓 <button class="saybtn" onclick="event.stopPropagation();say('It is a university, not a school')">🔊</button></div>
+        <div class="it">È un'università, non una scuola.</div>
+        <div class="hint-tap">👆 tocca per vedere la traduzione</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ESERCIZI GUIDATI -->
+  <div class="card">
+    <h2>✏️ Esercizi guidati</h2>
+    <p style="margin-top:0;color:#8a7f70;">Leggi prima il suggerimento 💡, poi scegli la risposta giusta!</p>
+    <div id="guided"></div>
+    <div class="progress" id="gprogress"></div>
+    <button class="restart" id="grestartBtn" style="display:none;" onclick="startGuided()">🔄 Riprova gli esercizi</button>
+  </div>
+
+  <!-- QUIZ FINALE -->
+  <div class="card">
+    <h2>✅ Quiz finale</h2>
+    <p style="margin-top:0;color:#8a7f70;">Hai capito tutto? Mettiti alla prova! 🎯</p>
+    <div id="quiz"></div>
+    <div class="progress" id="progress"></div>
+    <button class="restart" id="restartBtn" style="display:none;" onclick="startQuiz()">🔄 Ricomincia il quiz</button>
+  </div>
+</div>
+
+<script>
+  // Pronuncia — identica a TO-BE.html
+  function say(text){
+    try{
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = "en-US";
+      u.rate = 0.85;
+      speechSynthesis.cancel();
+      speechSynthesis.speak(u);
+    }catch(e){}
+  }
+
+  function flip(el){ el.classList.toggle("open"); }
+
+  // ESERCIZI GUIDATI
+  const guided = [
+    {
+      q:"____ apple a day keeps the doctor away. 🍎",
+      hint:"💡 'Apple' inizia con la 'a' di vocale → si sente un suono vocalico. Usa a o an?",
+      opts:["a","an"], correct:1,
+      full:"An apple a day keeps the doctor away."
+    },
+    {
+      q:"She is ____ university student. 🎓",
+      hint:"💡 'University' inizia con 'u' ma si pronuncia 'YUniversity' — suono consonantico! Cosa usi?",
+      opts:["a","an"], correct:0,
+      full:"She is a university student."
+    },
+    {
+      q:"It takes ____ hour to get there. ⏰",
+      hint:"💡 'Hour' si pronuncia 'OUR' — la H è muta! Il primo suono è vocalico. a o an?",
+      opts:["a","an"], correct:1,
+      full:"It takes an hour to get there."
+    },
+    {
+      q:"I have two ____. 👶👶  (baby → ?)",
+      hint:"💡 'Baby' finisce in consonante + y. Togli la y e aggiungi... ies!",
+      opts:["babys","babies","babes"], correct:1,
+      full:"I have two babies."
+    },
+    {
+      q:"There are many ____ in the garden. 🌸  (box → ?)",
+      hint:"💡 'Box' finisce in x → aggiungi es, non solo s. Qual è il plurale?",
+      opts:["boxs","box","boxes"], correct:2,
+      full:"There are many boxes in the garden."
+    },
+    {
+      q:"The ____ are playing football. ⚽  (child → ?)",
+      hint:"💡 'Child' è un plurale irregolare — non segue le regole normali. Lo ricordi?",
+      opts:["childs","children","childes"], correct:1,
+      full:"The children are playing football."
+    },
+  ];
+
+  let gc=0, gs=0;
+  function startGuided(){ gc=0; gs=0; document.getElementById("grestartBtn").style.display="none"; showGuided(); }
+  function showGuided(){
+    const el=document.getElementById("guided");
+    const pr=document.getElementById("gprogress");
+    if(gc>=guided.length){
+      el.innerHTML="";
+      const pct=gs/guided.length;
+      const n=pct===1?5:pct>=0.67?4:pct>=0.5?3:2;
+      let stars=""; for(let i=0;i<n;i++) stars+="⭐";
+      const msg=pct===1?"Bravissima! Hai capito tutto! 🏆":pct>=0.5?"Quasi! Riprova per sicurezza 💪":"Allenati ancora, ci riesci! 🌱";
+      pr.innerHTML=`<div class="star">${stars}</div>${gs}/${guided.length} giuste<br><b>${msg}</b>`;
+      document.getElementById("grestartBtn").style.display="block";
+      return;
+    }
+    const item=guided[gc];
+    pr.textContent=`Esercizio ${gc+1} di ${guided.length}`;
+    el.innerHTML=`
+      <div class="ex">
+        <div class="qnum">Esercizio ${gc+1}</div>
+        <div class="qtext">${item.q}</div>
+        <div class="qhint">${item.hint}</div>
+        <div class="options">
+          ${item.opts.map((o,i)=>`<button class="opt" onclick="gAnswer(${i})">${o}</button>`).join("")}
+        </div>
+        <div class="feedback" id="gfb"></div>
+      </div>
+    `;
+  }
+  function gAnswer(i){
+    const item=guided[gc];
+    const opts=document.querySelectorAll("#guided .opt");
+    const fb=document.getElementById("gfb");
+    if(i===item.correct){
+      opts[i].classList.add("correct");
+      fb.textContent="✅ Giusto! "+item.full; fb.className="feedback ok";
+      gs++; say(item.full);
+      opts.forEach(o=>o.disabled=true);
+      setTimeout(()=>{ gc++; showGuided(); },1800);
+    } else {
+      opts[i].classList.add("wrong");
+      fb.textContent="Riprova! Guarda il suggerimento 💡"; fb.className="feedback no";
+    }
+  }
+
+  // QUIZ FINALE
+  const questions = [
+    {q:"____ orange is on the table. 🍊", opts:["A","An","The"], correct:1, full:"An orange is on the table"},
+    {q:"He has ____ dog. 🐶", opts:["a","an","the"], correct:0, full:"He has a dog"},
+    {q:"She carries ____ umbrella. ☂️", opts:["a","an","the"], correct:1, full:"She carries an umbrella"},
+    {q:"I go to ____ school near my house.", opts:["a","an","the"], correct:2, full:"I go to the school near my house"},
+    {q:"Plurale di 'church': ⛪", opts:["churchs","churches","churchies"], correct:1, full:"churches"},
+    {q:"Plurale di 'child': 👧", opts:["childs","childrens","children"], correct:2, full:"children"},
+    {q:"Plurale di 'city': 🏙️", opts:["citys","cities","cityes"], correct:1, full:"cities"},
+    {q:"Plurale di 'foot': 🦶", opts:["foots","feets","feet"], correct:2, full:"feet"},
+  ];
+
+  let current=0, score=0;
+  function startQuiz(){ current=0; score=0; document.getElementById("restartBtn").style.display="none"; showQuestion(); }
+  function showQuestion(){
+    const quiz=document.getElementById("quiz");
+    const prog=document.getElementById("progress");
+    if(current>=questions.length){
+      quiz.innerHTML="";
+      const pct=score/questions.length;
+      const n=pct===1?5:pct>=0.75?4:pct>=0.5?3:pct>=0.25?2:1;
+      let stars=""; for(let i=0;i<n;i++) stars+="⭐";
+      const msg=pct===1?"Perfetto! Hai imparato articoli e plurali! 🏆":pct>=0.5?"Bravissima, ci sei quasi! 💪":"Bene, riprova: si impara ripetendo! 🌱";
+      prog.innerHTML=`<div class="star">${stars}</div>${score}/${questions.length} giuste<br><b>${msg}</b>`;
+      document.getElementById("restartBtn").style.display="block";
+      return;
+    }
+    const item=questions[current];
+    prog.textContent=`Domanda ${current+1} di ${questions.length}`;
+    quiz.innerHTML=`
+      <div class="ex">
+        <div class="qnum">Domanda ${current+1}</div>
+        <div class="qtext">${item.q}</div>
+        <div class="options">
+          ${item.opts.map((o,i)=>`<button class="opt" onclick="answer(${i})">${o}</button>`).join("")}
+        </div>
+        <div class="feedback" id="fb"></div>
+      </div>
+    `;
+  }
+  function answer(i){
+    const item=questions[current];
+    const opts=document.querySelectorAll("#quiz .opt");
+    const fb=document.getElementById("fb");
+    if(i===item.correct){
+      opts[i].classList.add("correct");
+      fb.textContent="✅ Giusto! "+item.full; fb.className="feedback ok";
+      score++; say(item.full);
+      opts.forEach(o=>o.disabled=true);
+      setTimeout(()=>{ current++; showQuestion(); },1600);
+    } else {
+      opts[i].classList.add("wrong");
+      fb.textContent="Riprova! 🙂"; fb.className="feedback no";
+    }
+  }
+
+  startGuided();
+  startQuiz();
+</script>
+</body>
+</html>
