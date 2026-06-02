@@ -62,6 +62,9 @@
   .feedback.no{color:var(--rosso-no);}
   .exn{font-size:0.85rem;color:#aaa;font-weight:600;margin-bottom:6px;}
 
+  .saybtn{background:var(--azzurro);color:#fff;border:none;border-radius:8px;
+    padding:4px 10px;font-size:0.88rem;cursor:pointer;margin-left:8px;vertical-align:middle;}
+  .saybtn:hover{opacity:0.85;}
   .score{position:sticky;bottom:16px;background:var(--salvia-scuro);color:#fff;
     border-radius:99px;padding:12px 24px;text-align:center;font-weight:600;
     box-shadow:0 6px 20px rgba(78,122,102,0.4);margin-top:8px;font-size:1.05rem;}
@@ -81,14 +84,14 @@
     <p class="intro">Questi pronomi stanno <b>prima</b> del verbo. Sono il "chi".</p>
     <table>
       <tr><th>Inglese</th><th>Italiano</th></tr>
-      <tr><td class="en">I</td><td>io</td></tr>
-      <tr><td class="en">you</td><td>tu</td></tr>
-      <tr><td class="en">he</td><td>lui</td></tr>
-      <tr><td class="en">she</td><td>lei</td></tr>
-      <tr><td class="en">it</td><td>esso (cose/animali)</td></tr>
-      <tr><td class="en">we</td><td>noi</td></tr>
-      <tr><td class="en">you</td><td>voi</td></tr>
-      <tr><td class="en">they</td><td>loro</td></tr>
+      <tr><td class="en">I <button class="saybtn" onclick="say('I')">🔊</button></td><td>io</td></tr>
+      <tr><td class="en">you <button class="saybtn" onclick="say('you')">🔊</button></td><td>tu</td></tr>
+      <tr><td class="en">he <button class="saybtn" onclick="say('he')">🔊</button></td><td>lui</td></tr>
+      <tr><td class="en">she <button class="saybtn" onclick="say('she')">🔊</button></td><td>lei</td></tr>
+      <tr><td class="en">it <button class="saybtn" onclick="say('it')">🔊</button></td><td>esso (cose/animali)</td></tr>
+      <tr><td class="en">we <button class="saybtn" onclick="say('we')">🔊</button></td><td>noi</td></tr>
+      <tr><td class="en">you <button class="saybtn" onclick="say('you')">🔊</button></td><td>voi</td></tr>
+      <tr><td class="en">they <button class="saybtn" onclick="say('they')">🔊</button></td><td>loro</td></tr>
     </table>
     <div class="tip"><b>Trucco:</b> "I" (io) si scrive <b>sempre</b> con la lettera grande, anche in mezzo alla frase.</div>
   </div>
@@ -99,16 +102,16 @@
     <p class="intro">Questi pronomi stanno <b>dopo</b> il verbo. Sono il "chi/cosa" su cui ricade l'azione.</p>
     <table>
       <tr><th>Inglese</th><th>Italiano</th></tr>
-      <tr><td class="en">me</td><td>me / mi</td></tr>
-      <tr><td class="en">you</td><td>te / ti</td></tr>
-      <tr><td class="en">him</td><td>lui / lo / gli</td></tr>
-      <tr><td class="en">her</td><td>lei / la / le</td></tr>
-      <tr><td class="en">it</td><td>esso / lo / la</td></tr>
-      <tr><td class="en">us</td><td>noi / ci</td></tr>
-      <tr><td class="en">you</td><td>voi / vi</td></tr>
-      <tr><td class="en">them</td><td>loro / li / le</td></tr>
+      <tr><td class="en">me <button class="saybtn" onclick="say('me')">🔊</button></td><td>me / mi</td></tr>
+      <tr><td class="en">you <button class="saybtn" onclick="say('you')">🔊</button></td><td>te / ti</td></tr>
+      <tr><td class="en">him <button class="saybtn" onclick="say('him')">🔊</button></td><td>lui / lo / gli</td></tr>
+      <tr><td class="en">her <button class="saybtn" onclick="say('her')">🔊</button></td><td>lei / la / le</td></tr>
+      <tr><td class="en">it <button class="saybtn" onclick="say('it')">🔊</button></td><td>esso / lo / la</td></tr>
+      <tr><td class="en">us <button class="saybtn" onclick="say('us')">🔊</button></td><td>noi / ci</td></tr>
+      <tr><td class="en">you <button class="saybtn" onclick="say('you')">🔊</button></td><td>voi / vi</td></tr>
+      <tr><td class="en">them <button class="saybtn" onclick="say('them')">🔊</button></td><td>loro / li / le</td></tr>
     </table>
-    <div class="tip"><b>Come capire quale usare:</b> se puoi mettere il pronome <b>prima</b> del verbo → soggetto (I, he…). Se viene <b>dopo</b> → complemento (me, him…).<br>👉 <i>She loves <b>him</b></i> = Lei ama <b>lui</b>.</div>
+    <div class="tip"><b>Come capire quale usare:</b> se puoi mettere il pronome <b>prima</b> del verbo → soggetto (I, he…). Se viene <b>dopo</b> → complemento (me, him…).<br>👉 <i>She loves <b>him</b></i> = Lei ama <b>lui</b>. <button class="saybtn" onclick="say('She loves him')">🔊</button></div>
   </div>
 
   <!-- SPIEGAZIONE 3: POSSESSIVI -->
@@ -117,16 +120,16 @@
     <p class="intro">Questi stanno <b>prima</b> di una cosa e dicono di chi è.</p>
     <table>
       <tr><th>Inglese</th><th>Italiano</th></tr>
-      <tr><td class="en">my</td><td>mio / mia</td></tr>
-      <tr><td class="en">your</td><td>tuo / tua</td></tr>
-      <tr><td class="en">his</td><td>suo (di lui)</td></tr>
-      <tr><td class="en">her</td><td>suo (di lei)</td></tr>
-      <tr><td class="en">its</td><td>suo (di una cosa)</td></tr>
-      <tr><td class="en">our</td><td>nostro / nostra</td></tr>
-      <tr><td class="en">your</td><td>vostro / vostra</td></tr>
-      <tr><td class="en">their</td><td>loro</td></tr>
+      <tr><td class="en">my <button class="saybtn" onclick="say('my')">🔊</button></td><td>mio / mia</td></tr>
+      <tr><td class="en">your <button class="saybtn" onclick="say('your')">🔊</button></td><td>tuo / tua</td></tr>
+      <tr><td class="en">his <button class="saybtn" onclick="say('his')">🔊</button></td><td>suo (di lui)</td></tr>
+      <tr><td class="en">her <button class="saybtn" onclick="say('her')">🔊</button></td><td>suo (di lei)</td></tr>
+      <tr><td class="en">its <button class="saybtn" onclick="say('its')">🔊</button></td><td>suo (di una cosa)</td></tr>
+      <tr><td class="en">our <button class="saybtn" onclick="say('our')">🔊</button></td><td>nostro / nostra</td></tr>
+      <tr><td class="en">your <button class="saybtn" onclick="say('your')">🔊</button></td><td>vostro / vostra</td></tr>
+      <tr><td class="en">their <button class="saybtn" onclick="say('their')">🔊</button></td><td>loro</td></tr>
     </table>
-    <div class="tip"><b>Attenzione a non confondere:</b><br><b>his</b> = suo (di un maschio) → <i>his book</i><br><b>her</b> = suo (di una femmina) → <i>her book</i><br>In inglese conta di <b>chi è il proprietario</b>, non l'oggetto!</div>
+    <div class="tip"><b>Attenzione a non confondere:</b><br><b>his</b> = suo (di un maschio) → <i>his book</i> <button class="saybtn" onclick="say('his book')">🔊</button><br><b>her</b> = suo (di una femmina) → <i>her book</i> <button class="saybtn" onclick="say('her book')">🔊</button><br>In inglese conta di <b>chi è il proprietario</b>, non l'oggetto!</div>
   </div>
 
   <!-- ESERCIZI -->
@@ -141,6 +144,16 @@
 </div>
 
 <script>
+  function say(text){
+    try{
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = "en-US";
+      u.rate = 0.85;
+      speechSynthesis.cancel();
+      speechSynthesis.speak(u);
+    }catch(e){}
+  }
+
 const esercizi = [
   {
     testo: ['', ' am Irene. ', ' am a student.'],
