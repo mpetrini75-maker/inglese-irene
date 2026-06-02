@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inglese - Il verbo TO HAVE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FAF6EE;
+    --card:#FFFFFF;
+    --ink:#2F2A24;
+    --accent:#C8651B;
+    --accent-soft:#F3E2D0;
+    --green:#3E8E5A;
+    --green-soft:#E2F0E6;
+    --red:#C2492F;
+    --red-soft:#F6E1DB;
+    --blue:#3B6EA5;
+    --blue-soft:#E2ECF5;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:"Lexend","Trebuchet MS",Verdana,sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.7;
+    letter-spacing:0.3px;
+    padding:24px 14px 60px;
+  }
+  .wrap{max-width:620px;margin:0 auto;}
+  h1{color:var(--accent);font-size:1.7rem;text-align:center;margin:0 0 6px;}
+  .sub{text-align:center;color:#8a7f70;margin:0 0 26px;font-size:1rem;}
+  .card{
+    background:var(--card);border-radius:18px;padding:22px 20px;
+    margin-bottom:22px;box-shadow:0 4px 14px rgba(0,0,0,0.06);
+    border:1px solid #efe7da;
+  }
+  .card h2{margin:0 0 14px;font-size:1.25rem;color:var(--accent);display:flex;align-items:center;gap:8px;}
+  table{width:100%;border-collapse:collapse;margin:6px 0;}
+  td,th{padding:10px;text-align:center;border-bottom:2px solid var(--accent-soft);font-size:1.05rem;}
+  th{color:var(--accent);}
+  .have{background:var(--blue-soft);border-radius:8px;font-weight:bold;color:var(--blue);}
+  .has{background:var(--green-soft);border-radius:8px;font-weight:bold;color:var(--green);}
+  .neg{background:var(--red-soft);border-radius:8px;font-weight:bold;color:var(--red);}
+  .saybtn{
+    background:var(--blue-soft);color:var(--blue);border:none;border-radius:10px;
+    padding:6px 12px;font-size:0.95rem;cursor:pointer;font-family:inherit;
+  }
+  .tip{background:var(--accent-soft);border-radius:10px;padding:10px 14px;font-size:0.98rem;margin-top:10px;}
+  /* Flashcard */
+  .flashcards{display:flex;flex-direction:column;gap:12px;margin-top:4px;}
+  .fc{
+    background:var(--bg);border:2px solid var(--accent-soft);border-radius:14px;
+    padding:16px;cursor:pointer;font-size:1.1rem;position:relative;
+    transition:all .2s;
+  }
+  .fc:hover{border-color:var(--accent);}
+  .fc .en{font-weight:bold;color:var(--ink);}
+  .fc .it{color:var(--green);margin-top:6px;display:none;font-size:1rem;}
+  .fc.open .it{display:block;}
+  .fc .hint-tap{font-size:0.85rem;color:#aaa;margin-top:4px;}
+  /* Esercizi guidati */
+  .ex{margin:18px 0;}
+  .qnum{font-weight:bold;color:var(--accent);}
+  .qtext{font-size:1.15rem;margin:6px 0 8px;}
+  .qhint{
+    background:var(--blue-soft);color:var(--blue);border-radius:10px;
+    padding:8px 12px;font-size:0.95rem;margin-bottom:10px;
+  }
+  .options{display:flex;gap:10px;flex-wrap:wrap;}
+  .opt{
+    flex:1;min-width:80px;background:var(--bg);border:2px solid var(--accent-soft);
+    border-radius:12px;padding:14px;font-size:1.1rem;cursor:pointer;
+    text-align:center;font-family:inherit;color:var(--ink);transition:all .15s;
+  }
+  .opt:hover{border-color:var(--accent);}
+  .opt.correct{background:var(--green-soft);border-color:var(--green);color:var(--green);font-weight:bold;}
+  .opt.wrong{background:var(--red-soft);border-color:var(--red);color:var(--red);}
+  .feedback{margin-top:12px;font-size:1.05rem;font-weight:bold;min-height:26px;}
+  .feedback.ok{color:var(--green);}
+  .feedback.no{color:var(--red);}
+  .progress{text-align:center;font-size:1.1rem;margin:10px 0 0;color:#8a7f70;}
+  .star{font-size:1.4rem;}
+  .restart{
+    display:block;margin:20px auto 0;background:var(--accent);color:#fff;border:none;
+    border-radius:12px;padding:12px 24px;font-size:1.05rem;cursor:pointer;font-family:inherit;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🤝 Il verbo TO HAVE</h1>
+  <p class="sub">avere — come si usa e quando cambia forma</p>
+
+  <!-- TABELLA FORME AFFERMATIVE -->
+  <div class="card">
+    <h2>👥 Have o Has?</h2>
+    <table>
+      <tr><th>Pronome</th><th>TO HAVE</th><th>Ascolta</th></tr>
+      <tr><td>I (io)</td><td class="have">have</td><td><button class="saybtn" onclick="say('I have')">🔊</button></td></tr>
+      <tr><td>You (tu)</td><td class="have">have</td><td><button class="saybtn" onclick="say('You have')">🔊</button></td></tr>
+      <tr><td>He (lui)</td><td class="has">has</td><td><button class="saybtn" onclick="say('He has')">🔊</button></td></tr>
+      <tr><td>She (lei)</td><td class="has">has</td><td><button class="saybtn" onclick="say('She has')">🔊</button></td></tr>
+      <tr><td>It (esso)</td><td class="has">has</td><td><button class="saybtn" onclick="say('It has')">🔊</button></td></tr>
+      <tr><td>We (noi)</td><td class="have">have</td><td><button class="saybtn" onclick="say('We have')">🔊</button></td></tr>
+      <tr><td>They (loro)</td><td class="have">have</td><td><button class="saybtn" onclick="say('They have')">🔊</button></td></tr>
+    </table>
+    <div class="tip">🎨 <b>Trucco:</b> <span style="color:var(--green)">He / She / It → <b>HAS</b></span> · <span style="color:var(--blue)">Tutti gli altri → <b>HAVE</b></span></div>
+  </div>
+
+  <!-- NEGATIVA E INTERROGATIVA -->
+  <div class="card">
+    <h2>❓ Negativa e Interrogativa</h2>
+    <table>
+      <tr><th>Forma</th><th>I / You / We / They</th><th>He / She / It</th></tr>
+      <tr>
+        <td style="text-align:left;font-weight:bold;">✅ Affermativa</td>
+        <td class="have">have</td>
+        <td class="has">has</td>
+      </tr>
+      <tr>
+        <td style="text-align:left;font-weight:bold;">❌ Negativa</td>
+        <td class="neg">don't have</td>
+        <td class="neg">doesn't have</td>
+      </tr>
+      <tr>
+        <td style="text-align:left;font-weight:bold;">❓ Interrogativa</td>
+        <td class="have">Do … have?</td>
+        <td class="has">Does … have?</td>
+      </tr>
+    </table>
+    <div class="tip">
+      💡 <b>Esempi:</b><br>
+      I <b>don't have</b> a car. · She <b>doesn't have</b> a dog.<br>
+      <b>Do</b> you <b>have</b> a pen? · <b>Does</b> he <b>have</b> a sister?
+    </div>
+  </div>
+
+  <!-- FLASHCARD -->
+  <div class="card">
+    <h2>🃏 Flashcard — tocca per tradurre!</h2>
+    <div class="flashcards">
+      <div class="fc" onclick="flip(this)">
+        <div class="en">I have a dog. 🐶 <button class="saybtn" onclick="event.stopPropagation();say('I have a dog')">🔊</button></div>
+        <div class="it">Ho un cane.</div>
+        <div class="hint-tap">👆 tocca per vedere la traduzione</div>
+      </div>
+      <div class="fc" onclick="flip(this)">
+        <div class="en">She has blue eyes. 👁️ <button class="saybtn" onclick="event.stopPropagation();say('She has blue eyes')">🔊</button></div>
+        <div class="it">Lei ha gli occhi azzurri.</div>
+        <div class="hint-tap">👆 tocca per vedere la traduzione</div>
+      </div>
+      <div class="fc" onclick="flip(this)">
+        <div class="en">We have a big house. 🏠 <button class="saybtn" onclick="event.stopPropagation();say('We have a big house')">🔊</button></div>
+        <div class="it">Noi abbiamo una casa grande.</div>
+        <div class="hint-tap">👆 tocca per vedere la traduzione</div>
+      </div>
+      <div class="fc" onclick="flip(this)">
+        <div class="en">He has a new bike. 🚲 <button class="saybtn" onclick="event.stopPropagation();say('He has a new bike')">🔊</button></div>
+        <div class="it">Lui ha una bici nuova.</div>
+        <div class="hint-tap">👆 tocca per vedere la traduzione</div>
+      </div>
+      <div class="fc" onclick="flip(this)">
+        <div class="en">They don't have a car. 🚗 <button class="saybtn" onclick="event.stopPropagation();say('They don\'t have a car')">🔊</button></div>
+        <div class="it">Loro non hanno una macchina.</div>
+        <div class="hint-tap">👆 tocca per vedere la traduzione</div>
+      </div>
+      <div class="fc" onclick="flip(this)">
+        <div class="en">Does she have a sister? 👧 <button class="saybtn" onclick="event.stopPropagation();say('Does she have a sister')">🔊</button></div>
+        <div class="it">Lei ha una sorella?</div>
+        <div class="hint-tap">👆 tocca per vedere la traduzione</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ESERCIZI GUIDATI -->
+  <div class="card">
+    <h2>✏️ Esercizi guidati</h2>
+    <p style="margin-top:0;color:#8a7f70;">Leggi prima il suggerimento 💡, poi scegli la risposta giusta!</p>
+    <div id="guided"></div>
+    <div class="progress" id="gprogress"></div>
+    <button class="restart" id="grestartBtn" style="display:none;" onclick="startGuided()">🔄 Riprova gli esercizi</button>
+  </div>
+
+  <!-- QUIZ FINALE -->
+  <div class="card">
+    <h2>✅ Quiz finale</h2>
+    <p style="margin-top:0;color:#8a7f70;">Hai capito tutto? Mettiti alla prova! 🎯</p>
+    <div id="quiz"></div>
+    <div class="progress" id="progress"></div>
+    <button class="restart" id="restartBtn" style="display:none;" onclick="startQuiz()">🔄 Ricomincia il quiz</button>
+  </div>
+</div>
+
+<script>
+  // Pronuncia
+  function say(text){
+    try{
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = "en-US";
+      u.rate = 0.85;
+      speechSynthesis.cancel();
+      speechSynthesis.speak(u);
+    }catch(e){}
+  }
+
+  function flip(el){ el.classList.toggle("open"); }
+
+  // ESERCIZI GUIDATI
+  const guided = [
+    {
+      q:"I ____ a cat. 🐱",
+      hint:"💡 Il soggetto è I → non è he/she/it. Quale forma usi?",
+      opts:["have","has"], correct:0,
+      full:"I have a cat."
+    },
+    {
+      q:"She ____ long hair. 💇",
+      hint:"💡 She è he/she/it → di solito il verbo cambia. Quale forma?",
+      opts:["have","has"], correct:1,
+      full:"She has long hair."
+    },
+    {
+      q:"They ____ a dog. 🐕",
+      hint:"💡 They non è he/she/it → usa la forma base. Have o has?",
+      opts:["have","has"], correct:0,
+      full:"They have a dog."
+    },
+    {
+      q:"He ____ a brother. 👦",
+      hint:"💡 He è he/she/it → il verbo cambia. Quale forma usi?",
+      opts:["have","has"], correct:1,
+      full:"He has a brother."
+    },
+    {
+      q:"We ____ two cats. 🐈🐈",
+      hint:"💡 We non è he/she/it → quale forma è quella base?",
+      opts:["have","has"], correct:0,
+      full:"We have two cats."
+    },
+    {
+      q:"It ____ a long tail. 🦎",
+      hint:"💡 It è he/she/it → il verbo cambia. Have o has?",
+      opts:["have","has"], correct:1,
+      full:"It has a long tail."
+    },
+  ];
+
+  let gc=0, gs=0;
+  function startGuided(){ gc=0; gs=0; document.getElementById("grestartBtn").style.display="none"; showGuided(); }
+  function showGuided(){
+    const el=document.getElementById("guided");
+    const pr=document.getElementById("gprogress");
+    if(gc>=guided.length){
+      el.innerHTML="";
+      const pct=gs/guided.length;
+      const n=pct===1?5:pct>=0.67?4:pct>=0.5?3:2;
+      let stars=""; for(let i=0;i<n;i++) stars+="⭐";
+      const msg=pct===1?"Bravissima! Hai capito tutto! 🏆":pct>=0.5?"Quasi! Riprova per sicurezza 💪":"Allenati ancora, ci riesci! 🌱";
+      pr.innerHTML=`<div class="star">${stars}</div>${gs}/${guided.length} giuste<br><b>${msg}</b>`;
+      document.getElementById("grestartBtn").style.display="block";
+      return;
+    }
+    const item=guided[gc];
+    pr.textContent=`Esercizio ${gc+1} di ${guided.length}`;
+    el.innerHTML=`
+      <div class="ex">
+        <div class="qnum">Esercizio ${gc+1}</div>
+        <div class="qtext">${item.q}</div>
+        <div class="qhint">${item.hint}</div>
+        <div class="options">
+          ${item.opts.map((o,i)=>`<button class="opt" onclick="gAnswer(${i})">${o}</button>`).join("")}
+        </div>
+        <div class="feedback" id="gfb"></div>
+      </div>
+    `;
+  }
+  function gAnswer(i){
+    const item=guided[gc];
+    const opts=document.querySelectorAll("#guided .opt");
+    const fb=document.getElementById("gfb");
+    if(i===item.correct){
+      opts[i].classList.add("correct");
+      fb.textContent="✅ Giusto! "+item.full; fb.className="feedback ok";
+      gs++; say(item.full);
+      opts.forEach(o=>o.disabled=true);
+      setTimeout(()=>{ gc++; showGuided(); },1600);
+    } else {
+      opts[i].classList.add("wrong");
+      fb.textContent="Riprova! Guarda il suggerimento 💡"; fb.className="feedback no";
+    }
+  }
+
+  // QUIZ FINALE
+  const questions = [
+    {q:"She ____ a new phone. 📱", opts:["have","has","don't have"], correct:1, full:"She has a new phone"},
+    {q:"I ____ a brother.", opts:["has","have","doesn't have"], correct:1, full:"I have a brother"},
+    {q:"He ____ a car. 🚗", opts:["have","don't have","has"], correct:2, full:"He has a car"},
+    {q:"They ____ a garden. 🌿", opts:["has","have","doesn't have"], correct:1, full:"They have a garden"},
+    {q:"It ____ four legs. 🐾", opts:["have","doesn't have","has"], correct:2, full:"It has four legs"},
+    {q:"We ____ a dog.", opts:["has","have","doesn't have"], correct:1, full:"We have a dog"},
+    {q:"She ____ a sister.", opts:["have","don't have","has"], correct:2, full:"She has a sister"},
+    {q:"____ he have a bike? 🚲", opts:["Do","Does","Have"], correct:1, full:"Does he have a bike?"},
+  ];
+
+  let current=0, score=0;
+  function startQuiz(){ current=0; score=0; document.getElementById("restartBtn").style.display="none"; showQuestion(); }
+  function showQuestion(){
+    const quiz=document.getElementById("quiz");
+    const prog=document.getElementById("progress");
+    if(current>=questions.length){
+      quiz.innerHTML="";
+      const pct=score/questions.length;
+      const n=pct===1?5:pct>=0.75?4:pct>=0.5?3:pct>=0.25?2:1;
+      let stars=""; for(let i=0;i<n;i++) stars+="⭐";
+      const msg=pct===1?"Perfetto! Hai imparato il TO HAVE! 🏆":pct>=0.5?"Bravissima, ci sei quasi! 💪":"Bene, riprova: si impara ripetendo! 🌱";
+      prog.innerHTML=`<div class="star">${stars}</div>${score}/${questions.length} giuste<br><b>${msg}</b>`;
+      document.getElementById("restartBtn").style.display="block";
+      return;
+    }
+    const item=questions[current];
+    prog.textContent=`Domanda ${current+1} di ${questions.length}`;
+    quiz.innerHTML=`
+      <div class="ex">
+        <div class="qnum">Domanda ${current+1}</div>
+        <div class="qtext">${item.q}</div>
+        <div class="options">
+          ${item.opts.map((o,i)=>`<button class="opt" onclick="answer(${i})">${o}</button>`).join("")}
+        </div>
+        <div class="feedback" id="fb"></div>
+      </div>
+    `;
+  }
+  function answer(i){
+    const item=questions[current];
+    const opts=document.querySelectorAll("#quiz .opt");
+    const fb=document.getElementById("fb");
+    if(i===item.correct){
+      opts[i].classList.add("correct");
+      fb.textContent="✅ Giusto! "+item.full; fb.className="feedback ok";
+      score++; say(item.full);
+      opts.forEach(o=>o.disabled=true);
+      setTimeout(()=>{ current++; showQuestion(); },1600);
+    } else {
+      opts[i].classList.add("wrong");
+      fb.textContent="Riprova! 🙂"; fb.className="feedback no";
+    }
+  }
+
+  startGuided();
+  startQuiz();
+</script>
+</body>
+</html>
