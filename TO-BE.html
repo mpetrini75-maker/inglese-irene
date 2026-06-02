@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mattoncino 1 — Il verbo TO BE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --crema:#FBF6EC;--inchiostro:#2B2B2B;--salvia:#7BA591;--salvia-scuro:#4E7A66;
+    --pesca:#E8A87C;--pesca-scuro:#C77E4E;--azzurro:#7FB3C8;--giallo:#F2C84B;
+    --lavanda:#B39DC9;--ombra:rgba(43,43,43,0.10);--verde-ok:#5B9A6E;--rosso-no:#C76B5A;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Lexend',sans-serif;background:var(--crema);color:var(--inchiostro);
+    line-height:1.7;letter-spacing:0.01em;padding:20px 16px 60px;}
+  .wrap{max-width:640px;margin:0 auto;}
+  .top{display:flex;align-items:center;gap:12px;margin-bottom:24px;}
+  .back{text-decoration:none;color:var(--salvia-scuro);font-weight:600;font-size:0.95rem;
+    background:#fff;padding:8px 14px;border-radius:99px;box-shadow:0 3px 10px var(--ombra);}
+  header{text-align:center;margin-bottom:20px;}
+  .occhiello{font-size:0.9rem;font-weight:600;color:var(--salvia-scuro);
+    text-transform:uppercase;letter-spacing:0.12em;margin-bottom:6px;}
+  h1{font-family:'Fraunces',serif;font-weight:600;font-size:2.3rem;line-height:1.15;}
+  .audiobar{background:#fff;border-radius:16px;padding:14px 16px;margin-bottom:26px;
+    box-shadow:0 4px 14px var(--ombra);display:flex;flex-wrap:wrap;gap:10px;align-items:center;}
+  .audiobar label{font-size:0.9rem;font-weight:600;color:var(--salvia-scuro);}
+  .audiobar select{flex:1;min-width:160px;font-family:'Lexend';font-size:0.95rem;
+    padding:9px 12px;border-radius:10px;border:2px solid #e6e0d4;background:var(--crema);color:var(--inchiostro);}
+  .readall{background:var(--salvia);color:#fff;border:none;
+    font-family:'Lexend';font-weight:600;font-size:0.95rem;padding:10px 18px;border-radius:99px;
+    cursor:pointer;transition:transform .12s ease;}
+  .readall:hover{transform:translateY(-2px);}
+  .readall.playing{background:var(--pesca-scuro);}
+  .warn{width:100%;font-size:0.88rem;color:var(--pesca-scuro);background:#FCF3DA;
+    border-radius:10px;padding:10px 12px;display:none;}
+  .warn.show{display:block;}
+  .card{background:#fff;border-radius:18px;padding:24px 22px;margin-bottom:20px;box-shadow:0 4px 14px var(--ombra);}
+  h2{font-family:'Fraunces',serif;font-size:1.45rem;font-weight:600;margin-bottom:6px;display:flex;align-items:center;gap:10px;}
+  .dot{width:14px;height:14px;border-radius:50%;display:inline-block;}
+  .intro{color:#5a5a5a;margin-bottom:18px;font-size:1.02rem;}
+  table{width:100%;border-collapse:separate;border-spacing:0 8px;}
+  th{text-align:left;font-size:0.85rem;color:#888;font-weight:600;padding:0 12px;text-transform:uppercase;letter-spacing:0.05em;}
+  td{background:var(--crema);padding:12px 14px;font-size:1.1rem;vertical-align:middle;}
+  td:first-child{border-radius:12px 0 0 12px;font-weight:600;}
+  td:last-child{border-radius:0 12px 12px 0;color:#666;}
+  .en{font-weight:600;color:var(--salvia-scuro);}
+  .spk{background:#EAF2F5;border:none;border-radius:50%;width:34px;height:34px;cursor:pointer;
+    font-size:1rem;margin-right:10px;vertical-align:middle;transition:transform .1s ease,background .1s ease;}
+  .spk:hover{background:var(--azzurro);transform:scale(1.1);}
+  .spk:active{transform:scale(0.92);}
+  .spk.on{background:var(--azzurro);}
+  .tip{background:#FCF3DA;border-left:5px solid var(--giallo);border-radius:10px;padding:14px 16px;margin-top:16px;font-size:0.98rem;}
+  .tip b{color:var(--pesca-scuro);}
+  .forme{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px;}
+  .forma{flex:1;min-width:150px;background:var(--crema);border-radius:14px;padding:14px 16px;text-align:center;}
+  .forma .big{font-family:'Fraunces',serif;font-size:1.6rem;font-weight:600;color:var(--salvia-scuro);}
+  .forma .small{font-size:0.92rem;color:#777;}
+  .q{font-size:1.12rem;font-weight:500;margin-bottom:6px;}
+  .q .blank{display:inline-block;min-width:70px;border-bottom:3px dashed var(--azzurro);text-align:center;font-weight:600;color:var(--azzurro);padding:0 6px;}
+  .q .blank.filled{border-bottom-style:solid;border-bottom-color:var(--salvia);color:var(--salvia-scuro);}
+  .ex{font-size:0.95rem;color:#7a7a7a;font-style:italic;margin-top:4px;}
+  .opts{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:8px;}
+  .opt{background:var(--crema);border:2px solid #e6e0d4;border-radius:12px;padding:11px 20px;
+    font-family:'Lexend';font-size:1.05rem;font-weight:600;cursor:pointer;transition:all .12s ease;color:var(--inchiostro);}
+  .opt:hover{border-color:var(--azzurro);transform:translateY(-2px);}
+  .opt.right{background:#E4F0EA;border-color:var(--verde-ok);color:var(--verde-ok);}
+  .opt.wrong{background:#F6E3DE;border-color:var(--rosso-no);color:var(--rosso-no);}
+  .opt:disabled{cursor:default;transform:none;}
+  .hint{display:none;margin-top:12px;background:#EAF2F5;border-left:5px solid var(--azzurro);border-radius:10px;padding:13px 15px;font-size:0.98rem;}
+  .hint.show{display:block;}
+  .hint b{color:var(--azzurro);}
+  .feedback{margin-top:12px;font-weight:600;font-size:1.02rem;display:none;}
+  .feedback.show{display:block;}
+  .feedback.ok{color:var(--verde-ok);}
+  .feedback.no{color:var(--rosso-no);}
+  .exn{font-size:0.85rem;color:#aaa;font-weight:600;margin-bottom:6px;}
+  .qrow{display:flex;align-items:flex-start;gap:8px;}
+  .score{position:sticky;bottom:16px;background:var(--salvia-scuro);color:#fff;border-radius:99px;
+    padding:12px 24px;text-align:center;font-weight:600;box-shadow:0 6px 20px rgba(78,122,102,0.4);margin-top:8px;font-size:1.05rem;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><a class="back" href="index.html">← Tutti i mattoncini</a></div>
+  <header>
+    <div class="occhiello">Mattoncino 1</div>
+    <h1>Il verbo TO BE</h1>
+  </header>
+
+  <div class="audiobar">
+    <label for="voiceSel">Voce 🔊</label>
+    <select id="voiceSel"></select>
+    <button class="readall" id="readall">Leggi tutto</button>
+    <div class="warn" id="warn">⚠️ Nessuna voce inglese trovata sul dispositivo. La pronuncia sarà sbagliata. Installa una voce inglese: Impostazioni Windows → Ora e lingua → Lingua → Aggiungi “English” con la sintesi vocale.</div>
+  </div>
+
+  <div class="card">
+    <h2><span class="dot" style="background:var(--salvia)"></span>Cosa vuol dire</h2>
+    <p class="intro">In italiano è il verbo <b>essere</b>... ma anche <b>avere</b> in certi casi (l'età, la fame, la paura). Serve quasi in ogni frase.</p>
+    <div class="forme">
+      <div class="forma"><div class="big"><button class="spk" data-say="am">🔊</button>am</div><div class="small">solo con <b>I</b> (io)</div></div>
+      <div class="forma"><div class="big"><button class="spk" data-say="is">🔊</button>is</div><div class="small">con he, she, it</div></div>
+      <div class="forma"><div class="big"><button class="spk" data-say="are">🔊</button>are</div><div class="small">con you, we, they</div></div>
+    </div>
+    <div class="tip"><b>Trucco a memoria:</b> <b>am</b> sta sempre e solo con "I". Tutto ciò che è singolare vuole <b>is</b>. Tutto il resto vuole <b>are</b>.</div>
+  </div>
+
+  <div class="card">
+    <h2><span class="dot" style="background:var(--pesca)"></span>Tutte le persone</h2>
+    <table>
+      <tr><th>Inglese</th><th>Italiano</th></tr>
+      <tr><td><button class="spk" data-say="I am">🔊</button><span class="en">I am</span></td><td>io sono</td></tr>
+      <tr><td><button class="spk" data-say="you are">🔊</button><span class="en">you are</span></td><td>tu sei</td></tr>
+      <tr><td><button class="spk" data-say="he is">🔊</button><span class="en">he is</span></td><td>lui è</td></tr>
+      <tr><td><button class="spk" data-say="she is">🔊</button><span class="en">she is</span></td><td>lei è</td></tr>
+      <tr><td><button class="spk" data-say="it is">🔊</button><span class="en">it is</span></td><td>esso è</td></tr>
+      <tr><td><button class="spk" data-say="we are">🔊</button><span class="en">we are</span></td><td>noi siamo</td></tr>
+      <tr><td><button class="spk" data-say="you are">🔊</button><span class="en">you are</span></td><td>voi siete</td></tr>
+      <tr><td><button class="spk" data-say="they are">🔊</button><span class="en">they are</span></td><td>loro sono</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2><span class="dot" style="background:var(--lavanda)"></span>Le forme corte</h2>
+    <p class="intro">Nel parlato si uniscono il pronome e il verbo con un apostrofo. Vogliono dire la stessa cosa.</p>
+    <table>
+      <tr><th>Forma lunga</th><th>Forma corta</th></tr>
+      <tr><td><button class="spk" data-say="I am">🔊</button><span class="en">I am</span></td><td><button class="spk" data-say="I'm">🔊</button>I'm</td></tr>
+      <tr><td><button class="spk" data-say="you are">🔊</button><span class="en">you are</span></td><td><button class="spk" data-say="you're">🔊</button>you're</td></tr>
+      <tr><td><button class="spk" data-say="he is">🔊</button><span class="en">he is</span></td><td><button class="spk" data-say="he's">🔊</button>he's</td></tr>
+      <tr><td><button class="spk" data-say="she is">🔊</button><span class="en">she is</span></td><td><button class="spk" data-say="she's">🔊</button>she's</td></tr>
+      <tr><td><button class="spk" data-say="we are">🔊</button><span class="en">we are</span></td><td><button class="spk" data-say="we're">🔊</button>we're</td></tr>
+      <tr><td><button class="spk" data-say="they are">🔊</button><span class="en">they are</span></td><td><button class="spk" data-say="they're">🔊</button>they're</td></tr>
+    </table>
+    <div class="tip"><b>Negazione:</b> basta aggiungere <b>not</b>. <i>I am not / he isn't / they aren't</i>.</div>
+  </div>
+
+  <div class="card">
+    <h2><span class="dot" style="background:var(--azzurro)"></span>Proviamo insieme</h2>
+    <p class="intro">Leggi (o ascolta col 🔊) la frase con calma. Se ti blocchi, tocca <b>"Aiutami"</b>: non è barare, è imparare. 🌿</p>
+    <div id="esercizi"></div>
+  </div>
+
+  <div class="score" id="score">Punteggio: 0 / 0</div>
+</div>
+
+<script>
+/* ---------- VOCE ---------- */
+let voci=[], voceScelta=null;
+const sel=document.getElementById('voiceSel');
+const warn=document.getElementById('warn');
+
+function puntiVoce(v){
+  // ordino le voci inglesi: UK prima, poi US, poi altre EN. Le non-EN restano fuori.
+  const l=(v.lang||'').toLowerCase();
+  const n=(v.name||'').toLowerCase();
+  let p=0;
+  if(l.startsWith('en-gb')) p+=100;
+  else if(l.startsWith('en-us')) p+=90;
+  else if(l.startsWith('en')) p+=70;
+  // voci "naturali"/online di solito suonano meglio
+  if(n.includes('natural')||n.includes('online')||n.includes('google')) p+=20;
+  if(n.includes('hazel')||n.includes('libby')||n.includes('sonia')||n.includes('ryan')) p+=10; // UK Microsoft
+  if(n.includes('zira')||n.includes('aria')||n.includes('jenny')||n.includes('david')||n.includes('guy')) p+=8; // US Microsoft
+  return p;
+}
+
+function caricaVoci(){
+  const tutte=speechSynthesis.getVoices();
+  voci=tutte.filter(v=>(v.lang||'').toLowerCase().startsWith('en'))
+            .sort((a,b)=>puntiVoce(b)-puntiVoce(a));
+  sel.innerHTML='';
+  if(voci.length===0){
+    warn.classList.add('show');
+    const o=document.createElement('option'); o.textContent='(nessuna voce inglese)'; sel.appendChild(o);
+    voceScelta=null;
+    return;
+  }
+  warn.classList.remove('show');
+  voci.forEach((v,i)=>{
+    const o=document.createElement('option');
+    o.value=i;
+    let etichetta=v.name.replace('Microsoft','').replace('Google','Google ').trim();
+    o.textContent=etichetta+' ('+v.lang+')';
+    sel.appendChild(o);
+  });
+  voceScelta=voci[0];
+}
+caricaVoci();
+if(speechSynthesis.onvoiceschanged!==undefined){ speechSynthesis.onvoiceschanged=caricaVoci; }
+sel.addEventListener('change',()=>{ voceScelta=voci[sel.value]||null; parla('Hello'); });
+
+function parla(testo,callback){
+  speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(testo);
+  if(voceScelta){ u.voice=voceScelta; u.lang=voceScelta.lang; }
+  else { u.lang='en-GB'; }
+  u.rate=0.85; u.pitch=1;
+  if(callback) u.onend=callback;
+  speechSynthesis.speak(u);
+}
+
+document.addEventListener('click',e=>{
+  const b=e.target.closest('.spk'); if(!b) return;
+  document.querySelectorAll('.spk.on').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on');
+  parla(b.dataset.say,()=>b.classList.remove('on'));
+});
+
+/* ---------- ESERCIZI ---------- */
+const esercizi=[
+  {testo:['I ',' a student.'], say:'I am a student', it:'"Io sono una studentessa."', opzioni:['am','is','are'], giusta:'am', aiuto:'Il pronome è <b>I</b> (io). E "am" sta sempre e solo con "I". Quindi → <b>am</b>.'},
+  {testo:['She ',' my sister.'], say:'She is my sister', it:'"Lei è mia sorella."', opzioni:['am','is','are'], giusta:'is', aiuto:'<b>She</b> (lei) è singolare. Tutto ciò che è singolare vuole <b>is</b>.'},
+  {testo:['They ',' from Spain.'], say:'They are from Spain', it:'"Loro sono spagnoli."', opzioni:['am','is','are'], giusta:'are', aiuto:'<b>They</b> (loro) è plurale. Il plurale vuole <b>are</b>.'},
+  {testo:['My brother ',' a physiotherapist.'], say:'My brother is a physiotherapist', it:'"Mio fratello è un fisioterapista."', opzioni:['am','is','are'], giusta:'is', aiuto:'"My brother" = una persona sola (lui). Singolare → <b>is</b>.'},
+  {testo:['You ',' very kind.'], say:'You are very kind', it:'"Tu sei molto gentile."', opzioni:['am','is','are'], giusta:'are', aiuto:'<b>You</b> vuole sempre <b>are</b>, anche per una persona sola.'},
+  {testo:['We ',' happy today.'], say:'We are happy today', it:'"Noi siamo felici oggi."', opzioni:['am','is','are'], giusta:'are', aiuto:'<b>We</b> (noi) è plurale → <b>are</b>.'},
+  {testo:['The dog ',' in the garden.'], say:'The dog is in the garden', it:'"Il cane è in giardino."', opzioni:['am','is','are'], giusta:'is', aiuto:'"The dog" è singolare (come "it"). Singolare → <b>is</b>.'},
+  {testo:['I ',' not tired.'], say:'I am not tired', it:'"Io non sono stanca."', opzioni:['am','is','are'], giusta:'am', aiuto:'Anche nelle frasi negative: con <b>I</b> si usa sempre <b>am</b>.'}
+];
+
+let punti=0, fatti=0;
+const cont=document.getElementById('esercizi');
+const scoreEl=document.getElementById('score');
+
+esercizi.forEach((es,i)=>{
+  const box=document.createElement('div');
+  box.style.cssText='padding:18px 0;border-top:1px solid #f0ebe0;';
+  if(i===0) box.style.borderTop='none';
+  const frase=es.testo.map((t,idx)=> idx<es.testo.length-1 ? t+'<span class="blank" id="b'+i+'">___</span>' : t).join('');
+  box.innerHTML=`
+    <div class="exn">Esercizio ${i+1} di ${esercizi.length}</div>
+    <div class="qrow"><button class="spk" data-say="${es.say}">🔊</button><div style="flex:1">
+      <div class="q">${frase}</div>
+      <div class="ex" style="margin-bottom:12px;">${es.it}</div>
+    </div></div>
+    <div class="opts" id="opts${i}"></div>
+    <button class="opt" style="background:#FCF3DA;border-color:var(--giallo);color:var(--pesca-scuro);font-size:0.95rem;padding:8px 16px;" onclick="mostraAiuto(${i})">💡 Aiutami</button>
+    <div class="hint" id="hint${i}"><b>Aiutino:</b> ${es.aiuto}</div>
+    <div class="feedback" id="fb${i}"></div>
+  `;
+  cont.appendChild(box);
+  const optsBox=box.querySelector('#opts'+i);
+  es.opzioni.forEach(op=>{
+    const b=document.createElement('button');
+    b.className='opt'; b.textContent=op;
+    b.onclick=()=>rispondi(i,op,b);
+    optsBox.appendChild(b);
+  });
+});
+
+function mostraAiuto(i){ document.getElementById('hint'+i).classList.add('show'); }
+
+function rispondi(i,scelta,btn){
+  const es=esercizi[i];
+  const opts=document.querySelectorAll('#opts'+i+' .opt');
+  if(btn.disabled) return;
+  const giaFatto=[...opts].some(o=>o.disabled);
+  const blank=document.getElementById('b'+i);
+  const fb=document.getElementById('fb'+i);
+  if(scelta===es.giusta){
+    btn.classList.add('right');
+    blank.textContent=es.giusta; blank.classList.add('filled');
+    fb.textContent='✓ Perfetto! Hai capito.'; fb.className='feedback ok show';
+    opts.forEach(o=>o.disabled=true);
+    if(!giaFatto){ punti++; fatti++; aggiorna(); }
+  } else {
+    btn.classList.add('wrong'); btn.disabled=true;
+    fb.textContent='✗ Non è questo. Riprova, o tocca "Aiutami". 💛'; fb.className='feedback no show';
+    document.getElementById('hint'+i).classList.add('show');
+    if(!giaFatto){ fatti++; aggiorna(); }
+  }
+}
+
+function aggiorna(){
+  scoreEl.textContent=`Punteggio: ${punti} / ${fatti}`;
+  if(fatti===esercizi.length){
+    scoreEl.textContent=`🎉 Finito! ${punti} / ${esercizi.length} — Bravissima Irene!`;
+  }
+}
+
+/* ---------- LEGGI TUTTO ---------- */
+const readBtn=document.getElementById('readall');
+const sequenza=['am','is','are','I am','you are','he is','she is','it is','we are','they are'];
+let leggendo=false;
+readBtn.addEventListener('click',()=>{
+  if(leggendo){ speechSynthesis.cancel(); leggendo=false; readBtn.textContent='Leggi tutto'; readBtn.classList.remove('playing'); return; }
+  leggendo=true; readBtn.textContent='⏹ Ferma'; readBtn.classList.add('playing');
+  let k=0;
+  function next(){
+    if(!leggendo||k>=sequenza.length){ leggendo=false; readBtn.textContent='Leggi tutto'; readBtn.classList.remove('playing'); return; }
+    parla(sequenza[k++],next);
+  }
+  next();
+});
+</script>
+</body>
+</html>

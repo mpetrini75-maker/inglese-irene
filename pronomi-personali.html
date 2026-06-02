@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mattoncino 2 — I pronomi personali</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --crema:#FBF6EC;--inchiostro:#2B2B2B;--salvia:#7BA591;--salvia-scuro:#4E7A66;
+    --pesca:#E8A87C;--pesca-scuro:#C77E4E;--azzurro:#7FB3C8;--giallo:#F2C84B;
+    --lavanda:#B39DC9;--ombra:rgba(43,43,43,0.10);--verde-ok:#5B9A6E;--rosso-no:#C76B5A;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Lexend',sans-serif;background:var(--crema);color:var(--inchiostro);
+    line-height:1.7;letter-spacing:0.01em;padding:20px 16px 60px;}
+  .wrap{max-width:640px;margin:0 auto;}
+  .top{display:flex;align-items:center;gap:12px;margin-bottom:24px;}
+  .back{text-decoration:none;color:var(--salvia-scuro);font-weight:600;font-size:0.95rem;
+    background:#fff;padding:8px 14px;border-radius:99px;box-shadow:0 3px 10px var(--ombra);}
+  header{text-align:center;margin-bottom:32px;}
+  .occhiello{font-size:0.9rem;font-weight:600;color:var(--pesca-scuro);
+    text-transform:uppercase;letter-spacing:0.12em;margin-bottom:6px;}
+  h1{font-family:'Fraunces',serif;font-weight:600;font-size:2.3rem;line-height:1.15;}
+  .card{background:#fff;border-radius:18px;padding:24px 22px;margin-bottom:20px;
+    box-shadow:0 4px 14px var(--ombra);}
+  h2{font-family:'Fraunces',serif;font-size:1.45rem;font-weight:600;margin-bottom:6px;display:flex;align-items:center;gap:10px;}
+  .dot{width:14px;height:14px;border-radius:50%;display:inline-block;}
+  .intro{color:#5a5a5a;margin-bottom:18px;font-size:1.02rem;}
+  table{width:100%;border-collapse:separate;border-spacing:0 8px;}
+  th{text-align:left;font-size:0.85rem;color:#888;font-weight:600;padding:0 12px;text-transform:uppercase;letter-spacing:0.05em;}
+  td{background:var(--crema);padding:12px 14px;font-size:1.1rem;}
+  td:first-child{border-radius:12px 0 0 12px;font-weight:600;}
+  td:last-child{border-radius:0 12px 12px 0;color:#666;}
+  .en{font-weight:600;color:var(--salvia-scuro);}
+  .ex{font-size:0.95rem;color:#7a7a7a;font-style:italic;margin-top:4px;}
+  .tip{background:#FCF3DA;border-left:5px solid var(--giallo);border-radius:10px;
+    padding:14px 16px;margin-top:16px;font-size:0.98rem;}
+  .tip b{color:var(--pesca-scuro);}
+
+  /* esercizi */
+  .q{font-size:1.12rem;font-weight:500;margin-bottom:14px;}
+  .q .blank{display:inline-block;min-width:70px;border-bottom:3px dashed var(--azzurro);text-align:center;font-weight:600;color:var(--azzurro);padding:0 6px;}
+  .q .blank.filled{border-bottom-style:solid;border-bottom-color:var(--salvia);color:var(--salvia-scuro);}
+  .opts{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:8px;}
+  .opt{background:var(--crema);border:2px solid #e6e0d4;border-radius:12px;
+    padding:11px 20px;font-family:'Lexend';font-size:1.05rem;font-weight:600;
+    cursor:pointer;transition:all .12s ease;color:var(--inchiostro);}
+  .opt:hover{border-color:var(--azzurro);transform:translateY(-2px);}
+  .opt.right{background:#E4F0EA;border-color:var(--verde-ok);color:var(--verde-ok);}
+  .opt.wrong{background:#F6E3DE;border-color:var(--rosso-no);color:var(--rosso-no);}
+  .opt:disabled{cursor:default;transform:none;}
+  .hint{display:none;margin-top:12px;background:#EAF2F5;border-left:5px solid var(--azzurro);
+    border-radius:10px;padding:13px 15px;font-size:0.98rem;}
+  .hint.show{display:block;}
+  .hint b{color:var(--azzurro);}
+  .feedback{margin-top:12px;font-weight:600;font-size:1.02rem;display:none;}
+  .feedback.show{display:block;}
+  .feedback.ok{color:var(--verde-ok);}
+  .feedback.no{color:var(--rosso-no);}
+  .exn{font-size:0.85rem;color:#aaa;font-weight:600;margin-bottom:6px;}
+
+  .score{position:sticky;bottom:16px;background:var(--salvia-scuro);color:#fff;
+    border-radius:99px;padding:12px 24px;text-align:center;font-weight:600;
+    box-shadow:0 6px 20px rgba(78,122,102,0.4);margin-top:8px;font-size:1.05rem;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><a class="back" href="index.html">← Tutti i mattoncini</a></div>
+  <header>
+    <div class="occhiello">Mattoncino 2</div>
+    <h1>I pronomi personali</h1>
+  </header>
+
+  <!-- SPIEGAZIONE 1: SOGGETTO -->
+  <div class="card">
+    <h2><span class="dot" style="background:var(--salvia)"></span>Chi fa l'azione</h2>
+    <p class="intro">Questi pronomi stanno <b>prima</b> del verbo. Sono il "chi".</p>
+    <table>
+      <tr><th>Inglese</th><th>Italiano</th></tr>
+      <tr><td class="en">I</td><td>io</td></tr>
+      <tr><td class="en">you</td><td>tu</td></tr>
+      <tr><td class="en">he</td><td>lui</td></tr>
+      <tr><td class="en">she</td><td>lei</td></tr>
+      <tr><td class="en">it</td><td>esso (cose/animali)</td></tr>
+      <tr><td class="en">we</td><td>noi</td></tr>
+      <tr><td class="en">you</td><td>voi</td></tr>
+      <tr><td class="en">they</td><td>loro</td></tr>
+    </table>
+    <div class="tip"><b>Trucco:</b> "I" (io) si scrive <b>sempre</b> con la lettera grande, anche in mezzo alla frase.</div>
+  </div>
+
+  <!-- SPIEGAZIONE 2: COMPLEMENTO -->
+  <div class="card">
+    <h2><span class="dot" style="background:var(--pesca)"></span>Chi subisce l'azione</h2>
+    <p class="intro">Questi pronomi stanno <b>dopo</b> il verbo. Sono il "chi/cosa" su cui ricade l'azione.</p>
+    <table>
+      <tr><th>Inglese</th><th>Italiano</th></tr>
+      <tr><td class="en">me</td><td>me / mi</td></tr>
+      <tr><td class="en">you</td><td>te / ti</td></tr>
+      <tr><td class="en">him</td><td>lui / lo / gli</td></tr>
+      <tr><td class="en">her</td><td>lei / la / le</td></tr>
+      <tr><td class="en">it</td><td>esso / lo / la</td></tr>
+      <tr><td class="en">us</td><td>noi / ci</td></tr>
+      <tr><td class="en">you</td><td>voi / vi</td></tr>
+      <tr><td class="en">them</td><td>loro / li / le</td></tr>
+    </table>
+    <div class="tip"><b>Come capire quale usare:</b> se puoi mettere il pronome <b>prima</b> del verbo → soggetto (I, he…). Se viene <b>dopo</b> → complemento (me, him…).<br>👉 <i>She loves <b>him</b></i> = Lei ama <b>lui</b>.</div>
+  </div>
+
+  <!-- SPIEGAZIONE 3: POSSESSIVI -->
+  <div class="card">
+    <h2><span class="dot" style="background:var(--lavanda)"></span>Di chi è la cosa</h2>
+    <p class="intro">Questi stanno <b>prima</b> di una cosa e dicono di chi è.</p>
+    <table>
+      <tr><th>Inglese</th><th>Italiano</th></tr>
+      <tr><td class="en">my</td><td>mio / mia</td></tr>
+      <tr><td class="en">your</td><td>tuo / tua</td></tr>
+      <tr><td class="en">his</td><td>suo (di lui)</td></tr>
+      <tr><td class="en">her</td><td>suo (di lei)</td></tr>
+      <tr><td class="en">its</td><td>suo (di una cosa)</td></tr>
+      <tr><td class="en">our</td><td>nostro / nostra</td></tr>
+      <tr><td class="en">your</td><td>vostro / vostra</td></tr>
+      <tr><td class="en">their</td><td>loro</td></tr>
+    </table>
+    <div class="tip"><b>Attenzione a non confondere:</b><br><b>his</b> = suo (di un maschio) → <i>his book</i><br><b>her</b> = suo (di una femmina) → <i>her book</i><br>In inglese conta di <b>chi è il proprietario</b>, non l'oggetto!</div>
+  </div>
+
+  <!-- ESERCIZI -->
+  <div class="card">
+    <h2><span class="dot" style="background:var(--azzurro)"></span>Proviamo insieme</h2>
+    <p class="intro">Leggi la frase con calma. Se ti blocchi, tocca <b>"Aiutami"</b>: non è barare, è imparare. 🌿</p>
+
+    <div id="esercizi"></div>
+  </div>
+
+  <div class="score" id="score">Punteggio: 0 / 0</div>
+</div>
+
+<script>
+const esercizi = [
+  {
+    testo: ['', ' am Irene. ', ' am a student.'],
+    it: '"Io sono Irene. Io sono una studentessa."',
+    opzioni: ['I','Me','My'],
+    giusta: 'I',
+    aiuto: 'Chi fa l\'azione di "essere"? Sei <b>tu</b> = <b>io</b>. È il soggetto, sta prima del verbo. E ricorda: "io" in inglese è sempre lettera grande.'
+  },
+  {
+    testo: ['This is my brother. ', ' lives in Spain.'],
+    it: '"Questo è mio fratello. Lui vive in Spagna."',
+    opzioni: ['He','Him','His'],
+    giusta: 'He',
+    aiuto: 'Chi vive in Spagna? <b>Lui</b> (il fratello). È il soggetto della frase → sta prima del verbo "lives". Soggetto maschile = <b>he</b>.'
+  },
+  {
+    testo: ['I like this song. I listen to ', ' every day.'],
+    it: '"Mi piace questa canzone. La ascolto ogni giorno."',
+    opzioni: ['it','its','she'],
+    giusta: 'it',
+    aiuto: 'La canzone è una <b>cosa</b>, e qui subisce l\'azione (viene ascoltata) → sta dopo il verbo. Per le cose si usa <b>it</b>.'
+  },
+  {
+    testo: ['Sara is nice. I see ', ' at school.'],
+    it: '"Sara è gentile. La vedo a scuola."',
+    opzioni: ['her','she','hers'],
+    giusta: 'her',
+    aiuto: 'Chi viene visto? <b>Sara</b> → subisce l\'azione, sta <b>dopo</b> il verbo "see". Femminile complemento = <b>her</b>.'
+  },
+  {
+    testo: ['That is ', ' dog. Its name is Max.'],
+    it: '"Quello è il suo cane (di lei). Il suo nome è Max."',
+    opzioni: ['her','she','him'],
+    giusta: 'her',
+    aiuto: 'Di chi è il cane? Di una femmina (lei). Sta <b>prima</b> della cosa (dog) e dice di chi è → possessivo femminile = <b>her</b>.'
+  },
+  {
+    testo: ['We are friends. ', ' play football together.'],
+    it: '"Siamo amici. Noi giochiamo a calcio insieme."',
+    opzioni: ['We','Us','Our'],
+    giusta: 'We',
+    aiuto: 'Chi gioca a calcio? <b>Noi</b> → soggetto, sta prima del verbo "play". Noi soggetto = <b>we</b>.'
+  },
+  {
+    testo: ['These books are old. ', ' covers are torn.'],
+    it: '"Questi libri sono vecchi. Le loro copertine sono strappate."',
+    opzioni: ['Their','They','Them'],
+    giusta: 'Their',
+    aiuto: 'Di chi sono le copertine? Dei libri (loro). Sta prima della cosa (covers) → possessivo = <b>their</b>. Non confonderlo con "they" (loro che fanno).'
+  },
+  {
+    testo: ['Can you help ', '? I don\'t understand.'],
+    it: '"Puoi aiutare me? Non capisco."',
+    opzioni: ['me','I','my'],
+    giusta: 'me',
+    aiuto: 'Chi viene aiutato? <b>Me</b> → subisco l\'azione, sto dopo il verbo "help". Complemento = <b>me</b>, non "I".'
+  }
+];
+
+let punti = 0, fatti = 0;
+const cont = document.getElementById('esercizi');
+const scoreEl = document.getElementById('score');
+
+esercizi.forEach((es, i) => {
+  const box = document.createElement('div');
+  box.style.cssText = 'padding:18px 0;border-top:1px solid #f0ebe0;';
+  if(i===0) box.style.borderTop='none';
+
+  const frase = es.testo.map((t,idx)=> idx < es.testo.length-1 ? t + '<span class="blank" id="b'+i+'">___</span>' : t).join('');
+
+  box.innerHTML = `
+    <div class="exn">Esercizio ${i+1} di ${esercizi.length}</div>
+    <div class="q">${frase}</div>
+    <div class="ex" style="margin-bottom:12px;">${es.it}</div>
+    <div class="opts" id="opts${i}"></div>
+    <button class="opt" style="background:#FCF3DA;border-color:var(--giallo);color:var(--pesca-scuro);font-size:0.95rem;padding:8px 16px;" onclick="mostraAiuto(${i})">💡 Aiutami</button>
+    <div class="hint" id="hint${i}"><b>Aiutino:</b> ${es.aiuto}</div>
+    <div class="feedback" id="fb${i}"></div>
+  `;
+  cont.appendChild(box);
+
+  const optsBox = box.querySelector('#opts'+i);
+  es.opzioni.forEach(op => {
+    const b = document.createElement('button');
+    b.className='opt'; b.textContent=op;
+    b.onclick = ()=>rispondi(i, op, b);
+    optsBox.appendChild(b);
+  });
+});
+
+function mostraAiuto(i){
+  document.getElementById('hint'+i).classList.add('show');
+}
+
+function rispondi(i, scelta, btn){
+  const es = esercizi[i];
+  const opts = document.querySelectorAll('#opts'+i+' .opt');
+  if(btn.disabled) return;
+  const giaFatto = [...opts].some(o=>o.disabled);
+
+  const blank = document.getElementById('b'+i);
+  const fb = document.getElementById('fb'+i);
+
+  if(scelta === es.giusta){
+    btn.classList.add('right');
+    blank.textContent = es.giusta;
+    blank.classList.add('filled');
+    fb.textContent = '✓ Perfetto! Hai capito.';
+    fb.className='feedback ok show';
+    opts.forEach(o=>o.disabled=true);
+    if(!giaFatto){ punti++; fatti++; aggiorna(); }
+  } else {
+    btn.classList.add('wrong');
+    btn.disabled=true;
+    fb.textContent = '✗ Non è questo. Riprova, o tocca "Aiutami". 💛';
+    fb.className='feedback no show';
+    document.getElementById('hint'+i).classList.add('show');
+    if(!giaFatto){ fatti++; aggiorna(); }
+  }
+}
+
+function aggiorna(){
+  scoreEl.textContent = `Punteggio: ${punti} / ${fatti}`;
+  if(fatti === esercizi.length){
+    scoreEl.textContent = `🎉 Finito! ${punti} / ${esercizi.length} — Bravissima Irene!`;
+  }
+}
+</script>
+</body>
+</html>
