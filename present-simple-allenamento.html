@@ -30,8 +30,15 @@
   .sub{text-align:center;color:#8a7f70;margin:0 0 26px;font-size:1rem;}
   .card{background:var(--card);border-radius:18px;padding:22px 20px;margin-bottom:22px;
     box-shadow:0 4px 14px rgba(0,0,0,0.06);border:1px solid #efe7da;}
-  .card h2{margin:0 0 6px;font-size:1.25rem;color:var(--accent);display:flex;align-items:center;gap:8px;}
-  .card .lead{color:#8a7f70;margin:0 0 14px;font-size:0.97rem;}
+  .card h2{margin:0 0 10px;font-size:1.25rem;color:var(--accent);display:flex;align-items:center;gap:8px;}
+  .card .lead{color:#8a7f70;margin:0 0 12px;font-size:0.97rem;}
+  /* barra livelli */
+  .levelbar{margin:0 0 12px;}
+  .lvrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:0.98rem;color:var(--accent);}
+  .lvdots{display:inline-flex;gap:6px;}
+  .lvdot{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    background:var(--bg);border:2px solid var(--accent-soft);color:#b9ad9c;font-size:0.85rem;font-weight:bold;}
+  .lvdot.on{background:var(--accent-soft);border-color:var(--accent);color:var(--accent);}
   .saybtn{background:var(--blue-soft);color:var(--blue);border:none;border-radius:10px;
     padding:6px 12px;font-size:0.95rem;cursor:pointer;font-family:inherit;}
   .big-listen{display:block;margin:6px auto 14px;background:var(--blue);color:#fff;
@@ -51,9 +58,8 @@
   .feedback{margin-top:10px;font-size:1.02rem;font-weight:bold;min-height:24px;}
   .feedback.ok{color:var(--green);}
   .feedback.no{color:var(--red);}
-  .progress{text-align:center;font-size:1.05rem;margin:10px 0 0;color:#8a7f70;}
+  .progress{text-align:center;font-size:1.05rem;margin:12px 0 0;color:#8a7f70;}
   .star{font-size:1.4rem;}
-  /* scrittura */
   .write-input{width:100%;font-family:"Lexend",sans-serif;font-size:1.2rem;
     padding:12px 14px;border:2px solid var(--accent-soft);border-radius:12px;
     background:var(--bg);color:var(--ink);margin-top:4px;}
@@ -62,11 +68,9 @@
     border-radius:12px;padding:10px 20px;font-size:1rem;cursor:pointer;font-family:inherit;}
   .write-input.okbox{border-color:var(--green);background:var(--green-soft);}
   .write-input.nobox{border-color:var(--red);}
-  /* lettura */
   .reading{background:var(--bg);border-radius:14px;padding:16px 18px;font-size:1.12rem;
     border:2px solid var(--accent-soft);margin-bottom:6px;}
   .reading p{margin:0 0 6px;}
-  /* lessico */
   .match-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px;}
   .match-col{display:flex;flex-direction:column;gap:10px;}
   .match-btn{background:var(--bg);border:2px solid var(--accent-soft);border-radius:12px;
@@ -77,7 +81,7 @@
   .match-btn.done{background:var(--green-soft);border-color:var(--green);color:var(--green);
     font-weight:bold;cursor:default;opacity:0.85;}
   .match-btn.flash{border-color:var(--red);background:var(--red-soft);}
-  .restart{display:block;margin:16px auto 0;background:var(--accent);color:#fff;border:none;
+  .restart{display:inline-block;margin:12px auto 0;background:var(--accent);color:#fff;border:none;
     border-radius:12px;padding:11px 22px;font-size:1rem;cursor:pointer;font-family:inherit;}
 </style>
 </head>
@@ -85,21 +89,22 @@
 <div class="wrap">
   <a class="backbtn" href="present-simple.html">← Torna alla lezione</a>
   <h1>🏋️ Present Simple — Allenamento</h1>
-  <p class="sub">ascolto · scrittura · lettura · lessico</p>
+  <p class="sub">4 livelli · ascolto · scrittura · lettura · lessico</p>
 
   <!-- SEZIONE 1 — ASCOLTO -->
   <div class="card">
     <h2>🎧 1. Ascolto</h2>
-    <p class="lead">Tocca il pulsante blu e ascolta. Poi scegli la frase che hai sentito. Puoi riascoltare quante volte vuoi!</p>
+    <p class="lead">Tocca il pulsante blu e ascolta. Scegli la frase giusta. Puoi riascoltare quante volte vuoi!</p>
+    <div class="levelbar" id="listen-level"></div>
     <div id="listen-quiz"></div>
     <div class="progress" id="listen-prog"></div>
-    <button class="restart" id="listen-restart" style="display:none;" onclick="startListen()">🔄 Riprova l'ascolto</button>
   </div>
 
   <!-- SEZIONE 2 — SCRITTURA -->
   <div class="card">
     <h2>✏️ 2. Scrittura</h2>
-    <p class="lead">Scrivi la parola giusta nella casella. Non preoccuparti delle maiuscole o degli spazi: conta la parola! Poi tocca "Controlla".</p>
+    <p class="lead">Scrivi la parola giusta. Non contano maiuscole o spazi: conta la parola! Poi tocca "Controlla".</p>
+    <div class="levelbar" id="write-level"></div>
     <div id="write-list"></div>
     <div class="progress" id="write-prog"></div>
   </div>
@@ -108,12 +113,8 @@
   <div class="card">
     <h2>📖 3. Lettura</h2>
     <p class="lead">Ascolta e leggi il testo, poi rispondi alle domande.</p>
-    <div class="reading" id="reading-text">
-      <p>Anna is a nurse. She lives in London.</p>
-      <p>Every day she wakes up at six o'clock.</p>
-      <p>She goes to work by bus.</p>
-      <p>In the evening she reads a book and goes to bed early.</p>
-    </div>
+    <div class="levelbar" id="read-level"></div>
+    <div class="reading" id="reading-text"></div>
     <button class="saybtn" onclick="event.stopPropagation();sayReading()">🔊 Ascolta tutto il testo</button>
     <div id="read-list" style="margin-top:8px;"></div>
     <div class="progress" id="read-prog"></div>
@@ -122,15 +123,14 @@
   <!-- SEZIONE 4 — LESSICO -->
   <div class="card">
     <h2>🔤 4. Lessico</h2>
-    <p class="lead">Tocca una parola inglese (e ascoltala con 🔊), poi tocca il suo significato. Collega tutte le coppie!</p>
+    <p class="lead">Tocca una parola inglese (ascoltala con 🔊), poi il suo significato. Collega tutte le coppie!</p>
+    <div class="levelbar" id="match-level"></div>
     <div class="match-grid" id="match-grid"></div>
     <div class="progress" id="match-prog"></div>
-    <button class="restart" id="match-restart" style="display:none;" onclick="startMatch()">🔄 Rimescola</button>
   </div>
 </div>
 
 <script>
-  // ---- audio (identica a present-simple.html) ----
   function say(text){
     try{
       const u = new SpeechSynthesisUtterance(text);
@@ -144,29 +144,73 @@
     const n=pct===1?5:pct>=0.75?4:pct>=0.5?3:pct>=0.25?2:1;
     return "⭐".repeat(n);
   }
+  const LV=["Base","Intermedio","Avanzato","Sfida"];
+  function levelBar(level){
+    let dots="";
+    for(let i=0;i<4;i++) dots+=`<span class="lvdot ${i<=level?'on':''}">${i+1}</span>`;
+    return `<div class="lvrow"><b>Livello ${level+1} di 4 · ${LV[level]} 🔓</b><span class="lvdots">${dots}</span></div>`;
+  }
+  // risultato di fine livello con avanzamento morbido
+  function levelResult(progEl, score, total, level, threshold, setFnName){
+    const passed = score>=threshold;
+    let html=`<div class="star">${stars(score,total)}</div>${score}/${total} giuste<br>`;
+    if(passed && level<3){
+      html+=`<b>Bravissima! Livello ${level+2} sbloccato 🔓</b><br>`;
+      html+=`<button class="restart" onclick="${setFnName}(${level+1})">➡️ Vai al Livello ${level+2}</button>`;
+    } else if(passed && level===3){
+      html+=`<b>🏆 Hai completato tutti i livelli!</b><br>`;
+      html+=`<button class="restart" onclick="${setFnName}(0)">🔄 Rigioca dal Livello 1</button>`;
+    } else {
+      html+=`<b>Ci sei quasi! Riprova questo livello, ce la fai 🌱</b><br>`;
+      html+=`<button class="restart" onclick="${setFnName}(${level})">🔄 Rifai il Livello ${level+1}</button>`;
+    }
+    progEl.innerHTML=html;
+  }
 
   /* ============ SEZIONE 1 — ASCOLTO ============ */
-  const listen = [
-    {audio:"She gets up at seven o'clock.", opts:["She gets up at seven o'clock.","He gets up at seven o'clock.","She gets up at eleven o'clock."], correct:0},
-    {audio:"I drink coffee every morning.", opts:["I drink tea every morning.","I drink coffee every morning.","We drink coffee every morning."], correct:1},
-    {audio:"He plays football on Sundays.", opts:["He plays tennis on Sundays.","He plays football on Mondays.","He plays football on Sundays."], correct:2},
-    {audio:"They live in a big house.", opts:["They live in a big house.","They live in a small house.","We live in a big house."], correct:0},
-    {audio:"My sister works in a hospital.", opts:["My brother works in a hospital.","My sister works in a hospital.","My sister works in a school."], correct:1},
-    {audio:"We don't watch TV in the morning.", opts:["They don't watch TV in the morning.","We don't watch TV in the evening.","We don't watch TV in the morning."], correct:2},
+  const listenLevels = [
+    [ // L1 Base
+      {audio:"I have a cat.", opts:["I have a cat.","I have a dog.","I have a car."], correct:0},
+      {audio:"She is happy.", opts:["He is happy.","She is happy.","She is hungry."], correct:1},
+      {audio:"We play in the park.", opts:["We play in the park.","We play in the garden.","They play in the park."], correct:0},
+      {audio:"He likes milk.", opts:["He likes milk.","He likes water.","She likes milk."], correct:0},
+      {audio:"I go to school.", opts:["I go to school.","I go to work.","We go to school."], correct:0},
+      {audio:"The dog runs fast.", opts:["The dog runs fast.","The cat runs fast.","The dog walks fast."], correct:0},
+    ],
+    [ // L2 Intermedio
+      {audio:"She gets up at seven o'clock.", opts:["She gets up at seven o'clock.","She gets up at seven thirty.","He gets up at seven o'clock."], correct:0},
+      {audio:"I drink coffee every morning.", opts:["I drink coffee every morning.","I drink coffee every evening.","I drink tea every morning."], correct:0},
+      {audio:"They live in a small town.", opts:["They live in a small town.","They live in a big town.","We live in a small town."], correct:0},
+      {audio:"My brother works in a shop.", opts:["My brother works in a shop.","My sister works in a shop.","My brother works in a school."], correct:0},
+      {audio:"We watch a film on Friday.", opts:["We watch a film on Friday.","We watch a film on Sunday.","We watch TV on Friday."], correct:0},
+      {audio:"He reads a book before bed.", opts:["He reads a book before bed.","She reads a book before bed.","He reads a book after lunch."], correct:0},
+    ],
+    [ // L3 Avanzato
+      {audio:"She doesn't like coffee.", opts:["She doesn't like coffee.","She don't like coffee.","She doesn't like tea."], correct:0},
+      {audio:"He watches TV in the evening.", opts:["He watches TV in the evening.","He watch TV in the evening.","He watches TV in the morning."], correct:0},
+      {audio:"Does she play tennis?", opts:["Does she play tennis?","Do she play tennis?","Does he play tennis?"], correct:0},
+      {audio:"They don't go to school on Sunday.", opts:["They don't go to school on Sunday.","They doesn't go to school on Sunday.","They don't go to work on Sunday."], correct:0},
+      {audio:"My dad studies English at home.", opts:["My dad studies English at home.","My dad study English at home.","My mum studies English at home."], correct:0},
+      {audio:"Does he have a bike?", opts:["Does he have a bike?","Do he have a bike?","Does he has a bike?"], correct:0},
+    ],
+    [ // L4 Sfida
+      {audio:"She doesn't watch TV in the morning.", opts:["She doesn't watch TV in the morning.","She don't watch TV in the morning.","She doesn't watch TV in the evening."], correct:0},
+      {audio:"My sister goes to work by bus every day.", opts:["My sister goes to work by bus every day.","My sister go to work by bus every day.","My brother goes to work by bus every day."], correct:0},
+      {audio:"Does your friend like pizza and pasta?", opts:["Does your friend like pizza and pasta?","Do your friend like pizza and pasta?","Does your friend likes pizza and pasta?"], correct:0},
+      {audio:"He always brushes his teeth after breakfast.", opts:["He always brushes his teeth after breakfast.","He always brush his teeth after breakfast.","He always brushes his teeth before breakfast."], correct:0},
+      {audio:"They don't study French, they study Spanish.", opts:["They don't study French, they study Spanish.","They doesn't study French, they study Spanish.","They don't study Spanish, they study French."], correct:0},
+      {audio:"Why does she get up early on Mondays?", opts:["Why does she get up early on Mondays?","Why do she get up early on Mondays?","Why does she gets up early on Mondays?"], correct:0},
+    ],
   ];
-  let lc=0, ls=0;
-  function startListen(){ lc=0; ls=0; document.getElementById("listen-restart").style.display="none"; showListen(); }
+  let lLevel=0, lc=0, ls=0;
+  function setListenLevel(lvl){ lLevel=lvl; lc=0; ls=0; document.getElementById("listen-level").innerHTML=levelBar(lvl); showListen(); }
   function showListen(){
+    const data=listenLevels[lLevel];
     const box=document.getElementById("listen-quiz");
     const pr=document.getElementById("listen-prog");
-    if(lc>=listen.length){
-      box.innerHTML="";
-      pr.innerHTML=`<div class="star">${stars(ls,listen.length)}</div>${ls}/${listen.length} giuste<br><b>${ls===listen.length?"Orecchio perfetto! 🏆":ls>=listen.length/2?"Bravissima! 💪":"Riascolta con calma 🌱"}</b>`;
-      document.getElementById("listen-restart").style.display="block";
-      return;
-    }
-    const it=listen[lc];
-    pr.textContent=`Esercizio ${lc+1} di ${listen.length}`;
+    if(lc>=data.length){ box.innerHTML=""; levelResult(pr, ls, data.length, lLevel, 4, "setListenLevel"); return; }
+    const it=data[lc];
+    pr.textContent=`Esercizio ${lc+1} di ${data.length}`;
     box.innerHTML=`
       <div class="ex">
         <div class="qnum">Ascolto ${lc+1}</div>
@@ -178,14 +222,13 @@
       </div>`;
   }
   function listenAns(i){
-    const it=listen[lc];
+    const it=listenLevels[lLevel][lc];
     const opts=document.querySelectorAll("#listen-quiz .opt");
     const fb=document.getElementById("lfb");
     if(i===it.correct){
       opts[i].classList.add("correct");
       fb.textContent="✅ Giusto! "+it.audio; fb.className="feedback ok";
-      ls++; say(it.audio);
-      opts.forEach(o=>o.disabled=true);
+      ls++; say(it.audio); opts.forEach(o=>o.disabled=true);
       setTimeout(()=>{ lc++; showListen(); },1800);
     } else {
       opts[i].classList.add("wrong");
@@ -194,19 +237,50 @@
   }
 
   /* ============ SEZIONE 2 — SCRITTURA ============ */
-  const write = [
-    {q:"She ____ to school every day.  (go)", answers:["goes"], full:"She goes to school every day.", hint:"Il soggetto è she → verbo + -s. 'Go' diventa 'goes'."},
-    {q:"I ____ pizza very much.  (like)", answers:["like"], full:"I like pizza very much.", hint:"Il soggetto è I → verbo base, senza -s."},
-    {q:"He ____ TV every evening.  (watch)", answers:["watches"], full:"He watches TV every evening.", hint:"He → +es perché 'watch' finisce in -ch."},
-    {q:"They ____ football on Saturdays.  (play)", answers:["play"], full:"They play football on Saturdays.", hint:"They → verbo base, senza -s."},
-    {q:"My mum ____ English at school.  (study)", answers:["studies"], full:"My mum studies English at school.", hint:"She/mum → 'study' diventa 'studies' (consonante + y → ies)."},
-    {q:"She ____ coffee. She likes tea!  (not + like)", answers:["doesn't like","does not like","doesnt like"], full:"She doesn't like coffee.", hint:"Frase negativa con she → doesn't + verbo base."},
+  const writeLevels = [
+    [ // L1
+      {q:"I ____ a dog.  (have)", answers:["have"], full:"I have a dog.", hint:"Soggetto I → verbo base."},
+      {q:"She ____ happy.  (be)", answers:["is"], full:"She is happy.", hint:"She → is."},
+      {q:"We ____ football.  (play)", answers:["play"], full:"We play football.", hint:"We → verbo base."},
+      {q:"He ____ milk.  (like)", answers:["likes"], full:"He likes milk.", hint:"He → verbo + s."},
+      {q:"They ____ in the park.  (run)", answers:["run"], full:"They run in the park.", hint:"They → verbo base."},
+      {q:"The cat ____ fast.  (run)", answers:["runs"], full:"The cat runs fast.", hint:"It (the cat) → verbo + s."},
+    ],
+    [ // L2
+      {q:"She ____ to school every day.  (go)", answers:["goes"], full:"She goes to school every day.", hint:"go → goes (+es)."},
+      {q:"He ____ TV in the evening.  (watch)", answers:["watches"], full:"He watches TV in the evening.", hint:"watch → watches (+es)."},
+      {q:"My mum ____ English.  (study)", answers:["studies"], full:"My mum studies English.", hint:"study → studies (consonante + y → ies)."},
+      {q:"I ____ pizza very much.  (like)", answers:["like"], full:"I like pizza very much.", hint:"I → verbo base."},
+      {q:"They ____ in a big house.  (live)", answers:["live"], full:"They live in a big house.", hint:"They → verbo base."},
+      {q:"He ____ his homework.  (do)", answers:["does"], full:"He does his homework.", hint:"do → does."},
+    ],
+    [ // L3
+      {q:"She ____ coffee. She likes tea.  (not + like)", answers:["doesn't like","does not like","doesnt like"], full:"She doesn't like coffee.", hint:"she → doesn't + verbo base."},
+      {q:"I ____ meat. I'm vegetarian.  (not + eat)", answers:["don't eat","do not eat","dont eat"], full:"I don't eat meat.", hint:"I → don't + verbo base."},
+      {q:"They ____ on Sunday.  (not + work)", answers:["don't work","do not work","dont work"], full:"They don't work on Sunday.", hint:"they → don't + verbo base."},
+      {q:"He ____ a car.  (not + have)", answers:["doesn't have","does not have","doesnt have"], full:"He doesn't have a car.", hint:"he → doesn't + verbo base."},
+      {q:"We ____ TV in the morning.  (not + watch)", answers:["don't watch","do not watch","dont watch"], full:"We don't watch TV in the morning.", hint:"we → don't + verbo base."},
+      {q:"My cat ____ fish.  (not + eat)", answers:["doesn't eat","does not eat","doesnt eat"], full:"My cat doesn't eat fish.", hint:"it (the cat) → doesn't + verbo base."},
+    ],
+    [ // L4
+      {q:"____ she like pizza?  (do / does)", answers:["does"], full:"Does she like pizza?", hint:"she → Does."},
+      {q:"____ you play tennis?  (do / does)", answers:["do"], full:"Do you play tennis?", hint:"you → Do."},
+      {q:"____ your brother go to work by bus?  (do / does)", answers:["does"], full:"Does your brother go to work by bus?", hint:"your brother (he) → Does."},
+      {q:"Where ____ they live?  (do / does)", answers:["do"], full:"Where do they live?", hint:"they → do."},
+      {q:"Why ____ she get up early?  (do / does)", answers:["does"], full:"Why does she get up early?", hint:"she → does."},
+      {q:"____ your friends like music?  (do / does)", answers:["do"], full:"Do your friends like music?", hint:"your friends (they) → Do."},
+    ],
   ];
-  let writeDone = new Array(write.length).fill(false);
+  let wLevel=0, writeDone=[];
   function norm(s){ return s.trim().toLowerCase().replace(/\s+/g," "); }
-  function renderWrite(){
+  function setWriteLevel(lvl){
+    wLevel=lvl;
+    const data=writeLevels[lvl];
+    writeDone=new Array(data.length).fill(false);
+    document.getElementById("write-level").innerHTML=levelBar(lvl);
+    document.getElementById("write-prog").textContent=`Completate 0 di ${data.length}`;
     const list=document.getElementById("write-list");
-    list.innerHTML = write.map((it,i)=>`
+    list.innerHTML=data.map((it,i)=>`
       <div class="ex">
         <div class="qnum">Frase ${i+1}</div>
         <div class="qtext">${it.q}</div>
@@ -216,45 +290,78 @@
       </div>`).join("");
   }
   function checkWrite(i){
-    const it=write[i];
+    const it=writeLevels[wLevel][i];
     const inp=document.getElementById("wi"+i);
     const fb=document.getElementById("wfb"+i);
-    const val=norm(inp.value);
-    const ok=it.answers.some(a=>norm(a)===val);
+    const ok=it.answers.some(a=>norm(a)===norm(inp.value));
     if(ok){
       inp.classList.add("okbox"); inp.classList.remove("nobox");
-      fb.innerHTML="✅ Perfetto! "+it.full;
-      fb.className="feedback ok";
+      fb.innerHTML="✅ Perfetto! "+it.full; fb.className="feedback ok";
       say(it.full);
-      if(!writeDone[i]){ writeDone[i]=true; updateWrite(); }
     } else {
       inp.classList.add("nobox");
       fb.innerHTML=`💛 Quasi! ${it.hint}<br>La risposta è: <b>${it.full}</b> <button class="saybtn" onclick="event.stopPropagation();say('${escQ(it.full)}')">🔊</button>`;
       fb.className="feedback no";
-      if(!writeDone[i]){ writeDone[i]=true; updateWrite(); }
     }
+    if(!writeDone[i]){ writeDone[i]=true; updateWrite(); }
   }
   function updateWrite(){
+    const data=writeLevels[wLevel];
     const pr=document.getElementById("write-prog");
     const done=writeDone.filter(Boolean).length;
-    if(done<write.length){ pr.textContent=`Completate ${done} di ${write.length}`; return; }
+    if(done<data.length){ pr.textContent=`Completate ${done} di ${data.length}`; return; }
     let correct=0;
-    write.forEach((it,i)=>{ if(document.getElementById("wi"+i).classList.contains("okbox")) correct++; });
-    pr.innerHTML=`<div class="star">${stars(correct,write.length)}</div>${correct}/${write.length} giuste<br><b>${correct===write.length?"Scrittura perfetta! 🏆":"Bravissima, continua così! 💪"}</b>`;
+    data.forEach((it,i)=>{ if(document.getElementById("wi"+i).classList.contains("okbox")) correct++; });
+    levelResult(pr, correct, data.length, wLevel, 4, "setWriteLevel");
   }
 
   /* ============ SEZIONE 3 — LETTURA ============ */
-  const readingText = "Anna is a nurse. She lives in London. Every day she wakes up at six o'clock. She goes to work by bus. In the evening she reads a book and goes to bed early.";
-  function sayReading(){ say(readingText); }
-  const readQ = [
-    {q:"What is Anna's job? 💼", opts:["A teacher","A nurse","A doctor"], correct:1, full:"Anna is a nurse."},
-    {q:"How does she go to work? 🚌", opts:["By bus","By bike","By car"], correct:0, full:"She goes to work by bus."},
-    {q:"What does she do in the evening? 🌙", opts:["She watches TV","She plays football","She reads a book"], correct:2, full:"In the evening she reads a book."},
+  const readLevels = [
+    { // L1
+      lines:["Tom is a boy.","He has a dog.","He likes to play."],
+      q:[
+        {q:"Who is Tom? 👦", opts:["A boy","A girl","A man"], correct:0, full:"Tom is a boy."},
+        {q:"What does Tom have? 🐶", opts:["A cat","A dog","A bird"], correct:1, full:"He has a dog."},
+        {q:"What does Tom like? 🎮", opts:["To sleep","To eat","To play"], correct:2, full:"He likes to play."},
+      ]
+    },
+    { // L2
+      lines:["Anna is a nurse.","She lives in London.","She wakes up at six o'clock.","She goes to work by bus."],
+      q:[
+        {q:"What is Anna's job? 💼", opts:["A teacher","A nurse","A doctor"], correct:1, full:"Anna is a nurse."},
+        {q:"Where does she live? 🏙️", opts:["In London","In Rome","In Paris"], correct:0, full:"She lives in London."},
+        {q:"How does she go to work? 🚌", opts:["By car","By bike","By bus"], correct:2, full:"She goes to work by bus."},
+      ]
+    },
+    { // L3
+      lines:["Mark works in a big office.","Every morning he drinks coffee and reads his emails.","He doesn't eat lunch at his desk.","After work, he goes to the gym."],
+      q:[
+        {q:"Where does Mark work? 🏢", opts:["In a shop","In a big office","In a school"], correct:1, full:"Mark works in a big office."},
+        {q:"What does he do every morning? ☕", opts:["He drinks coffee and reads emails","He plays football","He sleeps"], correct:0, full:"He drinks coffee and reads his emails."},
+        {q:"Where does he go after work? 💪", opts:["To the park","To the gym","To the cinema"], correct:1, full:"After work, he goes to the gym."},
+      ]
+    },
+    { // L4
+      lines:["Sara and Lucy are sisters.","They live in a small town near the sea.","Sara teaches music, but Lucy doesn't work — she is a student.","On Saturdays they don't stay at home: they visit their grandmother."],
+      q:[
+        {q:"Where do they live? 🌊", opts:["In a big city","In a small town near the sea","On a farm"], correct:1, full:"They live in a small town near the sea."},
+        {q:"What does Lucy do? 🎓", opts:["She teaches music","She is a student","She is a nurse"], correct:1, full:"Lucy is a student."},
+        {q:"What do they do on Saturdays? 👵", opts:["They stay at home","They visit their grandmother","They go to school"], correct:1, full:"On Saturdays they visit their grandmother."},
+      ]
+    },
   ];
-  let readDone=new Array(readQ.length).fill(false);
-  function renderRead(){
+  let rLevel=0, readDone=[], readingText="";
+  function sayReading(){ say(readingText); }
+  function setReadLevel(lvl){
+    rLevel=lvl;
+    const data=readLevels[lvl];
+    readingText=data.lines.join(" ");
+    readDone=new Array(data.q.length).fill(false);
+    document.getElementById("read-level").innerHTML=levelBar(lvl);
+    document.getElementById("reading-text").innerHTML=data.lines.map(l=>`<p>${l}</p>`).join("");
+    document.getElementById("read-prog").textContent=`Risposte 0 di ${data.q.length}`;
     const list=document.getElementById("read-list");
-    list.innerHTML = readQ.map((it,i)=>`
+    list.innerHTML=data.q.map((it,i)=>`
       <div class="ex">
         <div class="qnum">Domanda ${i+1}</div>
         <div class="qtext">${it.q}</div>
@@ -265,14 +372,13 @@
       </div>`).join("");
   }
   function readAns(i,j){
-    const it=readQ[i];
+    const it=readLevels[rLevel].q[i];
     const opts=document.querySelectorAll("#read-list .ex:nth-child("+(i+1)+") .opt");
     const fb=document.getElementById("rfb"+i);
     if(j===it.correct){
       opts[j].classList.add("correct");
       fb.innerHTML="✅ Giusto! "+it.full+` <button class="saybtn" onclick="event.stopPropagation();say('${escQ(it.full)}')">🔊</button>`;
-      fb.className="feedback ok";
-      opts.forEach(o=>o.disabled=true);
+      fb.className="feedback ok"; opts.forEach(o=>o.disabled=true);
       if(!readDone[i]){ readDone[i]=true; updateRead(); }
     } else {
       opts[j].classList.add("wrong");
@@ -280,28 +386,39 @@
     }
   }
   function updateRead(){
+    const data=readLevels[rLevel];
     const pr=document.getElementById("read-prog");
     const done=readDone.filter(Boolean).length;
-    if(done<readQ.length){ pr.textContent=`Risposte ${done} di ${readQ.length}`; return; }
-    pr.innerHTML=`<div class="star">${stars(readQ.length,readQ.length)}</div>${readQ.length}/${readQ.length} giuste<br><b>Ottima comprensione! 🏆</b>`;
+    if(done<data.q.length){ pr.textContent=`Risposte ${done} di ${data.q.length}`; return; }
+    // ogni domanda si chiude solo con la risposta giusta → tutte corrette alla fine
+    levelResult(pr, data.q.length, data.q.length, rLevel, 2, "setReadLevel");
   }
 
   /* ============ SEZIONE 4 — LESSICO ============ */
-  const pairs = [
-    {en:"eat", it:"mangiare 🍽️"},
-    {en:"sleep", it:"dormire 😴"},
-    {en:"run", it:"correre 🏃"},
-    {en:"read", it:"leggere 📖"},
-    {en:"drink", it:"bere 🥤"},
-    {en:"play", it:"giocare ⚽"},
-    {en:"write", it:"scrivere ✏️"},
-    {en:"sing", it:"cantare 🎵"},
+  const matchLevels = [
+    [ // L1 verbi comunissimi
+      {en:"eat", it:"mangiare 🍽️"},{en:"sleep", it:"dormire 😴"},{en:"run", it:"correre 🏃"},{en:"read", it:"leggere 📖"},
+      {en:"drink", it:"bere 🥤"},{en:"play", it:"giocare ⚽"},{en:"write", it:"scrivere ✏️"},{en:"sing", it:"cantare 🎵"},
+    ],
+    [ // L2 verbi di tutti i giorni
+      {en:"work", it:"lavorare 💼"},{en:"study", it:"studiare 📚"},{en:"cook", it:"cucinare 🍳"},{en:"walk", it:"camminare 🚶"},
+      {en:"watch", it:"guardare 📺"},{en:"listen", it:"ascoltare 🎧"},{en:"speak", it:"parlare 🗣️"},{en:"help", it:"aiutare 🤝"},
+    ],
+    [ // L3 utili, un po' meno comuni
+      {en:"buy", it:"comprare 🛒"},{en:"clean", it:"pulire 🧹"},{en:"wash", it:"lavare 🧼"},{en:"drive", it:"guidare 🚗"},
+      {en:"teach", it:"insegnare 👩‍🏫"},{en:"learn", it:"imparare 🧠"},{en:"wear", it:"indossare 👕"},{en:"bring", it:"portare 🎒"},
+    ],
+    [ // L4 routine + sfida (sempre concreti)
+      {en:"wake up", it:"svegliarsi ⏰"},{en:"brush", it:"lavarsi i denti 🪥"},{en:"start", it:"iniziare ▶️"},{en:"finish", it:"finire 🏁"},
+      {en:"remember", it:"ricordare 🧠"},{en:"understand", it:"capire 💡"},{en:"choose", it:"scegliere ✅"},{en:"travel", it:"viaggiare ✈️"},
+    ],
   ];
-  let selEn=null, matched=0;
+  let mLevel=0, selEn=null, matched=0, firstTry=0, spoiled;
   function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
-  function startMatch(){
-    selEn=null; matched=0;
-    document.getElementById("match-restart").style.display="none";
+  function setMatchLevel(lvl){
+    mLevel=lvl; selEn=null; matched=0; firstTry=0; spoiled=new Set();
+    const pairs=matchLevels[lvl];
+    document.getElementById("match-level").innerHTML=levelBar(lvl);
     const grid=document.getElementById("match-grid");
     const left=pairs.map((p,i)=>`<button class="match-btn" id="en${i}" onclick="pickEn(${i})">
         <span>${p.en}</span>
@@ -322,29 +439,31 @@
     const itBtn=document.getElementById("it"+i);
     if(itBtn.classList.contains("done")) return;
     const enBtn=document.getElementById("en"+selEn);
+    const pairs=matchLevels[mLevel];
     if(selEn===i){
       enBtn.classList.remove("sel"); enBtn.classList.add("done"); itBtn.classList.add("done");
       say(pairs[i].en);
+      if(!spoiled.has(selEn)) firstTry++;
       selEn=null; matched++;
       const pr=document.getElementById("match-prog");
       if(matched>=pairs.length){
-        pr.innerHTML=`<div class="star">⭐⭐⭐⭐⭐</div>${pairs.length}/${pairs.length} coppie<br><b>Lessico perfetto! 🏆</b>`;
-        document.getElementById("match-restart").style.display="block";
+        levelResult(pr, firstTry, pairs.length, mLevel, 5, "setMatchLevel");
       } else {
         pr.textContent=`Coppie collegate: ${matched} di ${pairs.length}`;
       }
     } else {
+      spoiled.add(selEn);
       itBtn.classList.add("flash");
       setTimeout(()=>itBtn.classList.remove("flash"),500);
       enBtn.classList.remove("sel"); selEn=null;
     }
   }
 
-  // avvio
-  startListen();
-  renderWrite();
-  renderRead();
-  startMatch();
+  // avvio: ogni sezione parte dal Livello 1
+  setListenLevel(0);
+  setWriteLevel(0);
+  setReadLevel(0);
+  setMatchLevel(0);
 </script>
 
 <script>
