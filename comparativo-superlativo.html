@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inglese - Comparativo e Superlativo</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#FAF6EE">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Inglese di Irene">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FAF6EE; --card:#FFFFFF; --ink:#2F2A24;
+    --accent:#C8651B; --accent-soft:#F3E2D0;
+    --green:#3E8E5A; --green-soft:#E2F0E6;
+    --red:#C2492F; --red-soft:#F6E1DB;
+    --blue:#3B6EA5; --blue-soft:#E2ECF5;
+    --purple:#7B5EA7; --purple-soft:#EDE8F5;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; font-family:"Lexend","Trebuchet MS",Verdana,sans-serif;
+    background:var(--bg); color:var(--ink); line-height:1.7; letter-spacing:0.3px; padding:24px 14px 60px;}
+  .wrap{max-width:620px;margin:0 auto;}
+  h1{color:var(--accent);font-size:1.7rem;text-align:center;margin:0 0 6px;}
+  .sub{text-align:center;color:#8a7f70;margin:0 0 26px;font-size:1rem;}
+  .card{background:var(--card);border-radius:18px;padding:22px 20px;margin-bottom:22px;
+    box-shadow:0 4px 14px rgba(0,0,0,0.06);border:1px solid #efe7da;}
+  .card h2{margin:0 0 14px;font-size:1.25rem;color:var(--accent);display:flex;align-items:center;gap:8px;}
+  table{width:100%;border-collapse:collapse;margin:6px 0;}
+  td,th{padding:10px;text-align:center;border-bottom:2px solid var(--accent-soft);font-size:1.05rem;}
+  th{color:var(--accent);}
+  .cell-comp{background:var(--blue-soft);border-radius:8px;font-weight:bold;color:var(--blue);}
+  .cell-sup{background:var(--green-soft);border-radius:8px;font-weight:bold;color:var(--green);}
+  .cell-irr{background:var(--red-soft);border-radius:8px;font-weight:bold;color:var(--red);}
+  .saybtn{background:var(--blue-soft);color:var(--blue);border:none;border-radius:10px;
+    padding:6px 12px;font-size:0.95rem;cursor:pointer;font-family:inherit;}
+  .tip{background:var(--accent-soft);border-radius:10px;padding:10px 14px;font-size:0.98rem;margin-top:10px;}
+  .tip-blue{background:var(--blue-soft);border-radius:10px;padding:10px 14px;font-size:0.98rem;margin-top:10px;color:var(--blue);}
+  .tip-red{background:var(--red-soft);border-radius:10px;padding:10px 14px;font-size:0.98rem;margin-top:10px;color:var(--red);}
+  .uso-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0;}
+  .uso-box{background:var(--bg);border:2px solid var(--accent-soft);border-radius:14px;padding:14px;text-align:center;font-size:0.97rem;}
+  .uso-box .icon{font-size:1.6rem;display:block;margin-bottom:4px;}
+  .uso-box.comp{border-color:var(--blue);}
+  .uso-box.sup{border-color:var(--green);}
+  .spec-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0;}
+  .spec-box{background:var(--blue-soft);border-radius:12px;padding:10px 14px;font-size:0.97rem;}
+  .spec-box b{color:var(--blue);}
+  .flashcards{display:flex;flex-direction:column;gap:12px;margin-top:4px;}
+  .fc{background:var(--bg);border:2px solid var(--accent-soft);border-radius:14px;
+    padding:16px;cursor:pointer;font-size:1.1rem;transition:all .2s;}
+  .fc:hover{border-color:var(--accent);}
+  .fc .en{font-weight:bold;color:var(--ink);}
+  .fc .it{color:var(--green);margin-top:6px;display:none;font-size:1rem;}
+  .fc.open .it{display:block;}
+  .fc .hint-tap{font-size:0.85rem;color:#aaa;margin-top:4px;}
+  .ex{margin:18px 0;}
+  .qnum{font-weight:bold;color:var(--accent);}
+  .qtext{font-size:1.15rem;margin:6px 0 8px;}
+  .qhint{background:var(--blue-soft);color:var(--blue);border-radius:10px;padding:8px 12px;font-size:0.95rem;margin-bottom:10px;}
+  .options{display:flex;gap:10px;flex-wrap:wrap;}
+  .opt{flex:1;min-width:80px;background:var(--bg);border:2px solid var(--accent-soft);
+    border-radius:12px;padding:14px;font-size:1.1rem;cursor:pointer;
+    text-align:center;font-family:inherit;color:var(--ink);transition:all .15s;}
+  .opt:hover{border-color:var(--accent);}
+  .opt.correct{background:var(--green-soft);border-color:var(--green);color:var(--green);font-weight:bold;}
+  .opt.wrong{background:var(--red-soft);border-color:var(--red);color:var(--red);}
+  .feedback{margin-top:12px;font-size:1.05rem;font-weight:bold;min-height:26px;}
+  .feedback.ok{color:var(--green);}
+  .feedback.no{color:var(--red);}
+  .progress{text-align:center;font-size:1.1rem;margin:10px 0 0;color:#8a7f70;}
+  .star{font-size:1.4rem;}
+  .restart{display:block;margin:20px auto 0;background:var(--accent);color:#fff;border:none;
+    border-radius:12px;padding:12px 24px;font-size:1.05rem;cursor:pointer;font-family:inherit;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>📊 Comparativo e Superlativo</h1>
+  <p class="sub">confrontare: bigger, the best…</p>
+
+  <!-- DUE IDEE -->
+  <div class="card">
+    <h2>💡 Due cose diverse</h2>
+    <div class="uso-grid">
+      <div class="uso-box comp">
+        <span class="icon">⚖️</span><b style="color:var(--blue)">Comparativo</b><br>
+        <small>confronta DUE cose</small><br>
+        <i>Anna is taller than Sam.</i> <button class="saybtn" onclick="say('Anna is taller than Sam')">🔊</button>
+      </div>
+      <div class="uso-box sup">
+        <span class="icon">🏆</span><b style="color:var(--green)">Superlativo</b><br>
+        <small>il PIÙ di tutti</small><br>
+        <i>Anna is the tallest.</i> <button class="saybtn" onclick="say('Anna is the tallest')">🔊</button>
+      </div>
+    </div>
+    <div class="tip">🎨 Comparativo = "più … di" (tra due). Superlativo = "il più … di tutti".</div>
+  </div>
+
+  <!-- AGGETTIVI CORTI -->
+  <div class="card">
+    <h2>📏 Aggettivi corti: -er / -est</h2>
+    <table>
+      <tr><th>Base</th><th>Comparativo (+er than)</th><th>Superlativo (the +est)</th></tr>
+      <tr><td>tall</td><td class="cell-comp">taller than</td><td class="cell-sup">the tallest</td></tr>
+      <tr><td>old</td><td class="cell-comp">older than</td><td class="cell-sup">the oldest</td></tr>
+      <tr><td>fast</td><td class="cell-comp">faster than</td><td class="cell-sup">the fastest</td></tr>
+    </table>
+    <div style="text-align:center;margin:6px 0;">
+      <button class="saybtn" onclick="say('tall, taller than, the tallest')">🔊 tall</button>
+      <button class="saybtn" onclick="say('fast, faster than, the fastest')">🔊 fast</button>
+    </div>
+    <div class="spec-grid">
+      <div class="spec-box"><b>raddoppio: big → bigger → biggest</b><br><button class="saybtn" onclick="say('big, bigger, the biggest')">🔊</button> &nbsp; hot → hotter → hottest <button class="saybtn" onclick="say('hot, hotter, the hottest')">🔊</button></div>
+      <div class="spec-box"><b>consonante + y → ier / iest</b><br>happy → happier → happiest <button class="saybtn" onclick="say('happy, happier, the happiest')">🔊</button></div>
+    </div>
+  </div>
+
+  <!-- AGGETTIVI LUNGHI -->
+  <div class="card">
+    <h2>📐 Aggettivi lunghi: more / the most</h2>
+    <table>
+      <tr><th>Base</th><th>Comparativo (more … than)</th><th>Superlativo (the most …)</th></tr>
+      <tr><td>beautiful</td><td class="cell-comp">more beautiful than</td><td class="cell-sup">the most beautiful</td></tr>
+      <tr><td>expensive</td><td class="cell-comp">more expensive than</td><td class="cell-sup">the most expensive</td></tr>
+      <tr><td>difficult</td><td class="cell-comp">more difficult than</td><td class="cell-sup">the most difficult</td></tr>
+    </table>
+    <div style="text-align:center;margin:6px 0;">
+      <button class="saybtn" onclick="say('beautiful, more beautiful than, the most beautiful')">🔊 beautiful</button>
+    </div>
+    <div class="tip-blue">💡 <b>Regola d'oro:</b> aggettivo CORTO (1 sillaba) → <b>-er / -est</b>. Aggettivo LUNGO (2+ sillabe) → <b>more / the most</b> + aggettivo (che resta uguale).</div>
+  </div>
+
+  <!-- IRREGOLARI -->
+  <div class="card">
+    <h2>⭐ Irregolari (da ricordare)</h2>
+    <table>
+      <tr><th>Base</th><th>Comparativo</th><th>Superlativo</th><th>🔊</th></tr>
+      <tr><td>good (buono)</td><td class="cell-irr">better than</td><td class="cell-irr">the best</td><td><button class="saybtn" onclick="say('good, better than, the best')">🔊</button></td></tr>
+      <tr><td>bad (cattivo)</td><td class="cell-irr">worse than</td><td class="cell-irr">the worst</td><td><button class="saybtn" onclick="say('bad, worse than, the worst')">🔊</button></td></tr>
+    </table>
+    <div class="tip-red">⚠️ Questi NON seguono le regole: non si dice "gooder" o "baddest"! Vanno imparati a memoria: <b>good → better → the best</b>, <b>bad → worse → the worst</b>.</div>
+  </div>
+
+  <!-- FLASHCARD -->
+  <div class="card">
+    <h2>🃏 Flashcard — tocca per tradurre!</h2>
+    <div class="flashcards">
+      <div class="fc" onclick="flip(this)">
+        <div class="en">My brother is taller than me. 📏 <button class="saybtn" onclick="event.stopPropagation();say('My brother is taller than me')">🔊</button></div>
+        <div class="it">Mio fratello è più alto di me.</div>
+        <div class="hint-tap">👆 tocca per vedere la traduzione</div>
+      </div>
+      <div class="fc" onclick="flip(this)">
+        <div class="en">This is the biggest pizza! 🍕 <button class="saybtn" onclick="event.stopPropagation();say('This is the biggest pizza')">🔊</button></div>
+        <div class="it">Questa è la pizza più grande!</div>
+        <div class="hint-tap">👆 tocca per vedere la traduzione</div>
+      </div>
+      <div class="fc" onclick="flip(this)">
+        <div class="en">English is more difficult than Italian. 📖 <button class="saybtn" onclick="event.stopPropagation();say('English is more difficult than Italian')">🔊</button></div>
+        <div class="it">L'inglese è più difficile dell'italiano.</div>
+        <div class="hint-tap">👆 tocca per vedere la traduzione</div>
+      </div>
+      <div class="fc" onclick="flip(this)">
+        <div class="en">She is my best friend. 💖 <button class="saybtn" onclick="event.stopPropagation();say('She is my best friend')">🔊</button></div>
+        <div class="it">Lei è la mia migliore amica.</div>
+        <div class="hint-tap">👆 tocca per vedere la traduzione</div>
+      </div>
+      <div class="fc" onclick="flip(this)">
+        <div class="en">Today is hotter than yesterday. ☀️ <button class="saybtn" onclick="event.stopPropagation();say('Today is hotter than yesterday')">🔊</button></div>
+        <div class="it">Oggi fa più caldo di ieri.</div>
+        <div class="hint-tap">👆 tocca per vedere la traduzione</div>
+      </div>
+      <div class="fc" onclick="flip(this)">
+        <div class="en">It was the worst day ever. 😩 <button class="saybtn" onclick="event.stopPropagation();say('It was the worst day ever')">🔊</button></div>
+        <div class="it">È stato il giorno peggiore di sempre.</div>
+        <div class="hint-tap">👆 tocca per vedere la traduzione</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ESERCIZI GUIDATI -->
+  <div class="card">
+    <h2>✏️ Esercizi guidati</h2>
+    <p style="margin-top:0;color:#8a7f70;">Leggi prima il suggerimento 💡, poi scegli la risposta giusta!</p>
+    <div id="guided"></div>
+    <div class="progress" id="gprogress"></div>
+    <button class="restart" id="grestartBtn" style="display:none;" onclick="startGuided()">🔄 Riprova gli esercizi</button>
+  </div>
+
+  <!-- QUIZ FINALE -->
+  <div class="card">
+    <h2>✅ Quiz finale</h2>
+    <p style="margin-top:0;color:#8a7f70;">Hai capito tutto? Mettiti alla prova! 🎯</p>
+    <div id="quiz"></div>
+    <div class="progress" id="progress"></div>
+    <button class="restart" id="restartBtn" style="display:none;" onclick="startQuiz()">🔄 Ricomincia il quiz</button>
+  </div>
+</div>
+
+<script>
+  function say(text){
+    try{
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = "en-US"; u.rate = 0.85;
+      speechSynthesis.cancel(); speechSynthesis.speak(u);
+    }catch(e){}
+  }
+  function flip(el){ el.classList.toggle("open"); }
+  function escQ(s){ return s.replace(/'/g, "\\'"); }
+
+  const guided = [
+    {q:"A car is ____ a bike. 🚗🚲  (fast, confronto fra due)", hint:"💡 Confronti DUE cose → comparativo. 'Fast' è corto → faster + than!", opts:["faster than","the fastest","more fast than"], correct:0, full:"A car is faster than a bike."},
+    {q:"Mount Everest is ____ mountain in the world. 🏔️  (high, il più di tutti)", hint:"💡 'Il più di tutti nel mondo' → superlativo. 'High' è corto → the highest!", opts:["higher than","the highest","the most high"], correct:1, full:"Mount Everest is the highest mountain in the world."},
+    {q:"This book is ____ that one. 📚  (interesting, confronto)", hint:"💡 'Interesting' è LUNGO (tante sillabe) → comparativo con 'more … than'!", opts:["interestinger than","more interesting than","the most interesting"], correct:1, full:"This book is more interesting than that one."},
+    {q:"She is the ____ student in the class. 🎓  (good, il migliore)", hint:"💡 'Good' è IRREGOLARE! Il superlativo non è 'goodest'. Qual è la forma giusta?", opts:["goodest","best","most good"], correct:1, full:"She is the best student in the class."},
+    {q:"Today is ____ yesterday. 🌡️  (hot, confronto)", hint:"💡 'Hot' è corto e finisce in consonante-vocale-consonante → raddoppia: hotter + than!", opts:["hoter than","hotter than","more hot than"], correct:1, full:"Today is hotter than yesterday."},
+    {q:"This is ____ day of my life! 😄  (happy, il più di tutti)", hint:"💡 'Happy' finisce in consonante + y → superlativo: the happiest!", opts:["the happyest","the happiest","the most happy"], correct:1, full:"This is the happiest day of my life!"},
+  ];
+
+  let gc=0, gs=0;
+  function startGuided(){ gc=0; gs=0; document.getElementById("grestartBtn").style.display="none"; showGuided(); }
+  function showGuided(){
+    const el=document.getElementById("guided");
+    const pr=document.getElementById("gprogress");
+    if(gc>=guided.length){
+      el.innerHTML="";
+      const pct=gs/guided.length;
+      const n=pct===1?5:pct>=0.67?4:pct>=0.5?3:2;
+      let stars=""; for(let i=0;i<n;i++) stars+="⭐";
+      const msg=pct===1?"Bravissima! Hai capito tutto! 🏆":pct>=0.5?"Quasi! Riprova per sicurezza 💪":"Allenati ancora, ci riesci! 🌱";
+      pr.innerHTML=`<div class="star">${stars}</div>${gs}/${guided.length} giuste<br><b>${msg}</b>`;
+      document.getElementById("grestartBtn").style.display="block";
+      return;
+    }
+    const item=guided[gc];
+    pr.textContent=`Esercizio ${gc+1} di ${guided.length}`;
+    el.innerHTML=`
+      <div class="ex">
+        <div class="qnum">Esercizio ${gc+1}</div>
+        <div class="qtext">${item.q} <button class="saybtn" onclick="say('${escQ(item.full)}')">🔊</button></div>
+        <div class="qhint">${item.hint}</div>
+        <div class="options">
+          ${item.opts.map((o,i)=>`<button class="opt" onclick="gAnswer(${i})">${o}</button>`).join("")}
+        </div>
+        <div class="feedback" id="gfb"></div>
+      </div>`;
+  }
+  function gAnswer(i){
+    const item=guided[gc];
+    const opts=document.querySelectorAll("#guided .opt");
+    const fb=document.getElementById("gfb");
+    if(i===item.correct){
+      opts[i].classList.add("correct");
+      fb.textContent="✅ Giusto! "+item.full; fb.className="feedback ok";
+      gs++; say(item.full);
+      opts.forEach(o=>o.disabled=true);
+      setTimeout(()=>{ gc++; showGuided(); },1800);
+    } else {
+      opts[i].classList.add("wrong");
+      fb.textContent="Riprova! Guarda il suggerimento 💡"; fb.className="feedback no";
+    }
+  }
+
+  const questions = [
+    {q:"An elephant is ____ a mouse. 🐘🐭  (big)", opts:["bigger than","the biggest","more big than"], correct:0, full:"An elephant is bigger than a mouse."},
+    {q:"This is ____ film I've ever seen. 🎬  (good)", opts:["gooder than","the best","the goodest"], correct:1, full:"This is the best film I've ever seen."},
+    {q:"My bag is ____ yours. 👜  (heavy)", opts:["heavier than","the heaviest","more heavy than"], correct:0, full:"My bag is heavier than yours."},
+    {q:"She is ____ girl in the school. 🌟  (popular, lungo)", opts:["popularest","the most popular","more popular"], correct:1, full:"She is the most popular girl in the school."},
+    {q:"Winter is ____ summer. ❄️  (cold)", opts:["colder than","the coldest","more cold than"], correct:0, full:"Winter is colder than summer."},
+    {q:"That was ____ day of my life. 😩  (bad)", opts:["the baddest","the worst","worse than"], correct:1, full:"That was the worst day of my life."},
+    {q:"A plane is ____ a car. ✈️  (expensive, lungo)", opts:["expensiver than","more expensive than","the most expensive"], correct:1, full:"A plane is more expensive than a car."},
+    {q:"He is ____ boy in the team. 🏃  (tall)", opts:["taller than","the tallest","more tall"], correct:1, full:"He is the tallest boy in the team."},
+  ];
+
+  let current=0, score=0;
+  function startQuiz(){ current=0; score=0; document.getElementById("restartBtn").style.display="none"; showQuestion(); }
+  function showQuestion(){
+    const quiz=document.getElementById("quiz");
+    const prog=document.getElementById("progress");
+    if(current>=questions.length){
+      quiz.innerHTML="";
+      const pct=score/questions.length;
+      const n=pct===1?5:pct>=0.75?4:pct>=0.5?3:pct>=0.25?2:1;
+      let stars=""; for(let i=0;i<n;i++) stars+="⭐";
+      const msg=pct===1?"Perfetto! Hai imparato comparativo e superlativo! 🏆":pct>=0.5?"Bravissima, ci sei quasi! 💪":"Bene, riprova: si impara ripetendo! 🌱";
+      prog.innerHTML=`<div class="star">${stars}</div>${score}/${questions.length} giuste<br><b>${msg}</b>`;
+      document.getElementById("restartBtn").style.display="block";
+      return;
+    }
+    const item=questions[current];
+    prog.textContent=`Domanda ${current+1} di ${questions.length}`;
+    quiz.innerHTML=`
+      <div class="ex">
+        <div class="qnum">Domanda ${current+1}</div>
+        <div class="qtext">${item.q} <button class="saybtn" onclick="say('${escQ(item.full)}')">🔊</button></div>
+        <div class="options">
+          ${item.opts.map((o,i)=>`<button class="opt" onclick="answer(${i})">${o}</button>`).join("")}
+        </div>
+        <div class="feedback" id="fb"></div>
+      </div>`;
+  }
+  function answer(i){
+    const item=questions[current];
+    const opts=document.querySelectorAll("#quiz .opt");
+    const fb=document.getElementById("fb");
+    if(i===item.correct){
+      opts[i].classList.add("correct");
+      fb.textContent="✅ Giusto! "+item.full; fb.className="feedback ok";
+      score++; say(item.full);
+      opts.forEach(o=>o.disabled=true);
+      setTimeout(()=>{ current++; showQuestion(); },1600);
+    } else {
+      opts[i].classList.add("wrong");
+      fb.textContent="Riprova! 🙂"; fb.className="feedback no";
+    }
+  }
+
+  startGuided();
+  startQuiz();
+</script>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./service-worker.js');
+  }
+</script>
+</body>
+</html>

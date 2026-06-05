@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inglese - Preposizioni in / on / at</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#FAF6EE">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Inglese di Irene">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FAF6EE; --card:#FFFFFF; --ink:#2F2A24;
+    --accent:#C8651B; --accent-soft:#F3E2D0;
+    --green:#3E8E5A; --green-soft:#E2F0E6;
+    --red:#C2492F; --red-soft:#F6E1DB;
+    --blue:#3B6EA5; --blue-soft:#E2ECF5;
+    --purple:#7B5EA7; --purple-soft:#EDE8F5;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; font-family:"Lexend","Trebuchet MS",Verdana,sans-serif;
+    background:var(--bg); color:var(--ink); line-height:1.7; letter-spacing:0.3px; padding:24px 14px 60px;}
+  .wrap{max-width:620px;margin:0 auto;}
+  h1{color:var(--accent);font-size:1.7rem;text-align:center;margin:0 0 6px;}
+  .sub{text-align:center;color:#8a7f70;margin:0 0 26px;font-size:1rem;}
+  .card{background:var(--card);border-radius:18px;padding:22px 20px;margin-bottom:22px;
+    box-shadow:0 4px 14px rgba(0,0,0,0.06);border:1px solid #efe7da;}
+  .card h2{margin:0 0 14px;font-size:1.25rem;color:var(--accent);display:flex;align-items:center;gap:8px;}
+  table{width:100%;border-collapse:collapse;margin:6px 0;}
+  td,th{padding:10px;text-align:center;border-bottom:2px solid var(--accent-soft);font-size:1.05rem;}
+  th{color:var(--accent);}
+  .cell-at{background:var(--green-soft);border-radius:8px;font-weight:bold;color:var(--green);}
+  .cell-on{background:var(--blue-soft);border-radius:8px;font-weight:bold;color:var(--blue);}
+  .cell-in{background:var(--purple-soft);border-radius:8px;font-weight:bold;color:var(--purple);}
+  .saybtn{background:var(--blue-soft);color:var(--blue);border:none;border-radius:10px;
+    padding:6px 12px;font-size:0.95rem;cursor:pointer;font-family:inherit;}
+  .tip{background:var(--accent-soft);border-radius:10px;padding:10px 14px;font-size:0.98rem;margin-top:10px;}
+  .tip-blue{background:var(--blue-soft);border-radius:10px;padding:10px 14px;font-size:0.98rem;margin-top:10px;color:var(--blue);}
+  .flashcards{display:flex;flex-direction:column;gap:12px;margin-top:4px;}
+  .fc{background:var(--bg);border:2px solid var(--accent-soft);border-radius:14px;
+    padding:16px;cursor:pointer;font-size:1.1rem;transition:all .2s;}
+  .fc:hover{border-color:var(--accent);}
+  .fc .en{font-weight:bold;color:var(--ink);}
+  .fc .it{color:var(--green);margin-top:6px;display:none;font-size:1rem;}
+  .fc.open .it{display:block;}
+  .fc .hint-tap{font-size:0.85rem;color:#aaa;margin-top:4px;}
+  .ex{margin:18px 0;}
+  .qnum{font-weight:bold;color:var(--accent);}
+  .qtext{font-size:1.15rem;margin:6px 0 8px;}
+  .qhint{background:var(--blue-soft);color:var(--blue);border-radius:10px;padding:8px 12px;font-size:0.95rem;margin-bottom:10px;}
+  .options{display:flex;gap:10px;flex-wrap:wrap;}
+  .opt{flex:1;min-width:80px;background:var(--bg);border:2px solid var(--accent-soft);
+    border-radius:12px;padding:14px;font-size:1.1rem;cursor:pointer;
+    text-align:center;font-family:inherit;color:var(--ink);transition:all .15s;}
+  .opt:hover{border-color:var(--accent);}
+  .opt.correct{background:var(--green-soft);border-color:var(--green);color:var(--green);font-weight:bold;}
+  .opt.wrong{background:var(--red-soft);border-color:var(--red);color:var(--red);}
+  .feedback{margin-top:12px;font-size:1.05rem;font-weight:bold;min-height:26px;}
+  .feedback.ok{color:var(--green);}
+  .feedback.no{color:var(--red);}
+  .progress{text-align:center;font-size:1.1rem;margin:10px 0 0;color:#8a7f70;}
+  .star{font-size:1.4rem;}
+  .restart{display:block;margin:20px auto 0;background:var(--accent);color:#fff;border:none;
+    border-radius:12px;padding:12px 24px;font-size:1.05rem;cursor:pointer;font-family:inherit;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>📌 Preposizioni: in / on / at</h1>
+  <p class="sub">per dire quando e dove</p>
+
+  <!-- INTRO -->
+  <div class="card">
+    <h2>💡 Tre piccole parole</h2>
+    <p style="margin:0;"><b>in</b>, <b>on</b> e <b>at</b> servono sia per il <b>tempo</b> (quando) sia per il <b>luogo</b> (dove). Le regole sono simili: <b>at</b> = punto preciso, <b>on</b> = superficie/giorno, <b>in</b> = dentro/periodo grande.</p>
+  </div>
+
+  <!-- TEMPO -->
+  <div class="card">
+    <h2>⏰ TEMPO — quando?</h2>
+    <table>
+      <tr><th>Prep.</th><th>Si usa per</th><th>Esempio 🔊</th></tr>
+      <tr><td class="cell-at">at</td><td>ore e momenti precisi</td><td><i>at 7 o'clock</i> <button class="saybtn" onclick="say('at 7 o\'clock')">🔊</button></td></tr>
+      <tr><td class="cell-at">at</td><td>at night</td><td><i>at night</i> 🌙 <button class="saybtn" onclick="say('at night')">🔊</button></td></tr>
+      <tr><td class="cell-on">on</td><td>giorni e date</td><td><i>on Monday</i> 📅 <button class="saybtn" onclick="say('on Monday')">🔊</button></td></tr>
+      <tr><td class="cell-on">on</td><td>date precise</td><td><i>on July 5th</i> <button class="saybtn" onclick="say('on July fifth')">🔊</button></td></tr>
+      <tr><td class="cell-in">in</td><td>mesi, anni, stagioni</td><td><i>in July, in 2025</i> <button class="saybtn" onclick="say('in July, in 2025')">🔊</button></td></tr>
+      <tr><td class="cell-in">in</td><td>parti del giorno</td><td><i>in the morning</i> ☀️ <button class="saybtn" onclick="say('in the morning')">🔊</button></td></tr>
+    </table>
+    <div class="tip">🎨 <b>Eccezione da ricordare:</b> <i>in the morning / in the afternoon / in the evening</i>, MA <b>at night</b>! <button class="saybtn" onclick="say('in the morning, at night')">🔊</button></div>
+  </div>
+
+  <!-- LUOGO -->
+  <div class="card">
+    <h2>📍 LUOGO — dove?</h2>
+    <table>
+      <tr><th>Prep.</th><th>Si usa per</th><th>Esempio 🔊</th></tr>
+      <tr><td class="cell-at">at</td><td>un punto preciso</td><td><i>at the bus stop</i> 🚏 <button class="saybtn" onclick="say('at the bus stop')">🔊</button></td></tr>
+      <tr><td class="cell-at">at</td><td>at home / at school</td><td><i>at home</i> 🏠 <button class="saybtn" onclick="say('at home')">🔊</button></td></tr>
+      <tr><td class="cell-on">on</td><td>su una superficie</td><td><i>on the table</i> 🍽️ <button class="saybtn" onclick="say('on the table')">🔊</button></td></tr>
+      <tr><td class="cell-on">on</td><td>attaccato a una parete</td><td><i>on the wall</i> 🖼️ <button class="saybtn" onclick="say('on the wall')">🔊</button></td></tr>
+      <tr><td class="cell-in">in</td><td>dentro uno spazio</td><td><i>in the box</i> 📦 <button class="saybtn" onclick="say('in the box')">🔊</button></td></tr>
+      <tr><td class="cell-in">in</td><td>città e paesi</td><td><i>in London</i> 🏙️ <button class="saybtn" onclick="say('in London')">🔊</button></td></tr>
+    </table>
+    <div class="tip-blue">💡 <b>Immagina:</b> <span style="color:var(--green)"><b>at</b> = un puntino sulla mappa 📍</span> · <span style="color:var(--blue)"><b>on</b> = appoggiato sopra 📄</span> · <span style="color:var(--purple)"><b>in</b> = chiuso dentro 📦</span></div>
+  </div>
+
+  <!-- FLASHCARD -->
+  <div class="card">
+    <h2>🃏 Flashcard — tocca per tradurre!</h2>
+    <div class="flashcards">
+      <div class="fc" onclick="flip(this)">
+        <div class="en">I wake up at 7 o'clock. ⏰ <button class="saybtn" onclick="event.stopPropagation();say('I wake up at 7 o\'clock')">🔊</button></div>
+        <div class="it">Mi sveglio alle 7 in punto.</div>
+        <div class="hint-tap">👆 tocca per vedere la traduzione</div>
+      </div>
+      <div class="fc" onclick="flip(this)">
+        <div class="en">We have school on Monday. 📅 <button class="saybtn" onclick="event.stopPropagation();say('We have school on Monday')">🔊</button></div>
+        <div class="it">Abbiamo scuola il lunedì.</div>
+        <div class="hint-tap">👆 tocca per vedere la traduzione</div>
+      </div>
+      <div class="fc" onclick="flip(this)">
+        <div class="en">My birthday is in July. 🎂 <button class="saybtn" onclick="event.stopPropagation();say('My birthday is in July')">🔊</button></div>
+        <div class="it">Il mio compleanno è a luglio.</div>
+        <div class="hint-tap">👆 tocca per vedere la traduzione</div>
+      </div>
+      <div class="fc" onclick="flip(this)">
+        <div class="en">The book is on the table. 📚 <button class="saybtn" onclick="event.stopPropagation();say('The book is on the table')">🔊</button></div>
+        <div class="it">Il libro è sul tavolo.</div>
+        <div class="hint-tap">👆 tocca per vedere la traduzione</div>
+      </div>
+      <div class="fc" onclick="flip(this)">
+        <div class="en">The cat is in the box. 📦 <button class="saybtn" onclick="event.stopPropagation();say('The cat is in the box')">🔊</button></div>
+        <div class="it">Il gatto è dentro la scatola.</div>
+        <div class="hint-tap">👆 tocca per vedere la traduzione</div>
+      </div>
+      <div class="fc" onclick="flip(this)">
+        <div class="en">I am at home now. 🏠 <button class="saybtn" onclick="event.stopPropagation();say('I am at home now')">🔊</button></div>
+        <div class="it">Adesso sono a casa.</div>
+        <div class="hint-tap">👆 tocca per vedere la traduzione</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ESERCIZI GUIDATI -->
+  <div class="card">
+    <h2>✏️ Esercizi guidati</h2>
+    <p style="margin-top:0;color:#8a7f70;">Leggi prima il suggerimento 💡, poi scegli la risposta giusta!</p>
+    <div id="guided"></div>
+    <div class="progress" id="gprogress"></div>
+    <button class="restart" id="grestartBtn" style="display:none;" onclick="startGuided()">🔄 Riprova gli esercizi</button>
+  </div>
+
+  <!-- QUIZ FINALE -->
+  <div class="card">
+    <h2>✅ Quiz finale</h2>
+    <p style="margin-top:0;color:#8a7f70;">Hai capito tutto? Mettiti alla prova! 🎯</p>
+    <div id="quiz"></div>
+    <div class="progress" id="progress"></div>
+    <button class="restart" id="restartBtn" style="display:none;" onclick="startQuiz()">🔄 Ricomincia il quiz</button>
+  </div>
+</div>
+
+<script>
+  function say(text){
+    try{
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = "en-US"; u.rate = 0.85;
+      speechSynthesis.cancel(); speechSynthesis.speak(u);
+    }catch(e){}
+  }
+  function flip(el){ el.classList.toggle("open"); }
+  function escQ(s){ return s.replace(/'/g, "\\'"); }
+
+  const guided = [
+    {q:"The film starts ____ 8 o'clock. 🎬", hint:"💡 È un'ORA precisa (8 o'clock) → usa 'at'!", opts:["at","on","in"], correct:0, full:"The film starts at 8 o'clock."},
+    {q:"We go to the sea ____ Sunday. 🏖️", hint:"💡 È un GIORNO della settimana (Sunday) → usa 'on'!", opts:["at","on","in"], correct:1, full:"We go to the sea on Sunday."},
+    {q:"It's very cold ____ winter. ❄️", hint:"💡 È una STAGIONE (winter) → periodo grande → usa 'in'!", opts:["at","on","in"], correct:2, full:"It's very cold in winter."},
+    {q:"The keys are ____ the table. 🔑", hint:"💡 Le chiavi sono SU una superficie (il tavolo) → usa 'on'!", opts:["at","on","in"], correct:1, full:"The keys are on the table."},
+    {q:"There is milk ____ the fridge. 🥛", hint:"💡 Il latte è DENTRO uno spazio chiuso (il frigo) → usa 'in'!", opts:["at","on","in"], correct:2, full:"There is milk in the fridge."},
+    {q:"I'm waiting ____ the bus stop. 🚏", hint:"💡 È un PUNTO preciso (la fermata) → usa 'at'!", opts:["at","on","in"], correct:0, full:"I'm waiting at the bus stop."},
+  ];
+
+  let gc=0, gs=0;
+  function startGuided(){ gc=0; gs=0; document.getElementById("grestartBtn").style.display="none"; showGuided(); }
+  function showGuided(){
+    const el=document.getElementById("guided");
+    const pr=document.getElementById("gprogress");
+    if(gc>=guided.length){
+      el.innerHTML="";
+      const pct=gs/guided.length;
+      const n=pct===1?5:pct>=0.67?4:pct>=0.5?3:2;
+      let stars=""; for(let i=0;i<n;i++) stars+="⭐";
+      const msg=pct===1?"Bravissima! Hai capito tutto! 🏆":pct>=0.5?"Quasi! Riprova per sicurezza 💪":"Allenati ancora, ci riesci! 🌱";
+      pr.innerHTML=`<div class="star">${stars}</div>${gs}/${guided.length} giuste<br><b>${msg}</b>`;
+      document.getElementById("grestartBtn").style.display="block";
+      return;
+    }
+    const item=guided[gc];
+    pr.textContent=`Esercizio ${gc+1} di ${guided.length}`;
+    el.innerHTML=`
+      <div class="ex">
+        <div class="qnum">Esercizio ${gc+1}</div>
+        <div class="qtext">${item.q} <button class="saybtn" onclick="say('${escQ(item.full)}')">🔊</button></div>
+        <div class="qhint">${item.hint}</div>
+        <div class="options">
+          ${item.opts.map((o,i)=>`<button class="opt" onclick="gAnswer(${i})">${o}</button>`).join("")}
+        </div>
+        <div class="feedback" id="gfb"></div>
+      </div>`;
+  }
+  function gAnswer(i){
+    const item=guided[gc];
+    const opts=document.querySelectorAll("#guided .opt");
+    const fb=document.getElementById("gfb");
+    if(i===item.correct){
+      opts[i].classList.add("correct");
+      fb.textContent="✅ Giusto! "+item.full; fb.className="feedback ok";
+      gs++; say(item.full);
+      opts.forEach(o=>o.disabled=true);
+      setTimeout(()=>{ gc++; showGuided(); },1800);
+    } else {
+      opts[i].classList.add("wrong");
+      fb.textContent="Riprova! Guarda il suggerimento 💡"; fb.className="feedback no";
+    }
+  }
+
+  const questions = [
+    {q:"School starts ____ 8:30. ⏰", opts:["at","on","in"], correct:0, full:"School starts at 8:30."},
+    {q:"My birthday is ____ October 12th. 🎂", opts:["at","on","in"], correct:1, full:"My birthday is on October 12th."},
+    {q:"We go skiing ____ winter. ⛷️", opts:["at","on","in"], correct:2, full:"We go skiing in winter."},
+    {q:"The picture is ____ the wall. 🖼️", opts:["at","on","in"], correct:1, full:"The picture is on the wall."},
+    {q:"She lives ____ London. 🏙️", opts:["at","on","in"], correct:2, full:"She lives in London."},
+    {q:"I study ____ the evening. 🌆", opts:["at","on","in"], correct:2, full:"I study in the evening."},
+    {q:"He sleeps ____ night. 🌙", opts:["at","on","in"], correct:0, full:"He sleeps at night."},
+    {q:"The toys are ____ the box. 📦", opts:["at","on","in"], correct:2, full:"The toys are in the box."},
+  ];
+
+  let current=0, score=0;
+  function startQuiz(){ current=0; score=0; document.getElementById("restartBtn").style.display="none"; showQuestion(); }
+  function showQuestion(){
+    const quiz=document.getElementById("quiz");
+    const prog=document.getElementById("progress");
+    if(current>=questions.length){
+      quiz.innerHTML="";
+      const pct=score/questions.length;
+      const n=pct===1?5:pct>=0.75?4:pct>=0.5?3:pct>=0.25?2:1;
+      let stars=""; for(let i=0;i<n;i++) stars+="⭐";
+      const msg=pct===1?"Perfetto! Hai imparato in, on e at! 🏆":pct>=0.5?"Bravissima, ci sei quasi! 💪":"Bene, riprova: si impara ripetendo! 🌱";
+      prog.innerHTML=`<div class="star">${stars}</div>${score}/${questions.length} giuste<br><b>${msg}</b>`;
+      document.getElementById("restartBtn").style.display="block";
+      return;
+    }
+    const item=questions[current];
+    prog.textContent=`Domanda ${current+1} di ${questions.length}`;
+    quiz.innerHTML=`
+      <div class="ex">
+        <div class="qnum">Domanda ${current+1}</div>
+        <div class="qtext">${item.q} <button class="saybtn" onclick="say('${escQ(item.full)}')">🔊</button></div>
+        <div class="options">
+          ${item.opts.map((o,i)=>`<button class="opt" onclick="answer(${i})">${o}</button>`).join("")}
+        </div>
+        <div class="feedback" id="fb"></div>
+      </div>`;
+  }
+  function answer(i){
+    const item=questions[current];
+    const opts=document.querySelectorAll("#quiz .opt");
+    const fb=document.getElementById("fb");
+    if(i===item.correct){
+      opts[i].classList.add("correct");
+      fb.textContent="✅ Giusto! "+item.full; fb.className="feedback ok";
+      score++; say(item.full);
+      opts.forEach(o=>o.disabled=true);
+      setTimeout(()=>{ current++; showQuestion(); },1600);
+    } else {
+      opts[i].classList.add("wrong");
+      fb.textContent="Riprova! 🙂"; fb.className="feedback no";
+    }
+  }
+
+  startGuided();
+  startQuiz();
+</script>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./service-worker.js');
+  }
+</script>
+</body>
+</html>

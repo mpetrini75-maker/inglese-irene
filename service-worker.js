@@ -1,4 +1,4 @@
-const CACHE = 'inglese-irene-v5';
+const CACHE = 'inglese-irene-v6';
 
 const ASSETS = [
   './',
@@ -14,6 +14,9 @@ const ASSETS = [
   './can-cant.html',
   './past-simple.html',
   './future.html',
+  './some-any.html',
+  './preposizioni.html',
+  './comparativo-superlativo.html',
   './manifest.json',
   './icon-192.svg',
   './icon-512.svg',
