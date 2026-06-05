@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inglese - Future: will / going to</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#FAF6EE">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Inglese di Irene">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FAF6EE; --card:#FFFFFF; --ink:#2F2A24;
+    --accent:#C8651B; --accent-soft:#F3E2D0;
+    --green:#3E8E5A; --green-soft:#E2F0E6;
+    --red:#C2492F; --red-soft:#F6E1DB;
+    --blue:#3B6EA5; --blue-soft:#E2ECF5;
+    --purple:#7B5EA7; --purple-soft:#EDE8F5;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; font-family:"Lexend","Trebuchet MS",Verdana,sans-serif;
+    background:var(--bg); color:var(--ink);
+    line-height:1.7; letter-spacing:0.3px; padding:24px 14px 60px;
+  }
+  .wrap{max-width:620px;margin:0 auto;}
+  h1{color:var(--accent);font-size:1.7rem;text-align:center;margin:0 0 6px;}
+  .sub{text-align:center;color:#8a7f70;margin:0 0 26px;font-size:1rem;}
+  .card{background:var(--card);border-radius:18px;padding:22px 20px;margin-bottom:22px;
+    box-shadow:0 4px 14px rgba(0,0,0,0.06);border:1px solid #efe7da;}
+  .card h2{margin:0 0 14px;font-size:1.25rem;color:var(--accent);display:flex;align-items:center;gap:8px;}
+  table{width:100%;border-collapse:collapse;margin:6px 0;}
+  td,th{padding:10px;text-align:center;border-bottom:2px solid var(--accent-soft);font-size:1.05rem;}
+  th{color:var(--accent);}
+  .cell-will{background:var(--blue-soft);border-radius:8px;font-weight:bold;color:var(--blue);}
+  .cell-going{background:var(--green-soft);border-radius:8px;font-weight:bold;color:var(--green);}
+  .cell-neg{background:var(--red-soft);border-radius:8px;font-weight:bold;color:var(--red);}
+  .cell-int{background:var(--purple-soft);border-radius:8px;font-weight:bold;color:var(--purple);}
+  .saybtn{background:var(--blue-soft);color:var(--blue);border:none;border-radius:10px;
+    padding:6px 12px;font-size:0.95rem;cursor:pointer;font-family:inherit;}
+  .tip{background:var(--accent-soft);border-radius:10px;padding:10px 14px;font-size:0.98rem;margin-top:10px;}
+  .tip-blue{background:var(--blue-soft);border-radius:10px;padding:10px 14px;font-size:0.98rem;margin-top:10px;color:var(--blue);}
+  .tip-green{background:var(--green-soft);border-radius:10px;padding:10px 14px;font-size:0.98rem;margin-top:10px;color:var(--green);}
+  .uso-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0;}
+  .uso-box{background:var(--bg);border:2px solid var(--accent-soft);border-radius:14px;padding:14px;text-align:center;font-size:0.97rem;}
+  .uso-box .icon{font-size:1.6rem;display:block;margin-bottom:4px;}
+  .uso-box.will{border-color:var(--blue);}
+  .uso-box.going{border-color:var(--green);}
+  .flashcards{display:flex;flex-direction:column;gap:12px;margin-top:4px;}
+  .fc{background:var(--bg);border:2px solid var(--accent-soft);border-radius:14px;
+    padding:16px;cursor:pointer;font-size:1.1rem;transition:all .2s;}
+  .fc:hover{border-color:var(--accent);}
+  .fc .en{font-weight:bold;color:var(--ink);}
+  .fc .it{color:var(--green);margin-top:6px;display:none;font-size:1rem;}
+  .fc.open .it{display:block;}
+  .fc .hint-tap{font-size:0.85rem;color:#aaa;margin-top:4px;}
+  .ex{margin:18px 0;}
+  .qnum{font-weight:bold;color:var(--accent);}
+  .qtext{font-size:1.15rem;margin:6px 0 8px;}
+  .qhint{background:var(--blue-soft);color:var(--blue);border-radius:10px;padding:8px 12px;font-size:0.95rem;margin-bottom:10px;}
+  .options{display:flex;gap:10px;flex-wrap:wrap;}
+  .opt{flex:1;min-width:80px;background:var(--bg);border:2px solid var(--accent-soft);
+    border-radius:12px;padding:14px;font-size:1.1rem;cursor:pointer;
+    text-align:center;font-family:inherit;color:var(--ink);transition:all .15s;}
+  .opt:hover{border-color:var(--accent);}
+  .opt.correct{background:var(--green-soft);border-color:var(--green);color:var(--green);font-weight:bold;}
+  .opt.wrong{background:var(--red-soft);border-color:var(--red);color:var(--red);}
+  .feedback{margin-top:12px;font-size:1.05rem;font-weight:bold;min-height:26px;}
+  .feedback.ok{color:var(--green);}
+  .feedback.no{color:var(--red);}
+  .progress{text-align:center;font-size:1.1rem;margin:10px 0 0;color:#8a7f70;}
+  .star{font-size:1.4rem;}
+  .restart{display:block;margin:20px auto 0;background:var(--accent);color:#fff;border:none;
+    border-radius:12px;padding:12px 24px;font-size:1.05rem;cursor:pointer;font-family:inherit;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🔮 Future: will / going to</h1>
+  <p class="sub">parlare di quello che succederà</p>
+
+  <!-- A COSA SERVE -->
+  <div class="card">
+    <h2>💡 Due modi per il futuro</h2>
+    <div class="uso-grid">
+      <div class="uso-box will">
+        <span class="icon">💭</span><b style="color:var(--blue)">WILL</b><br>
+        <small>decisione sul momento, previsione, promessa</small><br>
+        <i>I will help you.</i> <button class="saybtn" onclick="say('I will help you')">🔊</button>
+      </div>
+      <div class="uso-box going">
+        <span class="icon">📋</span><b style="color:var(--green)">GOING TO</b><br>
+        <small>piano già deciso, intenzione</small><br>
+        <i>I am going to study.</i> <button class="saybtn" onclick="say('I am going to study')">🔊</button>
+      </div>
+    </div>
+    <div class="tip">🎨 <b>Parole-spia del futuro:</b> <i>tomorrow</i> (domani), <i>next week</i> (settimana prossima), <i>soon</i> (presto), <i>tonight</i> (stasera). <button class="saybtn" onclick="say('tomorrow, next week, soon, tonight')">🔊</button></div>
+  </div>
+
+  <!-- WILL -->
+  <div class="card">
+    <h2>💭 WILL + verbo base</h2>
+    <table>
+      <tr><th>Pronome</th><th>will + verbo</th><th>Ascolta</th></tr>
+      <tr><td>I</td><td class="cell-will">will go</td><td><button class="saybtn" onclick="say('I will go')">🔊</button></td></tr>
+      <tr><td>You</td><td class="cell-will">will go</td><td><button class="saybtn" onclick="say('You will go')">🔊</button></td></tr>
+      <tr><td>He / She / It</td><td class="cell-will">will go</td><td><button class="saybtn" onclick="say('She will go')">🔊</button></td></tr>
+      <tr><td>We / They</td><td class="cell-will">will go</td><td><button class="saybtn" onclick="say('They will go')">🔊</button></td></tr>
+    </table>
+    <div class="tip-blue">💡 <b>will</b> è uguale per tutti! Dopo, verbo base. Forma breve: <b>I'll, you'll, she'll…</b> · Negativa: <b>won't</b> (= will not). <button class="saybtn" onclick="say('I will, I won\'t')">🔊</button></div>
+  </div>
+
+  <!-- GOING TO -->
+  <div class="card">
+    <h2>📋 GOING TO + verbo base</h2>
+    <table>
+      <tr><th>Pronome</th><th>to be + going to + verbo</th><th>Ascolta</th></tr>
+      <tr><td>I</td><td class="cell-going">am going to play</td><td><button class="saybtn" onclick="say('I am going to play')">🔊</button></td></tr>
+      <tr><td>You / We / They</td><td class="cell-going">are going to play</td><td><button class="saybtn" onclick="say('You are going to play')">🔊</button></td></tr>
+      <tr><td>He / She / It</td><td class="cell-going">is going to play</td><td><button class="saybtn" onclick="say('She is going to play')">🔊</button></td></tr>
+    </table>
+    <div class="tip-green">💡 <b>going to</b> usa il TO BE (am/is/are), proprio come il Present Continuous! Cambia il to be in base al pronome, poi sempre "going to + verbo".</div>
+  </div>
+
+  <!-- NEGATIVA E INTERROGATIVA -->
+  <div class="card">
+    <h2>❌ Negativa e ❓ Interrogativa</h2>
+    <table>
+      <tr><th>Forma</th><th>Esempio</th><th>Ascolta</th></tr>
+      <tr><td class="cell-neg">won't (will not)</td><td><i>I won't go.</i></td><td><button class="saybtn" onclick="say('I won\'t go')">🔊</button></td></tr>
+      <tr><td class="cell-int">Will + sogg. + verbo?</td><td><i>Will you come?</i></td><td><button class="saybtn" onclick="say('Will you come?')">🔊</button></td></tr>
+      <tr><td class="cell-neg">am/is/are not going to</td><td><i>She isn't going to win.</i></td><td><button class="saybtn" onclick="say('She isn\'t going to win')">🔊</button></td></tr>
+      <tr><td class="cell-int">Are + sogg. + going to?</td><td><i>Are you going to eat?</i></td><td><button class="saybtn" onclick="say('Are you going to eat?')">🔊</button></td></tr>
+    </table>
+    <div class="tip-blue">💡 Per la domanda con <b>will</b> → metti Will all'inizio. Con <b>going to</b> → sposti il to be (am/is/are) all'inizio.</div>
+  </div>
+
+  <!-- FLASHCARD -->
+  <div class="card">
+    <h2>🃏 Flashcard — tocca per tradurre!</h2>
+    <div class="flashcards">
+      <div class="fc" onclick="flip(this)">
+        <div class="en">I will call you tomorrow. 📞 <button class="saybtn" onclick="event.stopPropagation();say('I will call you tomorrow')">🔊</button></div>
+        <div class="it">Ti chiamerò domani.</div>
+        <div class="hint-tap">👆 tocca per vedere la traduzione</div>
+      </div>
+      <div class="fc" onclick="flip(this)">
+        <div class="en">She is going to buy a car. 🚗 <button class="saybtn" onclick="event.stopPropagation();say('She is going to buy a car')">🔊</button></div>
+        <div class="it">Lei comprerà una macchina (ha già deciso).</div>
+        <div class="hint-tap">👆 tocca per vedere la traduzione</div>
+      </div>
+      <div class="fc" onclick="flip(this)">
+        <div class="en">It will rain tonight. 🌧️ <button class="saybtn" onclick="event.stopPropagation();say('It will rain tonight')">🔊</button></div>
+        <div class="it">Stanotte pioverà.</div>
+        <div class="hint-tap">👆 tocca per vedere la traduzione</div>
+      </div>
+      <div class="fc" onclick="flip(this)">
+        <div class="en">We are going to visit grandma. 👵 <button class="saybtn" onclick="event.stopPropagation();say('We are going to visit grandma')">🔊</button></div>
+        <div class="it">Andremo a trovare la nonna.</div>
+        <div class="hint-tap">👆 tocca per vedere la traduzione</div>
+      </div>
+      <div class="fc" onclick="flip(this)">
+        <div class="en">I won't be late. ⏰ <button class="saybtn" onclick="event.stopPropagation();say('I won\'t be late')">🔊</button></div>
+        <div class="it">Non farò tardi.</div>
+        <div class="hint-tap">👆 tocca per vedere la traduzione</div>
+      </div>
+      <div class="fc" onclick="flip(this)">
+        <div class="en">Are you going to come to the party? 🎉 <button class="saybtn" onclick="event.stopPropagation();say('Are you going to come to the party?')">🔊</button></div>
+        <div class="it">Verrai alla festa?</div>
+        <div class="hint-tap">👆 tocca per vedere la traduzione</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ESERCIZI GUIDATI -->
+  <div class="card">
+    <h2>✏️ Esercizi guidati</h2>
+    <p style="margin-top:0;color:#8a7f70;">Leggi prima il suggerimento 💡, poi scegli la risposta giusta!</p>
+    <div id="guided"></div>
+    <div class="progress" id="gprogress"></div>
+    <button class="restart" id="grestartBtn" style="display:none;" onclick="startGuided()">🔄 Riprova gli esercizi</button>
+  </div>
+
+  <!-- QUIZ FINALE -->
+  <div class="card">
+    <h2>✅ Quiz finale</h2>
+    <p style="margin-top:0;color:#8a7f70;">Hai capito tutto? Mettiti alla prova! 🎯</p>
+    <div id="quiz"></div>
+    <div class="progress" id="progress"></div>
+    <button class="restart" id="restartBtn" style="display:none;" onclick="startQuiz()">🔄 Ricomincia il quiz</button>
+  </div>
+</div>
+
+<script>
+  function say(text){
+    try{
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = "en-US"; u.rate = 0.85;
+      speechSynthesis.cancel(); speechSynthesis.speak(u);
+    }catch(e){}
+  }
+
+  function flip(el){ el.classList.toggle("open"); }
+
+  function escQ(s){ return s.replace(/'/g, "\\'"); }
+
+  // ESERCIZI GUIDATI
+  const guided = [
+    {
+      q:"I think it ____ rain tomorrow. 🌧️  (previsione)",
+      hint:"💡 È una previsione ('penso che pioverà') → si usa 'will' + verbo base!",
+      opts:["will","is going to","go"], correct:0,
+      full:"I think it will rain tomorrow."
+    },
+    {
+      q:"After 'will' the verb stays in its ____ form. She will ____ . 🎵",
+      hint:"💡 Dopo 'will' il verbo è sempre alla forma BASE, senza -s e senza to. Quale forma di 'sing'?",
+      opts:["sings","sing","singing"], correct:1,
+      full:"She will sing."
+    },
+    {
+      q:"I bought tickets — I ____ go to the concert. 🎫  (piano deciso)",
+      hint:"💡 È un piano GIÀ DECISO (ho già i biglietti) → si usa 'am going to'!",
+      opts:["will","am going to","go"], correct:1,
+      full:"I am going to go to the concert."
+    },
+    {
+      q:"She ____ going to cook dinner. 🍳  (quale to be?)",
+      hint:"💡 'going to' usa il TO BE. Con She (he/she/it) il to be è 'is'!",
+      opts:["am","is","are"], correct:1,
+      full:"She is going to cook dinner."
+    },
+    {
+      q:"I ____ be late, I promise! ⏰  (negativa di will)",
+      hint:"💡 La forma negativa di 'will' è 'won't' (= will not)!",
+      opts:["willn't","won't","don't"], correct:1,
+      full:"I won't be late, I promise!"
+    },
+    {
+      q:"____ you going to help me? 🙋  (domanda con going to)",
+      hint:"💡 Domanda con 'going to' → sposta il to be all'inizio. Con 'you' il to be è 'are'!",
+      opts:["Is","Are","Will"], correct:1,
+      full:"Are you going to help me?"
+    },
+  ];
+
+  let gc=0, gs=0;
+  function startGuided(){ gc=0; gs=0; document.getElementById("grestartBtn").style.display="none"; showGuided(); }
+  function showGuided(){
+    const el=document.getElementById("guided");
+    const pr=document.getElementById("gprogress");
+    if(gc>=guided.length){
+      el.innerHTML="";
+      const pct=gs/guided.length;
+      const n=pct===1?5:pct>=0.67?4:pct>=0.5?3:2;
+      let stars=""; for(let i=0;i<n;i++) stars+="⭐";
+      const msg=pct===1?"Bravissima! Hai capito tutto! 🏆":pct>=0.5?"Quasi! Riprova per sicurezza 💪":"Allenati ancora, ci riesci! 🌱";
+      pr.innerHTML=`<div class="star">${stars}</div>${gs}/${guided.length} giuste<br><b>${msg}</b>`;
+      document.getElementById("grestartBtn").style.display="block";
+      return;
+    }
+    const item=guided[gc];
+    pr.textContent=`Esercizio ${gc+1} di ${guided.length}`;
+    el.innerHTML=`
+      <div class="ex">
+        <div class="qnum">Esercizio ${gc+1}</div>
+        <div class="qtext">${item.q} <button class="saybtn" onclick="say('${escQ(item.full)}')">🔊</button></div>
+        <div class="qhint">${item.hint}</div>
+        <div class="options">
+          ${item.opts.map((o,i)=>`<button class="opt" onclick="gAnswer(${i})">${o}</button>`).join("")}
+        </div>
+        <div class="feedback" id="gfb"></div>
+      </div>
+    `;
+  }
+  function gAnswer(i){
+    const item=guided[gc];
+    const opts=document.querySelectorAll("#guided .opt");
+    const fb=document.getElementById("gfb");
+    if(i===item.correct){
+      opts[i].classList.add("correct");
+      fb.textContent="✅ Giusto! "+item.full; fb.className="feedback ok";
+      gs++; say(item.full);
+      opts.forEach(o=>o.disabled=true);
+      setTimeout(()=>{ gc++; showGuided(); },1800);
+    } else {
+      opts[i].classList.add("wrong");
+      fb.textContent="Riprova! Guarda il suggerimento 💡"; fb.className="feedback no";
+    }
+  }
+
+  // QUIZ FINALE
+  const questions = [
+    {q:"Maybe I ____ visit you next week. 🏠  (previsione)", opts:["will","am going to","go"], correct:0, full:"Maybe I will visit you next week."},
+    {q:"After 'will': she will ____ . 📖", opts:["reads","read","reading"], correct:1, full:"She will read."},
+    {q:"We've decided: we ____ paint the house. 🎨  (piano)", opts:["will","are going to","go"], correct:1, full:"We are going to paint the house."},
+    {q:"He ____ going to buy a bike. 🚲  (quale to be?)", opts:["am","are","is"], correct:2, full:"He is going to buy a bike."},
+    {q:"Don't worry, I ____ forget. 🧠  (negativa di will)", opts:["won't","willn't","don't"], correct:0, full:"I won't forget."},
+    {q:"____ you come to my party? 🎉  (domanda con will)", opts:["Do","Will","Are"], correct:1, full:"Will you come to my party?"},
+    {q:"They ____ going to travel to Japan. ✈️  (quale to be?)", opts:["is","are","am"], correct:1, full:"They are going to travel to Japan."},
+    {q:"I promise I ____ help you tomorrow. 🤝", opts:["will","am", "going"], correct:0, full:"I will help you tomorrow."},
+  ];
+
+  let current=0, score=0;
+  function startQuiz(){ current=0; score=0; document.getElementById("restartBtn").style.display="none"; showQuestion(); }
+  function showQuestion(){
+    const quiz=document.getElementById("quiz");
+    const prog=document.getElementById("progress");
+    if(current>=questions.length){
+      quiz.innerHTML="";
+      const pct=score/questions.length;
+      const n=pct===1?5:pct>=0.75?4:pct>=0.5?3:pct>=0.25?2:1;
+      let stars=""; for(let i=0;i<n;i++) stars+="⭐";
+      const msg=pct===1?"Perfetto! Hai imparato il Futuro! Hai finito tutti i mattoncini! 🏆🎉":pct>=0.5?"Bravissima, ci sei quasi! 💪":"Bene, riprova: si impara ripetendo! 🌱";
+      prog.innerHTML=`<div class="star">${stars}</div>${score}/${questions.length} giuste<br><b>${msg}</b>`;
+      document.getElementById("restartBtn").style.display="block";
+      return;
+    }
+    const item=questions[current];
+    prog.textContent=`Domanda ${current+1} di ${questions.length}`;
+    quiz.innerHTML=`
+      <div class="ex">
+        <div class="qnum">Domanda ${current+1}</div>
+        <div class="qtext">${item.q} <button class="saybtn" onclick="say('${escQ(item.full)}')">🔊</button></div>
+        <div class="options">
+          ${item.opts.map((o,i)=>`<button class="opt" onclick="answer(${i})">${o}</button>`).join("")}
+        </div>
+        <div class="feedback" id="fb"></div>
+      </div>
+    `;
+  }
+  function answer(i){
+    const item=questions[current];
+    const opts=document.querySelectorAll("#quiz .opt");
+    const fb=document.getElementById("fb");
+    if(i===item.correct){
+      opts[i].classList.add("correct");
+      fb.textContent="✅ Giusto! "+item.full; fb.className="feedback ok";
+      score++; say(item.full);
+      opts.forEach(o=>o.disabled=true);
+      setTimeout(()=>{ current++; showQuestion(); },1600);
+    } else {
+      opts[i].classList.add("wrong");
+      fb.textContent="Riprova! 🙂"; fb.className="feedback no";
+    }
+  }
+
+  startGuided();
+  startQuiz();
+</script>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./service-worker.js');
+  }
+</script>
+</body>
+</html>

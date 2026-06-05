@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inglese - Can / Can't</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#FAF6EE">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Inglese di Irene">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FAF6EE; --card:#FFFFFF; --ink:#2F2A24;
+    --accent:#C8651B; --accent-soft:#F3E2D0;
+    --green:#3E8E5A; --green-soft:#E2F0E6;
+    --red:#C2492F; --red-soft:#F6E1DB;
+    --blue:#3B6EA5; --blue-soft:#E2ECF5;
+    --purple:#7B5EA7; --purple-soft:#EDE8F5;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; font-family:"Lexend","Trebuchet MS",Verdana,sans-serif;
+    background:var(--bg); color:var(--ink);
+    line-height:1.7; letter-spacing:0.3px; padding:24px 14px 60px;
+  }
+  .wrap{max-width:620px;margin:0 auto;}
+  h1{color:var(--accent);font-size:1.7rem;text-align:center;margin:0 0 6px;}
+  .sub{text-align:center;color:#8a7f70;margin:0 0 26px;font-size:1rem;}
+  .card{background:var(--card);border-radius:18px;padding:22px 20px;margin-bottom:22px;
+    box-shadow:0 4px 14px rgba(0,0,0,0.06);border:1px solid #efe7da;}
+  .card h2{margin:0 0 14px;font-size:1.25rem;color:var(--accent);display:flex;align-items:center;gap:8px;}
+  table{width:100%;border-collapse:collapse;margin:6px 0;}
+  td,th{padding:10px;text-align:center;border-bottom:2px solid var(--accent-soft);font-size:1.05rem;}
+  th{color:var(--accent);}
+  .cell-can{background:var(--green-soft);border-radius:8px;font-weight:bold;color:var(--green);}
+  .cell-cant{background:var(--red-soft);border-radius:8px;font-weight:bold;color:var(--red);}
+  .cell-int{background:var(--purple-soft);border-radius:8px;font-weight:bold;color:var(--purple);}
+  .saybtn{background:var(--blue-soft);color:var(--blue);border:none;border-radius:10px;
+    padding:6px 12px;font-size:0.95rem;cursor:pointer;font-family:inherit;}
+  .tip{background:var(--accent-soft);border-radius:10px;padding:10px 14px;font-size:0.98rem;margin-top:10px;}
+  .tip-blue{background:var(--blue-soft);border-radius:10px;padding:10px 14px;font-size:0.98rem;margin-top:10px;color:var(--blue);}
+  .tip-red{background:var(--red-soft);border-radius:10px;padding:10px 14px;font-size:0.98rem;margin-top:10px;color:var(--red);}
+  .uso-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0;}
+  .uso-box{background:var(--bg);border:2px solid var(--accent-soft);border-radius:14px;padding:14px;text-align:center;font-size:0.97rem;}
+  .uso-box .icon{font-size:1.6rem;display:block;margin-bottom:4px;}
+  .flashcards{display:flex;flex-direction:column;gap:12px;margin-top:4px;}
+  .fc{background:var(--bg);border:2px solid var(--accent-soft);border-radius:14px;
+    padding:16px;cursor:pointer;font-size:1.1rem;transition:all .2s;}
+  .fc:hover{border-color:var(--accent);}
+  .fc .en{font-weight:bold;color:var(--ink);}
+  .fc .it{color:var(--green);margin-top:6px;display:none;font-size:1rem;}
+  .fc.open .it{display:block;}
+  .fc .hint-tap{font-size:0.85rem;color:#aaa;margin-top:4px;}
+  .ex{margin:18px 0;}
+  .qnum{font-weight:bold;color:var(--accent);}
+  .qtext{font-size:1.15rem;margin:6px 0 8px;}
+  .qhint{background:var(--blue-soft);color:var(--blue);border-radius:10px;padding:8px 12px;font-size:0.95rem;margin-bottom:10px;}
+  .options{display:flex;gap:10px;flex-wrap:wrap;}
+  .opt{flex:1;min-width:80px;background:var(--bg);border:2px solid var(--accent-soft);
+    border-radius:12px;padding:14px;font-size:1.1rem;cursor:pointer;
+    text-align:center;font-family:inherit;color:var(--ink);transition:all .15s;}
+  .opt:hover{border-color:var(--accent);}
+  .opt.correct{background:var(--green-soft);border-color:var(--green);color:var(--green);font-weight:bold;}
+  .opt.wrong{background:var(--red-soft);border-color:var(--red);color:var(--red);}
+  .feedback{margin-top:12px;font-size:1.05rem;font-weight:bold;min-height:26px;}
+  .feedback.ok{color:var(--green);}
+  .feedback.no{color:var(--red);}
+  .progress{text-align:center;font-size:1.1rem;margin:10px 0 0;color:#8a7f70;}
+  .star{font-size:1.4rem;}
+  .restart{display:block;margin:20px auto 0;background:var(--accent);color:#fff;border:none;
+    border-radius:12px;padding:12px 24px;font-size:1.05rem;cursor:pointer;font-family:inherit;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>💪 Can / Can't</h1>
+  <p class="sub">saper fare e poter fare</p>
+
+  <!-- A COSA SERVE -->
+  <div class="card">
+    <h2>💡 A cosa serve?</h2>
+    <div class="uso-grid">
+      <div class="uso-box">
+        <span class="icon">🎯</span><b style="color:var(--green)">CAN</b><br>
+        <small>so fare / posso</small><br>
+        <i>I can swim.</i> <button class="saybtn" onclick="say('I can swim')">🔊</button>
+      </div>
+      <div class="uso-box">
+        <span class="icon">🚫</span><b style="color:var(--red)">CAN'T</b><br>
+        <small>non so fare / non posso</small><br>
+        <i>I can't fly.</i> <button class="saybtn" onclick="say('I can\'t fly')">🔊</button>
+      </div>
+    </div>
+    <div class="tip">🎨 <b>Can</b> serve per due cose: una <b>capacità</b> (saper fare) e un <b>permesso</b> (poter fare).</div>
+  </div>
+
+  <!-- AFFERMATIVA -->
+  <div class="card">
+    <h2>✅ Forma affermativa</h2>
+    <table>
+      <tr><th>Pronome</th><th>can + verbo base</th><th>Ascolta</th></tr>
+      <tr><td>I</td><td class="cell-can">can swim</td><td><button class="saybtn" onclick="say('I can swim')">🔊</button></td></tr>
+      <tr><td>You</td><td class="cell-can">can swim</td><td><button class="saybtn" onclick="say('You can swim')">🔊</button></td></tr>
+      <tr><td>He</td><td class="cell-can">can swim</td><td><button class="saybtn" onclick="say('He can swim')">🔊</button></td></tr>
+      <tr><td>She</td><td class="cell-can">can swim</td><td><button class="saybtn" onclick="say('She can swim')">🔊</button></td></tr>
+      <tr><td>It</td><td class="cell-can">can swim</td><td><button class="saybtn" onclick="say('It can swim')">🔊</button></td></tr>
+      <tr><td>We</td><td class="cell-can">can swim</td><td><button class="saybtn" onclick="say('We can swim')">🔊</button></td></tr>
+      <tr><td>They</td><td class="cell-can">can swim</td><td><button class="saybtn" onclick="say('They can swim')">🔊</button></td></tr>
+    </table>
+    <div class="tip-blue">💡 <b>Bellissima notizia:</b> <b>can</b> è uguale per tutti! Non cambia mai, e dopo non si mette mai la -s (✗ <s>he cans</s>, ✗ <s>he can swims</s>). Sempre <b>can + verbo base</b>.</div>
+  </div>
+
+  <!-- NEGATIVA -->
+  <div class="card">
+    <h2>❌ Forma negativa</h2>
+    <table>
+      <tr><th>Forma</th><th>Esempio</th><th>Ascolta</th></tr>
+      <tr><td class="cell-cant">can't<br><small>(cannot)</small></td><td><i>She can't drive.</i></td><td><button class="saybtn" onclick="say('She can\'t drive')">🔊</button></td></tr>
+    </table>
+    <div class="tip-red">⚠️ <b>can't</b> vale per tutti i pronomi, proprio come can. <br>✓ I can't · You can't · He can't · We can't</div>
+  </div>
+
+  <!-- INTERROGATIVA -->
+  <div class="card">
+    <h2>❓ Forma interrogativa</h2>
+    <table>
+      <tr><th>Domanda</th><th>Risposta breve 🔊</th></tr>
+      <tr>
+        <td class="cell-int">Can + sogg. + verbo?<br><i>Can you swim?</i> <button class="saybtn" onclick="say('Can you swim?')">🔊</button></td>
+        <td>Yes, I can. / No, I can't. <button class="saybtn" onclick="say('Yes, I can. No, I can\'t.')">🔊</button></td>
+      </tr>
+    </table>
+    <div class="tip-blue">💡 Per fare la domanda metti <b>Can</b> all'inizio, prima del soggetto: <i>You can → Can you?</i></div>
+  </div>
+
+  <!-- FLASHCARD -->
+  <div class="card">
+    <h2>🃏 Flashcard — tocca per tradurre!</h2>
+    <div class="flashcards">
+      <div class="fc" onclick="flip(this)">
+        <div class="en">I can ride a bike. 🚲 <button class="saybtn" onclick="event.stopPropagation();say('I can ride a bike')">🔊</button></div>
+        <div class="it">So andare in bicicletta.</div>
+        <div class="hint-tap">👆 tocca per vedere la traduzione</div>
+      </div>
+      <div class="fc" onclick="flip(this)">
+        <div class="en">She can speak three languages. 🗣️ <button class="saybtn" onclick="event.stopPropagation();say('She can speak three languages')">🔊</button></div>
+        <div class="it">Lei sa parlare tre lingue.</div>
+        <div class="hint-tap">👆 tocca per vedere la traduzione</div>
+      </div>
+      <div class="fc" onclick="flip(this)">
+        <div class="en">He can't come today. 😔 <button class="saybtn" onclick="event.stopPropagation();say('He can\'t come today')">🔊</button></div>
+        <div class="it">Lui non può venire oggi.</div>
+        <div class="hint-tap">👆 tocca per vedere la traduzione</div>
+      </div>
+      <div class="fc" onclick="flip(this)">
+        <div class="en">Can I open the window? 🪟 <button class="saybtn" onclick="event.stopPropagation();say('Can I open the window?')">🔊</button></div>
+        <div class="it">Posso aprire la finestra?</div>
+        <div class="hint-tap">👆 tocca per vedere la traduzione</div>
+      </div>
+      <div class="fc" onclick="flip(this)">
+        <div class="en">Birds can fly. 🐦 <button class="saybtn" onclick="event.stopPropagation();say('Birds can fly')">🔊</button></div>
+        <div class="it">Gli uccelli sanno volare.</div>
+        <div class="hint-tap">👆 tocca per vedere la traduzione</div>
+      </div>
+      <div class="fc" onclick="flip(this)">
+        <div class="en">Can you help me, please? 🙏 <button class="saybtn" onclick="event.stopPropagation();say('Can you help me, please?')">🔊</button></div>
+        <div class="it">Puoi aiutarmi, per favore?</div>
+        <div class="hint-tap">👆 tocca per vedere la traduzione</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ESERCIZI GUIDATI -->
+  <div class="card">
+    <h2>✏️ Esercizi guidati</h2>
+    <p style="margin-top:0;color:#8a7f70;">Leggi prima il suggerimento 💡, poi scegli la risposta giusta!</p>
+    <div id="guided"></div>
+    <div class="progress" id="gprogress"></div>
+    <button class="restart" id="grestartBtn" style="display:none;" onclick="startGuided()">🔄 Riprova gli esercizi</button>
+  </div>
+
+  <!-- QUIZ FINALE -->
+  <div class="card">
+    <h2>✅ Quiz finale</h2>
+    <p style="margin-top:0;color:#8a7f70;">Hai capito tutto? Mettiti alla prova! 🎯</p>
+    <div id="quiz"></div>
+    <div class="progress" id="progress"></div>
+    <button class="restart" id="restartBtn" style="display:none;" onclick="startQuiz()">🔄 Ricomincia il quiz</button>
+  </div>
+</div>
+
+<script>
+  function say(text){
+    try{
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = "en-US"; u.rate = 0.85;
+      speechSynthesis.cancel(); speechSynthesis.speak(u);
+    }catch(e){}
+  }
+
+  function flip(el){ el.classList.toggle("open"); }
+
+  function escQ(s){ return s.replace(/'/g, "\\'"); }
+
+  // ESERCIZI GUIDATI
+  const guided = [
+    {
+      q:"I ____ swim very well. 🏊  (so farlo)",
+      hint:"💡 Vuoi dire che SAI fare una cosa → usa la forma positiva!",
+      opts:["can","can't"], correct:0,
+      full:"I can swim very well."
+    },
+    {
+      q:"He ____ fly. Birds can, people can't! 🧍  (non può)",
+      hint:"💡 Le persone NON sanno volare → serve la forma negativa!",
+      opts:["can","can't"], correct:1,
+      full:"He can't fly."
+    },
+    {
+      q:"She can ____ the guitar. 🎸",
+      hint:"💡 Dopo 'can' il verbo va alla forma BASE, senza -s e senza to. Quale forma di 'play'?",
+      opts:["plays","play","playing"], correct:1,
+      full:"She can play the guitar."
+    },
+    {
+      q:"____ you help me? 🙋  (per chiedere)",
+      hint:"💡 È una DOMANDA → metti 'Can' all'inizio, prima del soggetto!",
+      opts:["Can","Do","Are"], correct:0,
+      full:"Can you help me?"
+    },
+    {
+      q:"They can ____ English. 📖",
+      hint:"💡 Dopo can sempre verbo base. 'Read' resta uguale, senza aggiunte!",
+      opts:["reads","reading","read"], correct:2,
+      full:"They can read English."
+    },
+    {
+      q:"Cats ____ climb trees, but they can't swim well. 🐈  (sanno)",
+      hint:"💡 I gatti SANNO arrampicarsi → forma positiva!",
+      opts:["can","can't"], correct:0,
+      full:"Cats can climb trees, but they can't swim well."
+    },
+  ];
+
+  let gc=0, gs=0;
+  function startGuided(){ gc=0; gs=0; document.getElementById("grestartBtn").style.display="none"; showGuided(); }
+  function showGuided(){
+    const el=document.getElementById("guided");
+    const pr=document.getElementById("gprogress");
+    if(gc>=guided.length){
+      el.innerHTML="";
+      const pct=gs/guided.length;
+      const n=pct===1?5:pct>=0.67?4:pct>=0.5?3:2;
+      let stars=""; for(let i=0;i<n;i++) stars+="⭐";
+      const msg=pct===1?"Bravissima! Hai capito tutto! 🏆":pct>=0.5?"Quasi! Riprova per sicurezza 💪":"Allenati ancora, ci riesci! 🌱";
+      pr.innerHTML=`<div class="star">${stars}</div>${gs}/${guided.length} giuste<br><b>${msg}</b>`;
+      document.getElementById("grestartBtn").style.display="block";
+      return;
+    }
+    const item=guided[gc];
+    pr.textContent=`Esercizio ${gc+1} di ${guided.length}`;
+    el.innerHTML=`
+      <div class="ex">
+        <div class="qnum">Esercizio ${gc+1}</div>
+        <div class="qtext">${item.q} <button class="saybtn" onclick="say('${escQ(item.full)}')">🔊</button></div>
+        <div class="qhint">${item.hint}</div>
+        <div class="options">
+          ${item.opts.map((o,i)=>`<button class="opt" onclick="gAnswer(${i})">${o}</button>`).join("")}
+        </div>
+        <div class="feedback" id="gfb"></div>
+      </div>
+    `;
+  }
+  function gAnswer(i){
+    const item=guided[gc];
+    const opts=document.querySelectorAll("#guided .opt");
+    const fb=document.getElementById("gfb");
+    if(i===item.correct){
+      opts[i].classList.add("correct");
+      fb.textContent="✅ Giusto! "+item.full; fb.className="feedback ok";
+      gs++; say(item.full);
+      opts.forEach(o=>o.disabled=true);
+      setTimeout(()=>{ gc++; showGuided(); },1800);
+    } else {
+      opts[i].classList.add("wrong");
+      fb.textContent="Riprova! Guarda il suggerimento 💡"; fb.className="feedback no";
+    }
+  }
+
+  // QUIZ FINALE
+  const questions = [
+    {q:"I ____ play tennis. 🎾  (so farlo)", opts:["can","can't"], correct:0, full:"I can play tennis."},
+    {q:"Fish ____ walk. 🐟  (non possono)", opts:["can","can't"], correct:1, full:"Fish can't walk."},
+    {q:"She can ____ a cake. 🎂", opts:["makes","make","making"], correct:1, full:"She can make a cake."},
+    {q:"____ I go to the toilet? 🚻  (per chiedere)", opts:["Can","Do","Am"], correct:0, full:"Can I go to the toilet?"},
+    {q:"He can ____ very fast. 🏃", opts:["runs","running","run"], correct:2, full:"He can run very fast."},
+    {q:"We ____ see the stars tonight, the sky is clear. ⭐  (possiamo)", opts:["can","can't"], correct:0, full:"We can see the stars tonight."},
+    {q:"____ you speak Spanish? 🇪🇸", opts:["Do","Can","Are"], correct:1, full:"Can you speak Spanish?"},
+    {q:"My baby brother ____ talk yet. 👶  (non sa ancora)", opts:["can","can't"], correct:1, full:"My baby brother can't talk yet."},
+  ];
+
+  let current=0, score=0;
+  function startQuiz(){ current=0; score=0; document.getElementById("restartBtn").style.display="none"; showQuestion(); }
+  function showQuestion(){
+    const quiz=document.getElementById("quiz");
+    const prog=document.getElementById("progress");
+    if(current>=questions.length){
+      quiz.innerHTML="";
+      const pct=score/questions.length;
+      const n=pct===1?5:pct>=0.75?4:pct>=0.5?3:pct>=0.25?2:1;
+      let stars=""; for(let i=0;i<n;i++) stars+="⭐";
+      const msg=pct===1?"Perfetto! Hai imparato Can / Can't! 🏆":pct>=0.5?"Bravissima, ci sei quasi! 💪":"Bene, riprova: si impara ripetendo! 🌱";
+      prog.innerHTML=`<div class="star">${stars}</div>${score}/${questions.length} giuste<br><b>${msg}</b>`;
+      document.getElementById("restartBtn").style.display="block";
+      return;
+    }
+    const item=questions[current];
+    prog.textContent=`Domanda ${current+1} di ${questions.length}`;
+    quiz.innerHTML=`
+      <div class="ex">
+        <div class="qnum">Domanda ${current+1}</div>
+        <div class="qtext">${item.q} <button class="saybtn" onclick="say('${escQ(item.full)}')">🔊</button></div>
+        <div class="options">
+          ${item.opts.map((o,i)=>`<button class="opt" onclick="answer(${i})">${o}</button>`).join("")}
+        </div>
+        <div class="feedback" id="fb"></div>
+      </div>
+    `;
+  }
+  function answer(i){
+    const item=questions[current];
+    const opts=document.querySelectorAll("#quiz .opt");
+    const fb=document.getElementById("fb");
+    if(i===item.correct){
+      opts[i].classList.add("correct");
+      fb.textContent="✅ Giusto! "+item.full; fb.className="feedback ok";
+      score++; say(item.full);
+      opts.forEach(o=>o.disabled=true);
+      setTimeout(()=>{ current++; showQuestion(); },1600);
+    } else {
+      opts[i].classList.add("wrong");
+      fb.textContent="Riprova! 🙂"; fb.className="feedback no";
+    }
+  }
+
+  startGuided();
+  startQuiz();
+</script>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./service-worker.js');
+  }
+</script>
+</body>
+</html>
