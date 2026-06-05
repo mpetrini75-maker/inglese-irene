@@ -1,4 +1,4 @@
-const CACHE = 'inglese-irene-v2';
+const CACHE = 'inglese-irene-v3';
 
 const ASSETS = [
   './',
@@ -9,6 +9,7 @@ const ASSETS = [
   './articoli-plurali.html',
   './present-simple.html',
   './present-continuous.html',
+  './question-words.html',
   './manifest.json',
   './icon-192.svg',
   './icon-512.svg',
