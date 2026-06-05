@@ -110,7 +110,7 @@
   </div>
 
   <!-- SEZIONE 3 — LETTURA -->
-  <div class="card">
+  <div class="card" id="read-card">
     <h2>📖 3. Lettura</h2>
     <p class="lead">Ascolta e leggi il testo, poi rispondi alle domande.</p>
     <div class="levelbar" id="read-level"></div>
@@ -356,7 +356,7 @@
   ];
   let rLevel=0, readDone=[], readingText="", readCorrect=[];
   function sayReading(){ say(readingText); }
-  function setReadLevel(lvl){
+  function setReadLevel(lvl, noScroll){
     rLevel=lvl;
     const data=readLevels[lvl];
     readingText=data.lines.join(" ");
@@ -381,6 +381,11 @@
         <div class="feedback" id="rfb${i}"></div>
       </div>`;
     }).join("");
+    // se si cambia livello (non al primo caricamento), risali al testo e al pulsante "Ascolta tutto il testo"
+    if(!noScroll){
+      const card=document.getElementById("read-card");
+      if(card) card.scrollIntoView({behavior:"smooth", block:"start"});
+    }
   }
   function readAns(i,j){
     const it=readLevels[rLevel].q[i];
@@ -473,7 +478,7 @@
   // avvio: ogni sezione parte dal Livello 1
   setListenLevel(0);
   setWriteLevel(0);
-  setReadLevel(0);
+  setReadLevel(0, true);
   setMatchLevel(0);
 </script>
 
