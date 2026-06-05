@@ -202,7 +202,7 @@
       {audio:"Why does she get up early on Mondays?", opts:["Why does she get up early on Mondays?","Why do she get up early on Mondays?","Why does she gets up early on Mondays?"], correct:0},
     ],
   ];
-  let lLevel=0, lc=0, ls=0;
+  let lLevel=0, lc=0, ls=0, lCorrect=0, lAudio="";
   function setListenLevel(lvl){ lLevel=lvl; lc=0; ls=0; document.getElementById("listen-level").innerHTML=levelBar(lvl); showListen(); }
   function showListen(){
     const data=listenLevels[lLevel];
@@ -210,25 +210,29 @@
     const pr=document.getElementById("listen-prog");
     if(lc>=data.length){ box.innerHTML=""; levelResult(pr, ls, data.length, lLevel, 4, "setListenLevel"); return; }
     const it=data[lc];
+    lAudio=it.audio;
+    // mescola le opzioni così la risposta giusta non è sempre nella stessa posizione
+    const order=shuffle(it.opts.map((o,i)=>i));
+    const shown=order.map(k=>it.opts[k]);
+    lCorrect=order.indexOf(it.correct);
     pr.textContent=`Esercizio ${lc+1} di ${data.length}`;
     box.innerHTML=`
       <div class="ex">
         <div class="qnum">Ascolto ${lc+1}</div>
         <button class="big-listen" onclick="event.stopPropagation();say('${escQ(it.audio)}')">🔊 Ascolta la frase</button>
         <div class="options">
-          ${it.opts.map((o,i)=>`<button class="opt" onclick="listenAns(${i})">${o}</button>`).join("")}
+          ${shown.map((o,i)=>`<button class="opt" onclick="listenAns(${i})">${o}</button>`).join("")}
         </div>
         <div class="feedback" id="lfb"></div>
       </div>`;
   }
   function listenAns(i){
-    const it=listenLevels[lLevel][lc];
     const opts=document.querySelectorAll("#listen-quiz .opt");
     const fb=document.getElementById("lfb");
-    if(i===it.correct){
+    if(i===lCorrect){
       opts[i].classList.add("correct");
-      fb.textContent="✅ Giusto! "+it.audio; fb.className="feedback ok";
-      ls++; say(it.audio); opts.forEach(o=>o.disabled=true);
+      fb.textContent="✅ Giusto! "+lAudio; fb.className="feedback ok";
+      ls++; say(lAudio); opts.forEach(o=>o.disabled=true);
       setTimeout(()=>{ lc++; showListen(); },1800);
     } else {
       opts[i].classList.add("wrong");
@@ -350,7 +354,7 @@
       ]
     },
   ];
-  let rLevel=0, readDone=[], readingText="";
+  let rLevel=0, readDone=[], readingText="", readCorrect=[];
   function sayReading(){ say(readingText); }
   function setReadLevel(lvl){
     rLevel=lvl;
@@ -360,22 +364,29 @@
     document.getElementById("read-level").innerHTML=levelBar(lvl);
     document.getElementById("reading-text").innerHTML=data.lines.map(l=>`<p>${l}</p>`).join("");
     document.getElementById("read-prog").textContent=`Risposte 0 di ${data.q.length}`;
+    // mescola le opzioni di ogni domanda e memorizza la posizione giusta
+    readCorrect=[];
     const list=document.getElementById("read-list");
-    list.innerHTML=data.q.map((it,i)=>`
+    list.innerHTML=data.q.map((it,i)=>{
+      const order=shuffle(it.opts.map((o,k)=>k));
+      const shown=order.map(k=>it.opts[k]);
+      readCorrect[i]=order.indexOf(it.correct);
+      return `
       <div class="ex">
         <div class="qnum">Domanda ${i+1}</div>
         <div class="qtext">${it.q}</div>
         <div class="options">
-          ${it.opts.map((o,j)=>`<button class="opt" onclick="readAns(${i},${j})">${o}</button>`).join("")}
+          ${shown.map((o,j)=>`<button class="opt" onclick="readAns(${i},${j})">${o}</button>`).join("")}
         </div>
         <div class="feedback" id="rfb${i}"></div>
-      </div>`).join("");
+      </div>`;
+    }).join("");
   }
   function readAns(i,j){
     const it=readLevels[rLevel].q[i];
     const opts=document.querySelectorAll("#read-list .ex:nth-child("+(i+1)+") .opt");
     const fb=document.getElementById("rfb"+i);
-    if(j===it.correct){
+    if(j===readCorrect[i]){
       opts[j].classList.add("correct");
       fb.innerHTML="✅ Giusto! "+it.full+` <button class="saybtn" onclick="event.stopPropagation();say('${escQ(it.full)}')">🔊</button>`;
       fb.className="feedback ok"; opts.forEach(o=>o.disabled=true);
