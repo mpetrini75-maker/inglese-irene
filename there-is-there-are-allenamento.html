@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>There is / There are — Allenamento</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#FAF6EE">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Inglese di Irene">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FAF6EE; --card:#FFFFFF; --ink:#2F2A24;
+    --accent:#C8651B; --accent-soft:#F3E2D0;
+    --green:#3E8E5A; --green-soft:#E2F0E6;
+    --red:#C2492F; --red-soft:#F6E1DB;
+    --blue:#3B6EA5; --blue-soft:#E2ECF5;
+    --purple:#7B5EA7; --purple-soft:#EDE8F5;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; font-family:"Lexend","Trebuchet MS",Verdana,sans-serif;
+    background:var(--bg); color:var(--ink); line-height:1.7; letter-spacing:0.3px; padding:24px 14px 60px;}
+  .wrap{max-width:620px;margin:0 auto;}
+  .backbtn{display:inline-block;background:var(--accent-soft);color:var(--accent);
+    text-decoration:none;border-radius:12px;padding:8px 16px;font-size:0.98rem;font-weight:bold;margin-bottom:14px;}
+  h1{color:var(--accent);font-size:1.6rem;text-align:center;margin:0 0 6px;}
+  .sub{text-align:center;color:#8a7f70;margin:0 0 26px;font-size:1rem;}
+  .card{background:var(--card);border-radius:18px;padding:22px 20px;margin-bottom:22px;
+    box-shadow:0 4px 14px rgba(0,0,0,0.06);border:1px solid #efe7da;}
+  .card h2{margin:0 0 10px;font-size:1.25rem;color:var(--accent);display:flex;align-items:center;gap:8px;}
+  .card .lead{color:#8a7f70;margin:0 0 12px;font-size:0.97rem;}
+  .levelbar{margin:0 0 12px;}
+  .lvrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:0.98rem;color:var(--accent);}
+  .lvdots{display:inline-flex;gap:6px;}
+  .lvdot{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    background:var(--bg);border:2px solid var(--accent-soft);color:#b9ad9c;font-size:0.85rem;font-weight:bold;}
+  .lvdot.on{background:var(--accent-soft);border-color:var(--accent);color:var(--accent);}
+  .saybtn{background:var(--blue-soft);color:var(--blue);border:none;border-radius:10px;
+    padding:6px 12px;font-size:0.95rem;cursor:pointer;font-family:inherit;}
+  .big-listen{display:block;margin:6px auto 14px;background:var(--blue);color:#fff;
+    border:none;border-radius:16px;padding:18px 26px;font-size:1.2rem;font-weight:bold;
+    cursor:pointer;font-family:inherit;box-shadow:0 4px 12px rgba(59,110,165,0.3);}
+  .big-listen:hover{opacity:0.92;}
+  .ex{margin:14px 0;}
+  .qnum{font-weight:bold;color:var(--accent);}
+  .qtext{font-size:1.12rem;margin:6px 0 8px;}
+  .options{display:flex;flex-direction:column;gap:10px;}
+  .opt{background:var(--bg);border:2px solid var(--accent-soft);
+    border-radius:12px;padding:13px 14px;font-size:1.08rem;cursor:pointer;
+    text-align:left;font-family:inherit;color:var(--ink);transition:all .15s;}
+  .opt:hover{border-color:var(--accent);}
+  .opt.correct{background:var(--green-soft);border-color:var(--green);color:var(--green);font-weight:bold;}
+  .opt.wrong{background:var(--red-soft);border-color:var(--red);color:var(--red);}
+  .feedback{margin-top:10px;font-size:1.02rem;font-weight:bold;min-height:24px;}
+  .feedback.ok{color:var(--green);}
+  .feedback.no{color:var(--red);}
+  .progress{text-align:center;font-size:1.05rem;margin:12px 0 0;color:#8a7f70;}
+  .star{font-size:1.4rem;}
+  .write-input{width:100%;font-family:"Lexend",sans-serif;font-size:1.2rem;
+    padding:12px 14px;border:2px solid var(--accent-soft);border-radius:12px;
+    background:var(--bg);color:var(--ink);margin-top:4px;}
+  .write-input:focus{outline:none;border-color:var(--accent);}
+  .checkbtn{margin-top:10px;background:var(--accent);color:#fff;border:none;
+    border-radius:12px;padding:10px 20px;font-size:1rem;cursor:pointer;font-family:inherit;}
+  .write-input.okbox{border-color:var(--green);background:var(--green-soft);}
+  .write-input.nobox{border-color:var(--red);}
+  .reading{background:var(--bg);border-radius:14px;padding:16px 18px;font-size:1.12rem;
+    border:2px solid var(--accent-soft);margin-bottom:6px;}
+  .reading p{margin:0 0 6px;}
+  .match-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px;}
+  .match-col{display:flex;flex-direction:column;gap:10px;}
+  .match-btn{background:var(--bg);border:2px solid var(--accent-soft);border-radius:12px;
+    padding:12px;font-size:1.05rem;cursor:pointer;font-family:inherit;color:var(--ink);
+    display:flex;align-items:center;justify-content:space-between;gap:6px;transition:all .15s;}
+  .match-btn:hover{border-color:var(--accent);}
+  .match-btn.sel{border-color:var(--blue);background:var(--blue-soft);color:var(--blue);font-weight:bold;}
+  .match-btn.done{background:var(--green-soft);border-color:var(--green);color:var(--green);
+    font-weight:bold;cursor:default;opacity:0.85;}
+  .match-btn.flash{border-color:var(--red);background:var(--red-soft);}
+  .restart{display:inline-block;margin:12px auto 0;background:var(--accent);color:#fff;border:none;
+    border-radius:12px;padding:11px 22px;font-size:1rem;cursor:pointer;font-family:inherit;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="backbtn" href="there-is-there-are.html">← Torna alla lezione</a>
+  <h1>🏋️ There is / There are — Allenamento</h1>
+  <p class="sub">4 livelli · ascolto · scrittura · lettura · lessico</p>
+
+  <!-- SEZIONE 1 — ASCOLTO -->
+  <div class="card">
+    <h2>🎧 1. Ascolto</h2>
+    <p class="lead">Tocca il pulsante blu e ascolta. Scegli la frase giusta. Puoi riascoltare quante volte vuoi!</p>
+    <div class="levelbar" id="listen-level"></div>
+    <div id="listen-quiz"></div>
+    <div class="progress" id="listen-prog"></div>
+  </div>
+
+  <!-- SEZIONE 2 — SCRITTURA -->
+  <div class="card">
+    <h2>✏️ 2. Scrittura</h2>
+    <p class="lead">Completa la frase scrivendo <b>is / are</b> oppure <b>isn't / aren't</b> o <b>There is / There are</b>. Attenta ai plurali! Poi tocca "Controlla".</p>
+    <div class="levelbar" id="write-level"></div>
+    <div id="write-list"></div>
+    <div class="progress" id="write-prog"></div>
+  </div>
+
+  <!-- SEZIONE 3 — LETTURA -->
+  <div class="card" id="read-card">
+    <h2>📖 3. Lettura</h2>
+    <p class="lead">Ascolta e leggi il testo, poi rispondi alle domande.</p>
+    <div class="levelbar" id="read-level"></div>
+    <div class="reading" id="reading-text"></div>
+    <button class="saybtn" onclick="event.stopPropagation();sayReading()">🔊 Ascolta tutto il testo</button>
+    <div id="read-list" style="margin-top:8px;"></div>
+    <div class="progress" id="read-prog"></div>
+  </div>
+
+  <!-- SEZIONE 4 — LESSICO -->
+  <div class="card">
+    <h2>🔤 4. Lessico</h2>
+    <p class="lead">Tocca una frase in inglese (ascoltala con 🔊), poi il suo significato. Collega tutte le coppie!</p>
+    <div class="levelbar" id="match-level"></div>
+    <div class="match-grid" id="match-grid"></div>
+    <div class="progress" id="match-prog"></div>
+  </div>
+</div>
+
+<script>
+  function say(text){
+    try{
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = "en-US"; u.rate = 0.85;
+      speechSynthesis.cancel(); speechSynthesis.speak(u);
+    }catch(e){}
+  }
+  function escQ(s){ return s.replace(/'/g, "\\'"); }
+  function stars(correct,total){
+    const pct=correct/total;
+    const n=pct===1?5:pct>=0.75?4:pct>=0.5?3:pct>=0.25?2:1;
+    return "⭐".repeat(n);
+  }
+  const LV=["Base","Intermedio","Avanzato","Sfida"];
+  function levelBar(level){
+    let dots="";
+    for(let i=0;i<4;i++) dots+=`<span class="lvdot ${i<=level?'on':''}">${i+1}</span>`;
+    return `<div class="lvrow"><b>Livello ${level+1} di 4 · ${LV[level]} 🔓</b><span class="lvdots">${dots}</span></div>`;
+  }
+  function levelResult(progEl, score, total, level, threshold, setFnName){
+    const passed = score>=threshold;
+    let html=`<div class="star">${stars(score,total)}</div>${score}/${total} giuste<br>`;
+    if(passed && level<3){
+      html+=`<b>Bravissima! Livello ${level+2} sbloccato 🔓</b><br>`;
+      html+=`<button class="restart" onclick="${setFnName}(${level+1})">➡️ Vai al Livello ${level+2}</button>`;
+    } else if(passed && level===3){
+      html+=`<b>🏆 Hai completato tutti i livelli!</b><br>`;
+      html+=`<button class="restart" onclick="${setFnName}(0)">🔄 Rigioca dal Livello 1</button>`;
+    } else {
+      html+=`<b>Ci sei quasi! Riprova questo livello, ce la fai 🌱</b><br>`;
+      html+=`<button class="restart" onclick="${setFnName}(${level})">🔄 Rifai il Livello ${level+1}</button>`;
+    }
+    progEl.innerHTML=html;
+  }
+
+  /* ============ SEZIONE 1 — ASCOLTO ============ */
+  const listenLevels = [
+    [ // L1 — singole espressioni
+      {audio:"There is", opts:["There is","There are","There isn't"], correct:0},
+      {audio:"There are", opts:["There is","There are","Are there"], correct:1},
+      {audio:"There isn't", opts:["There aren't","There is","There isn't"], correct:2},
+      {audio:"There aren't", opts:["There aren't","There isn't","Are there"], correct:0},
+      {audio:"Is there", opts:["Are there","Is there","There is"], correct:1},
+      {audio:"Are there", opts:["Are there","Is there","There are"], correct:0},
+    ],
+    [ // L2 — frasi brevi affermative
+      {audio:"There is a cat.", opts:["There is a dog.","There is a cat.","There are cats."], correct:1},
+      {audio:"There are two dogs.", opts:["There are three dogs.","There is a dog.","There are two dogs."], correct:2},
+      {audio:"There is an apple.", opts:["There is an apple.","There are apples.","There isn't an apple."], correct:0},
+      {audio:"There are some books.", opts:["There are some books.","There is a book.","Are there some books?"], correct:0},
+      {audio:"There is a tree.", opts:["There are trees.","There is a tree.","Is there a tree?"], correct:1},
+      {audio:"There are four chairs.", opts:["There is a chair.","There are five chairs.","There are four chairs."], correct:2},
+    ],
+    [ // L3 — negative e interrogative brevi
+      {audio:"There isn't a pen.", opts:["There isn't a pen.","There aren't pens.","Is there a pen?"], correct:0},
+      {audio:"There aren't any cars.", opts:["There isn't a car.","There aren't any cars.","Are there any cars?"], correct:1},
+      {audio:"Is there a problem?", opts:["Is there a problem?","Are there problems?","There is a problem."], correct:0},
+      {audio:"Are there any eggs?", opts:["Is there an egg?","There aren't any eggs.","Are there any eggs?"], correct:2},
+      {audio:"There isn't milk.", opts:["There isn't water.","There isn't milk.","There aren't milk."], correct:1},
+      {audio:"Are there people?", opts:["Is there a person?","There are people.","Are there people?"], correct:2},
+    ],
+    [ // L4 — frasi miste
+      {audio:"There is a big spider on the wall.", opts:["There is a small spider on the wall.","There is a big spider on the wall.","There are spiders on the wall."], correct:1},
+      {audio:"There aren't any cookies left.", opts:["There aren't any cookies left.","There isn't any cookie left.","Are there any cookies left?"], correct:0},
+      {audio:"How many students are there in the class?", opts:["How many students are there in the class?","Are there students in the class?","How much students are there?"], correct:0},
+      {audio:"Is there a hospital near here?", opts:["Is there a bank near here?","Is there a hospital near here?","There is a hospital near here."], correct:1},
+      {audio:"There are five birds in the tree.", opts:["There are four birds in the tree.","There are five birds in the tree.","There is a bird in the tree."], correct:1},
+      {audio:"There isn't any water in the bottle.", opts:["There aren't any waters in the bottle.","Is there any water in the bottle?","There isn't any water in the bottle."], correct:2},
+    ],
+  ];
+  let lLevel=0, lc=0, ls=0, lCorrect=0, lAudio="";
+  function setListenLevel(lvl){ lLevel=lvl; lc=0; ls=0; document.getElementById("listen-level").innerHTML=levelBar(lvl); showListen(); }
+  function showListen(){
+    const data=listenLevels[lLevel];
+    const box=document.getElementById("listen-quiz");
+    const pr=document.getElementById("listen-prog");
+    if(lc>=data.length){ box.innerHTML=""; levelResult(pr, ls, data.length, lLevel, 4, "setListenLevel"); return; }
+    const it=data[lc];
+    lAudio=it.audio;
+    const order=shuffle(it.opts.map((o,i)=>i));
+    const shown=order.map(k=>it.opts[k]);
+    lCorrect=order.indexOf(it.correct);
+    pr.textContent=`Esercizio ${lc+1} di ${data.length}`;
+    box.innerHTML=`
+      <div class="ex">
+        <div class="qnum">Ascolto ${lc+1}</div>
+        <button class="big-listen" onclick="event.stopPropagation();say('${escQ(it.audio)}')">🔊 Ascolta</button>
+        <div class="options">
+          ${shown.map((o,i)=>`<button class="opt" onclick="listenAns(${i})">${o}</button>`).join("")}
+        </div>
+        <div class="feedback" id="lfb"></div>
+      </div>`;
+  }
+  function listenAns(i){
+    const opts=document.querySelectorAll("#listen-quiz .opt");
+    const fb=document.getElementById("lfb");
+    if(i===lCorrect){
+      opts[i].classList.add("correct");
+      fb.textContent="✅ Giusto! "+lAudio; fb.className="feedback ok";
+      ls++; say(lAudio); opts.forEach(o=>o.disabled=true);
+      setTimeout(()=>{ lc++; showListen(); },1800);
+    } else {
+      opts[i].classList.add("wrong");
+      fb.textContent="Riascolta e riprova 🙂"; fb.className="feedback no";
+    }
+  }
+
+  /* ============ SEZIONE 2 — SCRITTURA ============ */
+  const writeLevels = [
+    [ // L1 — is o are?
+      {q:"There ____ a book. 📖", answers:["is","'s"], full:"There is a book.", hint:"Un libro (singolare) → is"},
+      {q:"There ____ two dogs. 🐕🐕", answers:["are"], full:"There are two dogs.", hint:"Due cani (plurale) → are"},
+      {q:"There ____ an apple. 🍎", answers:["is","'s"], full:"There is an apple.", hint:"Una mela (singolare) → is"},
+      {q:"There ____ many stars. ⭐", answers:["are"], full:"There are many stars.", hint:"Tante stelle (plurale) → are"},
+      {q:"There ____ a car. 🚗", answers:["is","'s"], full:"There is a car.", hint:"Un'auto (singolare) → is"},
+      {q:"There ____ five chairs. 🪑", answers:["are"], full:"There are five chairs.", hint:"Cinque sedie (plurale) → are"},
+    ],
+    [ // L2 — isn't o aren't?
+      {q:"There ____ a cat in the room. (negativo) 🚫🐱", answers:["isn't","is not"], full:"There isn't a cat in the room.", hint:"Negativo singolare → isn't"},
+      {q:"There ____ any books. (negativo) 🚫📚", answers:["aren't","are not"], full:"There aren't any books.", hint:"Negativo plurale (any books) → aren't"},
+      {q:"There ____ a problem. (negativo) 🚫🤔", answers:["isn't","is not"], full:"There isn't a problem.", hint:"Negativo singolare → isn't"},
+      {q:"There ____ any people. (negativo) 🚫👥", answers:["aren't","are not"], full:"There aren't any people.", hint:"Negativo plurale (people) → aren't"},
+      {q:"There ____ any milk left. (negativo) 🚫🥛", answers:["isn't","is not"], full:"There isn't any milk left.", hint:"Milk è singolare non contabile → isn't"},
+      {q:"There ____ any clouds. (negativo) 🚫☁️", answers:["aren't","are not"], full:"There aren't any clouds.", hint:"Negativo plurale (clouds) → aren't"},
+    ],
+    [ // L3 — domande: Is o Are?
+      {q:"____ there a bank? 🏦", answers:["Is","is"], full:"Is there a bank?", hint:"Domanda singolare (a bank) → Is"},
+      {q:"____ there any eggs? 🥚", answers:["Are","are"], full:"Are there any eggs?", hint:"Domanda plurale (eggs) → Are"},
+      {q:"____ there a hospital near here? 🏥", answers:["Is","is"], full:"Is there a hospital near here?", hint:"Domanda singolare (a hospital) → Is"},
+      {q:"____ there any messages for me? ✉️", answers:["Are","are"], full:"Are there any messages for me?", hint:"Domanda plurale (messages) → Are"},
+      {q:"____ there a teacher in the classroom? 👨‍🏫", answers:["Is","is"], full:"Is there a teacher in the classroom?", hint:"Domanda singolare (a teacher) → Is"},
+      {q:"____ there any questions? ❓", answers:["Are","are"], full:"Are there any questions?", hint:"Domanda plurale (questions) → Are"},
+    ],
+    [ // L4 — scrivi tutto "There is" o "There are"
+      {q:"____ ____ a spider on the wall. 🕷️", answers:["There is","there is","There's","there's"], full:"There is a spider on the wall.", hint:"Singular → There is"},
+      {q:"____ ____ a lot of children in the park. 🏃‍♂️🏃‍♀️", answers:["There are","there are"], full:"There are a lot of children in the park.", hint:"Plural (children) → There are"},
+      {q:"____ ____ any cookies left? (domanda)", answers:["Are there","are there"], full:"Are there any cookies left?", hint:"Domanda plurale → Are there"},
+      {q:"____ ____ a dog in the garden? (domanda)", answers:["Is there","is there"], full:"Is there a dog in the garden?", hint:"Domanda singolare → Is there"},
+      {q:"____ ____ any cars in the street. (negativo)", answers:["There aren't","there aren't"], full:"There aren't any cars in the street.", hint:"Negativo plurale → There aren't"},
+      {q:"____ ____ any water. (negativo)", answers:["There isn't","there isn't"], full:"There isn't any water.", hint:"Negativo singolare (water) → There isn't"},
+    ],
+  ];
+  let wLevel=0, writeDone=[];
+  function norm(s){ return s.trim().toLowerCase().replace(/\s+/g," "); }
+  function setWriteLevel(lvl){
+    wLevel=lvl;
+    const data=writeLevels[lvl];
+    writeDone=new Array(data.length).fill(false);
+    document.getElementById("write-level").innerHTML=levelBar(lvl);
+    document.getElementById("write-prog").textContent=`Completate 0 di ${data.length}`;
+    const list=document.getElementById("write-list");
+    list.innerHTML=data.map((it,i)=>`
+      <div class="ex">
+        <div class="qnum">Frase ${i+1}</div>
+        <div class="qtext">${it.q}</div>
+        <input class="write-input" id="wi${i}" type="text" autocomplete="off" placeholder="scrivi qui…">
+        <button class="checkbtn" onclick="checkWrite(${i})">Controlla</button>
+        <div class="feedback" id="wfb${i}"></div>
+      </div>`).join("");
+  }
+  function checkWrite(i){
+    const it=writeLevels[wLevel][i];
+    const inp=document.getElementById("wi"+i);
+    const fb=document.getElementById("wfb"+i);
+    const ok=it.answers.some(a=>norm(a)===norm(inp.value));
+    if(ok){
+      inp.classList.add("okbox"); inp.classList.remove("nobox");
+      fb.innerHTML="✅ Perfetto! "+it.full; fb.className="feedback ok";
+      say(it.full);
+    } else {
+      inp.classList.add("nobox");
+      fb.innerHTML=`💛 Quasi! ${it.hint}<br>La risposta è: <b>${it.answers[0]}</b> <button class="saybtn" onclick="event.stopPropagation();say('${escQ(it.full)}')">🔊</button>`;
+      fb.className="feedback no";
+    }
+    if(!writeDone[i]){ writeDone[i]=true; updateWrite(); }
+  }
+  function updateWrite(){
+    const data=writeLevels[wLevel];
+    const pr=document.getElementById("write-prog");
+    const done=writeDone.filter(Boolean).length;
+    if(done<data.length){ pr.textContent=`Completate ${done} di ${data.length}`; return; }
+    let correct=0;
+    data.forEach((it,i)=>{ if(document.getElementById("wi"+i).classList.contains("okbox")) correct++; });
+    levelResult(pr, correct, data.length, wLevel, 4, "setWriteLevel");
+  }
+
+  /* ============ SEZIONE 3 — LETTURA ============ */
+  const readLevels = [
+    { // L1
+      lines:["Look at my room.","There is a bed.","There are two windows.","There isn't a TV.","There are many books."],
+      q:[
+        {q:"Is there a bed in the room? 🛏️", opts:["Yes, there is","No, there isn't","There are two beds"], correct:0, full:"Yes, there is. (There is a bed.)"},
+        {q:"How many windows are there? 🪟", opts:["One","Two","Three"], correct:1, full:"There are two windows."},
+        {q:"Is there a TV? 📺", opts:["Yes, there is","No, there isn't","I don't know"], correct:1, full:"No, there isn't a TV."},
+      ]
+    },
+    { // L2
+      lines:["In my town, there is a big park.","There are many trees and there are beautiful flowers.","There isn't a cinema, but there are two restaurants.","Are there any museums? No, there aren't."],
+      q:[
+        {q:"What is there in the town? 🌳", opts:["A big park","A cinema","A museum"], correct:0, full:"There is a big park."},
+        {q:"Is there a cinema? 🎬", opts:["Yes, there is","No, there isn't","There are two cinemas"], correct:1, full:"There isn't a cinema."},
+        {q:"Are there any museums? 🏛️", opts:["Yes, there are","No, there aren't","There is one museum"], correct:1, full:"No, there aren't."},
+      ]
+    },
+    { // L3
+      lines:["Welcome to our kitchen!","There is a fridge and there is an oven.","Are there any apples? Yes, there are three apples in the bowl.","There isn't any milk left in the fridge. We need to buy some."],
+      q:[
+        {q:"What is there in the kitchen? 🍳", opts:["A fridge and an oven","A TV and a sofa","A bed and a desk"], correct:0, full:"There is a fridge and there is an oven."},
+        {q:"Are there any apples? 🍎", opts:["No, there aren't","Yes, there are three","Yes, there is one"], correct:1, full:"Yes, there are three apples."},
+        {q:"Is there any milk left? 🥛", opts:["Yes, there is","No, there isn't","There is a lot of milk"], correct:1, full:"There isn't any milk left."},
+      ]
+    },
+    { // L4
+      lines:["Let's go to the beach!","Is there a lot of sand? Yes, there is.","Are there any people? Yes, there are many people.","There aren't any clouds in the sky today. It is very sunny!"],
+      q:[
+        {q:"Is there a lot of sand? 🏖️", opts:["Yes, there is","No, there isn't","There is a little sand"], correct:0, full:"Yes, there is a lot of sand."},
+        {q:"Are there any people? 👥", opts:["No, there aren't","Yes, there are many","There is only one person"], correct:1, full:"Yes, there are many people."},
+        {q:"Are there any clouds in the sky? ☁️", opts:["Yes, there are","No, there aren't","There are some clouds"], correct:1, full:"There aren't any clouds."},
+      ]
+    },
+  ];
+  let rLevel=0, readDone=[], readingText="", readCorrect=[];
+  function sayReading(){ say(readingText); }
+  function setReadLevel(lvl, noScroll){
+    rLevel=lvl;
+    const data=readLevels[lvl];
+    readingText=data.lines.join(" ");
+    readDone=new Array(data.q.length).fill(false);
+    document.getElementById("read-level").innerHTML=levelBar(lvl);
+    document.getElementById("reading-text").innerHTML=data.lines.map(l=>`<p>${l}</p>`).join("");
+    document.getElementById("read-prog").textContent=`Risposte 0 di ${data.q.length}`;
+    readCorrect=[];
+    const list=document.getElementById("read-list");
+    list.innerHTML=data.q.map((it,i)=>{
+      const order=shuffle(it.opts.map((o,k)=>k));
+      const shown=order.map(k=>it.opts[k]);
+      readCorrect[i]=order.indexOf(it.correct);
+      return `
+      <div class="ex">
+        <div class="qnum">Domanda ${i+1}</div>
+        <div class="qtext">${it.q}</div>
+        <div class="options">
+          ${shown.map((o,j)=>`<button class="opt" onclick="readAns(${i},${j})">${o}</button>`).join("")}
+        </div>
+        <div class="feedback" id="rfb${i}"></div>
+      </div>`;
+    }).join("");
+    if(!noScroll){
+      const card=document.getElementById("read-card");
+      if(card) card.scrollIntoView({behavior:"smooth", block:"start"});
+    }
+  }
+  function readAns(i,j){
+    const it=readLevels[rLevel].q[i];
+    const opts=document.querySelectorAll("#read-list .ex:nth-child("+(i+1)+") .opt");
+    const fb=document.getElementById("rfb"+i);
+    if(j===readCorrect[i]){
+      opts[j].classList.add("correct");
+      fb.innerHTML="✅ Giusto! "+it.full+` <button class="saybtn" onclick="event.stopPropagation();say('${escQ(it.full)}')">🔊</button>`;
+      fb.className="feedback ok"; opts.forEach(o=>o.disabled=true);
+      if(!readDone[i]){ readDone[i]=true; updateRead(); }
+    } else {
+      opts[j].classList.add("wrong");
+      fb.textContent="Rileggi il testo e riprova 🙂"; fb.className="feedback no";
+    }
+  }
+  function updateRead(){
+    const data=readLevels[rLevel];
+    const pr=document.getElementById("read-prog");
+    const done=readDone.filter(Boolean).length;
+    if(done<data.q.length){ pr.textContent=`Risposte ${done} di ${data.q.length}`; return; }
+    levelResult(pr, data.q.length, data.q.length, rLevel, 2, "setReadLevel");
+  }
+
+  /* ============ SEZIONE 4 — LESSICO ============ */
+  const matchLevels = [
+    [ // L1 — Base forms
+      {en:"There is", it:"C'è"},{en:"There are", it:"Ci sono"},{en:"There isn't", it:"Non c'è"},{en:"There aren't", it:"Non ci sono"},
+      {en:"Is there?", it:"C'è? (domanda)"},{en:"Are there?", it:"Ci sono? (domanda)"},{en:"Yes, there is", it:"Sì, c'è"},{en:"No, there aren't", it:"No, non ci sono"},
+    ],
+    [ // L2 — Short sentences
+      {en:"There is a cat", it:"C'è un gatto"},{en:"There are cats", it:"Ci sono dei gatti"},{en:"There isn't a problem", it:"Non c'è problema"},{en:"There aren't any dogs", it:"Non ci sono cani"},
+      {en:"Is there a bank?", it:"C'è una banca?"},{en:"Are there any apples?", it:"Ci sono delle mele?"},{en:"Yes, there are", it:"Sì, ci sono"},{en:"No, there isn't", it:"No, non c'è"},
+    ],
+    [ // L3 — Expressions
+      {en:"There is a lot of time", it:"C'è molto tempo"},{en:"There are many people", it:"Ci sono molte persone"},{en:"Is there any water?", it:"C'è dell'acqua?"},{en:"There isn't any milk", it:"Non c'è latte"},
+      {en:"Are there any questions?", it:"Ci sono domande?"},{en:"There are some books", it:"Ci sono alcuni libri"},{en:"There is someone here", it:"C'è qualcuno qui"},{en:"There isn't anyone", it:"Non c'è nessuno"},
+    ],
+    [ // L4 — Full Q/A
+      {en:"Is there a hospital?", it:"C'è un ospedale?"},{en:"Yes, there is one near here", it:"Sì, ce n'è uno qui vicino"},{en:"Are there any students?", it:"Ci sono studenti?"},{en:"No, there aren't any", it:"No, non ce n'è nessuno"},
+      {en:"How many cars are there?", it:"Quante auto ci sono?"},{en:"There are three cars", it:"Ci sono tre auto"},{en:"Is there a problem?", it:"C'è un problema?"},{en:"No, there isn't", it:"No, non c'è (nessun problema)"},
+    ],
+  ];
+  let mLevel=0, selEn=null, matched=0, firstTry=0, spoiled;
+  function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+  function setMatchLevel(lvl){
+    mLevel=lvl; selEn=null; matched=0; firstTry=0; spoiled=new Set();
+    const pairs=matchLevels[lvl];
+    document.getElementById("match-level").innerHTML=levelBar(lvl);
+    const grid=document.getElementById("match-grid");
+    const left=pairs.map((p,i)=>`<button class="match-btn" id="en${i}" onclick="pickEn(${i})">
+        <span>${p.en}</span>
+        <span class="saybtn" onclick="event.stopPropagation();say('${escQ(p.en)}')">🔊</span></button>`).join("");
+    const order=shuffle(pairs.map((p,i)=>i));
+    const right=order.map(i=>`<button class="match-btn" id="it${i}" onclick="pickIt(${i})">${pairs[i].it}</button>`).join("");
+    grid.innerHTML=`<div class="match-col">${left}</div><div class="match-col">${right}</div>`;
+    document.getElementById("match-prog").textContent=`Coppie collegate: 0 di ${pairs.length}`;
+  }
+  function pickEn(i){
+    const btn=document.getElementById("en"+i);
+    if(btn.classList.contains("done")) return;
+    document.querySelectorAll(".match-btn.sel").forEach(b=>b.classList.remove("sel"));
+    selEn=i; btn.classList.add("sel");
+  }
+  function pickIt(i){
+    if(selEn===null) return;
+    const itBtn=document.getElementById("it"+i);
+    if(itBtn.classList.contains("done")) return;
+    const enBtn=document.getElementById("en"+selEn);
+    const pairs=matchLevels[mLevel];
+    if(selEn===i){
+      enBtn.classList.remove("sel"); enBtn.classList.add("done"); itBtn.classList.add("done");
+      say(pairs[i].en);
+      if(!spoiled.has(selEn)) firstTry++;
+      selEn=null; matched++;
+      const pr=document.getElementById("match-prog");
+      if(matched>=pairs.length){
+        levelResult(pr, firstTry, pairs.length, mLevel, 5, "setMatchLevel");
+      } else {
+        pr.textContent=`Coppie collegate: ${matched} di ${pairs.length}`;
+      }
+    } else {
+      spoiled.add(selEn);
+      itBtn.classList.add("flash");
+      setTimeout(()=>itBtn.classList.remove("flash"),500);
+      enBtn.classList.remove("sel"); selEn=null;
+    }
+  }
+
+  // avvio: ogni sezione parte dal Livello 1
+  setListenLevel(0);
+  setWriteLevel(0);
+  setReadLevel(0, true);
+  setMatchLevel(0);
+</script>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./service-worker.js');
+  }
+</script>
+</body>
+</html>
