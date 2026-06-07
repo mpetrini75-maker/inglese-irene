@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>I pronomi personali — Allenamento</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#FAF6EE">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Inglese di Irene">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FAF6EE; --card:#FFFFFF; --ink:#2F2A24;
+    --accent:#C8651B; --accent-soft:#F3E2D0;
+    --green:#3E8E5A; --green-soft:#E2F0E6;
+    --red:#C2492F; --red-soft:#F6E1DB;
+    --blue:#3B6EA5; --blue-soft:#E2ECF5;
+    --purple:#7B5EA7; --purple-soft:#EDE8F5;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; font-family:"Lexend","Trebuchet MS",Verdana,sans-serif;
+    background:var(--bg); color:var(--ink); line-height:1.7; letter-spacing:0.3px; padding:24px 14px 60px;}
+  .wrap{max-width:620px;margin:0 auto;}
+  .backbtn{display:inline-block;background:var(--accent-soft);color:var(--accent);
+    text-decoration:none;border-radius:12px;padding:8px 16px;font-size:0.98rem;font-weight:bold;margin-bottom:14px;}
+  h1{color:var(--accent);font-size:1.6rem;text-align:center;margin:0 0 6px;}
+  .sub{text-align:center;color:#8a7f70;margin:0 0 26px;font-size:1rem;}
+  .card{background:var(--card);border-radius:18px;padding:22px 20px;margin-bottom:22px;
+    box-shadow:0 4px 14px rgba(0,0,0,0.06);border:1px solid #efe7da;}
+  .card h2{margin:0 0 10px;font-size:1.25rem;color:var(--accent);display:flex;align-items:center;gap:8px;}
+  .card .lead{color:#8a7f70;margin:0 0 12px;font-size:0.97rem;}
+  /* barra livelli */
+  .levelbar{margin:0 0 12px;}
+  .lvrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:0.98rem;color:var(--accent);}
+  .lvdots{display:inline-flex;gap:6px;}
+  .lvdot{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    background:var(--bg);border:2px solid var(--accent-soft);color:#b9ad9c;font-size:0.85rem;font-weight:bold;}
+  .lvdot.on{background:var(--accent-soft);border-color:var(--accent);color:var(--accent);}
+  .saybtn{background:var(--blue-soft);color:var(--blue);border:none;border-radius:10px;
+    padding:6px 12px;font-size:0.95rem;cursor:pointer;font-family:inherit;}
+  .big-listen{display:block;margin:6px auto 14px;background:var(--blue);color:#fff;
+    border:none;border-radius:16px;padding:18px 26px;font-size:1.2rem;font-weight:bold;
+    cursor:pointer;font-family:inherit;box-shadow:0 4px 12px rgba(59,110,165,0.3);}
+  .big-listen:hover{opacity:0.92;}
+  .ex{margin:14px 0;}
+  .qnum{font-weight:bold;color:var(--accent);}
+  .qtext{font-size:1.12rem;margin:6px 0 8px;}
+  .options{display:flex;flex-direction:column;gap:10px;}
+  .opt{background:var(--bg);border:2px solid var(--accent-soft);
+    border-radius:12px;padding:13px 14px;font-size:1.08rem;cursor:pointer;
+    text-align:left;font-family:inherit;color:var(--ink);transition:all .15s;}
+  .opt:hover{border-color:var(--accent);}
+  .opt.correct{background:var(--green-soft);border-color:var(--green);color:var(--green);font-weight:bold;}
+  .opt.wrong{background:var(--red-soft);border-color:var(--red);color:var(--red);}
+  .feedback{margin-top:10px;font-size:1.02rem;font-weight:bold;min-height:24px;}
+  .feedback.ok{color:var(--green);}
+  .feedback.no{color:var(--red);}
+  .progress{text-align:center;font-size:1.05rem;margin:12px 0 0;color:#8a7f70;}
+  .star{font-size:1.4rem;}
+  .write-input{width:100%;font-family:"Lexend",sans-serif;font-size:1.2rem;
+    padding:12px 14px;border:2px solid var(--accent-soft);border-radius:12px;
+    background:var(--bg);color:var(--ink);margin-top:4px;}
+  .write-input:focus{outline:none;border-color:var(--accent);}
+  .checkbtn{margin-top:10px;background:var(--accent);color:#fff;border:none;
+    border-radius:12px;padding:10px 20px;font-size:1rem;cursor:pointer;font-family:inherit;}
+  .write-input.okbox{border-color:var(--green);background:var(--green-soft);}
+  .write-input.nobox{border-color:var(--red);}
+  .reading{background:var(--bg);border-radius:14px;padding:16px 18px;font-size:1.12rem;
+    border:2px solid var(--accent-soft);margin-bottom:6px;}
+  .reading p{margin:0 0 6px;}
+  .match-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px;}
+  .match-col{display:flex;flex-direction:column;gap:10px;}
+  .match-btn{background:var(--bg);border:2px solid var(--accent-soft);border-radius:12px;
+    padding:12px;font-size:1.05rem;cursor:pointer;font-family:inherit;color:var(--ink);
+    display:flex;align-items:center;justify-content:space-between;gap:6px;transition:all .15s;}
+  .match-btn:hover{border-color:var(--accent);}
+  .match-btn.sel{border-color:var(--blue);background:var(--blue-soft);color:var(--blue);font-weight:bold;}
+  .match-btn.done{background:var(--green-soft);border-color:var(--green);color:var(--green);
+    font-weight:bold;cursor:default;opacity:0.85;}
+  .match-btn.flash{border-color:var(--red);background:var(--red-soft);}
+  .restart{display:inline-block;margin:12px auto 0;background:var(--accent);color:#fff;border:none;
+    border-radius:12px;padding:11px 22px;font-size:1rem;cursor:pointer;font-family:inherit;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="backbtn" href="pronomi-personali.html">← Torna alla lezione</a>
+  <h1>🏋️ I pronomi personali — Allenamento</h1>
+  <p class="sub">4 livelli · ascolto · scrittura · lettura · lessico</p>
+
+  <!-- SEZIONE 1 — ASCOLTO -->
+  <div class="card">
+    <h2>🎧 1. Ascolto</h2>
+    <p class="lead">Tocca il pulsante blu e ascolta. Scegli la frase giusta. Puoi riascoltare quante volte vuoi!</p>
+    <div class="levelbar" id="listen-level"></div>
+    <div id="listen-quiz"></div>
+    <div class="progress" id="listen-prog"></div>
+  </div>
+
+  <!-- SEZIONE 2 — SCRITTURA -->
+  <div class="card">
+    <h2>✏️ 2. Scrittura</h2>
+    <p class="lead">Scrivi il pronome giusto. Non contano maiuscole o spazi: conta la parola! Poi tocca "Controlla".</p>
+    <div class="levelbar" id="write-level"></div>
+    <div id="write-list"></div>
+    <div class="progress" id="write-prog"></div>
+  </div>
+
+  <!-- SEZIONE 3 — LETTURA -->
+  <div class="card" id="read-card">
+    <h2>📖 3. Lettura</h2>
+    <p class="lead">Ascolta e leggi il testo, poi rispondi alle domande.</p>
+    <div class="levelbar" id="read-level"></div>
+    <div class="reading" id="reading-text"></div>
+    <button class="saybtn" onclick="event.stopPropagation();sayReading()">🔊 Ascolta tutto il testo</button>
+    <div id="read-list" style="margin-top:8px;"></div>
+    <div class="progress" id="read-prog"></div>
+  </div>
+
+  <!-- SEZIONE 4 — LESSICO -->
+  <div class="card">
+    <h2>🔤 4. Lessico</h2>
+    <p class="lead">Tocca una parola inglese (ascoltala con 🔊), poi il suo significato. Collega tutte le coppie!</p>
+    <div class="levelbar" id="match-level"></div>
+    <div class="match-grid" id="match-grid"></div>
+    <div class="progress" id="match-prog"></div>
+  </div>
+</div>
+
+<script>
+  function say(text){
+    try{
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = "en-US"; u.rate = 0.85;
+      speechSynthesis.cancel(); speechSynthesis.speak(u);
+    }catch(e){}
+  }
+  function escQ(s){ return s.replace(/'/g, "\\'"); }
+  function stars(correct,total){
+    const pct=correct/total;
+    const n=pct===1?5:pct>=0.75?4:pct>=0.5?3:pct>=0.25?2:1;
+    return "⭐".repeat(n);
+  }
+  const LV=["Base","Intermedio","Avanzato","Sfida"];
+  function levelBar(level){
+    let dots="";
+    for(let i=0;i<4;i++) dots+=`<span class="lvdot ${i<=level?'on':''}">${i+1}</span>`;
+    return `<div class="lvrow"><b>Livello ${level+1} di 4 · ${LV[level]} 🔓</b><span class="lvdots">${dots}</span></div>`;
+  }
+  function levelResult(progEl, score, total, level, threshold, setFnName){
+    const passed = score>=threshold;
+    let html=`<div class="star">${stars(score,total)}</div>${score}/${total} giuste<br>`;
+    if(passed && level<3){
+      html+=`<b>Bravissima! Livello ${level+2} sbloccato 🔓</b><br>`;
+      html+=`<button class="restart" onclick="${setFnName}(${level+1})">➡️ Vai al Livello ${level+2}</button>`;
+    } else if(passed && level===3){
+      html+=`<b>🏆 Hai completato tutti i livelli!</b><br>`;
+      html+=`<button class="restart" onclick="${setFnName}(0)">🔄 Rigioca dal Livello 1</button>`;
+    } else {
+      html+=`<b>Ci sei quasi! Riprova questo livello, ce la fai 🌱</b><br>`;
+      html+=`<button class="restart" onclick="${setFnName}(${level})">🔄 Rifai il Livello ${level+1}</button>`;
+    }
+    progEl.innerHTML=html;
+  }
+
+  /* ============ SEZIONE 1 — ASCOLTO ============ */
+  const listenLevels = [
+    [ // L1 — pronomi soggetto
+      {audio:"He is my brother.", opts:["He is my brother.","She is my brother.","He is my father."], correct:0},
+      {audio:"We are friends.", opts:["We are friends.","They are friends.","We are sisters."], correct:0},
+      {audio:"She likes pizza.", opts:["She likes pizza.","He likes pizza.","She likes pasta."], correct:0},
+      {audio:"They play football.", opts:["They play football.","We play football.","They play basketball."], correct:0},
+      {audio:"I have a dog.", opts:["I have a dog.","I have a cat.","She has a dog."], correct:0},
+      {audio:"It is a big house.", opts:["It is a big house.","It is a big horse.","It is a small house."], correct:0},
+    ],
+    [ // L2 — pronomi complemento
+      {audio:"She loves him.", opts:["She loves him.","She loves her.","He loves him."], correct:0},
+      {audio:"Can you help me?", opts:["Can you help me?","Can you help him?","Can I help you?"], correct:0},
+      {audio:"I see them every day.", opts:["I see them every day.","I see him every day.","I see them every week."], correct:0},
+      {audio:"Look at us!", opts:["Look at us!","Look at them!","Look at me!"], correct:0},
+      {audio:"He calls her every evening.", opts:["He calls her every evening.","He calls him every evening.","She calls her every evening."], correct:0},
+      {audio:"Give it to me.", opts:["Give it to me.","Give it to him.","Give them to me."], correct:0},
+    ],
+    [ // L3 — aggettivi possessivi
+      {audio:"This is my book.", opts:["This is my book.","This is your book.","This is his book."], correct:0},
+      {audio:"Her name is Anna.", opts:["Her name is Anna.","His name is Anna.","Her name is Hannah."], correct:0},
+      {audio:"Our house is big.", opts:["Our house is big.","Your house is big.","Our horse is big."], correct:0},
+      {audio:"Their car is new.", opts:["Their car is new.","Their cat is new.","Your car is new."], correct:0},
+      {audio:"His sister is tall.", opts:["His sister is tall.","Her sister is tall.","His sister is small."], correct:0},
+      {audio:"Its tail is long.", opts:["Its tail is long.","His tail is long.","Its tale is long."], correct:0},
+    ],
+    [ // L4 — tutto insieme
+      {audio:"I give him my pen.", opts:["I give him my pen.","I give her my pen.","I give him your pen."], correct:0},
+      {audio:"She shows us her photos.", opts:["She shows us her photos.","She shows them her photos.","She shows us their photos."], correct:0},
+      {audio:"We invite them to our party.", opts:["We invite them to our party.","We invite him to our party.","We invite them to your party."], correct:0},
+      {audio:"He doesn't know their address.", opts:["He doesn't know their address.","He doesn't know your address.","She doesn't know their address."], correct:0},
+      {audio:"Tell me your secret.", opts:["Tell me your secret.","Tell him your secret.","Tell me his secret."], correct:0},
+      {audio:"They help us with our homework.", opts:["They help us with our homework.","They help him with our homework.","They help us with their homework."], correct:0},
+    ],
+  ];
+  let lLevel=0, lc=0, ls=0, lCorrect=0, lAudio="";
+  function setListenLevel(lvl){ lLevel=lvl; lc=0; ls=0; document.getElementById("listen-level").innerHTML=levelBar(lvl); showListen(); }
+  function showListen(){
+    const data=listenLevels[lLevel];
+    const box=document.getElementById("listen-quiz");
+    const pr=document.getElementById("listen-prog");
+    if(lc>=data.length){ box.innerHTML=""; levelResult(pr, ls, data.length, lLevel, 4, "setListenLevel"); return; }
+    const it=data[lc];
+    lAudio=it.audio;
+    const order=shuffle(it.opts.map((o,i)=>i));
+    const shown=order.map(k=>it.opts[k]);
+    lCorrect=order.indexOf(it.correct);
+    pr.textContent=`Esercizio ${lc+1} di ${data.length}`;
+    box.innerHTML=`
+      <div class="ex">
+        <div class="qnum">Ascolto ${lc+1}</div>
+        <button class="big-listen" onclick="event.stopPropagation();say('${escQ(it.audio)}')">🔊 Ascolta la frase</button>
+        <div class="options">
+          ${shown.map((o,i)=>`<button class="opt" onclick="listenAns(${i})">${o}</button>`).join("")}
+        </div>
+        <div class="feedback" id="lfb"></div>
+      </div>`;
+  }
+  function listenAns(i){
+    const opts=document.querySelectorAll("#listen-quiz .opt");
+    const fb=document.getElementById("lfb");
+    if(i===lCorrect){
+      opts[i].classList.add("correct");
+      fb.textContent="✅ Giusto! "+lAudio; fb.className="feedback ok";
+      ls++; say(lAudio); opts.forEach(o=>o.disabled=true);
+      setTimeout(()=>{ lc++; showListen(); },1800);
+    } else {
+      opts[i].classList.add("wrong");
+      fb.textContent="Riascolta e riprova 🙂"; fb.className="feedback no";
+    }
+  }
+
+  /* ============ SEZIONE 2 — SCRITTURA ============ */
+  const writeLevels = [
+    [ // L1 — soggetto
+      {q:"____ am a student.  (io)", answers:["I"], full:"I am a student.", hint:"io → I (sempre maiuscolo)."},
+      {q:"____ is my sister.  (lei)", answers:["she"], full:"She is my sister.", hint:"lei → she."},
+      {q:"____ are my friends.  (loro)", answers:["they"], full:"They are my friends.", hint:"loro → they."},
+      {q:"____ is a teacher.  (lui)", answers:["he"], full:"He is a teacher.", hint:"lui → he."},
+      {q:"____ are happy.  (noi)", answers:["we"], full:"We are happy.", hint:"noi → we."},
+      {q:"____ is a cat.  (esso)", answers:["it"], full:"It is a cat.", hint:"esso (cosa/animale) → it."},
+    ],
+    [ // L2 — complemento
+      {q:"She loves ____.  (lui)", answers:["him"], full:"She loves him.", hint:"lui (dopo il verbo) → him."},
+      {q:"Can you help ____?  (me)", answers:["me"], full:"Can you help me?", hint:"me → me."},
+      {q:"I see ____ every day.  (loro)", answers:["them"], full:"I see them every day.", hint:"loro (dopo il verbo) → them."},
+      {q:"Look at ____!  (noi)", answers:["us"], full:"Look at us!", hint:"noi (dopo il verbo) → us."},
+      {q:"He calls ____ every evening.  (lei)", answers:["her"], full:"He calls her every evening.", hint:"lei (dopo il verbo) → her."},
+      {q:"Give it to ____.  (me)", answers:["me"], full:"Give it to me.", hint:"me → me."},
+    ],
+    [ // L3 — possessivi
+      {q:"This is ____ book.  (mio)", answers:["my"], full:"This is my book.", hint:"mio → my."},
+      {q:"____ name is Anna.  (suo, di lei)", answers:["her"], full:"Her name is Anna.", hint:"di lei → her."},
+      {q:"____ house is big.  (nostro)", answers:["our"], full:"Our house is big.", hint:"nostro → our."},
+      {q:"____ car is new.  (loro)", answers:["their"], full:"Their car is new.", hint:"di loro → their."},
+      {q:"____ sister is tall.  (suo, di lui)", answers:["his"], full:"His sister is tall.", hint:"di lui → his."},
+      {q:"Is this ____ pen?  (tuo)", answers:["your"], full:"Is this your pen?", hint:"tuo → your."},
+    ],
+    [ // L4 — soggetto / complemento / possessivo insieme
+      {q:"That is ____ dog.  (di lei, possessivo)", answers:["her"], full:"That is her dog.", hint:"di lei (prima della cosa) → her."},
+      {q:"I see ____ at school.  (lei, dopo il verbo)", answers:["her"], full:"I see her at school.", hint:"lei (complemento) → her."},
+      {q:"____ lives in Spain.  (lui, soggetto)", answers:["he"], full:"He lives in Spain.", hint:"lui (soggetto) → he."},
+      {q:"Can you call ____?  (loro)", answers:["them"], full:"Can you call them?", hint:"loro (complemento) → them."},
+      {q:"____ books are old.  (loro, possessivo)", answers:["their"], full:"Their books are old.", hint:"di loro → their."},
+      {q:"We help ____.  (lui)", answers:["him"], full:"We help him.", hint:"lui (complemento) → him."},
+    ],
+  ];
+  let wLevel=0, writeDone=[];
+  function norm(s){ return s.trim().toLowerCase().replace(/\s+/g," "); }
+  function setWriteLevel(lvl){
+    wLevel=lvl;
+    const data=writeLevels[lvl];
+    writeDone=new Array(data.length).fill(false);
+    document.getElementById("write-level").innerHTML=levelBar(lvl);
+    document.getElementById("write-prog").textContent=`Completate 0 di ${data.length}`;
+    const list=document.getElementById("write-list");
+    list.innerHTML=data.map((it,i)=>`
+      <div class="ex">
+        <div class="qnum">Frase ${i+1}</div>
+        <div class="qtext">${it.q}</div>
+        <input class="write-input" id="wi${i}" type="text" autocomplete="off" placeholder="scrivi qui…">
+        <button class="checkbtn" onclick="checkWrite(${i})">Controlla</button>
+        <div class="feedback" id="wfb${i}"></div>
+      </div>`).join("");
+  }
+  function checkWrite(i){
+    const it=writeLevels[wLevel][i];
+    const inp=document.getElementById("wi"+i);
+    const fb=document.getElementById("wfb"+i);
+    const ok=it.answers.some(a=>norm(a)===norm(inp.value));
+    if(ok){
+      inp.classList.add("okbox"); inp.classList.remove("nobox");
+      fb.innerHTML="✅ Perfetto! "+it.full; fb.className="feedback ok";
+      say(it.full);
+    } else {
+      inp.classList.add("nobox");
+      fb.innerHTML=`💛 Quasi! ${it.hint}<br>La risposta è: <b>${it.full}</b> <button class="saybtn" onclick="event.stopPropagation();say('${escQ(it.full)}')">🔊</button>`;
+      fb.className="feedback no";
+    }
+    if(!writeDone[i]){ writeDone[i]=true; updateWrite(); }
+  }
+  function updateWrite(){
+    const data=writeLevels[wLevel];
+    const pr=document.getElementById("write-prog");
+    const done=writeDone.filter(Boolean).length;
+    if(done<data.length){ pr.textContent=`Completate ${done} di ${data.length}`; return; }
+    let correct=0;
+    data.forEach((it,i)=>{ if(document.getElementById("wi"+i).classList.contains("okbox")) correct++; });
+    levelResult(pr, correct, data.length, wLevel, 4, "setWriteLevel");
+  }
+
+  /* ============ SEZIONE 3 — LETTURA ============ */
+  const readLevels = [
+    { // L1
+      lines:["This is Sara.","She is my friend.","Her bag is red."],
+      q:[
+        {q:"Who is Sara? 👧", opts:["My friend","My sister","My mum"], correct:0, full:"She is my friend."},
+        {q:"Is Sara a boy or a girl? 🙋", opts:["A boy","A girl","A man"], correct:1, full:"She is a girl."},
+        {q:"What colour is her bag? 🎒", opts:["Blue","Red","Green"], correct:1, full:"Her bag is red."},
+      ]
+    },
+    { // L2
+      lines:["Tom and I are brothers.","We have a dog.","Its name is Rex.","We love him very much."],
+      q:[
+        {q:"Who are brothers? 👬", opts:["Tom and I","Tom and Sara","My friends"], correct:0, full:"Tom and I are brothers."},
+        {q:"What is the dog's name? 🐶", opts:["Max","Rex","Bob"], correct:1, full:"Its name is Rex."},
+        {q:"Do they love the dog? ❤️", opts:["Yes, very much","No","A little"], correct:0, full:"We love him very much."},
+      ]
+    },
+    { // L3
+      lines:["Mr Rossi is our teacher.","His class is fun.","He helps us with our English.","We like him a lot."],
+      q:[
+        {q:"Who is Mr Rossi? 👨‍🏫", opts:["Our teacher","Our father","Our doctor"], correct:0, full:"He is our teacher."},
+        {q:"What does he help with? 📚", opts:["Their maths","Our English","His homework"], correct:1, full:"He helps us with our English."},
+        {q:"How do they feel about him? 😊", opts:["They like him","They don't like him","They don't know him"], correct:0, full:"We like him a lot."},
+      ]
+    },
+    { // L4
+      lines:["Anna and Lucy are sisters.","Their house is near mine.","I often visit them after school.","They show me their photos and I help them with their homework."],
+      q:[
+        {q:"Whose house is near? 🏠", opts:["Their house","My house","His house"], correct:0, full:"Their house is near mine."},
+        {q:"When does the narrator visit? 🕒", opts:["Before school","After school","At night"], correct:1, full:"I often visit them after school."},
+        {q:"What does the narrator do for them? ✏️", opts:["Helps them with homework","Cooks for them","Nothing"], correct:0, full:"I help them with their homework."},
+      ]
+    },
+  ];
+  let rLevel=0, readDone=[], readingText="", readCorrect=[];
+  function sayReading(){ say(readingText); }
+  function setReadLevel(lvl, noScroll){
+    rLevel=lvl;
+    const data=readLevels[lvl];
+    readingText=data.lines.join(" ");
+    readDone=new Array(data.q.length).fill(false);
+    document.getElementById("read-level").innerHTML=levelBar(lvl);
+    document.getElementById("reading-text").innerHTML=data.lines.map(l=>`<p>${l}</p>`).join("");
+    document.getElementById("read-prog").textContent=`Risposte 0 di ${data.q.length}`;
+    readCorrect=[];
+    const list=document.getElementById("read-list");
+    list.innerHTML=data.q.map((it,i)=>{
+      const order=shuffle(it.opts.map((o,k)=>k));
+      const shown=order.map(k=>it.opts[k]);
+      readCorrect[i]=order.indexOf(it.correct);
+      return `
+      <div class="ex">
+        <div class="qnum">Domanda ${i+1}</div>
+        <div class="qtext">${it.q}</div>
+        <div class="options">
+          ${shown.map((o,j)=>`<button class="opt" onclick="readAns(${i},${j})">${o}</button>`).join("")}
+        </div>
+        <div class="feedback" id="rfb${i}"></div>
+      </div>`;
+    }).join("");
+    if(!noScroll){
+      const card=document.getElementById("read-card");
+      if(card) card.scrollIntoView({behavior:"smooth", block:"start"});
+    }
+  }
+  function readAns(i,j){
+    const it=readLevels[rLevel].q[i];
+    const opts=document.querySelectorAll("#read-list .ex:nth-child("+(i+1)+") .opt");
+    const fb=document.getElementById("rfb"+i);
+    if(j===readCorrect[i]){
+      opts[j].classList.add("correct");
+      fb.innerHTML="✅ Giusto! "+it.full+` <button class="saybtn" onclick="event.stopPropagation();say('${escQ(it.full)}')">🔊</button>`;
+      fb.className="feedback ok"; opts.forEach(o=>o.disabled=true);
+      if(!readDone[i]){ readDone[i]=true; updateRead(); }
+    } else {
+      opts[j].classList.add("wrong");
+      fb.textContent="Rileggi il testo e riprova 🙂"; fb.className="feedback no";
+    }
+  }
+  function updateRead(){
+    const data=readLevels[rLevel];
+    const pr=document.getElementById("read-prog");
+    const done=readDone.filter(Boolean).length;
+    if(done<data.q.length){ pr.textContent=`Risposte ${done} di ${data.q.length}`; return; }
+    levelResult(pr, data.q.length, data.q.length, rLevel, 2, "setReadLevel");
+  }
+
+  /* ============ SEZIONE 4 — LESSICO ============ */
+  const matchLevels = [
+    [ // L1 — soggetto e complemento (le coppie)
+      {en:"I", it:"io"},{en:"me", it:"me / mi"},{en:"you", it:"tu"},{en:"he", it:"lui (sogg.)"},
+      {en:"him", it:"lui / lo"},{en:"she", it:"lei (sogg.)"},{en:"her", it:"lei / la"},{en:"we", it:"noi"},
+    ],
+    [ // L2 — altri complementi + primi possessivi
+      {en:"us", it:"noi / ci"},{en:"they", it:"loro (sogg.)"},{en:"them", it:"loro / li"},{en:"it", it:"esso / lo 🐱"},
+      {en:"you", it:"voi / vi"},{en:"my", it:"mio / mia"},{en:"your", it:"tuo / tua"},{en:"our", it:"nostro"},
+    ],
+    [ // L3 — aggettivi possessivi
+      {en:"my", it:"mio"},{en:"your", it:"tuo"},{en:"his", it:"suo (di lui)"},{en:"her", it:"suo (di lei)"},
+      {en:"its", it:"suo (di una cosa)"},{en:"our", it:"nostro"},{en:"their", it:"loro"},{en:"his book", it:"il suo libro (di lui)"},
+    ],
+    [ // L4 — frasi (sfida)
+      {en:"She loves him.", it:"Lei ama lui"},{en:"He loves her.", it:"Lui ama lei"},{en:"It's my dog.", it:"È il mio cane"},{en:"It's her dog.", it:"È il suo cane (di lei)"},
+      {en:"Help me!", it:"Aiutami!"},{en:"Call us!", it:"Chiamaci!"},{en:"their house", it:"la loro casa"},{en:"our car", it:"la nostra macchina"},
+    ],
+  ];
+  let mLevel=0, selEn=null, matched=0, firstTry=0, spoiled;
+  function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+  function setMatchLevel(lvl){
+    mLevel=lvl; selEn=null; matched=0; firstTry=0; spoiled=new Set();
+    const pairs=matchLevels[lvl];
+    document.getElementById("match-level").innerHTML=levelBar(lvl);
+    const grid=document.getElementById("match-grid");
+    const left=pairs.map((p,i)=>`<button class="match-btn" id="en${i}" onclick="pickEn(${i})">
+        <span>${p.en}</span>
+        <span class="saybtn" onclick="event.stopPropagation();say('${escQ(p.en)}')">🔊</span></button>`).join("");
+    const order=shuffle(pairs.map((p,i)=>i));
+    const right=order.map(i=>`<button class="match-btn" id="it${i}" onclick="pickIt(${i})">${pairs[i].it}</button>`).join("");
+    grid.innerHTML=`<div class="match-col">${left}</div><div class="match-col">${right}</div>`;
+    document.getElementById("match-prog").textContent=`Coppie collegate: 0 di ${pairs.length}`;
+  }
+  function pickEn(i){
+    const btn=document.getElementById("en"+i);
+    if(btn.classList.contains("done")) return;
+    document.querySelectorAll(".match-btn.sel").forEach(b=>b.classList.remove("sel"));
+    selEn=i; btn.classList.add("sel");
+  }
+  function pickIt(i){
+    if(selEn===null) return;
+    const itBtn=document.getElementById("it"+i);
+    if(itBtn.classList.contains("done")) return;
+    const enBtn=document.getElementById("en"+selEn);
+    const pairs=matchLevels[mLevel];
+    if(selEn===i){
+      enBtn.classList.remove("sel"); enBtn.classList.add("done"); itBtn.classList.add("done");
+      say(pairs[i].en);
+      if(!spoiled.has(selEn)) firstTry++;
+      selEn=null; matched++;
+      const pr=document.getElementById("match-prog");
+      if(matched>=pairs.length){
+        levelResult(pr, firstTry, pairs.length, mLevel, 5, "setMatchLevel");
+      } else {
+        pr.textContent=`Coppie collegate: ${matched} di ${pairs.length}`;
+      }
+    } else {
+      spoiled.add(selEn);
+      itBtn.classList.add("flash");
+      setTimeout(()=>itBtn.classList.remove("flash"),500);
+      enBtn.classList.remove("sel"); selEn=null;
+    }
+  }
+
+  // avvio: ogni sezione parte dal Livello 1
+  setListenLevel(0);
+  setWriteLevel(0);
+  setReadLevel(0, true);
+  setMatchLevel(0);
+</script>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./service-worker.js');
+  }
+</script>
+</body>
+</html>
