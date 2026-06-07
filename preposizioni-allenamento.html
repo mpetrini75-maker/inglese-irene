@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Preposizioni: in / on / at — Allenamento</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#FAF6EE">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Inglese di Irene">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FAF6EE; --card:#FFFFFF; --ink:#2F2A24;
+    --accent:#C8651B; --accent-soft:#F3E2D0;
+    --green:#3E8E5A; --green-soft:#E2F0E6;
+    --red:#C2492F; --red-soft:#F6E1DB;
+    --blue:#3B6EA5; --blue-soft:#E2ECF5;
+    --purple:#7B5EA7; --purple-soft:#EDE8F5;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; font-family:"Lexend","Trebuchet MS",Verdana,sans-serif;
+    background:var(--bg); color:var(--ink); line-height:1.7; letter-spacing:0.3px; padding:24px 14px 60px;}
+  .wrap{max-width:620px;margin:0 auto;}
+  .backbtn{display:inline-block;background:var(--accent-soft);color:var(--accent);
+    text-decoration:none;border-radius:12px;padding:8px 16px;font-size:0.98rem;font-weight:bold;margin-bottom:14px;}
+  h1{color:var(--accent);font-size:1.6rem;text-align:center;margin:0 0 6px;}
+  .sub{text-align:center;color:#8a7f70;margin:0 0 26px;font-size:1rem;}
+  .card{background:var(--card);border-radius:18px;padding:22px 20px;margin-bottom:22px;
+    box-shadow:0 4px 14px rgba(0,0,0,0.06);border:1px solid #efe7da;}
+  .card h2{margin:0 0 10px;font-size:1.25rem;color:var(--accent);display:flex;align-items:center;gap:8px;}
+  .card .lead{color:#8a7f70;margin:0 0 12px;font-size:0.97rem;}
+  /* barra livelli */
+  .levelbar{margin:0 0 12px;}
+  .lvrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:0.98rem;color:var(--accent);}
+  .lvdots{display:inline-flex;gap:6px;}
+  .lvdot{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    background:var(--bg);border:2px solid var(--accent-soft);color:#b9ad9c;font-size:0.85rem;font-weight:bold;}
+  .lvdot.on{background:var(--accent-soft);border-color:var(--accent);color:var(--accent);}
+  .saybtn{background:var(--blue-soft);color:var(--blue);border:none;border-radius:10px;
+    padding:6px 12px;font-size:0.95rem;cursor:pointer;font-family:inherit;}
+  .big-listen{display:block;margin:6px auto 14px;background:var(--blue);color:#fff;
+    border:none;border-radius:16px;padding:18px 26px;font-size:1.2rem;font-weight:bold;
+    cursor:pointer;font-family:inherit;box-shadow:0 4px 12px rgba(59,110,165,0.3);}
+  .big-listen:hover{opacity:0.92;}
+  .ex{margin:14px 0;}
+  .qnum{font-weight:bold;color:var(--accent);}
+  .qtext{font-size:1.12rem;margin:6px 0 8px;}
+  .options{display:flex;flex-direction:column;gap:10px;}
+  .opt{background:var(--bg);border:2px solid var(--accent-soft);
+    border-radius:12px;padding:13px 14px;font-size:1.08rem;cursor:pointer;
+    text-align:left;font-family:inherit;color:var(--ink);transition:all .15s;}
+  .opt:hover{border-color:var(--accent);}
+  .opt.correct{background:var(--green-soft);border-color:var(--green);color:var(--green);font-weight:bold;}
+  .opt.wrong{background:var(--red-soft);border-color:var(--red);color:var(--red);}
+  .feedback{margin-top:10px;font-size:1.02rem;font-weight:bold;min-height:24px;}
+  .feedback.ok{color:var(--green);}
+  .feedback.no{color:var(--red);}
+  .progress{text-align:center;font-size:1.05rem;margin:12px 0 0;color:#8a7f70;}
+  .star{font-size:1.4rem;}
+  .write-input{width:100%;font-family:"Lexend",sans-serif;font-size:1.2rem;
+    padding:12px 14px;border:2px solid var(--accent-soft);border-radius:12px;
+    background:var(--bg);color:var(--ink);margin-top:4px;}
+  .write-input:focus{outline:none;border-color:var(--accent);}
+  .checkbtn{margin-top:10px;background:var(--accent);color:#fff;border:none;
+    border-radius:12px;padding:10px 20px;font-size:1rem;cursor:pointer;font-family:inherit;}
+  .write-input.okbox{border-color:var(--green);background:var(--green-soft);}
+  .write-input.nobox{border-color:var(--red);}
+  .reading{background:var(--bg);border-radius:14px;padding:16px 18px;font-size:1.12rem;
+    border:2px solid var(--accent-soft);margin-bottom:6px;}
+  .reading p{margin:0 0 6px;}
+  .match-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px;}
+  .match-col{display:flex;flex-direction:column;gap:10px;}
+  .match-btn{background:var(--bg);border:2px solid var(--accent-soft);border-radius:12px;
+    padding:12px;font-size:1.05rem;cursor:pointer;font-family:inherit;color:var(--ink);
+    display:flex;align-items:center;justify-content:space-between;gap:6px;transition:all .15s;}
+  .match-btn:hover{border-color:var(--accent);}
+  .match-btn.sel{border-color:var(--blue);background:var(--blue-soft);color:var(--blue);font-weight:bold;}
+  .match-btn.done{background:var(--green-soft);border-color:var(--green);color:var(--green);
+    font-weight:bold;cursor:default;opacity:0.85;}
+  .match-btn.flash{border-color:var(--red);background:var(--red-soft);}
+  .restart{display:inline-block;margin:12px auto 0;background:var(--accent);color:#fff;border:none;
+    border-radius:12px;padding:11px 22px;font-size:1rem;cursor:pointer;font-family:inherit;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="backbtn" href="preposizioni.html">← Torna alla lezione</a>
+  <h1>🏋️ Preposizioni: in / on / at — Allenamento</h1>
+  <p class="sub">4 livelli · ascolto · scrittura · lettura · lessico</p>
+
+  <!-- SEZIONE 1 — ASCOLTO -->
+  <div class="card">
+    <h2>🎧 1. Ascolto</h2>
+    <p class="lead">Tocca il pulsante blu e ascolta. Scegli la frase giusta. Puoi riascoltare quante volte vuoi!</p>
+    <div class="levelbar" id="listen-level"></div>
+    <div id="listen-quiz"></div>
+    <div class="progress" id="listen-prog"></div>
+  </div>
+
+  <!-- SEZIONE 2 — SCRITTURA -->
+  <div class="card">
+    <h2>✏️ 2. Scrittura</h2>
+    <p class="lead">Scrivi la preposizione giusta (in / on / at). Non contano maiuscole o spazi! Poi tocca "Controlla".</p>
+    <div class="levelbar" id="write-level"></div>
+    <div id="write-list"></div>
+    <div class="progress" id="write-prog"></div>
+  </div>
+
+  <!-- SEZIONE 3 — LETTURA -->
+  <div class="card" id="read-card">
+    <h2>📖 3. Lettura</h2>
+    <p class="lead">Ascolta e leggi il testo, poi rispondi alle domande.</p>
+    <div class="levelbar" id="read-level"></div>
+    <div class="reading" id="reading-text"></div>
+    <button class="saybtn" onclick="event.stopPropagation();sayReading()">🔊 Ascolta tutto il testo</button>
+    <div id="read-list" style="margin-top:8px;"></div>
+    <div class="progress" id="read-prog"></div>
+  </div>
+
+  <!-- SEZIONE 4 — LESSICO -->
+  <div class="card">
+    <h2>🔤 4. Lessico</h2>
+    <p class="lead">Tocca una parola inglese (ascoltala con 🔊), poi il suo significato. Collega tutte le coppie!</p>
+    <div class="levelbar" id="match-level"></div>
+    <div class="match-grid" id="match-grid"></div>
+    <div class="progress" id="match-prog"></div>
+  </div>
+</div>
+
+<script>
+  function say(text){
+    try{
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = "en-US"; u.rate = 0.85;
+      speechSynthesis.cancel(); speechSynthesis.speak(u);
+    }catch(e){}
+  }
+  function escQ(s){ return s.replace(/'/g, "\\'"); }
+  function stars(correct,total){
+    const pct=correct/total;
+    const n=pct===1?5:pct>=0.75?4:pct>=0.5?3:pct>=0.25?2:1;
+    return "⭐".repeat(n);
+  }
+  const LV=["Base","Intermedio","Avanzato","Sfida"];
+  function levelBar(level){
+    let dots="";
+    for(let i=0;i<4;i++) dots+=`<span class="lvdot ${i<=level?'on':''}">${i+1}</span>`;
+    return `<div class="lvrow"><b>Livello ${level+1} di 4 · ${LV[level]} 🔓</b><span class="lvdots">${dots}</span></div>`;
+  }
+  function levelResult(progEl, score, total, level, threshold, setFnName){
+    const passed = score>=threshold;
+    let html=`<div class="star">${stars(score,total)}</div>${score}/${total} giuste<br>`;
+    if(passed && level<3){
+      html+=`<b>Bravissima! Livello ${level+2} sbloccato 🔓</b><br>`;
+      html+=`<button class="restart" onclick="${setFnName}(${level+1})">➡️ Vai al Livello ${level+2}</button>`;
+    } else if(passed && level===3){
+      html+=`<b>🏆 Hai completato tutti i livelli!</b><br>`;
+      html+=`<button class="restart" onclick="${setFnName}(0)">🔄 Rigioca dal Livello 1</button>`;
+    } else {
+      html+=`<b>Ci sei quasi! Riprova questo livello, ce la fai 🌱</b><br>`;
+      html+=`<button class="restart" onclick="${setFnName}(${level})">🔄 Rifai il Livello ${level+1}</button>`;
+    }
+    progEl.innerHTML=html;
+  }
+
+  /* ============ SEZIONE 1 — ASCOLTO ============ */
+  const listenLevels = [
+    [ // L1 — luogo (base)
+      {audio:"The book is on the table.", opts:["The book is on the table.","The book is in the table.","The book is on the chair."], correct:0},
+      {audio:"The cat is in the box.", opts:["The cat is in the box.","The cat is on the box.","The dog is in the box."], correct:0},
+      {audio:"She is at home.", opts:["She is at home.","She is at school.","He is at home."], correct:0},
+      {audio:"The keys are on the desk.", opts:["The keys are on the desk.","The keys are in the desk.","The keys are on the bed."], correct:0},
+      {audio:"We are in the car.", opts:["We are in the car.","We are on the car.","We are in the bus."], correct:0},
+      {audio:"He is at the bus stop.", opts:["He is at the bus stop.","He is at the train station.","She is at the bus stop."], correct:0},
+    ],
+    [ // L2 — luogo (più vario)
+      {audio:"There is a picture on the wall.", opts:["There is a picture on the wall.","There is a picture in the wall.","There is a picture on the floor."], correct:0},
+      {audio:"The children are in the garden.", opts:["The children are in the garden.","The children are on the garden.","The children are in the kitchen."], correct:0},
+      {audio:"I live in London.", opts:["I live in London.","I live on London.","I live at London."], correct:0},
+      {audio:"Meet me at the station.", opts:["Meet me at the station.","Meet me in the station.","Meet me at the airport."], correct:0},
+      {audio:"The milk is in the fridge.", opts:["The milk is in the fridge.","The milk is on the fridge.","The juice is in the fridge."], correct:0},
+      {audio:"She is at work.", opts:["She is at work.","She is in work.","He is at work."], correct:0},
+    ],
+    [ // L3 — tempo
+      {audio:"The lesson starts at nine o'clock.", opts:["The lesson starts at nine o'clock.","The lesson starts in nine o'clock.","The lesson starts on nine o'clock."], correct:0},
+      {audio:"My birthday is on Monday.", opts:["My birthday is on Monday.","My birthday is in Monday.","My birthday is at Monday."], correct:0},
+      {audio:"We go skiing in winter.", opts:["We go skiing in winter.","We go skiing on winter.","We go skiing at winter."], correct:0},
+      {audio:"I get up at seven.", opts:["I get up at seven.","I get up on seven.","I get up in seven."], correct:0},
+      {audio:"School starts in September.", opts:["School starts in September.","School starts on September.","School starts at September."], correct:0},
+      {audio:"See you on Friday.", opts:["See you on Friday.","See you in Friday.","See you at Friday."], correct:0},
+    ],
+    [ // L4 — misto tempo + luogo
+      {audio:"I was born in 2010.", opts:["I was born in 2010.","I was born on 2010.","I was born at 2010."], correct:0},
+      {audio:"The party is on Saturday at my house.", opts:["The party is on Saturday at my house.","The party is in Saturday at my house.","The party is on Saturday in my house."], correct:0},
+      {audio:"We have lunch at noon.", opts:["We have lunch at noon.","We have lunch in noon.","We have lunch on noon."], correct:0},
+      {audio:"They are on holiday in Italy.", opts:["They are on holiday in Italy.","They are in holiday in Italy.","They are on holiday at Italy."], correct:0},
+      {audio:"I'll see you in the morning.", opts:["I'll see you in the morning.","I'll see you on the morning.","I'll see you at the morning."], correct:0},
+      {audio:"Let's meet at the weekend.", opts:["Let's meet at the weekend.","Let's meet on the weekend.","Let's meet in the weekend."], correct:0},
+    ],
+  ];
+  let lLevel=0, lc=0, ls=0, lCorrect=0, lAudio="";
+  function setListenLevel(lvl){ lLevel=lvl; lc=0; ls=0; document.getElementById("listen-level").innerHTML=levelBar(lvl); showListen(); }
+  function showListen(){
+    const data=listenLevels[lLevel];
+    const box=document.getElementById("listen-quiz");
+    const pr=document.getElementById("listen-prog");
+    if(lc>=data.length){ box.innerHTML=""; levelResult(pr, ls, data.length, lLevel, 4, "setListenLevel"); return; }
+    const it=data[lc];
+    lAudio=it.audio;
+    const order=shuffle(it.opts.map((o,i)=>i));
+    const shown=order.map(k=>it.opts[k]);
+    lCorrect=order.indexOf(it.correct);
+    pr.textContent=`Esercizio ${lc+1} di ${data.length}`;
+    box.innerHTML=`
+      <div class="ex">
+        <div class="qnum">Ascolto ${lc+1}</div>
+        <button class="big-listen" onclick="event.stopPropagation();say('${escQ(it.audio)}')">🔊 Ascolta la frase</button>
+        <div class="options">
+          ${shown.map((o,i)=>`<button class="opt" onclick="listenAns(${i})">${o}</button>`).join("")}
+        </div>
+        <div class="feedback" id="lfb"></div>
+      </div>`;
+  }
+  function listenAns(i){
+    const opts=document.querySelectorAll("#listen-quiz .opt");
+    const fb=document.getElementById("lfb");
+    if(i===lCorrect){
+      opts[i].classList.add("correct");
+      fb.textContent="✅ Giusto! "+lAudio; fb.className="feedback ok";
+      ls++; say(lAudio); opts.forEach(o=>o.disabled=true);
+      setTimeout(()=>{ lc++; showListen(); },1800);
+    } else {
+      opts[i].classList.add("wrong");
+      fb.textContent="Riascolta e riprova 🙂"; fb.className="feedback no";
+    }
+  }
+
+  /* ============ SEZIONE 2 — SCRITTURA ============ */
+  const writeLevels = [
+    [ // L1 — luogo (base)
+      {q:"The book is ____ the table.  (superficie)", answers:["on"], full:"The book is on the table.", hint:"su una superficie → on."},
+      {q:"The cat is ____ the box.  (dentro)", answers:["in"], full:"The cat is in the box.", hint:"dentro / chiuso → in."},
+      {q:"She is ____ home.  (espressione fissa)", answers:["at"], full:"She is at home.", hint:"at home (espressione fissa)."},
+      {q:"The keys are ____ the desk.  (superficie)", answers:["on"], full:"The keys are on the desk.", hint:"superficie → on."},
+      {q:"We are ____ the car.  (dentro)", answers:["in"], full:"We are in the car.", hint:"dentro l'auto → in the car."},
+      {q:"He is ____ the bus stop.  (punto preciso)", answers:["at"], full:"He is at the bus stop.", hint:"punto preciso → at."},
+    ],
+    [ // L2 — luogo (vario)
+      {q:"There is a picture ____ the wall.", answers:["on"], full:"There is a picture on the wall.", hint:"sulla parete → on the wall."},
+      {q:"The children are ____ the garden.", answers:["in"], full:"The children are in the garden.", hint:"in the garden."},
+      {q:"I live ____ London.  (città)", answers:["in"], full:"I live in London.", hint:"città / paese → in."},
+      {q:"Meet me ____ the station.  (punto)", answers:["at"], full:"Meet me at the station.", hint:"punto preciso → at."},
+      {q:"The milk is ____ the fridge.  (dentro)", answers:["in"], full:"The milk is in the fridge.", hint:"dentro → in."},
+      {q:"She is ____ work.  (espressione fissa)", answers:["at"], full:"She is at work.", hint:"at work (espressione fissa)."},
+    ],
+    [ // L3 — tempo
+      {q:"The lesson starts ____ nine o'clock.  (ora)", answers:["at"], full:"The lesson starts at nine o'clock.", hint:"le ore → at."},
+      {q:"My birthday is ____ Monday.  (giorno)", answers:["on"], full:"My birthday is on Monday.", hint:"i giorni → on."},
+      {q:"We go skiing ____ winter.  (stagione)", answers:["in"], full:"We go skiing in winter.", hint:"le stagioni → in."},
+      {q:"I get up ____ seven.  (ora)", answers:["at"], full:"I get up at seven.", hint:"le ore → at."},
+      {q:"School starts ____ September.  (mese)", answers:["in"], full:"School starts in September.", hint:"i mesi → in."},
+      {q:"See you ____ Friday.  (giorno)", answers:["on"], full:"See you on Friday.", hint:"i giorni → on."},
+    ],
+    [ // L4 — misto
+      {q:"I was born ____ 2010.  (anno)", answers:["in"], full:"I was born in 2010.", hint:"gli anni → in."},
+      {q:"We have lunch ____ noon.  (ora precisa)", answers:["at"], full:"We have lunch at noon.", hint:"at noon (mezzogiorno)."},
+      {q:"They are on holiday ____ Italy.  (paese)", answers:["in"], full:"They are on holiday in Italy.", hint:"i paesi → in."},
+      {q:"I'll see you ____ the morning.  (parte del giorno)", answers:["in"], full:"I'll see you in the morning.", hint:"in the morning."},
+      {q:"The shop opens ____ 8 a.m.  (ora)", answers:["at"], full:"The shop opens at 8 a.m.", hint:"le ore → at."},
+      {q:"My party is ____ Saturday.  (giorno)", answers:["on"], full:"My party is on Saturday.", hint:"i giorni → on."},
+    ],
+  ];
+  let wLevel=0, writeDone=[];
+  function norm(s){ return s.trim().toLowerCase().replace(/\s+/g," "); }
+  function setWriteLevel(lvl){
+    wLevel=lvl;
+    const data=writeLevels[lvl];
+    writeDone=new Array(data.length).fill(false);
+    document.getElementById("write-level").innerHTML=levelBar(lvl);
+    document.getElementById("write-prog").textContent=`Completate 0 di ${data.length}`;
+    const list=document.getElementById("write-list");
+    list.innerHTML=data.map((it,i)=>`
+      <div class="ex">
+        <div class="qnum">Frase ${i+1}</div>
+        <div class="qtext">${it.q}</div>
+        <input class="write-input" id="wi${i}" type="text" autocomplete="off" placeholder="in / on / at">
+        <button class="checkbtn" onclick="checkWrite(${i})">Controlla</button>
+        <div class="feedback" id="wfb${i}"></div>
+      </div>`).join("");
+  }
+  function checkWrite(i){
+    const it=writeLevels[wLevel][i];
+    const inp=document.getElementById("wi"+i);
+    const fb=document.getElementById("wfb"+i);
+    const ok=it.answers.some(a=>norm(a)===norm(inp.value));
+    if(ok){
+      inp.classList.add("okbox"); inp.classList.remove("nobox");
+      fb.innerHTML="✅ Perfetto! "+it.full; fb.className="feedback ok";
+      say(it.full);
+    } else {
+      inp.classList.add("nobox");
+      fb.innerHTML=`💛 Quasi! ${it.hint}<br>La risposta è: <b>${it.full}</b> <button class="saybtn" onclick="event.stopPropagation();say('${escQ(it.full)}')">🔊</button>`;
+      fb.className="feedback no";
+    }
+    if(!writeDone[i]){ writeDone[i]=true; updateWrite(); }
+  }
+  function updateWrite(){
+    const data=writeLevels[wLevel];
+    const pr=document.getElementById("write-prog");
+    const done=writeDone.filter(Boolean).length;
+    if(done<data.length){ pr.textContent=`Completate ${done} di ${data.length}`; return; }
+    let correct=0;
+    data.forEach((it,i)=>{ if(document.getElementById("wi"+i).classList.contains("okbox")) correct++; });
+    levelResult(pr, correct, data.length, wLevel, 4, "setWriteLevel");
+  }
+
+  /* ============ SEZIONE 3 — LETTURA ============ */
+  const readLevels = [
+    { // L1
+      lines:["My bag is on the chair.","My books are in the bag.","My phone is on the table."],
+      q:[
+        {q:"Where is the bag? 🎒", opts:["On the chair","In the chair","Under the chair"], correct:0, full:"My bag is on the chair."},
+        {q:"Where are the books? 📚", opts:["In the bag","On the bag","Near the bag"], correct:0, full:"My books are in the bag."},
+        {q:"Where is the phone? 📱", opts:["On the table","In the table","Under the table"], correct:0, full:"My phone is on the table."},
+      ]
+    },
+    { // L2
+      lines:["I live in a small house in Rome.","My school is near my home.","Every morning I wait at the bus stop.","At school, I sit in the front row."],
+      q:[
+        {q:"Where does the narrator live? 🏠", opts:["In Rome","In London","In Paris"], correct:0, full:"I live in a small house in Rome."},
+        {q:"Where does she wait every morning? 🚏", opts:["At the bus stop","At the station","At home"], correct:0, full:"I wait at the bus stop."},
+        {q:"Where does she sit at school? 🪑", opts:["In the front row","At the back","On the floor"], correct:0, full:"I sit in the front row."},
+      ]
+    },
+    { // L3
+      lines:["Our English lesson is on Monday.","It starts at nine o'clock.","In summer we don't have lessons.","My favourite season is winter, because my birthday is in December."],
+      q:[
+        {q:"When is the English lesson? 📅", opts:["On Monday","On Friday","On Sunday"], correct:0, full:"Our English lesson is on Monday."},
+        {q:"What time does it start? ⏰", opts:["At nine o'clock","At ten o'clock","At eight o'clock"], correct:0, full:"It starts at nine o'clock."},
+        {q:"When is the narrator's birthday? 🎂", opts:["In December","In summer","In June"], correct:0, full:"My birthday is in December."},
+      ]
+    },
+    { // L4
+      lines:["On Saturday we are going to a concert in the city centre.","The concert starts at eight in the evening.","We are going to meet at the station at seven.","In the morning I'll buy the tickets online."],
+      q:[
+        {q:"When is the concert? 🎵", opts:["On Saturday","On Sunday","On Friday"], correct:0, full:"On Saturday we are going to a concert."},
+        {q:"What time does it start? 🕗", opts:["At eight in the evening","At seven","In the morning"], correct:0, full:"The concert starts at eight in the evening."},
+        {q:"Where will they meet? 🚉", opts:["At the station","At home","In the city centre"], correct:0, full:"We are going to meet at the station."},
+      ]
+    },
+  ];
+  let rLevel=0, readDone=[], readingText="", readCorrect=[];
+  function sayReading(){ say(readingText); }
+  function setReadLevel(lvl, noScroll){
+    rLevel=lvl;
+    const data=readLevels[lvl];
+    readingText=data.lines.join(" ");
+    readDone=new Array(data.q.length).fill(false);
+    document.getElementById("read-level").innerHTML=levelBar(lvl);
+    document.getElementById("reading-text").innerHTML=data.lines.map(l=>`<p>${l}</p>`).join("");
+    document.getElementById("read-prog").textContent=`Risposte 0 di ${data.q.length}`;
+    readCorrect=[];
+    const list=document.getElementById("read-list");
+    list.innerHTML=data.q.map((it,i)=>{
+      const order=shuffle(it.opts.map((o,k)=>k));
+      const shown=order.map(k=>it.opts[k]);
+      readCorrect[i]=order.indexOf(it.correct);
+      return `
+      <div class="ex">
+        <div class="qnum">Domanda ${i+1}</div>
+        <div class="qtext">${it.q}</div>
+        <div class="options">
+          ${shown.map((o,j)=>`<button class="opt" onclick="readAns(${i},${j})">${o}</button>`).join("")}
+        </div>
+        <div class="feedback" id="rfb${i}"></div>
+      </div>`;
+    }).join("");
+    if(!noScroll){
+      const card=document.getElementById("read-card");
+      if(card) card.scrollIntoView({behavior:"smooth", block:"start"});
+    }
+  }
+  function readAns(i,j){
+    const it=readLevels[rLevel].q[i];
+    const opts=document.querySelectorAll("#read-list .ex:nth-child("+(i+1)+") .opt");
+    const fb=document.getElementById("rfb"+i);
+    if(j===readCorrect[i]){
+      opts[j].classList.add("correct");
+      fb.innerHTML="✅ Giusto! "+it.full+` <button class="saybtn" onclick="event.stopPropagation();say('${escQ(it.full)}')">🔊</button>`;
+      fb.className="feedback ok"; opts.forEach(o=>o.disabled=true);
+      if(!readDone[i]){ readDone[i]=true; updateRead(); }
+    } else {
+      opts[j].classList.add("wrong");
+      fb.textContent="Rileggi il testo e riprova 🙂"; fb.className="feedback no";
+    }
+  }
+  function updateRead(){
+    const data=readLevels[rLevel];
+    const pr=document.getElementById("read-prog");
+    const done=readDone.filter(Boolean).length;
+    if(done<data.q.length){ pr.textContent=`Risposte ${done} di ${data.q.length}`; return; }
+    levelResult(pr, data.q.length, data.q.length, rLevel, 2, "setReadLevel");
+  }
+
+  /* ============ SEZIONE 4 — LESSICO ============ */
+  const matchLevels = [
+    [ // L1 — luoghi
+      {en:"home", it:"casa 🏠"},{en:"school", it:"scuola 🏫"},{en:"work", it:"lavoro 💼"},{en:"the park", it:"il parco 🌳"},
+      {en:"the station", it:"la stazione 🚉"},{en:"the shop", it:"il negozio 🛒"},{en:"the kitchen", it:"la cucina 🍳"},{en:"the garden", it:"il giardino 🌷"},
+    ],
+    [ // L2 — parole del tempo
+      {en:"Monday", it:"lunedì 📅"},{en:"morning", it:"mattina ☀️"},{en:"night", it:"notte 🌙"},{en:"summer", it:"estate 🏖️"},
+      {en:"winter", it:"inverno ❄️"},{en:"July", it:"luglio"},{en:"the weekend", it:"il fine settimana"},{en:"noon", it:"mezzogiorno 🕛"},
+    ],
+    [ // L3 — espressioni con preposizione
+      {en:"at night", it:"di notte 🌙"},{en:"in the morning", it:"di mattina ☀️"},{en:"on Sunday", it:"di domenica"},{en:"at the weekend", it:"nel weekend"},
+      {en:"in the evening", it:"di sera 🌆"},{en:"at lunchtime", it:"all'ora di pranzo 🍽️"},{en:"on holiday", it:"in vacanza 🏖️"},{en:"at the moment", it:"in questo momento"},
+    ],
+    [ // L4 — frasi
+      {en:"at 3 o'clock", it:"alle 3 ⏰"},{en:"on Monday", it:"lunedì 📅"},{en:"in July", it:"a luglio"},{en:"in 2020", it:"nel 2020"},
+      {en:"at home", it:"a casa 🏠"},{en:"on the table", it:"sul tavolo"},{en:"in the box", it:"nella scatola 📦"},{en:"at school", it:"a scuola 🏫"},
+    ],
+  ];
+  let mLevel=0, selEn=null, matched=0, firstTry=0, spoiled;
+  function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+  function setMatchLevel(lvl){
+    mLevel=lvl; selEn=null; matched=0; firstTry=0; spoiled=new Set();
+    const pairs=matchLevels[lvl];
+    document.getElementById("match-level").innerHTML=levelBar(lvl);
+    const grid=document.getElementById("match-grid");
+    const left=pairs.map((p,i)=>`<button class="match-btn" id="en${i}" onclick="pickEn(${i})">
+        <span>${p.en}</span>
+        <span class="saybtn" onclick="event.stopPropagation();say('${escQ(p.en)}')">🔊</span></button>`).join("");
+    const order=shuffle(pairs.map((p,i)=>i));
+    const right=order.map(i=>`<button class="match-btn" id="it${i}" onclick="pickIt(${i})">${pairs[i].it}</button>`).join("");
+    grid.innerHTML=`<div class="match-col">${left}</div><div class="match-col">${right}</div>`;
+    document.getElementById("match-prog").textContent=`Coppie collegate: 0 di ${pairs.length}`;
+  }
+  function pickEn(i){
+    const btn=document.getElementById("en"+i);
+    if(btn.classList.contains("done")) return;
+    document.querySelectorAll(".match-btn.sel").forEach(b=>b.classList.remove("sel"));
+    selEn=i; btn.classList.add("sel");
+  }
+  function pickIt(i){
+    if(selEn===null) return;
+    const itBtn=document.getElementById("it"+i);
+    if(itBtn.classList.contains("done")) return;
+    const enBtn=document.getElementById("en"+selEn);
+    const pairs=matchLevels[mLevel];
+    if(selEn===i){
+      enBtn.classList.remove("sel"); enBtn.classList.add("done"); itBtn.classList.add("done");
+      say(pairs[i].en);
+      if(!spoiled.has(selEn)) firstTry++;
+      selEn=null; matched++;
+      const pr=document.getElementById("match-prog");
+      if(matched>=pairs.length){
+        levelResult(pr, firstTry, pairs.length, mLevel, 5, "setMatchLevel");
+      } else {
+        pr.textContent=`Coppie collegate: ${matched} di ${pairs.length}`;
+      }
+    } else {
+      spoiled.add(selEn);
+      itBtn.classList.add("flash");
+      setTimeout(()=>itBtn.classList.remove("flash"),500);
+      enBtn.classList.remove("sel"); selEn=null;
+    }
+  }
+
+  // avvio: ogni sezione parte dal Livello 1
+  setListenLevel(0);
+  setWriteLevel(0);
+  setReadLevel(0, true);
+  setMatchLevel(0);
+</script>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./service-worker.js');
+  }
+</script>
+</body>
+</html>
