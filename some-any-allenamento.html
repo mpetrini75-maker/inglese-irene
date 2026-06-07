@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Some / any / much / many — Allenamento</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#FAF6EE">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Inglese di Irene">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FAF6EE; --card:#FFFFFF; --ink:#2F2A24;
+    --accent:#C8651B; --accent-soft:#F3E2D0;
+    --green:#3E8E5A; --green-soft:#E2F0E6;
+    --red:#C2492F; --red-soft:#F6E1DB;
+    --blue:#3B6EA5; --blue-soft:#E2ECF5;
+    --purple:#7B5EA7; --purple-soft:#EDE8F5;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; font-family:"Lexend","Trebuchet MS",Verdana,sans-serif;
+    background:var(--bg); color:var(--ink); line-height:1.7; letter-spacing:0.3px; padding:24px 14px 60px;}
+  .wrap{max-width:620px;margin:0 auto;}
+  .backbtn{display:inline-block;background:var(--accent-soft);color:var(--accent);
+    text-decoration:none;border-radius:12px;padding:8px 16px;font-size:0.98rem;font-weight:bold;margin-bottom:14px;}
+  h1{color:var(--accent);font-size:1.6rem;text-align:center;margin:0 0 6px;}
+  .sub{text-align:center;color:#8a7f70;margin:0 0 26px;font-size:1rem;}
+  .card{background:var(--card);border-radius:18px;padding:22px 20px;margin-bottom:22px;
+    box-shadow:0 4px 14px rgba(0,0,0,0.06);border:1px solid #efe7da;}
+  .card h2{margin:0 0 10px;font-size:1.25rem;color:var(--accent);display:flex;align-items:center;gap:8px;}
+  .card .lead{color:#8a7f70;margin:0 0 12px;font-size:0.97rem;}
+  /* barra livelli */
+  .levelbar{margin:0 0 12px;}
+  .lvrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:0.98rem;color:var(--accent);}
+  .lvdots{display:inline-flex;gap:6px;}
+  .lvdot{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    background:var(--bg);border:2px solid var(--accent-soft);color:#b9ad9c;font-size:0.85rem;font-weight:bold;}
+  .lvdot.on{background:var(--accent-soft);border-color:var(--accent);color:var(--accent);}
+  .saybtn{background:var(--blue-soft);color:var(--blue);border:none;border-radius:10px;
+    padding:6px 12px;font-size:0.95rem;cursor:pointer;font-family:inherit;}
+  .big-listen{display:block;margin:6px auto 14px;background:var(--blue);color:#fff;
+    border:none;border-radius:16px;padding:18px 26px;font-size:1.2rem;font-weight:bold;
+    cursor:pointer;font-family:inherit;box-shadow:0 4px 12px rgba(59,110,165,0.3);}
+  .big-listen:hover{opacity:0.92;}
+  .ex{margin:14px 0;}
+  .qnum{font-weight:bold;color:var(--accent);}
+  .qtext{font-size:1.12rem;margin:6px 0 8px;}
+  .options{display:flex;flex-direction:column;gap:10px;}
+  .opt{background:var(--bg);border:2px solid var(--accent-soft);
+    border-radius:12px;padding:13px 14px;font-size:1.08rem;cursor:pointer;
+    text-align:left;font-family:inherit;color:var(--ink);transition:all .15s;}
+  .opt:hover{border-color:var(--accent);}
+  .opt.correct{background:var(--green-soft);border-color:var(--green);color:var(--green);font-weight:bold;}
+  .opt.wrong{background:var(--red-soft);border-color:var(--red);color:var(--red);}
+  .feedback{margin-top:10px;font-size:1.02rem;font-weight:bold;min-height:24px;}
+  .feedback.ok{color:var(--green);}
+  .feedback.no{color:var(--red);}
+  .progress{text-align:center;font-size:1.05rem;margin:12px 0 0;color:#8a7f70;}
+  .star{font-size:1.4rem;}
+  .write-input{width:100%;font-family:"Lexend",sans-serif;font-size:1.2rem;
+    padding:12px 14px;border:2px solid var(--accent-soft);border-radius:12px;
+    background:var(--bg);color:var(--ink);margin-top:4px;}
+  .write-input:focus{outline:none;border-color:var(--accent);}
+  .checkbtn{margin-top:10px;background:var(--accent);color:#fff;border:none;
+    border-radius:12px;padding:10px 20px;font-size:1rem;cursor:pointer;font-family:inherit;}
+  .write-input.okbox{border-color:var(--green);background:var(--green-soft);}
+  .write-input.nobox{border-color:var(--red);}
+  .reading{background:var(--bg);border-radius:14px;padding:16px 18px;font-size:1.12rem;
+    border:2px solid var(--accent-soft);margin-bottom:6px;}
+  .reading p{margin:0 0 6px;}
+  .match-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px;}
+  .match-col{display:flex;flex-direction:column;gap:10px;}
+  .match-btn{background:var(--bg);border:2px solid var(--accent-soft);border-radius:12px;
+    padding:12px;font-size:1.05rem;cursor:pointer;font-family:inherit;color:var(--ink);
+    display:flex;align-items:center;justify-content:space-between;gap:6px;transition:all .15s;}
+  .match-btn:hover{border-color:var(--accent);}
+  .match-btn.sel{border-color:var(--blue);background:var(--blue-soft);color:var(--blue);font-weight:bold;}
+  .match-btn.done{background:var(--green-soft);border-color:var(--green);color:var(--green);
+    font-weight:bold;cursor:default;opacity:0.85;}
+  .match-btn.flash{border-color:var(--red);background:var(--red-soft);}
+  .restart{display:inline-block;margin:12px auto 0;background:var(--accent);color:#fff;border:none;
+    border-radius:12px;padding:11px 22px;font-size:1rem;cursor:pointer;font-family:inherit;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="backbtn" href="some-any.html">← Torna alla lezione</a>
+  <h1>🏋️ Some / any / much / many — Allenamento</h1>
+  <p class="sub">4 livelli · ascolto · scrittura · lettura · lessico</p>
+
+  <!-- SEZIONE 1 — ASCOLTO -->
+  <div class="card">
+    <h2>🎧 1. Ascolto</h2>
+    <p class="lead">Tocca il pulsante blu e ascolta. Scegli la frase giusta. Puoi riascoltare quante volte vuoi!</p>
+    <div class="levelbar" id="listen-level"></div>
+    <div id="listen-quiz"></div>
+    <div class="progress" id="listen-prog"></div>
+  </div>
+
+  <!-- SEZIONE 2 — SCRITTURA -->
+  <div class="card">
+    <h2>✏️ 2. Scrittura</h2>
+    <p class="lead">Scrivi la parola giusta. Non contano maiuscole o spazi: conta la parola! Poi tocca "Controlla".</p>
+    <div class="levelbar" id="write-level"></div>
+    <div id="write-list"></div>
+    <div class="progress" id="write-prog"></div>
+  </div>
+
+  <!-- SEZIONE 3 — LETTURA -->
+  <div class="card" id="read-card">
+    <h2>📖 3. Lettura</h2>
+    <p class="lead">Ascolta e leggi il testo, poi rispondi alle domande.</p>
+    <div class="levelbar" id="read-level"></div>
+    <div class="reading" id="reading-text"></div>
+    <button class="saybtn" onclick="event.stopPropagation();sayReading()">🔊 Ascolta tutto il testo</button>
+    <div id="read-list" style="margin-top:8px;"></div>
+    <div class="progress" id="read-prog"></div>
+  </div>
+
+  <!-- SEZIONE 4 — LESSICO -->
+  <div class="card">
+    <h2>🔤 4. Lessico</h2>
+    <p class="lead">Tocca una parola inglese (ascoltala con 🔊), poi il suo significato. Collega tutte le coppie!</p>
+    <div class="levelbar" id="match-level"></div>
+    <div class="match-grid" id="match-grid"></div>
+    <div class="progress" id="match-prog"></div>
+  </div>
+</div>
+
+<script>
+  function say(text){
+    try{
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = "en-US"; u.rate = 0.85;
+      speechSynthesis.cancel(); speechSynthesis.speak(u);
+    }catch(e){}
+  }
+  function escQ(s){ return s.replace(/'/g, "\\'"); }
+  function stars(correct,total){
+    const pct=correct/total;
+    const n=pct===1?5:pct>=0.75?4:pct>=0.5?3:pct>=0.25?2:1;
+    return "⭐".repeat(n);
+  }
+  const LV=["Base","Intermedio","Avanzato","Sfida"];
+  function levelBar(level){
+    let dots="";
+    for(let i=0;i<4;i++) dots+=`<span class="lvdot ${i<=level?'on':''}">${i+1}</span>`;
+    return `<div class="lvrow"><b>Livello ${level+1} di 4 · ${LV[level]} 🔓</b><span class="lvdots">${dots}</span></div>`;
+  }
+  function levelResult(progEl, score, total, level, threshold, setFnName){
+    const passed = score>=threshold;
+    let html=`<div class="star">${stars(score,total)}</div>${score}/${total} giuste<br>`;
+    if(passed && level<3){
+      html+=`<b>Bravissima! Livello ${level+2} sbloccato 🔓</b><br>`;
+      html+=`<button class="restart" onclick="${setFnName}(${level+1})">➡️ Vai al Livello ${level+2}</button>`;
+    } else if(passed && level===3){
+      html+=`<b>🏆 Hai completato tutti i livelli!</b><br>`;
+      html+=`<button class="restart" onclick="${setFnName}(0)">🔄 Rigioca dal Livello 1</button>`;
+    } else {
+      html+=`<b>Ci sei quasi! Riprova questo livello, ce la fai 🌱</b><br>`;
+      html+=`<button class="restart" onclick="${setFnName}(${level})">🔄 Rifai il Livello ${level+1}</button>`;
+    }
+    progEl.innerHTML=html;
+  }
+
+  /* ============ SEZIONE 1 — ASCOLTO ============ */
+  const listenLevels = [
+    [ // L1 — some / any (base)
+      {audio:"There is some milk.", opts:["There is some milk.","There is some water.","There isn't any milk."], correct:0},
+      {audio:"There are some apples.", opts:["There are some apples.","There are some oranges.","There aren't any apples."], correct:0},
+      {audio:"I have some money.", opts:["I have some money.","I have some honey.","I don't have any money."], correct:0},
+      {audio:"There isn't any bread.", opts:["There isn't any bread.","There is some bread.","There isn't any butter."], correct:0},
+      {audio:"Do you have any sugar?", opts:["Do you have any sugar?","Do you have any salt?","Do you have some sugar?"], correct:0},
+      {audio:"We don't have any eggs.", opts:["We don't have any eggs.","We have some eggs.","We don't have any milk."], correct:0},
+    ],
+    [ // L2 — some / any (contesto)
+      {audio:"Can I have some water, please?", opts:["Can I have some water, please?","Can I have any water, please?","Can I have some milk, please?"], correct:0},
+      {audio:"Are there any biscuits?", opts:["Are there any biscuits?","Are there some biscuits?","Are there any bananas?"], correct:0},
+      {audio:"She bought some new shoes.", opts:["She bought some new shoes.","She bought any new shoes.","He bought some new shoes."], correct:0},
+      {audio:"There aren't any people here.", opts:["There aren't any people here.","There are some people here.","There aren't any cars here."], correct:0},
+      {audio:"I need some help.", opts:["I need some help.","I need any help.","I need some sleep."], correct:0},
+      {audio:"Is there any milk in the fridge?", opts:["Is there any milk in the fridge?","Is there some milk in the fridge?","Is there any juice in the fridge?"], correct:0},
+    ],
+    [ // L3 — much / many
+      {audio:"How many books do you have?", opts:["How many books do you have?","How much books do you have?","How many pens do you have?"], correct:0},
+      {audio:"There isn't much water.", opts:["There isn't much water.","There aren't much water.","There isn't many water."], correct:0},
+      {audio:"How much sugar do you want?", opts:["How much sugar do you want?","How many sugar do you want?","How much salt do you want?"], correct:0},
+      {audio:"There aren't many people.", opts:["There aren't many people.","There isn't many people.","There aren't much people."], correct:0},
+      {audio:"I don't have much time.", opts:["I don't have much time.","I don't have many time.","I don't have much money."], correct:0},
+      {audio:"She has many friends.", opts:["She has many friends.","She has much friends.","She has many books."], correct:0},
+    ],
+    [ // L4 — misto / a lot of / how much-many
+      {audio:"How much does it cost?", opts:["How much does it cost?","How many does it cost?","How much do they cost?"], correct:0},
+      {audio:"There are a lot of cars in the street.", opts:["There are a lot of cars in the street.","There is a lot of cars in the street.","There are a lot of cats in the street."], correct:0},
+      {audio:"We don't have much money, but we have a lot of friends.", opts:["We don't have much money, but we have a lot of friends.","We don't have many money, but we have a lot of friends.","We don't have much money, but we have a lot of friend."], correct:0},
+      {audio:"How many languages can you speak?", opts:["How many languages can you speak?","How much languages can you speak?","How many countries can you visit?"], correct:0},
+      {audio:"There is too much salt in the soup.", opts:["There is too much salt in the soup.","There are too much salt in the soup.","There is too many salt in the soup."], correct:0},
+      {audio:"Are there many students in your class?", opts:["Are there many students in your class?","Is there many students in your class?","Are there much students in your class?"], correct:0},
+    ],
+  ];
+  let lLevel=0, lc=0, ls=0, lCorrect=0, lAudio="";
+  function setListenLevel(lvl){ lLevel=lvl; lc=0; ls=0; document.getElementById("listen-level").innerHTML=levelBar(lvl); showListen(); }
+  function showListen(){
+    const data=listenLevels[lLevel];
+    const box=document.getElementById("listen-quiz");
+    const pr=document.getElementById("listen-prog");
+    if(lc>=data.length){ box.innerHTML=""; levelResult(pr, ls, data.length, lLevel, 4, "setListenLevel"); return; }
+    const it=data[lc];
+    lAudio=it.audio;
+    const order=shuffle(it.opts.map((o,i)=>i));
+    const shown=order.map(k=>it.opts[k]);
+    lCorrect=order.indexOf(it.correct);
+    pr.textContent=`Esercizio ${lc+1} di ${data.length}`;
+    box.innerHTML=`
+      <div class="ex">
+        <div class="qnum">Ascolto ${lc+1}</div>
+        <button class="big-listen" onclick="event.stopPropagation();say('${escQ(it.audio)}')">🔊 Ascolta la frase</button>
+        <div class="options">
+          ${shown.map((o,i)=>`<button class="opt" onclick="listenAns(${i})">${o}</button>`).join("")}
+        </div>
+        <div class="feedback" id="lfb"></div>
+      </div>`;
+  }
+  function listenAns(i){
+    const opts=document.querySelectorAll("#listen-quiz .opt");
+    const fb=document.getElementById("lfb");
+    if(i===lCorrect){
+      opts[i].classList.add("correct");
+      fb.textContent="✅ Giusto! "+lAudio; fb.className="feedback ok";
+      ls++; say(lAudio); opts.forEach(o=>o.disabled=true);
+      setTimeout(()=>{ lc++; showListen(); },1800);
+    } else {
+      opts[i].classList.add("wrong");
+      fb.textContent="Riascolta e riprova 🙂"; fb.className="feedback no";
+    }
+  }
+
+  /* ============ SEZIONE 2 — SCRITTURA ============ */
+  const writeLevels = [
+    [ // L1 — some / any (regola base)
+      {q:"There is ____ milk.  (affermativa)", answers:["some"], full:"There is some milk.", hint:"frase affermativa → some."},
+      {q:"There aren't ____ apples.  (negativa)", answers:["any"], full:"There aren't any apples.", hint:"frase negativa → any."},
+      {q:"I have ____ money.  (affermativa)", answers:["some"], full:"I have some money.", hint:"affermativa → some."},
+      {q:"Do you have ____ sugar?  (domanda)", answers:["any"], full:"Do you have any sugar?", hint:"domanda → any."},
+      {q:"We don't have ____ eggs.  (negativa)", answers:["any"], full:"We don't have any eggs.", hint:"negativa → any."},
+      {q:"She bought ____ new shoes.  (affermativa)", answers:["some"], full:"She bought some new shoes.", hint:"affermativa → some."},
+    ],
+    [ // L2 — some / any (contesto + richieste)
+      {q:"Can I have ____ water, please?  (richiesta gentile)", answers:["some"], full:"Can I have some water, please?", hint:"richiesta/offerta gentile → some."},
+      {q:"Are there ____ biscuits?  (domanda)", answers:["any"], full:"Are there any biscuits?", hint:"domanda → any."},
+      {q:"There isn't ____ bread.  (negativa)", answers:["any"], full:"There isn't any bread.", hint:"negativa → any."},
+      {q:"I need ____ help.  (affermativa)", answers:["some"], full:"I need some help.", hint:"affermativa → some."},
+      {q:"Is there ____ milk in the fridge?  (domanda)", answers:["any"], full:"Is there any milk in the fridge?", hint:"domanda → any."},
+      {q:"Would you like ____ tea?  (offerta gentile)", answers:["some"], full:"Would you like some tea?", hint:"offerta gentile → some."},
+    ],
+    [ // L3 — much / many
+      {q:"How ____ books do you have?  (contabile)", answers:["many"], full:"How many books do you have?", hint:"contabili (libri) → many."},
+      {q:"How ____ water do you want?  (non contabile)", answers:["much"], full:"How much water do you want?", hint:"non contabili (acqua) → much."},
+      {q:"There isn't ____ time.  (non contabile)", answers:["much"], full:"There isn't much time.", hint:"tempo (non contabile) → much."},
+      {q:"There aren't ____ people.  (contabile)", answers:["many"], full:"There aren't many people.", hint:"persone (contabili) → many."},
+      {q:"She has ____ friends.  (contabile)", answers:["many"], full:"She has many friends.", hint:"amici (contabili) → many."},
+      {q:"I don't have ____ money.  (non contabile)", answers:["much"], full:"I don't have much money.", hint:"soldi (non contabile) → much."},
+    ],
+    [ // L4 — how much / how many / a lot of
+      {q:"How ____ does it cost?  (prezzo)", answers:["much"], full:"How much does it cost?", hint:"prezzo → how much."},
+      {q:"How ____ languages can you speak?  (contabile)", answers:["many"], full:"How many languages can you speak?", hint:"lingue (contabili) → many."},
+      {q:"There are a ____ of cars.  (tanti)", answers:["lot"], full:"There are a lot of cars.", hint:"a lot of = molti / molto."},
+      {q:"There is too ____ salt in the soup.  (non contabile)", answers:["much"], full:"There is too much salt in the soup.", hint:"sale (non contabile) → too much."},
+      {q:"Are there ____ students in your class?  (contabile)", answers:["many"], full:"Are there many students in your class?", hint:"studenti (contabili) → many."},
+      {q:"I have a ____ of homework today.  (tanto)", answers:["lot"], full:"I have a lot of homework today.", hint:"a lot of = tanto."},
+    ],
+  ];
+  let wLevel=0, writeDone=[];
+  function norm(s){ return s.trim().toLowerCase().replace(/\s+/g," "); }
+  function setWriteLevel(lvl){
+    wLevel=lvl;
+    const data=writeLevels[lvl];
+    writeDone=new Array(data.length).fill(false);
+    document.getElementById("write-level").innerHTML=levelBar(lvl);
+    document.getElementById("write-prog").textContent=`Completate 0 di ${data.length}`;
+    const list=document.getElementById("write-list");
+    list.innerHTML=data.map((it,i)=>`
+      <div class="ex">
+        <div class="qnum">Frase ${i+1}</div>
+        <div class="qtext">${it.q}</div>
+        <input class="write-input" id="wi${i}" type="text" autocomplete="off" placeholder="scrivi qui…">
+        <button class="checkbtn" onclick="checkWrite(${i})">Controlla</button>
+        <div class="feedback" id="wfb${i}"></div>
+      </div>`).join("");
+  }
+  function checkWrite(i){
+    const it=writeLevels[wLevel][i];
+    const inp=document.getElementById("wi"+i);
+    const fb=document.getElementById("wfb"+i);
+    const ok=it.answers.some(a=>norm(a)===norm(inp.value));
+    if(ok){
+      inp.classList.add("okbox"); inp.classList.remove("nobox");
+      fb.innerHTML="✅ Perfetto! "+it.full; fb.className="feedback ok";
+      say(it.full);
+    } else {
+      inp.classList.add("nobox");
+      fb.innerHTML=`💛 Quasi! ${it.hint}<br>La risposta è: <b>${it.full}</b> <button class="saybtn" onclick="event.stopPropagation();say('${escQ(it.full)}')">🔊</button>`;
+      fb.className="feedback no";
+    }
+    if(!writeDone[i]){ writeDone[i]=true; updateWrite(); }
+  }
+  function updateWrite(){
+    const data=writeLevels[wLevel];
+    const pr=document.getElementById("write-prog");
+    const done=writeDone.filter(Boolean).length;
+    if(done<data.length){ pr.textContent=`Completate ${done} di ${data.length}`; return; }
+    let correct=0;
+    data.forEach((it,i)=>{ if(document.getElementById("wi"+i).classList.contains("okbox")) correct++; });
+    levelResult(pr, correct, data.length, wLevel, 4, "setWriteLevel");
+  }
+
+  /* ============ SEZIONE 3 — LETTURA ============ */
+  const readLevels = [
+    { // L1
+      lines:["There is some juice in the fridge.","There are some apples on the table.","But there isn't any bread."],
+      q:[
+        {q:"Is there any juice? 🧃", opts:["Yes, there is","No, there isn't","Only milk"], correct:0, full:"There is some juice."},
+        {q:"What is on the table? 🍎", opts:["Some apples","Some bread","Some eggs"], correct:0, full:"There are some apples on the table."},
+        {q:"Is there any bread? 🍞", opts:["No, there isn't","Yes, there is","A lot"], correct:0, full:"There isn't any bread."},
+      ]
+    },
+    { // L2
+      lines:["Mum is making a cake.","She needs some flour, some sugar and some eggs.","She doesn't need any butter.","'Do we have any chocolate?' she asks."],
+      q:[
+        {q:"What does Mum need? 🎂", opts:["Flour, sugar and eggs","Butter and milk","Bread"], correct:0, full:"She needs some flour, some sugar and some eggs."},
+        {q:"Does she need any butter? 🧈", opts:["No, she doesn't","Yes, she does","A little"], correct:0, full:"She doesn't need any butter."},
+        {q:"What does she ask about? 🍫", opts:["Chocolate","Salt","Water"], correct:0, full:"Do we have any chocolate?"},
+      ]
+    },
+    { // L3
+      lines:["My town is small but nice.","There aren't many shops, but there are many trees.","There isn't much traffic.","There is a lot of fresh air!"],
+      q:[
+        {q:"Are there many shops? 🏪", opts:["No, there aren't","Yes, there are","A few"], correct:0, full:"There aren't many shops."},
+        {q:"Is there much traffic? 🚗", opts:["No, there isn't","Yes, there is","A lot"], correct:0, full:"There isn't much traffic."},
+        {q:"What is there a lot of? 🌳", opts:["Fresh air","Cars","Noise"], correct:0, full:"There is a lot of fresh air."},
+      ]
+    },
+    { // L4
+      lines:["At the party there were a lot of people.","There was a lot of food, but there wasn't much room to dance.","How many guests came? About fifty!","We didn't have much time, but we had a lot of fun."],
+      q:[
+        {q:"How many people were there? 🎉", opts:["A lot","A few","None"], correct:0, full:"There were a lot of people."},
+        {q:"Was there much room to dance? 💃", opts:["No, there wasn't","Yes, there was","A lot"], correct:0, full:"There wasn't much room to dance."},
+        {q:"How many guests came? 🧑‍🤝‍🧑", opts:["About fifty","About ten","About a hundred"], correct:0, full:"About fifty guests came."},
+      ]
+    },
+  ];
+  let rLevel=0, readDone=[], readingText="", readCorrect=[];
+  function sayReading(){ say(readingText); }
+  function setReadLevel(lvl, noScroll){
+    rLevel=lvl;
+    const data=readLevels[lvl];
+    readingText=data.lines.join(" ");
+    readDone=new Array(data.q.length).fill(false);
+    document.getElementById("read-level").innerHTML=levelBar(lvl);
+    document.getElementById("reading-text").innerHTML=data.lines.map(l=>`<p>${l}</p>`).join("");
+    document.getElementById("read-prog").textContent=`Risposte 0 di ${data.q.length}`;
+    readCorrect=[];
+    const list=document.getElementById("read-list");
+    list.innerHTML=data.q.map((it,i)=>{
+      const order=shuffle(it.opts.map((o,k)=>k));
+      const shown=order.map(k=>it.opts[k]);
+      readCorrect[i]=order.indexOf(it.correct);
+      return `
+      <div class="ex">
+        <div class="qnum">Domanda ${i+1}</div>
+        <div class="qtext">${it.q}</div>
+        <div class="options">
+          ${shown.map((o,j)=>`<button class="opt" onclick="readAns(${i},${j})">${o}</button>`).join("")}
+        </div>
+        <div class="feedback" id="rfb${i}"></div>
+      </div>`;
+    }).join("");
+    if(!noScroll){
+      const card=document.getElementById("read-card");
+      if(card) card.scrollIntoView({behavior:"smooth", block:"start"});
+    }
+  }
+  function readAns(i,j){
+    const it=readLevels[rLevel].q[i];
+    const opts=document.querySelectorAll("#read-list .ex:nth-child("+(i+1)+") .opt");
+    const fb=document.getElementById("rfb"+i);
+    if(j===readCorrect[i]){
+      opts[j].classList.add("correct");
+      fb.innerHTML="✅ Giusto! "+it.full+` <button class="saybtn" onclick="event.stopPropagation();say('${escQ(it.full)}')">🔊</button>`;
+      fb.className="feedback ok"; opts.forEach(o=>o.disabled=true);
+      if(!readDone[i]){ readDone[i]=true; updateRead(); }
+    } else {
+      opts[j].classList.add("wrong");
+      fb.textContent="Rileggi il testo e riprova 🙂"; fb.className="feedback no";
+    }
+  }
+  function updateRead(){
+    const data=readLevels[rLevel];
+    const pr=document.getElementById("read-prog");
+    const done=readDone.filter(Boolean).length;
+    if(done<data.q.length){ pr.textContent=`Risposte ${done} di ${data.q.length}`; return; }
+    levelResult(pr, data.q.length, data.q.length, rLevel, 2, "setReadLevel");
+  }
+
+  /* ============ SEZIONE 4 — LESSICO ============ */
+  const matchLevels = [
+    [ // L1 — cibo NON contabile (uncountable)
+      {en:"milk", it:"latte 🥛"},{en:"water", it:"acqua 💧"},{en:"bread", it:"pane 🍞"},{en:"sugar", it:"zucchero 🧂"},
+      {en:"rice", it:"riso 🍚"},{en:"cheese", it:"formaggio 🧀"},{en:"butter", it:"burro 🧈"},{en:"coffee", it:"caffè ☕"},
+    ],
+    [ // L2 — cibo contabile (countable)
+      {en:"apple", it:"mela 🍎"},{en:"egg", it:"uovo 🥚"},{en:"banana", it:"banana 🍌"},{en:"tomato", it:"pomodoro 🍅"},
+      {en:"biscuit", it:"biscotto 🍪"},{en:"orange", it:"arancia 🍊"},{en:"potato", it:"patata 🥔"},{en:"carrot", it:"carota 🥕"},
+    ],
+    [ // L3 — parole della quantità
+      {en:"some", it:"un po' / alcuni"},{en:"any", it:"del / dei (neg. e dom.)"},{en:"much", it:"molto (non contabile)"},{en:"many", it:"molti (contabile)"},
+      {en:"a lot of", it:"tanti / tanto"},{en:"a few", it:"alcuni (pochi)"},{en:"a little", it:"un po'"},{en:"enough", it:"abbastanza"},
+    ],
+    [ // L4 — frasi
+      {en:"There is some milk.", it:"C'è del latte"},{en:"There aren't any eggs.", it:"Non ci sono uova"},{en:"How much is it?", it:"Quanto costa?"},{en:"How many are there?", it:"Quanti ce ne sono?"},
+      {en:"I have a lot of friends.", it:"Ho tanti amici"},{en:"There isn't much time.", it:"C'è poco tempo"},{en:"Would you like some tea?", it:"Vuoi del tè?"},{en:"Too much sugar.", it:"Troppo zucchero"},
+    ],
+  ];
+  let mLevel=0, selEn=null, matched=0, firstTry=0, spoiled;
+  function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+  function setMatchLevel(lvl){
+    mLevel=lvl; selEn=null; matched=0; firstTry=0; spoiled=new Set();
+    const pairs=matchLevels[lvl];
+    document.getElementById("match-level").innerHTML=levelBar(lvl);
+    const grid=document.getElementById("match-grid");
+    const left=pairs.map((p,i)=>`<button class="match-btn" id="en${i}" onclick="pickEn(${i})">
+        <span>${p.en}</span>
+        <span class="saybtn" onclick="event.stopPropagation();say('${escQ(p.en)}')">🔊</span></button>`).join("");
+    const order=shuffle(pairs.map((p,i)=>i));
+    const right=order.map(i=>`<button class="match-btn" id="it${i}" onclick="pickIt(${i})">${pairs[i].it}</button>`).join("");
+    grid.innerHTML=`<div class="match-col">${left}</div><div class="match-col">${right}</div>`;
+    document.getElementById("match-prog").textContent=`Coppie collegate: 0 di ${pairs.length}`;
+  }
+  function pickEn(i){
+    const btn=document.getElementById("en"+i);
+    if(btn.classList.contains("done")) return;
+    document.querySelectorAll(".match-btn.sel").forEach(b=>b.classList.remove("sel"));
+    selEn=i; btn.classList.add("sel");
+  }
+  function pickIt(i){
+    if(selEn===null) return;
+    const itBtn=document.getElementById("it"+i);
+    if(itBtn.classList.contains("done")) return;
+    const enBtn=document.getElementById("en"+selEn);
+    const pairs=matchLevels[mLevel];
+    if(selEn===i){
+      enBtn.classList.remove("sel"); enBtn.classList.add("done"); itBtn.classList.add("done");
+      say(pairs[i].en);
+      if(!spoiled.has(selEn)) firstTry++;
+      selEn=null; matched++;
+      const pr=document.getElementById("match-prog");
+      if(matched>=pairs.length){
+        levelResult(pr, firstTry, pairs.length, mLevel, 5, "setMatchLevel");
+      } else {
+        pr.textContent=`Coppie collegate: ${matched} di ${pairs.length}`;
+      }
+    } else {
+      spoiled.add(selEn);
+      itBtn.classList.add("flash");
+      setTimeout(()=>itBtn.classList.remove("flash"),500);
+      enBtn.classList.remove("sel"); selEn=null;
+    }
+  }
+
+  // avvio: ogni sezione parte dal Livello 1
+  setListenLevel(0);
+  setWriteLevel(0);
+  setReadLevel(0, true);
+  setMatchLevel(0);
+</script>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./service-worker.js');
+  }
+</script>
+</body>
+</html>
