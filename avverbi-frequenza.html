@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inglese - Avverbi di frequenza</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#FAF6EE">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Inglese di Irene">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FAF6EE; --card:#FFFFFF; --ink:#2F2A24;
+    --accent:#C8651B; --accent-soft:#F3E2D0;
+    --green:#3E8E5A; --green-soft:#E2F0E6;
+    --red:#C2492F; --red-soft:#F6E1DB;
+    --blue:#3B6EA5; --blue-soft:#E2ECF5;
+    --purple:#7B5EA7; --purple-soft:#EDE8F5;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; font-family:"Lexend","Trebuchet MS",Verdana,sans-serif;
+    background:var(--bg); color:var(--ink); line-height:1.7; letter-spacing:0.3px; padding:24px 14px 60px;}
+  .wrap{max-width:620px;margin:0 auto;}
+  h1{color:var(--accent);font-size:1.7rem;text-align:center;margin:0 0 6px;}
+  .sub{text-align:center;color:#8a7f70;margin:0 0 26px;font-size:1rem;}
+  .card{background:var(--card);border-radius:18px;padding:22px 20px;margin-bottom:22px;
+    box-shadow:0 4px 14px rgba(0,0,0,0.06);border:1px solid #efe7da;}
+  .card h2{margin:0 0 14px;font-size:1.25rem;color:var(--accent);display:flex;align-items:center;gap:8px;}
+  table{width:100%;border-collapse:collapse;margin:6px 0;}
+  td,th{padding:10px;text-align:center;border-bottom:2px solid var(--accent-soft);font-size:1.05rem;}
+  th{color:var(--accent);}
+  .cell-aff{background:var(--green-soft);border-radius:8px;font-weight:bold;color:var(--green);}
+  .cell-neg{background:var(--red-soft);border-radius:8px;font-weight:bold;color:var(--red);}
+  .cell-q{background:var(--blue-soft);border-radius:8px;font-weight:bold;color:var(--blue);}
+  .cell-pur{background:var(--purple-soft);border-radius:8px;font-weight:bold;color:var(--purple);}
+  .saybtn{background:var(--blue-soft);color:var(--blue);border:none;border-radius:10px;
+    padding:6px 12px;font-size:0.95rem;cursor:pointer;font-family:inherit;}
+  .tip{background:var(--accent-soft);border-radius:10px;padding:10px 14px;font-size:0.98rem;margin-top:10px;}
+  .tip-blue{background:var(--blue-soft);border-radius:10px;padding:10px 14px;font-size:0.98rem;margin-top:10px;color:var(--blue);}
+  .tip-red{background:var(--red-soft);border-radius:10px;padding:10px 14px;font-size:0.98rem;margin-top:10px;color:var(--red);}
+  .tip-pur{background:var(--purple-soft);border-radius:10px;padding:10px 14px;font-size:0.98rem;margin-top:10px;color:var(--purple);}
+  .formula{background:var(--bg);border:2px dashed var(--accent);border-radius:14px;
+    padding:14px;text-align:center;font-size:1.12rem;margin:10px 0;}
+  .formula b{color:var(--accent);}
+  /* scala frequenza */
+  .scale{display:flex;flex-direction:column;gap:8px;margin:10px 0;}
+  .scrow{display:flex;align-items:center;gap:10px;background:var(--bg);border-radius:12px;
+    padding:8px 12px;border:2px solid var(--accent-soft);}
+  .scbar{flex-shrink:0;width:64px;height:14px;border-radius:99px;background:#e6ddcd;overflow:hidden;}
+  .scbar span{display:block;height:100%;background:var(--accent);border-radius:99px;}
+  .scen{font-weight:bold;min-width:84px;text-align:left;}
+  .scit{color:#8a7f70;font-size:0.92rem;flex:1;text-align:left;}
+  .scpct{color:var(--accent);font-weight:bold;font-size:0.9rem;}
+  .spec-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0;}
+  .spec-box{background:var(--blue-soft);border-radius:12px;padding:10px 14px;font-size:0.97rem;}
+  .spec-box b{color:var(--blue);}
+  .flashcards{display:flex;flex-direction:column;gap:12px;margin-top:4px;}
+  .fc{background:var(--bg);border:2px solid var(--accent-soft);border-radius:14px;
+    padding:16px;cursor:pointer;font-size:1.1rem;transition:all .2s;}
+  .fc:hover{border-color:var(--accent);}
+  .fc .en{font-weight:bold;color:var(--ink);}
+  .fc .it{color:var(--green);margin-top:6px;display:none;font-size:1rem;}
+  .fc.open .it{display:block;}
+  .fc .hint-tap{font-size:0.85rem;color:#aaa;margin-top:4px;}
+  .ex{margin:18px 0;}
+  .qnum{font-weight:bold;color:var(--accent);}
+  .qtext{font-size:1.15rem;margin:6px 0 8px;}
+  .qhint{background:var(--blue-soft);color:var(--blue);border-radius:10px;padding:8px 12px;font-size:0.95rem;margin-bottom:10px;}
+  .options{display:flex;gap:10px;flex-wrap:wrap;}
+  .opt{flex:1;min-width:80px;background:var(--bg);border:2px solid var(--accent-soft);
+    border-radius:12px;padding:14px;font-size:1.1rem;cursor:pointer;
+    text-align:center;font-family:inherit;color:var(--ink);transition:all .15s;}
+  .opt:hover{border-color:var(--accent);}
+  .opt.correct{background:var(--green-soft);border-color:var(--green);color:var(--green);font-weight:bold;}
+  .opt.wrong{background:var(--red-soft);border-color:var(--red);color:var(--red);}
+  .feedback{margin-top:12px;font-size:1.05rem;font-weight:bold;min-height:26px;}
+  .feedback.ok{color:var(--green);}
+  .feedback.no{color:var(--red);}
+  .progress{text-align:center;font-size:1.1rem;margin:10px 0 0;color:#8a7f70;}
+  .star{font-size:1.4rem;}
+  .restart{display:block;margin:20px auto 0;background:var(--accent);color:#fff;border:none;
+    border-radius:12px;padding:12px 24px;font-size:1.05rem;cursor:pointer;font-family:inherit;}
+  .trainlink{display:block;text-align:center;background:var(--accent);color:#fff;text-decoration:none;
+    border-radius:14px;padding:16px;font-size:1.15rem;font-weight:bold;margin:10px 0 4px;
+    box-shadow:0 4px 12px rgba(200,101,27,0.25);}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🔁 Avverbi di frequenza</h1>
+  <p class="sub">quanto spesso fai una cosa: always, usually, often, sometimes, never</p>
+
+  <!-- A COSA SERVE -->
+  <div class="card">
+    <h2>💡 A cosa serve</h2>
+    <p style="margin-top:0;">Gli <b>avverbi di frequenza</b> dicono <b>quanto spesso</b> succede una cosa. Rispondono alla domanda: <i>How often?</i> (Ogni quanto?).</p>
+    <div class="spec-grid">
+      <div class="spec-box">I <b>always</b> brush my teeth. 🪥 <button class="saybtn" onclick="say('I always brush my teeth')">🔊</button></div>
+      <div class="spec-box">I <b>never</b> drink coffee. ☕ <button class="saybtn" onclick="say('I never drink coffee')">🔊</button></div>
+    </div>
+    <div class="tip">🕐 <b>always</b> = sempre (tutti i giorni) &nbsp;·&nbsp; <b>never</b> = mai (zero volte). In mezzo ci sono tutte le altre frequenze!</div>
+  </div>
+
+  <!-- LA SCALA -->
+  <div class="card">
+    <h2>📊 La scala della frequenza</h2>
+    <p style="margin-top:0;">Dal <b>sempre</b> (100%) al <b>mai</b> (0%):</p>
+    <div class="scale">
+      <div class="scrow"><div class="scbar"><span style="width:100%"></span></div><span class="scen">always</span><span class="scit">sempre</span><span class="scpct">100%</span><button class="saybtn" onclick="say('always')">🔊</button></div>
+      <div class="scrow"><div class="scbar"><span style="width:85%"></span></div><span class="scen">usually</span><span class="scit">di solito</span><span class="scpct">~90%</span><button class="saybtn" onclick="say('usually')">🔊</button></div>
+      <div class="scrow"><div class="scbar"><span style="width:65%"></span></div><span class="scen">often</span><span class="scit">spesso</span><span class="scpct">~70%</span><button class="saybtn" onclick="say('often')">🔊</button></div>
+      <div class="scrow"><div class="scbar"><span style="width:45%"></span></div><span class="scen">sometimes</span><span class="scit">a volte</span><span class="scpct">~50%</span><button class="saybtn" onclick="say('sometimes')">🔊</button></div>
+      <div class="scrow"><div class="scbar"><span style="width:20%"></span></div><span class="scen">rarely</span><span class="scit">raramente</span><span class="scpct">~10%</span><button class="saybtn" onclick="say('rarely')">🔊</button></div>
+      <div class="scrow"><div class="scbar"><span style="width:4%"></span></div><span class="scen">never</span><span class="scit">mai</span><span class="scpct">0%</span><button class="saybtn" onclick="say('never')">🔊</button></div>
+    </div>
+    <div class="tip-blue">💡 <b>usually</b> e <b>often</b> si assomigliano: <b>usually</b> = di solito (quasi sempre), <b>often</b> = spesso (tante volte).</div>
+  </div>
+
+  <!-- DOVE SI METTE -->
+  <div class="card">
+    <h2>📍 Dove si mette? La regola d'oro</h2>
+    <p style="margin-top:0;">L'avverbio cambia posto a seconda del verbo:</p>
+    <div class="formula"><b>PRIMA</b> del verbo normale<br><small>I <b>always</b> play → gioco sempre</small></div>
+    <div class="formula"><b>DOPO</b> il verbo <b>to be</b> (am/is/are)<br><small>She is <b>always</b> late → è sempre in ritardo</small></div>
+    <table>
+      <tr><th>Verbo</th><th>Esempio</th></tr>
+      <tr><td>verbo normale</td><td class="cell-aff">I <b>often</b> read. 📖</td></tr>
+      <tr><td>to be</td><td class="cell-q">He is <b>often</b> tired. 😴</td></tr>
+    </table>
+    <div style="text-align:center;margin:6px 0;">
+      <button class="saybtn" onclick="say('I often read.')">🔊 I often read</button>
+      <button class="saybtn" onclick="say('He is often tired.')">🔊 He is often tired</button>
+    </div>
+    <div class="tip-red">⚠️ Trucco: con <b>am / is / are</b> l'avverbio va <b>dopo</b>. Con tutti gli altri verbi va <b>prima</b>!</div>
+  </div>
+
+  <!-- DOMANDA -->
+  <div class="card">
+    <h2>❓ Chiedere la frequenza</h2>
+    <p style="margin-top:0;">Per chiedere "ogni quanto?" si usa <b>How often…?</b></p>
+    <div class="spec-grid">
+      <div class="spec-box"><b>How often</b> do you read? <button class="saybtn" onclick="say('How often do you read?')">🔊</button></div>
+      <div class="spec-box">I <b>usually</b> read every day. <button class="saybtn" onclick="say('I usually read every day')">🔊</button></div>
+    </div>
+    <div class="tip-blue">💡 Si può rispondere anche con: <b>every day</b> (ogni giorno), <b>once a week</b> (una volta a settimana), <b>twice a week</b> (due volte a settimana).</div>
+  </div>
+
+  <!-- FLASHCARD -->
+  <div class="card">
+    <h2>🃏 Flashcard — tocca per tradurre!</h2>
+    <div class="flashcards">
+      <div class="fc" onclick="flip(this)">
+        <div class="en">I always have breakfast. 🥐 <button class="saybtn" onclick="event.stopPropagation();say('I always have breakfast')">🔊</button></div>
+        <div class="it">Faccio sempre colazione.</div>
+        <div class="hint-tap">👆 tocca per vedere la traduzione</div>
+      </div>
+      <div class="fc" onclick="flip(this)">
+        <div class="en">She usually walks to school. 🚶‍♀️ <button class="saybtn" onclick="event.stopPropagation();say('She usually walks to school')">🔊</button></div>
+        <div class="it">Di solito va a scuola a piedi.</div>
+        <div class="hint-tap">👆 tocca per vedere la traduzione</div>
+      </div>
+      <div class="fc" onclick="flip(this)">
+        <div class="en">We often play football. ⚽ <button class="saybtn" onclick="event.stopPropagation();say('We often play football')">🔊</button></div>
+        <div class="it">Giochiamo spesso a calcio.</div>
+        <div class="hint-tap">👆 tocca per vedere la traduzione</div>
+      </div>
+      <div class="fc" onclick="flip(this)">
+        <div class="en">He is sometimes late. ⏰ <button class="saybtn" onclick="event.stopPropagation();say('He is sometimes late')">🔊</button></div>
+        <div class="it">A volte è in ritardo.</div>
+        <div class="hint-tap">👆 tocca per vedere la traduzione</div>
+      </div>
+      <div class="fc" onclick="flip(this)">
+        <div class="en">They never eat meat. 🥗 <button class="saybtn" onclick="event.stopPropagation();say('They never eat meat')">🔊</button></div>
+        <div class="it">Non mangiano mai carne.</div>
+        <div class="hint-tap">👆 tocca per vedere la traduzione</div>
+      </div>
+      <div class="fc" onclick="flip(this)">
+        <div class="en">How often do you study? 📚 <button class="saybtn" onclick="event.stopPropagation();say('How often do you study?')">🔊</button></div>
+        <div class="it">Ogni quanto studi?</div>
+        <div class="hint-tap">👆 tocca per vedere la traduzione</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ESERCIZI GUIDATI -->
+  <div class="card">
+    <h2>✏️ Esercizi guidati</h2>
+    <p style="margin-top:0;color:#8a7f70;">Leggi prima il suggerimento 💡, poi scegli la risposta giusta!</p>
+    <div id="guided"></div>
+    <div class="progress" id="gprogress"></div>
+    <button class="restart" id="grestartBtn" style="display:none;" onclick="startGuided()">🔄 Riprova gli esercizi</button>
+  </div>
+
+  <!-- QUIZ FINALE -->
+  <div class="card">
+    <h2>✅ Quiz finale</h2>
+    <p style="margin-top:0;color:#8a7f70;">Hai capito tutto? Mettiti alla prova! 🎯</p>
+    <div id="quiz"></div>
+    <div class="progress" id="progress"></div>
+    <button class="restart" id="restartBtn" style="display:none;" onclick="startQuiz()">🔄 Ricomincia il quiz</button>
+  </div>
+
+  <!-- LINK ALLENAMENTO -->
+  <div class="card">
+    <h2>🏋️ Vuoi allenarti di più?</h2>
+    <p style="margin-top:0;color:#8a7f70;">4 livelli: ascolto · scrittura · lettura · lessico.</p>
+    <a class="trainlink" href="avverbi-frequenza-allenamento.html">🏋️ Vai all'allenamento →</a>
+  </div>
+</div>
+
+<script>
+  function say(text){
+    try{
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = "en-US"; u.rate = 0.85;
+      speechSynthesis.cancel(); speechSynthesis.speak(u);
+    }catch(e){}
+  }
+  function flip(el){ el.classList.toggle("open"); }
+  function escQ(s){ return s.replace(/'/g, "\\'"); }
+
+  const guided = [
+    {q:"I ____ brush my teeth. 🪥  (sempre, 100%)", hint:"💡 Sempre = always.", opts:["always","never","sometimes"], correct:0, full:"I always brush my teeth."},
+    {q:"They ____ eat meat. 🥗  (mai, 0%)", hint:"💡 Mai = never.", opts:["always","never","often"], correct:1, full:"They never eat meat."},
+    {q:"I always ____ TV in the evening. 📺", hint:"💡 L'avverbio va PRIMA del verbo: always + watch.", opts:["watch","am watch","watching"], correct:0, full:"I always watch TV in the evening."},
+    {q:"She ____ late. ⏰  (a volte — con to be)", hint:"💡 Con 'is' (to be) l'avverbio va DOPO: is + sometimes.", opts:["is sometimes","sometimes is","sometimes"], correct:0, full:"She is sometimes late."},
+    {q:"We ____ play football. ⚽  (spesso)", hint:"💡 Spesso = often, e va prima del verbo.", opts:["often","never","always"], correct:0, full:"We often play football."},
+    {q:"____ do you go to the gym? 🏋️", hint:"💡 Per chiedere la frequenza: How often…?", opts:["How often","How many","How old"], correct:0, full:"How often do you go to the gym?"},
+  ];
+
+  let gc=0, gs=0;
+  function startGuided(){ gc=0; gs=0; document.getElementById("grestartBtn").style.display="none"; showGuided(); }
+  function showGuided(){
+    const el=document.getElementById("guided");
+    const pr=document.getElementById("gprogress");
+    if(gc>=guided.length){
+      el.innerHTML="";
+      const pct=gs/guided.length;
+      const n=pct===1?5:pct>=0.67?4:pct>=0.5?3:2;
+      let stars=""; for(let i=0;i<n;i++) stars+="⭐";
+      const msg=pct===1?"Bravissima! Hai capito tutto! 🏆":pct>=0.5?"Quasi! Riprova per sicurezza 💪":"Allenati ancora, ci riesci! 🌱";
+      pr.innerHTML=`<div class="star">${stars}</div>${gs}/${guided.length} giuste<br><b>${msg}</b>`;
+      document.getElementById("grestartBtn").style.display="block";
+      return;
+    }
+    const item=guided[gc];
+    pr.textContent=`Esercizio ${gc+1} di ${guided.length}`;
+    el.innerHTML=`
+      <div class="ex">
+        <div class="qnum">Esercizio ${gc+1}</div>
+        <div class="qtext">${item.q} <button class="saybtn" onclick="say('${escQ(item.full)}')">🔊</button></div>
+        <div class="qhint">${item.hint}</div>
+        <div class="options">
+          ${item.opts.map((o,i)=>`<button class="opt" onclick="gAnswer(${i})">${o}</button>`).join("")}
+        </div>
+        <div class="feedback" id="gfb"></div>
+      </div>`;
+  }
+  function gAnswer(i){
+    const item=guided[gc];
+    const opts=document.querySelectorAll("#guided .opt");
+    const fb=document.getElementById("gfb");
+    if(i===item.correct){
+      opts[i].classList.add("correct");
+      fb.textContent="✅ Giusto! "+item.full; fb.className="feedback ok";
+      gs++; say(item.full);
+      opts.forEach(o=>o.disabled=true);
+      setTimeout(()=>{ gc++; showGuided(); },1800);
+    } else {
+      opts[i].classList.add("wrong");
+      fb.textContent="Riprova! Guarda il suggerimento 💡"; fb.className="feedback no";
+    }
+  }
+
+  const questions = [
+    {q:"I ____ drink coffee. ☕  (mai, 0%)", opts:["always","never","usually"], correct:1, full:"I never drink coffee."},
+    {q:"She ____ gets up early. 🌅  (di solito)", opts:["usually","never","is usually"], correct:0, full:"She usually gets up early."},
+    {q:"He is ____ happy. 😊  (sempre — con to be)", opts:["always is","always","is always"], correct:1, full:"He is always happy."},
+    {q:"We ____ go to the cinema. 🎬  (a volte)", opts:["sometimes","never","always"], correct:0, full:"We sometimes go to the cinema."},
+    {q:"They ____ help me. 🤝  (spesso)", opts:["often","rarely","never"], correct:0, full:"They often help me."},
+    {q:"My dad ____ tired after work. 😴  (spesso — con to be)", opts:["often is","is often","often"], correct:1, full:"My dad is often tired after work."},
+    {q:"____ do you wash your hair? 🚿", opts:["How old","How often","How many"], correct:1, full:"How often do you wash your hair?"},
+    {q:"I always ____ my homework. 📓", opts:["do","am do","doing"], correct:0, full:"I always do my homework."},
+  ];
+
+  let current=0, score=0;
+  function startQuiz(){ current=0; score=0; document.getElementById("restartBtn").style.display="none"; showQuestion(); }
+  function showQuestion(){
+    const quiz=document.getElementById("quiz");
+    const prog=document.getElementById("progress");
+    if(current>=questions.length){
+      quiz.innerHTML="";
+      const pct=score/questions.length;
+      const n=pct===1?5:pct>=0.75?4:pct>=0.5?3:pct>=0.25?2:1;
+      let stars=""; for(let i=0;i<n;i++) stars+="⭐";
+      const msg=pct===1?"Perfetto! Hai imparato gli avverbi di frequenza! 🏆":pct>=0.5?"Bravissima, ci sei quasi! 💪":"Bene, riprova: si impara ripetendo! 🌱";
+      prog.innerHTML=`<div class="star">${stars}</div>${score}/${questions.length} giuste<br><b>${msg}</b>`;
+      document.getElementById("restartBtn").style.display="block";
+      return;
+    }
+    const item=questions[current];
+    prog.textContent=`Domanda ${current+1} di ${questions.length}`;
+    quiz.innerHTML=`
+      <div class="ex">
+        <div class="qnum">Domanda ${current+1}</div>
+        <div class="qtext">${item.q} <button class="saybtn" onclick="say('${escQ(item.full)}')">🔊</button></div>
+        <div class="options">
+          ${item.opts.map((o,i)=>`<button class="opt" onclick="answer(${i})">${o}</button>`).join("")}
+        </div>
+        <div class="feedback" id="fb"></div>
+      </div>`;
+  }
+  function answer(i){
+    const item=questions[current];
+    const opts=document.querySelectorAll("#quiz .opt");
+    const fb=document.getElementById("fb");
+    if(i===item.correct){
+      opts[i].classList.add("correct");
+      fb.textContent="✅ Giusto! "+item.full; fb.className="feedback ok";
+      score++; say(item.full);
+      opts.forEach(o=>o.disabled=true);
+      setTimeout(()=>{ current++; showQuestion(); },1600);
+    } else {
+      opts[i].classList.add("wrong");
+      fb.textContent="Riprova! 🙂"; fb.className="feedback no";
+    }
+  }
+
+  startGuided();
+  startQuiz();
+</script>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./service-worker.js');
+  }
+</script>
+</body>
+</html>
