@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inglese - Genitivo sassone e possessivi</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#FAF6EE">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Inglese di Irene">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FAF6EE; --card:#FFFFFF; --ink:#2F2A24;
+    --accent:#C8651B; --accent-soft:#F3E2D0;
+    --green:#3E8E5A; --green-soft:#E2F0E6;
+    --red:#C2492F; --red-soft:#F6E1DB;
+    --blue:#3B6EA5; --blue-soft:#E2ECF5;
+    --purple:#7B5EA7; --purple-soft:#EDE8F5;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; font-family:"Lexend","Trebuchet MS",Verdana,sans-serif;
+    background:var(--bg); color:var(--ink); line-height:1.7; letter-spacing:0.3px; padding:24px 14px 60px;}
+  .wrap{max-width:620px;margin:0 auto;}
+  h1{color:var(--accent);font-size:1.7rem;text-align:center;margin:0 0 6px;}
+  .sub{text-align:center;color:#8a7f70;margin:0 0 26px;font-size:1rem;}
+  .card{background:var(--card);border-radius:18px;padding:22px 20px;margin-bottom:22px;
+    box-shadow:0 4px 14px rgba(0,0,0,0.06);border:1px solid #efe7da;}
+  .card h2{margin:0 0 14px;font-size:1.25rem;color:var(--accent);display:flex;align-items:center;gap:8px;}
+  table{width:100%;border-collapse:collapse;margin:6px 0;}
+  td,th{padding:10px;text-align:center;border-bottom:2px solid var(--accent-soft);font-size:1.05rem;}
+  th{color:var(--accent);}
+  .cell-aff{background:var(--green-soft);border-radius:8px;font-weight:bold;color:var(--green);}
+  .cell-neg{background:var(--red-soft);border-radius:8px;font-weight:bold;color:var(--red);}
+  .cell-q{background:var(--blue-soft);border-radius:8px;font-weight:bold;color:var(--blue);}
+  .cell-pur{background:var(--purple-soft);border-radius:8px;font-weight:bold;color:var(--purple);}
+  .saybtn{background:var(--blue-soft);color:var(--blue);border:none;border-radius:10px;
+    padding:6px 12px;font-size:0.95rem;cursor:pointer;font-family:inherit;}
+  .tip{background:var(--accent-soft);border-radius:10px;padding:10px 14px;font-size:0.98rem;margin-top:10px;}
+  .tip-blue{background:var(--blue-soft);border-radius:10px;padding:10px 14px;font-size:0.98rem;margin-top:10px;color:var(--blue);}
+  .tip-red{background:var(--red-soft);border-radius:10px;padding:10px 14px;font-size:0.98rem;margin-top:10px;color:var(--red);}
+  .tip-pur{background:var(--purple-soft);border-radius:10px;padding:10px 14px;font-size:0.98rem;margin-top:10px;color:var(--purple);}
+  .formula{background:var(--bg);border:2px dashed var(--accent);border-radius:14px;
+    padding:14px;text-align:center;font-size:1.12rem;margin:10px 0;}
+  .formula b{color:var(--accent);}
+  .uso-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0;}
+  .uso-box{background:var(--bg);border:2px solid var(--accent-soft);border-radius:14px;padding:14px;text-align:center;font-size:0.97rem;}
+  .uso-box .icon{font-size:1.6rem;display:block;margin-bottom:4px;}
+  .uso-box.aff{border-color:var(--green);}
+  .uso-box.neg{border-color:var(--red);}
+  .spec-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0;}
+  .spec-box{background:var(--blue-soft);border-radius:12px;padding:10px 14px;font-size:0.97rem;}
+  .spec-box b{color:var(--blue);}
+  .flashcards{display:flex;flex-direction:column;gap:12px;margin-top:4px;}
+  .fc{background:var(--bg);border:2px solid var(--accent-soft);border-radius:14px;
+    padding:16px;cursor:pointer;font-size:1.1rem;transition:all .2s;}
+  .fc:hover{border-color:var(--accent);}
+  .fc .en{font-weight:bold;color:var(--ink);}
+  .fc .it{color:var(--green);margin-top:6px;display:none;font-size:1rem;}
+  .fc.open .it{display:block;}
+  .fc .hint-tap{font-size:0.85rem;color:#aaa;margin-top:4px;}
+  .ex{margin:18px 0;}
+  .qnum{font-weight:bold;color:var(--accent);}
+  .qtext{font-size:1.15rem;margin:6px 0 8px;}
+  .qhint{background:var(--blue-soft);color:var(--blue);border-radius:10px;padding:8px 12px;font-size:0.95rem;margin-bottom:10px;}
+  .options{display:flex;gap:10px;flex-wrap:wrap;}
+  .opt{flex:1;min-width:80px;background:var(--bg);border:2px solid var(--accent-soft);
+    border-radius:12px;padding:14px;font-size:1.1rem;cursor:pointer;
+    text-align:center;font-family:inherit;color:var(--ink);transition:all .15s;}
+  .opt:hover{border-color:var(--accent);}
+  .opt.correct{background:var(--green-soft);border-color:var(--green);color:var(--green);font-weight:bold;}
+  .opt.wrong{background:var(--red-soft);border-color:var(--red);color:var(--red);}
+  .feedback{margin-top:12px;font-size:1.05rem;font-weight:bold;min-height:26px;}
+  .feedback.ok{color:var(--green);}
+  .feedback.no{color:var(--red);}
+  .progress{text-align:center;font-size:1.1rem;margin:10px 0 0;color:#8a7f70;}
+  .star{font-size:1.4rem;}
+  .restart{display:block;margin:20px auto 0;background:var(--accent);color:#fff;border:none;
+    border-radius:12px;padding:12px 24px;font-size:1.05rem;cursor:pointer;font-family:inherit;}
+  .trainlink{display:block;text-align:center;background:var(--accent);color:#fff;text-decoration:none;
+    border-radius:14px;padding:16px;font-size:1.15rem;font-weight:bold;margin:10px 0 4px;
+    box-shadow:0 4px 12px rgba(200,101,27,0.25);}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>👑 Genitivo sassone e possessivi</h1>
+  <p class="sub">di chi è una cosa: Anna's bag · my, your, his · mine, yours…</p>
+
+  <!-- A COSA SERVE -->
+  <div class="card">
+    <h2>💡 A cosa serve</h2>
+    <p style="margin-top:0;">Servono per dire <b>di chi è</b> una cosa. In italiano usi <b>"di"</b> (la borsa <b>di</b> Anna), in inglese ci sono tre modi: il <b>genitivo sassone</b> ('s), gli <b>aggettivi possessivi</b> e i <b>pronomi possessivi</b>.</p>
+    <div class="uso-grid">
+      <div class="uso-box aff">
+        <span class="icon">👜</span><b style="color:var(--green)">Anna's bag</b><br>
+        <small>La borsa di Anna</small>
+        <button class="saybtn" onclick="say('Anna’s bag')">🔊</button>
+      </div>
+      <div class="uso-box neg">
+        <span class="icon">📕</span><b style="color:var(--red)">my book</b><br>
+        <small>Il mio libro</small>
+        <button class="saybtn" onclick="say('my book')">🔊</button>
+      </div>
+    </div>
+    <div class="tip">🇮🇹 In italiano: "la borsa <b>di</b> Anna". &nbsp; 🇬🇧 In inglese si gira: <b>Anna's</b> bag (prima il proprietario!).</div>
+  </div>
+
+  <!-- GENITIVO SASSONE -->
+  <div class="card">
+    <h2>👑 Il genitivo sassone ('s)</h2>
+    <p style="margin-top:0;">Per dire che una cosa è <b>di una persona</b>, aggiungi <b>'s</b> al nome della persona, poi metti la cosa:</p>
+    <div class="formula"><b>persona</b> + <b>'s</b> + <b>cosa</b><br><small>Marco<b>'s</b> car = la macchina di Marco</small></div>
+    <table>
+      <tr><th>Inglese</th><th>Italiano</th></tr>
+      <tr><td class="cell-aff">Tom's dog 🐶</td><td>il cane di Tom</td></tr>
+      <tr><td class="cell-aff">Lucy's phone 📱</td><td>il telefono di Lucy</td></tr>
+      <tr><td class="cell-aff">my mum's car 🚗</td><td>la macchina di mia mamma</td></tr>
+    </table>
+    <div style="text-align:center;margin:6px 0;">
+      <button class="saybtn" onclick="say('Tom’s dog')">🔊 Tom's dog</button>
+      <button class="saybtn" onclick="say('Lucy’s phone')">🔊 Lucy's phone</button>
+    </div>
+    <div class="tip-blue">💡 Si usa soprattutto con <b>persone e animali</b>. Il proprietario va <b>prima</b>, la cosa <b>dopo</b>.</div>
+  </div>
+
+  <!-- SINGOLARE vs PLURALE -->
+  <div class="card">
+    <h2>👥 Uno o tanti proprietari?</h2>
+    <table>
+      <tr><th>Chi possiede</th><th>Come si scrive</th><th>Esempio</th></tr>
+      <tr><td>una persona<br><small>(singolare)</small></td><td class="cell-aff">nome + <b>'s</b></td><td>the girl's bike 🚲<br><small>la bici della ragazza</small></td></tr>
+      <tr><td>tante persone<br><small>(plurale in -s)</small></td><td class="cell-neg">nome + <b>s'</b></td><td>the girls' bikes 🚲🚲<br><small>le bici delle ragazze</small></td></tr>
+    </table>
+    <div style="text-align:center;margin:6px 0;">
+      <button class="saybtn" onclick="say('The girl’s bike. The girls’ bikes.')">🔊 girl's / girls'</button>
+    </div>
+    <div class="tip-red">⚠️ Se i proprietari sono <b>tanti</b> e finiscono già in <b>-s</b>, l'apostrofo va <b>dopo</b> la s: my parents<b>'</b> house = la casa dei miei genitori.</div>
+  </div>
+
+  <!-- AGGETTIVI POSSESSIVI -->
+  <div class="card">
+    <h2>📌 Aggettivi possessivi</h2>
+    <p style="margin-top:0;">Vanno <b>prima</b> di una cosa e dicono <b>di chi è</b>. In italiano: il <b>mio</b>, il <b>tuo</b>…</p>
+    <table>
+      <tr><th>Pronome</th><th>Aggettivo</th><th>Esempio</th></tr>
+      <tr><td>I</td><td class="cell-q">my</td><td>my book (il mio libro)</td></tr>
+      <tr><td>you</td><td class="cell-q">your</td><td>your pen (la tua penna)</td></tr>
+      <tr><td>he</td><td class="cell-q">his</td><td>his car (la sua – di lui)</td></tr>
+      <tr><td>she</td><td class="cell-q">her</td><td>her bag (la sua – di lei)</td></tr>
+      <tr><td>it</td><td class="cell-q">its</td><td>its tail (la sua coda)</td></tr>
+      <tr><td>we</td><td class="cell-q">our</td><td>our house (la nostra casa)</td></tr>
+      <tr><td>they</td><td class="cell-q">their</td><td>their dog (il loro cane)</td></tr>
+    </table>
+    <div class="tip-blue">💡 L'aggettivo possessivo ha <b>sempre una cosa dopo</b>: <b>my</b> book, <b>her</b> bag. Da solo non sta mai!</div>
+    <div class="tip-red">⚠️ Attenzione: <b>his</b> = di lui 👦 · <b>her</b> = di lei 👧. In inglese dipende da <b>chi possiede</b>, non dalla cosa!</div>
+  </div>
+
+  <!-- PRONOMI POSSESSIVI -->
+  <div class="card">
+    <h2>🎯 Pronomi possessivi</h2>
+    <p style="margin-top:0;">Stanno <b>da soli</b>, senza la cosa dopo, per non ripeterla. In italiano: è il <b>mio</b>!</p>
+    <table>
+      <tr><th>Aggettivo</th><th>Pronome</th><th>Esempio</th></tr>
+      <tr><td>my</td><td class="cell-pur">mine</td><td>It's mine. (è mio)</td></tr>
+      <tr><td>your</td><td class="cell-pur">yours</td><td>It's yours. (è tuo)</td></tr>
+      <tr><td>his</td><td class="cell-pur">his</td><td>It's his. (è suo – di lui)</td></tr>
+      <tr><td>her</td><td class="cell-pur">hers</td><td>It's hers. (è suo – di lei)</td></tr>
+      <tr><td>our</td><td class="cell-pur">ours</td><td>It's ours. (è nostro)</td></tr>
+      <tr><td>their</td><td class="cell-pur">theirs</td><td>It's theirs. (è loro)</td></tr>
+    </table>
+    <div class="spec-grid">
+      <div class="spec-box">This is <b>my</b> pen. → It's <b>mine</b>. <button class="saybtn" onclick="say('This is my pen. It is mine.')">🔊</button></div>
+      <div class="spec-box">That's <b>her</b> bag. → It's <b>hers</b>. <button class="saybtn" onclick="say('That is her bag. It is hers.')">🔊</button></div>
+    </div>
+    <div class="tip-pur">💜 Trucco: il pronome finisce quasi sempre in <b>-s</b> (mine, your<b>s</b>, her<b>s</b>, our<b>s</b>, their<b>s</b>) e non ha la cosa dopo!</div>
+  </div>
+
+  <!-- AGGETTIVO vs PRONOME -->
+  <div class="card">
+    <h2>⚖️ Aggettivo o pronome?</h2>
+    <table>
+      <tr><th></th><th>Aggettivo</th><th>Pronome</th></tr>
+      <tr><td><b>Dove sta</b></td><td class="cell-q">prima della cosa</td><td class="cell-pur">da solo</td></tr>
+      <tr><td><b>Esempio</b></td><td class="cell-q">It's <b>my</b> book.</td><td class="cell-pur">The book is <b>mine</b>.</td></tr>
+    </table>
+    <div class="tip">📝 Stessa idea, due modi: <i>It's <b>my</b> book</i> = <i>The book is <b>mine</b></i>. Il pronome serve per <b>non ripetere</b> la cosa.</div>
+  </div>
+
+  <!-- FLASHCARD -->
+  <div class="card">
+    <h2>🃏 Flashcard — tocca per tradurre!</h2>
+    <div class="flashcards">
+      <div class="fc" onclick="flip(this)">
+        <div class="en">This is Anna's house. 🏠 <button class="saybtn" onclick="event.stopPropagation();say('This is Anna’s house')">🔊</button></div>
+        <div class="it">Questa è la casa di Anna.</div>
+        <div class="hint-tap">👆 tocca per vedere la traduzione</div>
+      </div>
+      <div class="fc" onclick="flip(this)">
+        <div class="en">My dog is small. 🐶 <button class="saybtn" onclick="event.stopPropagation();say('My dog is small')">🔊</button></div>
+        <div class="it">Il mio cane è piccolo.</div>
+        <div class="hint-tap">👆 tocca per vedere la traduzione</div>
+      </div>
+      <div class="fc" onclick="flip(this)">
+        <div class="en">Is this your pen? — No, it's hers. ✏️ <button class="saybtn" onclick="event.stopPropagation();say('Is this your pen? No, it is hers.')">🔊</button></div>
+        <div class="it">È la tua penna? — No, è sua (di lei).</div>
+        <div class="hint-tap">👆 tocca per vedere la traduzione</div>
+      </div>
+      <div class="fc" onclick="flip(this)">
+        <div class="en">Their car is new, ours is old. 🚗 <button class="saybtn" onclick="event.stopPropagation();say('Their car is new, ours is old.')">🔊</button></div>
+        <div class="it">La loro macchina è nuova, la nostra è vecchia.</div>
+        <div class="hint-tap">👆 tocca per vedere la traduzione</div>
+      </div>
+      <div class="fc" onclick="flip(this)">
+        <div class="en">Whose book is this? It's mine. 📕 <button class="saybtn" onclick="event.stopPropagation();say('Whose book is this? It is mine.')">🔊</button></div>
+        <div class="it">Di chi è questo libro? È mio.</div>
+        <div class="hint-tap">👆 tocca per vedere la traduzione</div>
+      </div>
+      <div class="fc" onclick="flip(this)">
+        <div class="en">My parents' house is big. 🏡 <button class="saybtn" onclick="event.stopPropagation();say('My parents’ house is big.')">🔊</button></div>
+        <div class="it">La casa dei miei genitori è grande.</div>
+        <div class="hint-tap">👆 tocca per vedere la traduzione</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ESERCIZI GUIDATI -->
+  <div class="card">
+    <h2>✏️ Esercizi guidati</h2>
+    <p style="margin-top:0;color:#8a7f70;">Leggi prima il suggerimento 💡, poi scegli la risposta giusta!</p>
+    <div id="guided"></div>
+    <div class="progress" id="gprogress"></div>
+    <button class="restart" id="grestartBtn" style="display:none;" onclick="startGuided()">🔄 Riprova gli esercizi</button>
+  </div>
+
+  <!-- QUIZ FINALE -->
+  <div class="card">
+    <h2>✅ Quiz finale</h2>
+    <p style="margin-top:0;color:#8a7f70;">Hai capito tutto? Mettiti alla prova! 🎯</p>
+    <div id="quiz"></div>
+    <div class="progress" id="progress"></div>
+    <button class="restart" id="restartBtn" style="display:none;" onclick="startQuiz()">🔄 Ricomincia il quiz</button>
+  </div>
+
+  <!-- LINK ALLENAMENTO -->
+  <div class="card">
+    <h2>🏋️ Vuoi allenarti di più?</h2>
+    <p style="margin-top:0;color:#8a7f70;">4 livelli: ascolto · scrittura · lettura · lessico.</p>
+    <a class="trainlink" href="genitivo-possessivi-allenamento.html">🏋️ Vai all'allenamento →</a>
+  </div>
+</div>
+
+<script>
+  function say(text){
+    try{
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = "en-US"; u.rate = 0.85;
+      speechSynthesis.cancel(); speechSynthesis.speak(u);
+    }catch(e){}
+  }
+  function flip(el){ el.classList.toggle("open"); }
+  function escQ(s){ return s.replace(/'/g, "\\'"); }
+
+  const guided = [
+    {q:"the bag of Anna → ____ bag 👜", hint:"💡 Proprietario prima + 's: Anna's.", opts:["Anna's","Annas'","of Anna"], correct:0, full:"Anna's bag."},
+    {q:"This is ____ book. (di me 🙂)", hint:"💡 Di me = my. L'aggettivo sta prima della cosa.", opts:["mine","my","me"], correct:1, full:"This is my book."},
+    {q:"That bag is ____. (di lei 👧)", hint:"💡 Da solo, senza cosa dopo → pronome: hers (di lei).", opts:["her","hers","she"], correct:1, full:"That bag is hers."},
+    {q:"____ car is red. (di lui 👦)", hint:"💡 Di lui + cosa dopo (car) → aggettivo his.", opts:["his","her","hers"], correct:0, full:"His car is red."},
+    {q:"the house of my parents → my parents____ house 🏡", hint:"💡 Tanti proprietari in -s → apostrofo dopo: parents'.", opts:["'s","s'","'"], correct:1, full:"My parents' house."},
+    {q:"Whose pen is this? It's ____. (di me)", hint:"💡 Da solo dopo 'It's' → pronome: mine.", opts:["my","mine","me"], correct:1, full:"It's mine."},
+  ];
+
+  let gc=0, gs=0;
+  function startGuided(){ gc=0; gs=0; document.getElementById("grestartBtn").style.display="none"; showGuided(); }
+  function showGuided(){
+    const el=document.getElementById("guided");
+    const pr=document.getElementById("gprogress");
+    if(gc>=guided.length){
+      el.innerHTML="";
+      const pct=gs/guided.length;
+      const n=pct===1?5:pct>=0.67?4:pct>=0.5?3:2;
+      let stars=""; for(let i=0;i<n;i++) stars+="⭐";
+      const msg=pct===1?"Bravissima! Hai capito tutto! 🏆":pct>=0.5?"Quasi! Riprova per sicurezza 💪":"Allenati ancora, ci riesci! 🌱";
+      pr.innerHTML=`<div class="star">${stars}</div>${gs}/${guided.length} giuste<br><b>${msg}</b>`;
+      document.getElementById("grestartBtn").style.display="block";
+      return;
+    }
+    const item=guided[gc];
+    pr.textContent=`Esercizio ${gc+1} di ${guided.length}`;
+    el.innerHTML=`
+      <div class="ex">
+        <div class="qnum">Esercizio ${gc+1}</div>
+        <div class="qtext">${item.q} <button class="saybtn" onclick="say('${escQ(item.full)}')">🔊</button></div>
+        <div class="qhint">${item.hint}</div>
+        <div class="options">
+          ${item.opts.map((o,i)=>`<button class="opt" onclick="gAnswer(${i})">${o}</button>`).join("")}
+        </div>
+        <div class="feedback" id="gfb"></div>
+      </div>`;
+  }
+  function gAnswer(i){
+    const item=guided[gc];
+    const opts=document.querySelectorAll("#guided .opt");
+    const fb=document.getElementById("gfb");
+    if(i===item.correct){
+      opts[i].classList.add("correct");
+      fb.textContent="✅ Giusto! "+item.full; fb.className="feedback ok";
+      gs++; say(item.full);
+      opts.forEach(o=>o.disabled=true);
+      setTimeout(()=>{ gc++; showGuided(); },1800);
+    } else {
+      opts[i].classList.add("wrong");
+      fb.textContent="Riprova! Guarda il suggerimento 💡"; fb.className="feedback no";
+    }
+  }
+
+  const questions = [
+    {q:"the dog of Tom → ____ dog 🐶", opts:["Tom's","Toms'","of Tom"], correct:0, full:"Tom's dog."},
+    {q:"This is ____ pen. (di te 🙂)", opts:["yours","your","you"], correct:1, full:"This is your pen."},
+    {q:"That phone is ____. (di lui 👦)", opts:["his","her","hers"], correct:0, full:"That phone is his."},
+    {q:"____ house is big. (di noi)", opts:["our","ours","us"], correct:0, full:"Our house is big."},
+    {q:"The keys are ____. (di loro)", opts:["their","theirs","them"], correct:1, full:"The keys are theirs."},
+    {q:"the room of the girls → the girls____ room", opts:["'s","s'","'"], correct:1, full:"The girls' room."},
+    {q:"Is this your bag? No, it's ____. (di lei 👧)", opts:["her","hers","she"], correct:1, full:"It's hers."},
+    {q:"____ name is Luca. (di lui 👦)", opts:["His","Her","He"], correct:0, full:"His name is Luca."},
+  ];
+
+  let current=0, score=0;
+  function startQuiz(){ current=0; score=0; document.getElementById("restartBtn").style.display="none"; showQuestion(); }
+  function showQuestion(){
+    const quiz=document.getElementById("quiz");
+    const prog=document.getElementById("progress");
+    if(current>=questions.length){
+      quiz.innerHTML="";
+      const pct=score/questions.length;
+      const n=pct===1?5:pct>=0.75?4:pct>=0.5?3:pct>=0.25?2:1;
+      let stars=""; for(let i=0;i<n;i++) stars+="⭐";
+      const msg=pct===1?"Perfetto! Hai imparato i possessivi! 🏆":pct>=0.5?"Bravissima, ci sei quasi! 💪":"Bene, riprova: si impara ripetendo! 🌱";
+      prog.innerHTML=`<div class="star">${stars}</div>${score}/${questions.length} giuste<br><b>${msg}</b>`;
+      document.getElementById("restartBtn").style.display="block";
+      return;
+    }
+    const item=questions[current];
+    prog.textContent=`Domanda ${current+1} di ${questions.length}`;
+    quiz.innerHTML=`
+      <div class="ex">
+        <div class="qnum">Domanda ${current+1}</div>
+        <div class="qtext">${item.q} <button class="saybtn" onclick="say('${escQ(item.full)}')">🔊</button></div>
+        <div class="options">
+          ${item.opts.map((o,i)=>`<button class="opt" onclick="answer(${i})">${o}</button>`).join("")}
+        </div>
+        <div class="feedback" id="fb"></div>
+      </div>`;
+  }
+  function answer(i){
+    const item=questions[current];
+    const opts=document.querySelectorAll("#quiz .opt");
+    const fb=document.getElementById("fb");
+    if(i===item.correct){
+      opts[i].classList.add("correct");
+      fb.textContent="✅ Giusto! "+item.full; fb.className="feedback ok";
+      score++; say(item.full);
+      opts.forEach(o=>o.disabled=true);
+      setTimeout(()=>{ current++; showQuestion(); },1600);
+    } else {
+      opts[i].classList.add("wrong");
+      fb.textContent="Riprova! 🙂"; fb.className="feedback no";
+    }
+  }
+
+  startGuided();
+  startQuiz();
+</script>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./service-worker.js');
+  }
+</script>
+</body>
+</html>
