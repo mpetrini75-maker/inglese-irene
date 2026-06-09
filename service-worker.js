@@ -1,4 +1,4 @@
-const CACHE = 'inglese-irene-v7';
+const CACHE = 'inglese-irene-v8';
 
 const ASSETS = [
   './',
@@ -8,6 +8,7 @@ const ASSETS = [
   './pronomi-personali.html',
   './articoli-plurali.html',
   './present-simple.html',
+  './present-simple-infografica.png',
   './present-continuous.html',
   './question-words.html',
   './there-is-there-are.html',
@@ -19,6 +20,9 @@ const ASSETS = [
   './comparativo-superlativo.html',
   './have-got.html',
   './this-that.html',
+  './genitivo-possessivi.html',
+  './avverbi-frequenza.html',
+  './simple-vs-continuous.html',
   './manifest.json',
   './icon-192.svg',
   './icon-512.svg',
