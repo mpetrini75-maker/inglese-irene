@@ -1,4 +1,4 @@
-const CACHE = 'inglese-irene-v12';
+const CACHE = 'inglese-irene-v13';
 
 const ASSETS = [
   './',
@@ -26,6 +26,7 @@ const ASSETS = [
   './avverbi-frequenza.html',
   './simple-vs-continuous.html',
   './like-love-hate.html',
+  './imperativo.html',
   './manifest.json',
   './icon-192.svg',
   './icon-512.svg',
