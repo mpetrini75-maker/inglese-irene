@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Like, love, hate + -ing — Allenamento</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#FAF6EE">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Inglese di Irene">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FAF6EE; --card:#FFFFFF; --ink:#2F2A24;
+    --accent:#C8651B; --accent-soft:#F3E2D0;
+    --green:#3E8E5A; --green-soft:#E2F0E6;
+    --red:#C2492F; --red-soft:#F6E1DB;
+    --blue:#3B6EA5; --blue-soft:#E2ECF5;
+    --purple:#7B5EA7; --purple-soft:#EDE8F5;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; font-family:"Lexend","Trebuchet MS",Verdana,sans-serif;
+    background:var(--bg); color:var(--ink); line-height:1.7; letter-spacing:0.3px; padding:24px 14px 60px;}
+  .wrap{max-width:620px;margin:0 auto;}
+  .backbtn{display:inline-block;background:var(--accent-soft);color:var(--accent);
+    text-decoration:none;border-radius:12px;padding:8px 16px;font-size:0.98rem;font-weight:bold;margin-bottom:14px;}
+  h1{color:var(--accent);font-size:1.6rem;text-align:center;margin:0 0 6px;}
+  .sub{text-align:center;color:#8a7f70;margin:0 0 26px;font-size:1rem;}
+  .card{background:var(--card);border-radius:18px;padding:22px 20px;margin-bottom:22px;
+    box-shadow:0 4px 14px rgba(0,0,0,0.06);border:1px solid #efe7da;}
+  .card h2{margin:0 0 10px;font-size:1.25rem;color:var(--accent);display:flex;align-items:center;gap:8px;}
+  .card .lead{color:#8a7f70;margin:0 0 12px;font-size:0.97rem;}
+  /* barra livelli */
+  .levelbar{margin:0 0 12px;}
+  .lvrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:0.98rem;color:var(--accent);}
+  .lvdots{display:inline-flex;gap:6px;}
+  .lvdot{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    background:var(--bg);border:2px solid var(--accent-soft);color:#b9ad9c;font-size:0.85rem;font-weight:bold;}
+  .lvdot.on{background:var(--accent-soft);border-color:var(--accent);color:var(--accent);}
+  .saybtn{background:var(--blue-soft);color:var(--blue);border:none;border-radius:10px;
+    padding:6px 12px;font-size:0.95rem;cursor:pointer;font-family:inherit;}
+  .big-listen{display:block;margin:6px auto 14px;background:var(--blue);color:#fff;
+    border:none;border-radius:16px;padding:18px 26px;font-size:1.2rem;font-weight:bold;
+    cursor:pointer;font-family:inherit;box-shadow:0 4px 12px rgba(59,110,165,0.3);}
+  .big-listen:hover{opacity:0.92;}
+  .ex{margin:14px 0;}
+  .qnum{font-weight:bold;color:var(--accent);}
+  .qtext{font-size:1.12rem;margin:6px 0 8px;}
+  .options{display:flex;flex-direction:column;gap:10px;}
+  .opt{background:var(--bg);border:2px solid var(--accent-soft);
+    border-radius:12px;padding:13px 14px;font-size:1.08rem;cursor:pointer;
+    text-align:left;font-family:inherit;color:var(--ink);transition:all .15s;}
+  .opt:hover{border-color:var(--accent);}
+  .opt.correct{background:var(--green-soft);border-color:var(--green);color:var(--green);font-weight:bold;}
+  .opt.wrong{background:var(--red-soft);border-color:var(--red);color:var(--red);}
+  .feedback{margin-top:10px;font-size:1.02rem;font-weight:bold;min-height:24px;}
+  .feedback.ok{color:var(--green);}
+  .feedback.no{color:var(--red);}
+  .progress{text-align:center;font-size:1.05rem;margin:12px 0 0;color:#8a7f70;}
+  .star{font-size:1.4rem;}
+  .write-input{width:100%;font-family:"Lexend",sans-serif;font-size:1.2rem;
+    padding:12px 14px;border:2px solid var(--accent-soft);border-radius:12px;
+    background:var(--bg);color:var(--ink);margin-top:4px;}
+  .write-input:focus{outline:none;border-color:var(--accent);}
+  .checkbtn{margin-top:10px;background:var(--accent);color:#fff;border:none;
+    border-radius:12px;padding:10px 20px;font-size:1rem;cursor:pointer;font-family:inherit;}
+  .write-input.okbox{border-color:var(--green);background:var(--green-soft);}
+  .write-input.nobox{border-color:var(--red);}
+  .reading{background:var(--bg);border-radius:14px;padding:16px 18px;font-size:1.12rem;
+    border:2px solid var(--accent-soft);margin-bottom:6px;}
+  .reading p{margin:0 0 6px;}
+  .match-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px;}
+  .match-col{display:flex;flex-direction:column;gap:10px;}
+  .match-btn{background:var(--bg);border:2px solid var(--accent-soft);border-radius:12px;
+    padding:12px;font-size:1.05rem;cursor:pointer;font-family:inherit;color:var(--ink);
+    display:flex;align-items:center;justify-content:space-between;gap:6px;transition:all .15s;}
+  .match-btn:hover{border-color:var(--accent);}
+  .match-btn.sel{border-color:var(--blue);background:var(--blue-soft);color:var(--blue);font-weight:bold;}
+  .match-btn.done{background:var(--green-soft);border-color:var(--green);color:var(--green);
+    font-weight:bold;cursor:default;opacity:0.85;}
+  .match-btn.flash{border-color:var(--red);background:var(--red-soft);}
+  .restart{display:inline-block;margin:12px auto 0;background:var(--accent);color:#fff;border:none;
+    border-radius:12px;padding:11px 22px;font-size:1rem;cursor:pointer;font-family:inherit;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="backbtn" href="like-love-hate.html">← Torna alla lezione</a>
+  <h1>🏋️ Like, love, hate + -ing — Allenamento</h1>
+  <p class="sub">4 livelli · ascolto · scrittura · lettura · lessico</p>
+
+  <!-- SEZIONE 1 — ASCOLTO -->
+  <div class="card">
+    <h2>🎧 1. Ascolto</h2>
+    <p class="lead">Tocca il pulsante blu e ascolta. Scegli la frase giusta. Puoi riascoltare quante volte vuoi!</p>
+    <div class="levelbar" id="listen-level"></div>
+    <div id="listen-quiz"></div>
+    <div class="progress" id="listen-prog"></div>
+  </div>
+
+  <!-- SEZIONE 2 — SCRITTURA -->
+  <div class="card">
+    <h2>✏️ 2. Scrittura</h2>
+    <p class="lead">Scrivi la parola giusta. Non contano maiuscole o spazi: conta la parola! Poi tocca "Controlla".</p>
+    <div class="levelbar" id="write-level"></div>
+    <div id="write-list"></div>
+    <div class="progress" id="write-prog"></div>
+  </div>
+
+  <!-- SEZIONE 3 — LETTURA -->
+  <div class="card" id="read-card">
+    <h2>📖 3. Lettura</h2>
+    <p class="lead">Ascolta e leggi il testo, poi rispondi alle domande.</p>
+    <div class="levelbar" id="read-level"></div>
+    <div class="reading" id="reading-text"></div>
+    <button class="saybtn" onclick="event.stopPropagation();sayReading()">🔊 Ascolta tutto il testo</button>
+    <div id="read-list" style="margin-top:8px;"></div>
+    <div class="progress" id="read-prog"></div>
+  </div>
+
+  <!-- SEZIONE 4 — LESSICO -->
+  <div class="card">
+    <h2>🔤 4. Lessico</h2>
+    <p class="lead">Tocca una parola inglese (ascoltala con 🔊), poi il suo significato. Collega tutte le coppie!</p>
+    <div class="levelbar" id="match-level"></div>
+    <div class="match-grid" id="match-grid"></div>
+    <div class="progress" id="match-prog"></div>
+  </div>
+</div>
+
+<script>
+  function say(text){
+    try{
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = "en-US"; u.rate = 0.85;
+      speechSynthesis.cancel(); speechSynthesis.speak(u);
+    }catch(e){}
+  }
+  function escQ(s){ return s.replace(/'/g, "\\'"); }
+  function stars(correct,total){
+    const pct=correct/total;
+    const n=pct===1?5:pct>=0.75?4:pct>=0.5?3:pct>=0.25?2:1;
+    return "⭐".repeat(n);
+  }
+  const LV=["Base","Intermedio","Avanzato","Sfida"];
+  function levelBar(level){
+    let dots="";
+    for(let i=0;i<4;i++) dots+=`<span class="lvdot ${i<=level?'on':''}">${i+1}</span>`;
+    return `<div class="lvrow"><b>Livello ${level+1} di 4 · ${LV[level]} 🔓</b><span class="lvdots">${dots}</span></div>`;
+  }
+  function levelResult(progEl, score, total, level, threshold, setFnName){
+    const passed = score>=threshold;
+    let html=`<div class="star">${stars(score,total)}</div>${score}/${total} giuste<br>`;
+    if(passed && level<3){
+      html+=`<b>Bravissima! Livello ${level+2} sbloccato 🔓</b><br>`;
+      html+=`<button class="restart" onclick="${setFnName}(${level+1})">➡️ Vai al Livello ${level+2}</button>`;
+    } else if(passed && level===3){
+      inviaAlertQuiz();
+      html+=`<b>🏆 Hai completato tutti i livelli!</b><br>`;
+      html+=`<button class="restart" onclick="${setFnName}(0)">🔄 Rigioca dal Livello 1</button>`;
+    } else {
+      html+=`<b>Ci sei quasi! Riprova questo livello, ce la fai 🌱</b><br>`;
+      html+=`<button class="restart" onclick="${setFnName}(${level})">🔄 Rifai il Livello ${level+1}</button>`;
+    }
+    progEl.innerHTML=html;
+  }
+
+  /* ============ SEZIONE 1 — ASCOLTO ============ */
+  const listenLevels = [
+    [ // L1 Base
+      {audio:"I like swimming.", opts:["I like swimming.","I like singing.","I like skiing."], correct:0},
+      {audio:"She loves dancing.", opts:["She loves dancing.","She loves drawing.","He loves dancing."], correct:0},
+      {audio:"He likes reading.", opts:["He likes reading.","He likes running.","She likes reading."], correct:0},
+      {audio:"We love cooking.", opts:["We love cooking.","We love walking.","We hate cooking."], correct:0},
+      {audio:"They like playing.", opts:["They like playing.","They like painting.","They like praying."], correct:0},
+      {audio:"I love singing.", opts:["I love singing.","I love sailing.","I love sitting."], correct:0},
+    ],
+    [ // L2 Intermedio
+      {audio:"I hate getting up early.", opts:["I hate getting up early.","I like getting up early.","I hate going to bed early."], correct:0},
+      {audio:"She enjoys reading books.", opts:["She enjoys reading books.","She enjoys writing books.","He enjoys reading books."], correct:0},
+      {audio:"We don't like running.", opts:["We don't like running.","We don't like rowing.","We like running."], correct:0},
+      {audio:"He hates doing homework.", opts:["He hates doing homework.","He likes doing homework.","He hates doing housework."], correct:0},
+      {audio:"They love watching films.", opts:["They love watching films.","They love washing films.","They love watching fish."], correct:0},
+      {audio:"I enjoy playing tennis.", opts:["I enjoy playing tennis.","I enjoy playing chess.","I enjoy watching tennis."], correct:0},
+    ],
+    [ // L3 Avanzato
+      {audio:"Do you like dancing?", opts:["Do you like dancing?","Do you like drawing?","Does she like dancing?"], correct:0},
+      {audio:"Does she like cooking?", opts:["Does she like cooking?","Do they like cooking?","Does she like cleaning?"], correct:0},
+      {audio:"I don't like swimming in the sea.", opts:["I don't like swimming in the sea.","I like swimming in the sea.","I don't like swimming in the pool."], correct:0},
+      {audio:"What do you like doing?", opts:["What do you like doing?","What do you like drawing?","Where do you like going?"], correct:0},
+      {audio:"He doesn't enjoy studying.", opts:["He doesn't enjoy studying.","He enjoys studying.","She doesn't enjoy studying."], correct:0},
+      {audio:"We love going to the beach.", opts:["We love going to the beach.","We love going to the park.","We hate going to the beach."], correct:0},
+    ],
+    [ // L4 Sfida
+      {audio:"My sister loves listening to music.", opts:["My sister loves listening to music.","My brother loves listening to music.","My sister loves making music."], correct:0},
+      {audio:"I don't really like getting up early on Mondays.", opts:["I don't really like getting up early on Mondays.","I really like getting up early on Mondays.","I don't really like going to bed early on Mondays."], correct:0},
+      {audio:"Do your friends enjoy playing video games?", opts:["Do your friends enjoy playing video games?","Does your friend enjoy playing video games?","Do your friends enjoy watching video games?"], correct:0},
+      {audio:"She hates doing the dishes but she loves cooking.", opts:["She hates doing the dishes but she loves cooking.","She loves doing the dishes but she hates cooking.","She hates doing the dishes and she hates cooking."], correct:0},
+      {audio:"What kind of films do you like watching?", opts:["What kind of films do you like watching?","What kind of books do you like reading?","What kind of films do you hate watching?"], correct:0},
+      {audio:"We really enjoy spending time together.", opts:["We really enjoy spending time together.","We really enjoy spending money together.","We don't enjoy spending time together."], correct:0},
+    ],
+  ];
+  let lLevel=0, lc=0, ls=0, lCorrect=0, lAudio="";
+  function setListenLevel(lvl){ lLevel=lvl; lc=0; ls=0; document.getElementById("listen-level").innerHTML=levelBar(lvl); showListen(); }
+  function showListen(){
+    const data=listenLevels[lLevel];
+    const box=document.getElementById("listen-quiz");
+    const pr=document.getElementById("listen-prog");
+    if(lc>=data.length){ box.innerHTML=""; levelResult(pr, ls, data.length, lLevel, 4, "setListenLevel"); return; }
+    const it=data[lc];
+    lAudio=it.audio;
+    const order=shuffle(it.opts.map((o,i)=>i));
+    const shown=order.map(k=>it.opts[k]);
+    lCorrect=order.indexOf(it.correct);
+    pr.textContent=`Esercizio ${lc+1} di ${data.length}`;
+    box.innerHTML=`
+      <div class="ex">
+        <div class="qnum">Ascolto ${lc+1}</div>
+        <button class="big-listen" onclick="event.stopPropagation();say('${escQ(it.audio)}')">🔊 Ascolta la frase</button>
+        <div class="options">
+          ${shown.map((o,i)=>`<button class="opt" onclick="listenAns(${i})">${o}</button>`).join("")}
+        </div>
+        <div class="feedback" id="lfb"></div>
+      </div>`;
+  }
+  function listenAns(i){
+    const opts=document.querySelectorAll("#listen-quiz .opt");
+    const fb=document.getElementById("lfb");
+    if(i===lCorrect){
+      opts[i].classList.add("correct");
+      fb.textContent="✅ Giusto! "+lAudio; fb.className="feedback ok";
+      ls++; say(lAudio); opts.forEach(o=>o.disabled=true);
+      setTimeout(()=>{ lc++; showListen(); },1800);
+    } else {
+      opts[i].classList.add("wrong");
+      fb.textContent="Riascolta e riprova 🙂"; fb.className="feedback no";
+    }
+  }
+
+  /* ============ SEZIONE 2 — SCRITTURA ============ */
+  const writeLevels = [
+    [ // L1 — forma -ing (regolari)
+      {q:"I like ____ .  (swim)", answers:["swimming"], full:"I like swimming.", hint:"swim → swimming (raddoppia la m)."},
+      {q:"She loves ____ .  (read)", answers:["reading"], full:"She loves reading.", hint:"read → reading."},
+      {q:"They enjoy ____ .  (play)", answers:["playing"], full:"They enjoy playing.", hint:"play → playing."},
+      {q:"We hate ____ .  (cook)", answers:["cooking"], full:"We hate cooking.", hint:"cook → cooking."},
+      {q:"He likes ____ .  (sing)", answers:["singing"], full:"He likes singing.", hint:"sing → singing."},
+      {q:"I love ____ .  (paint)", answers:["painting"], full:"I love painting.", hint:"paint → painting."},
+    ],
+    [ // L2 — spelling (-e via / raddoppio)
+      {q:"I love ____ .  (dance)", answers:["dancing"], full:"I love dancing.", hint:"dance → dancing (la -e va via)."},
+      {q:"She hates ____ .  (run)", answers:["running"], full:"She hates running.", hint:"run → running (raddoppia la n)."},
+      {q:"We like ____ .  (write)", answers:["writing"], full:"We like writing.", hint:"write → writing (la -e va via)."},
+      {q:"They enjoy ____ .  (swim)", answers:["swimming"], full:"They enjoy swimming.", hint:"swim → swimming (raddoppia)."},
+      {q:"He loves ____ a bike.  (ride)", answers:["riding"], full:"He loves riding a bike.", hint:"ride → riding (la -e va via)."},
+      {q:"I don't like ____ still.  (sit)", answers:["sitting"], full:"I don't like sitting still.", hint:"sit → sitting (raddoppia)."},
+    ],
+    [ // L3 — frase intera (gusti + -ing)
+      {q:"I ____ getting up early.  (not like)", answers:["don't like","do not like","dont like"], full:"I don't like getting up early.", hint:"I → don't like."},
+      {q:"She ____ cooking.  (love)", answers:["loves"], full:"She loves cooking.", hint:"lei → loves (+s)."},
+      {q:"He ____ doing homework.  (hate)", answers:["hates"], full:"He hates doing homework.", hint:"lui → hates (+s)."},
+      {q:"They ____ playing football.  (enjoy)", answers:["enjoy"], full:"They enjoy playing football.", hint:"loro → enjoy."},
+      {q:"We ____ watching TV.  (not like)", answers:["don't like","do not like","dont like"], full:"We don't like watching TV.", hint:"we → don't like."},
+      {q:"My mum ____ reading.  (love)", answers:["loves"], full:"My mum loves reading.", hint:"lei → loves."},
+    ],
+    [ // L4 — interrogativa
+      {q:"____ you like dancing?  (do)", answers:["do"], full:"Do you like dancing?", hint:"you → Do."},
+      {q:"____ she like cooking?  (do)", answers:["does"], full:"Does she like cooking?", hint:"she → Does."},
+      {q:"What do you like ____ ?  (do)", answers:["doing"], full:"What do you like doing?", hint:"do → doing."},
+      {q:"____ they enjoy swimming?  (do)", answers:["do"], full:"Do they enjoy swimming?", hint:"they → Do."},
+      {q:"____ he like running?  (do)", answers:["does"], full:"Does he like running?", hint:"he → Does."},
+      {q:"Does your friend like ____ ?  (paint)", answers:["painting"], full:"Does your friend like painting?", hint:"paint → painting."},
+    ],
+  ];
+  let wLevel=0, writeDone=[];
+  function norm(s){ return s.trim().toLowerCase().replace(/\s+/g," "); }
+  function setWriteLevel(lvl){
+    wLevel=lvl;
+    const data=writeLevels[lvl];
+    writeDone=new Array(data.length).fill(false);
+    document.getElementById("write-level").innerHTML=levelBar(lvl);
+    document.getElementById("write-prog").textContent=`Completate 0 di ${data.length}`;
+    const list=document.getElementById("write-list");
+    list.innerHTML=data.map((it,i)=>`
+      <div class="ex">
+        <div class="qnum">Frase ${i+1}</div>
+        <div class="qtext">${it.q}</div>
+        <input class="write-input" id="wi${i}" type="text" autocomplete="off" placeholder="scrivi qui…">
+        <button class="checkbtn" onclick="checkWrite(${i})">Controlla</button>
+        <div class="feedback" id="wfb${i}"></div>
+      </div>`).join("");
+  }
+  function checkWrite(i){
+    const it=writeLevels[wLevel][i];
+    const inp=document.getElementById("wi"+i);
+    const fb=document.getElementById("wfb"+i);
+    const ok=it.answers.some(a=>norm(a)===norm(inp.value));
+    if(ok){
+      inp.classList.add("okbox"); inp.classList.remove("nobox");
+      fb.innerHTML="✅ Perfetto! "+it.full; fb.className="feedback ok";
+      say(it.full);
+    } else {
+      inp.classList.add("nobox");
+      fb.innerHTML=`💛 Quasi! ${it.hint}<br>La risposta è: <b>${it.full}</b> <button class="saybtn" onclick="event.stopPropagation();say('${escQ(it.full)}')">🔊</button>`;
+      fb.className="feedback no";
+    }
+    if(!writeDone[i]){ writeDone[i]=true; updateWrite(); }
+  }
+  function updateWrite(){
+    const data=writeLevels[wLevel];
+    const pr=document.getElementById("write-prog");
+    const done=writeDone.filter(Boolean).length;
+    if(done<data.length){ pr.textContent=`Completate ${done} di ${data.length}`; return; }
+    let correct=0;
+    data.forEach((it,i)=>{ if(document.getElementById("wi"+i).classList.contains("okbox")) correct++; });
+    levelResult(pr, correct, data.length, wLevel, 4, "setWriteLevel");
+  }
+
+  /* ============ SEZIONE 3 — LETTURA ============ */
+  const readLevels = [
+    { // L1
+      lines:["Hi! I am Mia.","I love swimming and dancing.","I don't like cooking."],
+      q:[
+        {q:"What does Mia love? 🏊", opts:["Swimming and dancing","Cooking","Reading"], correct:0, full:"She loves swimming and dancing."},
+        {q:"Does she like cooking? 🍳", opts:["Yes, she does","No, she doesn't","She loves it"], correct:1, full:"No, she doesn't like cooking."},
+        {q:"How many things does Mia love? 🔢", opts:["One","Two","Three"], correct:1, full:"Two: swimming and dancing."},
+      ]
+    },
+    { // L2
+      lines:["This is Leo.","He enjoys playing football.","He likes reading comics.","He hates getting up early."],
+      q:[
+        {q:"What sport does Leo enjoy? ⚽", opts:["Tennis","Football","Basketball"], correct:1, full:"He enjoys playing football."},
+        {q:"What does he like reading? 📚", opts:["Books","Newspapers","Comics"], correct:2, full:"He likes reading comics."},
+        {q:"What does Leo hate? ⏰", opts:["Getting up early","Playing football","Reading"], correct:0, full:"He hates getting up early."},
+      ]
+    },
+    { // L3
+      lines:["We are Anna and Sara.","We love listening to music.","Anna enjoys drawing, but Sara doesn't like it.","We don't like doing homework!"],
+      q:[
+        {q:"What do they both love? 🎵", opts:["Drawing","Listening to music","Homework"], correct:1, full:"They love listening to music."},
+        {q:"Who enjoys drawing? 🎨", opts:["Anna","Sara","Both of them"], correct:0, full:"Anna enjoys drawing."},
+        {q:"Do they like homework? 📝", opts:["Yes, they do","No, they don't","Only Sara"], correct:1, full:"No, they don't like doing homework."},
+      ]
+    },
+    { // L4
+      lines:["My name is Tom.","I really enjoy cooking with my dad at the weekend.","I like watching films, but I hate watching the news.","I don't mind doing the dishes, but I can't stand cleaning my room!"],
+      q:[
+        {q:"When does Tom cook? 📅", opts:["Every morning","At the weekend","After school"], correct:1, full:"He cooks at the weekend."},
+        {q:"What does Tom hate watching? 📺", opts:["Films","Cartoons","The news"], correct:2, full:"He hates watching the news."},
+        {q:"What can't Tom stand? 🧹", opts:["Doing the dishes","Cleaning his room","Cooking"], correct:1, full:"He can't stand cleaning his room."},
+      ]
+    },
+  ];
+  let rLevel=0, readDone=[], readingText="", readCorrect=[];
+  function sayReading(){ say(readingText); }
+  function setReadLevel(lvl, noScroll){
+    rLevel=lvl;
+    const data=readLevels[lvl];
+    readingText=data.lines.join(" ");
+    readDone=new Array(data.q.length).fill(false);
+    document.getElementById("read-level").innerHTML=levelBar(lvl);
+    document.getElementById("reading-text").innerHTML=data.lines.map(l=>`<p>${l}</p>`).join("");
+    document.getElementById("read-prog").textContent=`Risposte 0 di ${data.q.length}`;
+    readCorrect=[];
+    const list=document.getElementById("read-list");
+    list.innerHTML=data.q.map((it,i)=>{
+      const order=shuffle(it.opts.map((o,k)=>k));
+      const shown=order.map(k=>it.opts[k]);
+      readCorrect[i]=order.indexOf(it.correct);
+      return `
+      <div class="ex">
+        <div class="qnum">Domanda ${i+1}</div>
+        <div class="qtext">${it.q}</div>
+        <div class="options">
+          ${shown.map((o,j)=>`<button class="opt" onclick="readAns(${i},${j})">${o}</button>`).join("")}
+        </div>
+        <div class="feedback" id="rfb${i}"></div>
+      </div>`;
+    }).join("");
+    if(!noScroll){
+      const card=document.getElementById("read-card");
+      if(card) card.scrollIntoView({behavior:"smooth", block:"start"});
+    }
+  }
+  function readAns(i,j){
+    const it=readLevels[rLevel].q[i];
+    const opts=document.querySelectorAll("#read-list .ex:nth-child("+(i+1)+") .opt");
+    const fb=document.getElementById("rfb"+i);
+    if(j===readCorrect[i]){
+      opts[j].classList.add("correct");
+      fb.innerHTML="✅ Giusto! "+it.full+` <button class="saybtn" onclick="event.stopPropagation();say('${escQ(it.full)}')">🔊</button>`;
+      fb.className="feedback ok"; opts.forEach(o=>o.disabled=true);
+      if(!readDone[i]){ readDone[i]=true; updateRead(); }
+    } else {
+      opts[j].classList.add("wrong");
+      fb.textContent="Rileggi il testo e riprova 🙂"; fb.className="feedback no";
+    }
+  }
+  function updateRead(){
+    const data=readLevels[rLevel];
+    const pr=document.getElementById("read-prog");
+    const done=readDone.filter(Boolean).length;
+    if(done<data.q.length){ pr.textContent=`Risposte ${done} di ${data.q.length}`; return; }
+    levelResult(pr, data.q.length, data.q.length, rLevel, 2, "setReadLevel");
+  }
+
+  /* ============ SEZIONE 4 — LESSICO ============ */
+  const matchLevels = [
+    [ // L1 — attività base (-ing)
+      {en:"swimming", it:"nuotare 🏊"},{en:"dancing", it:"ballare 💃"},{en:"reading", it:"leggere 📖"},{en:"cooking", it:"cucinare 🍳"},
+      {en:"singing", it:"cantare 🎤"},{en:"running", it:"correre 🏃"},{en:"drawing", it:"disegnare ✏️"},{en:"playing", it:"giocare ⚽"},
+    ],
+    [ // L2 — altre attività (-ing)
+      {en:"writing", it:"scrivere ✍️"},{en:"painting", it:"dipingere 🎨"},{en:"walking", it:"camminare 🚶"},{en:"riding", it:"cavalcare/andare in bici 🚲"},
+      {en:"sleeping", it:"dormire 😴"},{en:"eating", it:"mangiare 🍽️"},{en:"shopping", it:"fare spese 🛍️"},{en:"travelling", it:"viaggiare ✈️"},
+    ],
+    [ // L3 — i verbi dei gusti
+      {en:"to like", it:"piacere ❤️"},{en:"to love", it:"adorare ❤️❤️"},{en:"to hate", it:"odiare 💔"},{en:"to enjoy", it:"godersi 😊"},
+      {en:"to prefer", it:"preferire 👍"},{en:"don't mind", it:"non dispiacere 😐"},{en:"can't stand", it:"non sopportare 😣"},{en:"favourite", it:"preferito ⭐"},
+    ],
+    [ // L4 — attività di tutti i giorni (-ing)
+      {en:"getting up early", it:"alzarsi presto ⏰"},{en:"doing homework", it:"fare i compiti 📝"},{en:"watching TV", it:"guardare la TV 📺"},{en:"listening to music", it:"ascoltare musica 🎵"},
+      {en:"playing video games", it:"giocare ai videogiochi 🎮"},{en:"going to school", it:"andare a scuola 🎒"},{en:"doing the dishes", it:"lavare i piatti 🍽️"},{en:"riding a bike", it:"andare in bici 🚲"},
+    ],
+  ];
+  let mLevel=0, selEn=null, matched=0, firstTry=0, spoiled;
+  function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+  function setMatchLevel(lvl){
+    mLevel=lvl; selEn=null; matched=0; firstTry=0; spoiled=new Set();
+    const pairs=matchLevels[lvl];
+    document.getElementById("match-level").innerHTML=levelBar(lvl);
+    const grid=document.getElementById("match-grid");
+    const left=pairs.map((p,i)=>`<button class="match-btn" id="en${i}" onclick="pickEn(${i})">
+        <span>${p.en}</span>
+        <span class="saybtn" onclick="event.stopPropagation();say('${escQ(p.en)}')">🔊</span></button>`).join("");
+    const order=shuffle(pairs.map((p,i)=>i));
+    const right=order.map(i=>`<button class="match-btn" id="it${i}" onclick="pickIt(${i})">${pairs[i].it}</button>`).join("");
+    grid.innerHTML=`<div class="match-col">${left}</div><div class="match-col">${right}</div>`;
+    document.getElementById("match-prog").textContent=`Coppie collegate: 0 di ${pairs.length}`;
+  }
+  function pickEn(i){
+    const btn=document.getElementById("en"+i);
+    if(btn.classList.contains("done")) return;
+    document.querySelectorAll(".match-btn.sel").forEach(b=>b.classList.remove("sel"));
+    selEn=i; btn.classList.add("sel");
+  }
+  function pickIt(i){
+    if(selEn===null) return;
+    const itBtn=document.getElementById("it"+i);
+    if(itBtn.classList.contains("done")) return;
+    const enBtn=document.getElementById("en"+selEn);
+    const pairs=matchLevels[mLevel];
+    if(selEn===i){
+      enBtn.classList.remove("sel"); enBtn.classList.add("done"); itBtn.classList.add("done");
+      say(pairs[i].en);
+      if(!spoiled.has(selEn)) firstTry++;
+      selEn=null; matched++;
+      const pr=document.getElementById("match-prog");
+      if(matched>=pairs.length){
+        levelResult(pr, firstTry, pairs.length, mLevel, 5, "setMatchLevel");
+      } else {
+        pr.textContent=`Coppie collegate: ${matched} di ${pairs.length}`;
+      }
+    } else {
+      spoiled.add(selEn);
+      itBtn.classList.add("flash");
+      setTimeout(()=>itBtn.classList.remove("flash"),500);
+      enBtn.classList.remove("sel"); selEn=null;
+    }
+  }
+
+  // avvio: ogni sezione parte dal Livello 1
+  setListenLevel(0);
+  setWriteLevel(0);
+  setReadLevel(0, true);
+  setMatchLevel(0);
+</script>
+
+<script>
+  // === Avviso al genitore: invio al completamento del livello Sfida (fire-and-forget) ===
+  const ENDPOINT_ALERT = "https://script.google.com/macros/s/AKfycbyYq0yCTaBWEd8NCl-sRj7xrnJMpU63FV4yv26MYaOL_WPrS_0ljidhJdVHxD6_47kN/exec";
+  let alertQuizInviato = false;
+  function inviaAlertQuiz(){
+    if(alertQuizInviato) return;          // invia una sola volta per visita
+    alertQuizInviato = true;
+    try{
+      const h1 = document.querySelector("h1");
+      const unita = ((h1 ? h1.textContent : document.title) || "")
+        .replace(/^[^A-Za-zÀ-ÿ]+/, "")               // toglie emoji/simboli iniziali
+        .replace(/\s*[—–-]\s*Allenamento\s*$/i, "")  // toglie "— Allenamento"
+        .trim();
+      fetch(ENDPOINT_ALERT, {
+        method: "POST",
+        mode: "no-cors",                  // Apps Script: evita problemi CORS
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({ unita: unita, dispositivo: navigator.userAgent })
+      }).catch(function(){});             // se non c'è rete, ignora in silenzio
+    }catch(e){}                           // qualsiasi errore non blocca l'app
+  }
+</script>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./service-worker.js');
+  }
+</script>
+</body>
+</html>
