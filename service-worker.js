@@ -1,4 +1,4 @@
-const CACHE = 'inglese-irene-v13';
+const CACHE = 'inglese-irene-v14';
 
 const ASSETS = [
   './',
@@ -12,6 +12,7 @@ const ASSETS = [
   './present-simple-overview.m4a',
   './present-continuous.html',
   './present-continuous-overview.m4a',
+  './present-continuous-infografica.png',
   './question-words.html',
   './there-is-there-are.html',
   './can-cant.html',
