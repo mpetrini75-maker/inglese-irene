@@ -156,6 +156,7 @@
       html+=`<b>Bravissima! Livello ${level+2} sbloccato 🔓</b><br>`;
       html+=`<button class="restart" onclick="${setFnName}(${level+1})">➡️ Vai al Livello ${level+2}</button>`;
     } else if(passed && level===3){
+      inviaAlertQuiz();
       html+=`<b>🏆 Hai completato tutti i livelli!</b><br>`;
       html+=`<button class="restart" onclick="${setFnName}(0)">🔄 Rigioca dal Livello 1</button>`;
     } else {
@@ -474,6 +475,29 @@
   setWriteLevel(0);
   setReadLevel(0, true);
   setMatchLevel(0);
+</script>
+
+<script>
+  // === Avviso al genitore: invio al completamento del livello Sfida (fire-and-forget) ===
+  const ENDPOINT_ALERT = "https://script.google.com/macros/s/AKfycbyYq0yCTaBWEd8NCl-sRj7xrnJMpU63FV4yv26MYaOL_WPrS_0ljidhJdVHxD6_47kN/exec";
+  let alertQuizInviato = false;
+  function inviaAlertQuiz(){
+    if(alertQuizInviato) return;          // invia una sola volta per visita
+    alertQuizInviato = true;
+    try{
+      const h1 = document.querySelector("h1");
+      const unita = ((h1 ? h1.textContent : document.title) || "")
+        .replace(/^[^A-Za-zÀ-ÿ]+/, "")               // toglie emoji/simboli iniziali
+        .replace(/\s*[—–-]\s*Allenamento\s*$/i, "")  // toglie "— Allenamento"
+        .trim();
+      fetch(ENDPOINT_ALERT, {
+        method: "POST",
+        mode: "no-cors",                  // Apps Script: evita problemi CORS
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({ unita: unita, dispositivo: navigator.userAgent })
+      }).catch(function(){});             // se non c'è rete, ignora in silenzio
+    }catch(e){}                           // qualsiasi errore non blocca l'app
+  }
 </script>
 
 <script>
