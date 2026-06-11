@@ -1,4 +1,4 @@
-const CACHE = 'inglese-irene-v22';
+const CACHE = 'inglese-irene-v23';
 
 const ASSETS = [
   './',
@@ -35,6 +35,7 @@ const ASSETS = [
   './preposizioni-movimento.html',
   './preposizioni-movimento-allenamento.html',
   './alert.js',
+  './lightbox.js',
   './manifest.json',
   './icon-192.svg',
   './icon-512.svg',
