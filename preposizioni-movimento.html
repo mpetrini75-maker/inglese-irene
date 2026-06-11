@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inglese - Preposizioni di movimento</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#FAF6EE">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Inglese di Irene">
+<style>
+  :root{
+    --bg:#FAF6EE;
+    --card:#FFFFFF;
+    --ink:#2F2A24;
+    --accent:#8A6BB0;
+    --accent-soft:#EAE1F2;
+    --green:#3E8E5A;
+    --green-soft:#E2F0E6;
+    --red:#C2492F;
+    --red-soft:#F6E1DB;
+    --blue:#3B6EA5;
+    --blue-soft:#E2ECF5;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:"Trebuchet MS","Comic Sans MS",Verdana,sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.7;
+    letter-spacing:0.3px;
+    padding:24px 14px 60px;
+  }
+  .wrap{max-width:620px;margin:0 auto;}
+  h1{
+    color:var(--accent);
+    font-size:1.7rem;
+    text-align:center;
+    margin:0 0 6px;
+  }
+  .sub{text-align:center;color:#8a7f70;margin:0 0 26px;font-size:1rem;}
+  .card{
+    background:var(--card);
+    border-radius:18px;
+    padding:22px 20px;
+    margin-bottom:22px;
+    box-shadow:0 4px 14px rgba(0,0,0,0.06);
+    border:1px solid #efe7da;
+  }
+  .card h2{
+    margin:0 0 14px;
+    font-size:1.25rem;
+    color:var(--accent);
+    display:flex;align-items:center;gap:8px;
+  }
+  table{width:100%;border-collapse:collapse;margin:6px 0;}
+  td,th{padding:10px;text-align:center;border-bottom:2px solid var(--accent-soft);font-size:1.05rem;}
+  th{color:var(--accent);}
+  .am{background:var(--blue-soft);border-radius:8px;font-weight:bold;color:var(--blue);}
+  .is{background:var(--green-soft);border-radius:8px;font-weight:bold;color:var(--green);}
+  .are{background:var(--accent-soft);border-radius:8px;font-weight:bold;color:var(--accent);}
+  .saybtn{
+    background:var(--blue-soft);
+    color:var(--blue);
+    border:none;border-radius:10px;
+    padding:6px 12px;font-size:0.95rem;cursor:pointer;
+    font-family:inherit;
+  }
+  .ex{margin:18px 0;}
+  .qnum{font-weight:bold;color:var(--accent);}
+  .qtext{font-size:1.15rem;margin:6px 0 12px;}
+  .options{display:flex;gap:10px;flex-wrap:wrap;}
+  .opt{
+    flex:1;min-width:80px;
+    background:var(--bg);
+    border:2px solid var(--accent-soft);
+    border-radius:12px;
+    padding:14px;font-size:1.1rem;cursor:pointer;
+    text-align:center;font-family:inherit;color:var(--ink);
+    transition:all .15s;
+  }
+  .opt:hover{border-color:var(--accent);}
+  .opt.correct{background:var(--green-soft);border-color:var(--green);color:var(--green);font-weight:bold;}
+  .opt.wrong{background:var(--red-soft);border-color:var(--red);color:var(--red);}
+  .feedback{margin-top:12px;font-size:1.05rem;font-weight:bold;min-height:26px;}
+  .feedback.ok{color:var(--green);}
+  .feedback.no{color:var(--red);}
+  .progress{
+    text-align:center;font-size:1.1rem;margin:10px 0 0;color:#8a7f70;
+  }
+  .star{font-size:1.4rem;}
+  .restart{
+    display:block;margin:20px auto 0;
+    background:var(--accent);color:#fff;border:none;
+    border-radius:12px;padding:12px 24px;font-size:1.05rem;
+    cursor:pointer;font-family:inherit;
+  }
+  .tip{background:var(--accent-soft);border-radius:10px;padding:10px 14px;font-size:0.98rem;margin-top:10px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🧭 Preposizioni di movimento</h1>
+  <p class="sub">dire dove si va — Go to school · Walk through the park</p>
+
+  <!-- REGOLA -->
+  <div class="card">
+    <h2>💡 La regola</h2>
+    <p style="margin-top:0;color:#8a7f70;">Le preposizioni di movimento dicono <b>dove va una persona o una cosa</b>. Si usano con verbi di movimento come <b>go, walk, run, jump, drive…</b></p>
+    <table>
+      <tr><th>Preposizione</th><th>Significato</th><th>Esempio</th><th>Ascolta</th></tr>
+      <tr><td class="am">to</td><td>verso / a</td><td>Go to school.</td><td><button class="saybtn" onclick="say('Go to school.')">🔊</button></td></tr>
+      <tr><td class="is">into</td><td>dentro</td><td>Go into the room.</td><td><button class="saybtn" onclick="say('Go into the room.')">🔊</button></td></tr>
+      <tr><td class="are">out of</td><td>fuori da</td><td>Come out of the house.</td><td><button class="saybtn" onclick="say('Come out of the house.')">🔊</button></td></tr>
+      <tr><td class="am">through</td><td>attraverso</td><td>Walk through the park.</td><td><button class="saybtn" onclick="say('Walk through the park.')">🔊</button></td></tr>
+      <tr><td class="is">across</td><td>dall'altra parte</td><td>Walk across the road.</td><td><button class="saybtn" onclick="say('Walk across the road.')">🔊</button></td></tr>
+      <tr><td class="are">along</td><td>lungo</td><td>Walk along the river.</td><td><button class="saybtn" onclick="say('Walk along the river.')">🔊</button></td></tr>
+      <tr><td class="am">up</td><td>su</td><td>Go up the stairs.</td><td><button class="saybtn" onclick="say('Go up the stairs.')">🔊</button></td></tr>
+      <tr><td class="is">down</td><td>giù</td><td>Go down the hill.</td><td><button class="saybtn" onclick="say('Go down the hill.')">🔊</button></td></tr>
+      <tr><td class="are">over</td><td>sopra / oltre</td><td>Jump over the wall.</td><td><button class="saybtn" onclick="say('Jump over the wall.')">🔊</button></td></tr>
+      <tr><td class="am">past</td><td>oltre / davanti a</td><td>Go past the school.</td><td><button class="saybtn" onclick="say('Go past the school.')">🔊</button></td></tr>
+    </table>
+    <div class="tip">🎨 <b>Trucco:</b> <span style="color:var(--green)">into = dentro</span> ↔ <span style="color:var(--accent)">out of = fuori</span> · <span style="color:var(--blue)">across = attraverso una superficie</span> (la strada) · <span style="color:var(--green)">through = attraverso uno spazio</span> (il parco, il tunnel)</div>
+  </div>
+
+  <!-- ESERCIZI -->
+  <div class="card">
+    <h2>✅ Prova tu!</h2>
+    <p style="margin-top:0;color:#8a7f70;">Scegli la preposizione giusta. Se sbagli, riprova: nessuna fretta! 🙂</p>
+    <div id="quiz"></div>
+    <div class="progress" id="progress"></div>
+    <button class="restart" id="restartBtn" style="display:none;" onclick="startQuiz()">🔄 Ricomincia</button>
+  </div>
+
+  <!-- CTA ALLENAMENTO -->
+  <div class="card" style="text-align:center;">
+    <h2 style="justify-content:center;">🎧 Pronta ad allenarti?</h2>
+    <p style="margin:0 0 18px;color:#8a7f70;">Hai studiato la lezione: ora mettiti alla prova con gli esercizi di ascolto, scrittura, lettura e lessico! 💪</p>
+    <a class="restart" href="preposizioni-movimento-allenamento.html" style="text-decoration:none;display:inline-block;font-size:1.25rem;padding:16px 34px;">Allenati! →</a>
+  </div>
+</div>
+
+<script>
+  // Pronuncia
+  function say(text){
+    try{
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = "en-US";
+      u.rate = 0.85;
+      speechSynthesis.cancel();
+      speechSynthesis.speak(u);
+    }catch(e){}
+  }
+
+  // Domande
+  const questions = [
+    {q:"Every morning I go ____ school.", opts:["to","into","over"], correct:0, full:"Every morning I go to school"},
+    {q:"The cat ran ____ the box.  (dentro)", opts:["out of","into","past"], correct:1, full:"The cat ran into the box"},
+    {q:"Let's walk ____ the park.  (attraverso)", opts:["through","across","up"], correct:0, full:"Let's walk through the park"},
+    {q:"Be careful when you walk ____ the road.  (dall'altra parte)", opts:["along","across","into"], correct:1, full:"Be careful when you walk across the road"},
+    {q:"The dog jumped ____ the wall.  (oltre)", opts:["over","down","to"], correct:0, full:"The dog jumped over the wall"},
+    {q:"She came ____ the house.  (fuori da)", opts:["into","out of","through"], correct:1, full:"She came out of the house"},
+    {q:"We walked ____ the river for an hour.  (lungo)", opts:["across","along","over"], correct:1, full:"We walked along the river for an hour"},
+    {q:"Go ____ the stairs, the room is upstairs.  (su)", opts:["up","down","past"], correct:0, full:"Go up the stairs"},
+  ];
+
+  let current = 0;
+  let score = 0;
+
+  function startQuiz(){
+    current = 0; score = 0;
+    document.getElementById("restartBtn").style.display = "none";
+    showQuestion();
+  }
+
+  function showQuestion(){
+    const quiz = document.getElementById("quiz");
+    const prog = document.getElementById("progress");
+    if(current >= questions.length){
+      quiz.innerHTML = "";
+      let stars = "";
+      const pct = score/questions.length;
+      const n = pct===1?5:pct>=0.75?4:pct>=0.5?3:pct>=0.25?2:1;
+      for(let i=0;i<n;i++) stars+="⭐";
+      let msg = pct===1 ? "Perfetto! Sai dire dove si va! 🏆" :
+                pct>=0.5 ? "Bravissima, ci sei quasi! 💪" :
+                "Bene, riprova: si impara ripetendo! 🌱";
+      prog.innerHTML = `<div class="star">${stars}</div>${score}/${questions.length} giuste<br><b>${msg}</b>`;
+      document.getElementById("restartBtn").style.display = "block";
+      return;
+    }
+    const item = questions[current];
+    prog.textContent = `Domanda ${current+1} di ${questions.length}`;
+    quiz.innerHTML = `
+      <div class="ex">
+        <div class="qnum">Domanda ${current+1}</div>
+        <div class="qtext">${item.q}</div>
+        <div class="options">
+          ${item.opts.map((o,i)=>`<button class="opt" onclick="answer(${i})">${o}</button>`).join("")}
+        </div>
+        <div class="feedback" id="fb"></div>
+      </div>
+    `;
+  }
+
+  function answer(i){
+    const item = questions[current];
+    const opts = document.querySelectorAll(".opt");
+    const fb = document.getElementById("fb");
+    if(i === item.correct){
+      opts[i].classList.add("correct");
+      fb.textContent = "✅ Giusto! " + item.full;
+      fb.className = "feedback ok";
+      score++;
+      say(item.full);
+      opts.forEach(o=>o.disabled=true);
+      setTimeout(()=>{ current++; showQuestion(); }, 1600);
+    } else {
+      opts[i].classList.add("wrong");
+      fb.textContent = "Riprova! 🙂";
+      fb.className = "feedback no";
+    }
+  }
+
+  startQuiz();
+</script>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./service-worker.js');
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Preposizioni di movimento — Allenamento</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#FAF6EE">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Inglese di Irene">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FAF6EE; --card:#FFFFFF; --ink:#2F2A24;
+    --accent:#8A6BB0; --accent-soft:#EAE1F2;
+    --green:#3E8E5A; --green-soft:#E2F0E6;
+    --red:#C2492F; --red-soft:#F6E1DB;
+    --blue:#3B6EA5; --blue-soft:#E2ECF5;
+    --purple:#7B5EA7; --purple-soft:#EDE8F5;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; font-family:"Lexend","Trebuchet MS",Verdana,sans-serif;
+    background:var(--bg); color:var(--ink); line-height:1.7; letter-spacing:0.3px; padding:24px 14px 60px;}
+  .wrap{max-width:620px;margin:0 auto;}
+  .backbtn{display:inline-block;background:var(--accent-soft);color:var(--accent);
+    text-decoration:none;border-radius:12px;padding:8px 16px;font-size:0.98rem;font-weight:bold;margin-bottom:14px;}
+  h1{color:var(--accent);font-size:1.6rem;text-align:center;margin:0 0 6px;}
+  .sub{text-align:center;color:#8a7f70;margin:0 0 26px;font-size:1rem;}
+  .card{background:var(--card);border-radius:18px;padding:22px 20px;margin-bottom:22px;
+    box-shadow:0 4px 14px rgba(0,0,0,0.06);border:1px solid #efe7da;}
+  .card h2{margin:0 0 10px;font-size:1.25rem;color:var(--accent);display:flex;align-items:center;gap:8px;}
+  .card .lead{color:#8a7f70;margin:0 0 12px;font-size:0.97rem;}
+  /* barra livelli */
+  .levelbar{margin:0 0 12px;}
+  .lvrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:0.98rem;color:var(--accent);}
+  .lvdots{display:inline-flex;gap:6px;}
+  .lvdot{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    background:var(--bg);border:2px solid var(--accent-soft);color:#b9ad9c;font-size:0.85rem;font-weight:bold;}
+  .lvdot.on{background:var(--accent-soft);border-color:var(--accent);color:var(--accent);}
+  .saybtn{background:var(--blue-soft);color:var(--blue);border:none;border-radius:10px;
+    padding:6px 12px;font-size:0.95rem;cursor:pointer;font-family:inherit;}
+  .big-listen{display:block;margin:6px auto 14px;background:var(--blue);color:#fff;
+    border:none;border-radius:16px;padding:18px 26px;font-size:1.2rem;font-weight:bold;
+    cursor:pointer;font-family:inherit;box-shadow:0 4px 12px rgba(59,110,165,0.3);}
+  .big-listen:hover{opacity:0.92;}
+  .ex{margin:14px 0;}
+  .qnum{font-weight:bold;color:var(--accent);}
+  .qtext{font-size:1.12rem;margin:6px 0 8px;}
+  .options{display:flex;flex-direction:column;gap:10px;}
+  .opt{background:var(--bg);border:2px solid var(--accent-soft);
+    border-radius:12px;padding:13px 14px;font-size:1.08rem;cursor:pointer;
+    text-align:left;font-family:inherit;color:var(--ink);transition:all .15s;}
+  .opt:hover{border-color:var(--accent);}
+  .opt.correct{background:var(--green-soft);border-color:var(--green);color:var(--green);font-weight:bold;}
+  .opt.wrong{background:var(--red-soft);border-color:var(--red);color:var(--red);}
+  .feedback{margin-top:10px;font-size:1.02rem;font-weight:bold;min-height:24px;}
+  .feedback.ok{color:var(--green);}
+  .feedback.no{color:var(--red);}
+  .progress{text-align:center;font-size:1.05rem;margin:12px 0 0;color:#8a7f70;}
+  .star{font-size:1.4rem;}
+  .write-input{width:100%;font-family:"Lexend",sans-serif;font-size:1.2rem;
+    padding:12px 14px;border:2px solid var(--accent-soft);border-radius:12px;
+    background:var(--bg);color:var(--ink);margin-top:4px;}
+  .write-input:focus{outline:none;border-color:var(--accent);}
+  .checkbtn{margin-top:10px;background:var(--accent);color:#fff;border:none;
+    border-radius:12px;padding:10px 20px;font-size:1rem;cursor:pointer;font-family:inherit;}
+  .write-input.okbox{border-color:var(--green);background:var(--green-soft);}
+  .write-input.nobox{border-color:var(--red);}
+  .reading{background:var(--bg);border-radius:14px;padding:16px 18px;font-size:1.12rem;
+    border:2px solid var(--accent-soft);margin-bottom:6px;}
+  .reading p{margin:0 0 6px;}
+  .match-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px;}
+  .match-col{display:flex;flex-direction:column;gap:10px;}
+  .match-btn{background:var(--bg);border:2px solid var(--accent-soft);border-radius:12px;
+    padding:12px;font-size:1.05rem;cursor:pointer;font-family:inherit;color:var(--ink);
+    display:flex;align-items:center;justify-content:space-between;gap:6px;transition:all .15s;}
+  .match-btn:hover{border-color:var(--accent);}
+  .match-btn.sel{border-color:var(--blue);background:var(--blue-soft);color:var(--blue);font-weight:bold;}
+  .match-btn.done{background:var(--green-soft);border-color:var(--green);color:var(--green);
+    font-weight:bold;cursor:default;opacity:0.85;}
+  .match-btn.flash{border-color:var(--red);background:var(--red-soft);}
+  .restart{display:inline-block;margin:12px auto 0;background:var(--accent);color:#fff;border:none;
+    border-radius:12px;padding:11px 22px;font-size:1rem;cursor:pointer;font-family:inherit;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="backbtn" href="preposizioni-movimento.html">← Torna alla lezione</a>
+  <h1>🏋️ Preposizioni di movimento — Allenamento</h1>
+  <p class="sub">4 livelli · ascolto · scrittura · lettura · lessico</p>
+
+  <!-- SEZIONE 1 — ASCOLTO -->
+  <div class="card">
+    <h2>🎧 1. Ascolto</h2>
+    <p class="lead">Tocca il pulsante blu e ascolta. Scegli la frase giusta. Puoi riascoltare quante volte vuoi!</p>
+    <div class="levelbar" id="listen-level"></div>
+    <div id="listen-quiz"></div>
+    <div class="progress" id="listen-prog"></div>
+  </div>
+
+  <!-- SEZIONE 2 — SCRITTURA -->
+  <div class="card">
+    <h2>✏️ 2. Scrittura</h2>
+    <p class="lead">Scrivi la preposizione giusta. Non contano maiuscole o spazi: conta la parola! Poi tocca "Controlla".</p>
+    <div class="levelbar" id="write-level"></div>
+    <div id="write-list"></div>
+    <div class="progress" id="write-prog"></div>
+  </div>
+
+  <!-- SEZIONE 3 — LETTURA -->
+  <div class="card" id="read-card">
+    <h2>📖 3. Lettura</h2>
+    <p class="lead">Ascolta e leggi il testo, poi rispondi alle domande.</p>
+    <div class="levelbar" id="read-level"></div>
+    <div class="reading" id="reading-text"></div>
+    <button class="saybtn" onclick="event.stopPropagation();sayReading()">🔊 Ascolta tutto il testo</button>
+    <div id="read-list" style="margin-top:8px;"></div>
+    <div class="progress" id="read-prog"></div>
+  </div>
+
+  <!-- SEZIONE 4 — LESSICO -->
+  <div class="card">
+    <h2>🔤 4. Lessico</h2>
+    <p class="lead">Tocca una parola inglese (ascoltala con 🔊), poi il suo significato. Collega tutte le coppie!</p>
+    <div class="levelbar" id="match-level"></div>
+    <div class="match-grid" id="match-grid"></div>
+    <div class="progress" id="match-prog"></div>
+  </div>
+</div>
+
+<script>
+  function say(text){
+    try{
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = "en-US"; u.rate = 0.85;
+      speechSynthesis.cancel(); speechSynthesis.speak(u);
+    }catch(e){}
+  }
+  function escQ(s){ return s.replace(/'/g, "\\'"); }
+  function stars(correct,total){
+    const pct=correct/total;
+    const n=pct===1?5:pct>=0.75?4:pct>=0.5?3:pct>=0.25?2:1;
+    return "⭐".repeat(n);
+  }
+  const LV=["Base","Intermedio","Avanzato","Sfida"];
+  function levelBar(level){
+    let dots="";
+    for(let i=0;i<4;i++) dots+=`<span class="lvdot ${i<=level?'on':''}">${i+1}</span>`;
+    return `<div class="lvrow"><b>Livello ${level+1} di 4 · ${LV[level]} 🔓</b><span class="lvdots">${dots}</span></div>`;
+  }
+  function levelResult(progEl, score, total, level, threshold, setFnName){
+    const passed = score>=threshold;
+    let html=`<div class="star">${stars(score,total)}</div>${score}/${total} giuste<br>`;
+    if(passed && level<3){
+      html+=`<b>Bravissima! Livello ${level+2} sbloccato 🔓</b><br>`;
+      html+=`<button class="restart" onclick="${setFnName}(${level+1})">➡️ Vai al Livello ${level+2}</button>`;
+    } else if(passed && level===3){
+      inviaAlertQuiz();
+      html+=`<b>🏆 Hai completato tutti i livelli!</b><br>`;
+      html+=`<button class="restart" onclick="${setFnName}(0)">🔄 Rigioca dal Livello 1</button>`;
+    } else {
+      html+=`<b>Ci sei quasi! Riprova questo livello, ce la fai 🌱</b><br>`;
+      html+=`<button class="restart" onclick="${setFnName}(${level})">🔄 Rifai il Livello ${level+1}</button>`;
+    }
+    progEl.innerHTML=html;
+  }
+
+  /* ============ SEZIONE 1 — ASCOLTO ============ */
+  const listenLevels = [
+    [ // L1 Base — to / into / out of / up / down
+      {audio:"Go to school.", opts:["Go to school.","Go to the shop.","Run to school."], correct:0},
+      {audio:"Come into the room.", opts:["Come into the room.","Come out of the room.","Go into the room."], correct:0},
+      {audio:"Get out of the car.", opts:["Get out of the car.","Get into the car.","Get out of the bus."], correct:0},
+      {audio:"Go up the stairs.", opts:["Go up the stairs.","Go down the stairs.","Run up the stairs."], correct:0},
+      {audio:"Walk down the hill.", opts:["Walk down the hill.","Walk up the hill.","Walk down the road."], correct:0},
+      {audio:"Run to the door.", opts:["Run to the door.","Run to the gate.","Walk to the door."], correct:0},
+    ],
+    [ // L2 Intermedio — through / across / along / over / past
+      {audio:"Walk through the park.", opts:["Walk through the park.","Walk across the park.","Walk to the park."], correct:0},
+      {audio:"Walk across the road.", opts:["Walk across the road.","Walk along the road.","Walk through the road."], correct:0},
+      {audio:"Walk along the river.", opts:["Walk along the river.","Walk across the river.","Walk over the river."], correct:0},
+      {audio:"Jump over the wall.", opts:["Jump over the wall.","Jump on the wall.","Jump under the wall."], correct:0},
+      {audio:"Go past the school.", opts:["Go past the school.","Go to the school.","Go into the school."], correct:0},
+      {audio:"The train goes through the tunnel.", opts:["The train goes through the tunnel.","The train goes over the tunnel.","The train goes to the tunnel."], correct:0},
+    ],
+    [ // L3 Avanzato — frasi con verbo + preposizione
+      {audio:"The cat ran into the garden.", opts:["The cat ran into the garden.","The cat ran out of the garden.","The cat ran across the garden."], correct:0},
+      {audio:"She walked across the bridge.", opts:["She walked across the bridge.","She walked over the bridge.","She walked along the bridge."], correct:0},
+      {audio:"We drove past the station.", opts:["We drove past the station.","We drove to the station.","We drove into the station."], correct:0},
+      {audio:"They climbed up the mountain.", opts:["They climbed up the mountain.","They climbed down the mountain.","They walked up the mountain."], correct:0},
+      {audio:"The dog jumped out of the box.", opts:["The dog jumped out of the box.","The dog jumped into the box.","The dog jumped over the box."], correct:0},
+      {audio:"Let's walk along the beach.", opts:["Let's walk along the beach.","Let's walk across the beach.","Let's walk to the beach."], correct:0},
+    ],
+    [ // L4 Sfida — frasi lunghe
+      {audio:"Walk through the park and turn to the right.", opts:["Walk through the park and turn to the right.","Walk across the park and turn to the right.","Walk through the park and turn to the left."], correct:0},
+      {audio:"The children ran out of the house into the garden.", opts:["The children ran out of the house into the garden.","The children ran into the house out of the garden.","The children walked out of the house into the garden."], correct:0},
+      {audio:"Go down the street, then go past the bank.", opts:["Go down the street, then go past the bank.","Go up the street, then go past the bank.","Go down the street, then go to the bank."], correct:0},
+      {audio:"The river flows under the bridge and through the city.", opts:["The river flows under the bridge and through the city.","The river flows over the bridge and through the city.","The river flows under the bridge and across the city."], correct:0},
+      {audio:"We climbed up the hill and walked across the field.", opts:["We climbed up the hill and walked across the field.","We climbed down the hill and walked across the field.","We climbed up the hill and walked along the field."], correct:0},
+      {audio:"She came out of the shop and walked along the street.", opts:["She came out of the shop and walked along the street.","She went into the shop and walked along the street.","She came out of the shop and walked across the street."], correct:0},
+    ],
+  ];
+  let lLevel=0, lc=0, ls=0, lCorrect=0, lAudio="";
+  function setListenLevel(lvl){ lLevel=lvl; lc=0; ls=0; document.getElementById("listen-level").innerHTML=levelBar(lvl); showListen(); }
+  function showListen(){
+    const data=listenLevels[lLevel];
+    const box=document.getElementById("listen-quiz");
+    const pr=document.getElementById("listen-prog");
+    if(lc>=data.length){ box.innerHTML=""; levelResult(pr, ls, data.length, lLevel, 4, "setListenLevel"); return; }
+    const it=data[lc];
+    lAudio=it.audio;
+    const order=shuffle(it.opts.map((o,i)=>i));
+    const shown=order.map(k=>it.opts[k]);
+    lCorrect=order.indexOf(it.correct);
+    pr.textContent=`Esercizio ${lc+1} di ${data.length}`;
+    box.innerHTML=`
+      <div class="ex">
+        <div class="qnum">Ascolto ${lc+1}</div>
+        <button class="big-listen" onclick="event.stopPropagation();say('${escQ(it.audio)}')">🔊 Ascolta la frase</button>
+        <div class="options">
+          ${shown.map((o,i)=>`<button class="opt" onclick="listenAns(${i})">${o}</button>`).join("")}
+        </div>
+        <div class="feedback" id="lfb"></div>
+      </div>`;
+  }
+  function listenAns(i){
+    const opts=document.querySelectorAll("#listen-quiz .opt");
+    const fb=document.getElementById("lfb");
+    if(i===lCorrect){
+      opts[i].classList.add("correct");
+      fb.textContent="✅ Giusto! "+lAudio; fb.className="feedback ok";
+      ls++; say(lAudio); opts.forEach(o=>o.disabled=true);
+      setTimeout(()=>{ lc++; showListen(); },1800);
+    } else {
+      opts[i].classList.add("wrong");
+      fb.textContent="Riascolta e riprova 🙂"; fb.className="feedback no";
+    }
+  }
+
+  /* ============ SEZIONE 2 — SCRITTURA ============ */
+  const writeLevels = [
+    [ // L1 — to / into / out of / up / down
+      {q:"Go ____ school every morning.  (verso)", answers:["to"], full:"Go to school every morning.", hint:"verso un luogo → to."},
+      {q:"The cat ran ____ the box.  (dentro)", answers:["into"], full:"The cat ran into the box.", hint:"dentro → into."},
+      {q:"Get ____ ____ the car.  (fuori da)", answers:["out of"], full:"Get out of the car.", hint:"fuori da → out of."},
+      {q:"Go ____ the stairs.  (su)", answers:["up"], full:"Go up the stairs.", hint:"su → up."},
+      {q:"Walk ____ the hill.  (giù)", answers:["down"], full:"Walk down the hill.", hint:"giù → down."},
+      {q:"Run ____ the door, please.  (verso)", answers:["to"], full:"Run to the door, please.", hint:"verso → to."},
+    ],
+    [ // L2 — through / across / along / over / past
+      {q:"Walk ____ the park.  (attraverso uno spazio)", answers:["through"], full:"Walk through the park.", hint:"attraverso uno spazio → through."},
+      {q:"Walk ____ the road, look both ways!  (dall'altra parte)", answers:["across"], full:"Walk across the road, look both ways!", hint:"dall'altra parte di una superficie → across."},
+      {q:"We walked ____ the river.  (lungo)", answers:["along"], full:"We walked along the river.", hint:"lungo → along."},
+      {q:"The dog jumped ____ the wall.  (oltre, sopra)", answers:["over"], full:"The dog jumped over the wall.", hint:"oltre/sopra → over."},
+      {q:"Go ____ the school and turn right.  (oltre, davanti a)", answers:["past"], full:"Go past the school and turn right.", hint:"oltre/davanti a → past."},
+      {q:"The train goes ____ the tunnel.  (attraverso)", answers:["through"], full:"The train goes through the tunnel.", hint:"dentro e fuori uno spazio → through."},
+    ],
+    [ // L3 — scelta tra coppie difficili
+      {q:"She ran ____ the house. (entrò dentro)", answers:["into"], full:"She ran into the house.", hint:"entrare dentro → into."},
+      {q:"She came ____ ____ the house. (uscì fuori)", answers:["out of"], full:"She came out of the house.", hint:"uscire fuori → out of."},
+      {q:"We drove ____ the station without stopping.  (oltre)", answers:["past"], full:"We drove past the station without stopping.", hint:"passare oltre → past."},
+      {q:"They climbed ____ the mountain.  (su, in cima)", answers:["up"], full:"They climbed up the mountain.", hint:"verso l'alto → up."},
+      {q:"The bird flew ____ the window.  (attraverso)", answers:["through"], full:"The bird flew through the window.", hint:"attraverso un'apertura → through."},
+      {q:"Let's walk ____ the beach.  (lungo)", answers:["along"], full:"Let's walk along the beach.", hint:"lungo → along."},
+    ],
+    [ // L4 — Sfida: frasi intere con due preposizioni
+      {q:"The children ran ____ ____ the house ____ the garden.  (fuori da … dentro)", answers:["out of … into","out of...into"], full:"The children ran out of the house into the garden.", hint:"fuori da = out of · dentro = into."},
+      {q:"Walk ____ the park, then ____ the road.  (attraverso … dall'altra parte)", answers:["through … across","through...across"], full:"Walk through the park, then across the road.", hint:"through (spazio) · across (superficie)."},
+      {q:"The river flows ____ the bridge and ____ the city.  (sotto … attraverso)", answers:["under … through","under...through"], full:"The river flows under the bridge and through the city.", hint:"sotto = under · attraverso = through."},
+      {q:"Go ____ the street and ____ the bank.  (giù … oltre)", answers:["down … past","down...past"], full:"Go down the street and past the bank.", hint:"giù = down · oltre = past."},
+      {q:"We climbed ____ the hill and walked ____ the field.  (su … attraverso)", answers:["up … across","up...across"], full:"We climbed up the hill and walked across the field.", hint:"su = up · attraverso una superficie = across."},
+      {q:"She got ____ ____ the car and walked ____ the shop.  (fuori da … verso)", answers:["out of … to","out of...to"], full:"She got out of the car and walked to the shop.", hint:"fuori da = out of · verso = to."},
+    ],
+  ];
+  let wLevel=0, writeDone=[];
+  function norm(s){ return s.trim().toLowerCase().replace(/…/g,"...").replace(/\.\.\./g," ").replace(/\s+/g," "); }
+  function setWriteLevel(lvl){
+    wLevel=lvl;
+    const data=writeLevels[lvl];
+    writeDone=new Array(data.length).fill(false);
+    document.getElementById("write-level").innerHTML=levelBar(lvl);
+    document.getElementById("write-prog").textContent=`Completate 0 di ${data.length}`;
+    const list=document.getElementById("write-list");
+    list.innerHTML=data.map((it,i)=>`
+      <div class="ex">
+        <div class="qnum">Frase ${i+1}</div>
+        <div class="qtext">${it.q}</div>
+        <input class="write-input" id="wi${i}" type="text" autocomplete="off" placeholder="scrivi qui…">
+        <button class="checkbtn" onclick="checkWrite(${i})">Controlla</button>
+        <div class="feedback" id="wfb${i}"></div>
+      </div>`).join("");
+  }
+  function checkWrite(i){
+    const it=writeLevels[wLevel][i];
+    const inp=document.getElementById("wi"+i);
+    const fb=document.getElementById("wfb"+i);
+    const ok=it.answers.some(a=>norm(a)===norm(inp.value));
+    if(ok){
+      inp.classList.add("okbox"); inp.classList.remove("nobox");
+      fb.innerHTML="✅ Perfetto! "+it.full; fb.className="feedback ok";
+      say(it.full);
+    } else {
+      inp.classList.add("nobox");
+      fb.innerHTML=`💛 Quasi! ${it.hint}<br>La risposta è: <b>${it.full}</b> <button class="saybtn" onclick="event.stopPropagation();say('${escQ(it.full)}')">🔊</button>`;
+      fb.className="feedback no";
+    }
+    if(!writeDone[i]){ writeDone[i]=true; updateWrite(); }
+  }
+  function updateWrite(){
+    const data=writeLevels[wLevel];
+    const pr=document.getElementById("write-prog");
+    const done=writeDone.filter(Boolean).length;
+    if(done<data.length){ pr.textContent=`Completate ${done} di ${data.length}`; return; }
+    let correct=0;
+    data.forEach((it,i)=>{ if(document.getElementById("wi"+i).classList.contains("okbox")) correct++; });
+    levelResult(pr, correct, data.length, wLevel, 4, "setWriteLevel");
+  }
+
+  /* ============ SEZIONE 3 — LETTURA ============ */
+  const readLevels = [
+    { // L1
+      lines:["Every day Tom goes to school.","He walks down the street.","Then he goes up the stairs.","He runs into the classroom."],
+      q:[
+        {q:"Where does Tom go? 🏫", opts:["To school","To the park","To the shop"], correct:0, full:"He goes to school."},
+        {q:"How does he go on the street? 🚶", opts:["Up the street","Down the street","Across the street"], correct:1, full:"He walks down the street."},
+        {q:"Where does he run? 🚪", opts:["Out of the classroom","Into the classroom","Past the classroom"], correct:1, full:"He runs into the classroom."},
+      ]
+    },
+    { // L2
+      lines:["Anna takes her dog to the park.","They walk through the park.","The dog jumps over a small wall.","Then they walk along the river."],
+      q:[
+        {q:"How do they cross the park? 🌳", opts:["Through the park","Across the park","Around the park"], correct:0, full:"They walk through the park."},
+        {q:"What does the dog do at the wall? 🐶", opts:["Goes under it","Jumps over it","Walks past it"], correct:1, full:"The dog jumps over a small wall."},
+        {q:"Where do they walk at the end? 🏞️", opts:["Across the river","Along the river","Into the river"], correct:1, full:"They walk along the river."},
+      ]
+    },
+    { // L3
+      lines:["How to get to my house:","Go down this street.","Go past the supermarket.","Then turn right and walk across the bridge."],
+      q:[
+        {q:"First, what do you do? ⬇️", opts:["Go up the street","Go down the street","Go into the street"], correct:1, full:"Go down this street."},
+        {q:"What do you do at the supermarket? 🛒", opts:["Go into it","Go past it","Go up it"], correct:1, full:"Go past the supermarket."},
+        {q:"How do you cross the bridge? 🌉", opts:["Along the bridge","Under the bridge","Across the bridge"], correct:2, full:"Walk across the bridge."},
+      ]
+    },
+    { // L4
+      lines:["The little mouse was hungry.","It ran out of its hole and across the kitchen floor.","It climbed up the table and ate some cheese.","Then it ran through a hole in the wall and went home."],
+      q:[
+        {q:"Where did the mouse run first? 🐭", opts:["Into its hole","Out of its hole","Past its hole"], correct:1, full:"It ran out of its hole."},
+        {q:"How did it reach the cheese? 🧀", opts:["It climbed up the table","It jumped over the table","It went under the table"], correct:0, full:"It climbed up the table."},
+        {q:"How did it go home? 🏠", opts:["Across a hole in the wall","Through a hole in the wall","Over a hole in the wall"], correct:1, full:"It ran through a hole in the wall."},
+      ]
+    },
+  ];
+  let rLevel=0, readDone=[], readingText="", readCorrect=[];
+  function sayReading(){ say(readingText); }
+  function setReadLevel(lvl, noScroll){
+    rLevel=lvl;
+    const data=readLevels[lvl];
+    readingText=data.lines.join(" ");
+    readDone=new Array(data.q.length).fill(false);
+    document.getElementById("read-level").innerHTML=levelBar(lvl);
+    document.getElementById("reading-text").innerHTML=data.lines.map(l=>`<p>${l}</p>`).join("");
+    document.getElementById("read-prog").textContent=`Risposte 0 di ${data.q.length}`;
+    readCorrect=[];
+    const list=document.getElementById("read-list");
+    list.innerHTML=data.q.map((it,i)=>{
+      const order=shuffle(it.opts.map((o,k)=>k));
+      const shown=order.map(k=>it.opts[k]);
+      readCorrect[i]=order.indexOf(it.correct);
+      return `
+      <div class="ex">
+        <div class="qnum">Domanda ${i+1}</div>
+        <div class="qtext">${it.q}</div>
+        <div class="options">
+          ${shown.map((o,j)=>`<button class="opt" onclick="readAns(${i},${j})">${o}</button>`).join("")}
+        </div>
+        <div class="feedback" id="rfb${i}"></div>
+      </div>`;
+    }).join("");
+    if(!noScroll){
+      const card=document.getElementById("read-card");
+      if(card) card.scrollIntoView({behavior:"smooth", block:"start"});
+    }
+  }
+  function readAns(i,j){
+    const it=readLevels[rLevel].q[i];
+    const opts=document.querySelectorAll("#read-list .ex:nth-child("+(i+1)+") .opt");
+    const fb=document.getElementById("rfb"+i);
+    if(j===readCorrect[i]){
+      opts[j].classList.add("correct");
+      fb.innerHTML="✅ Giusto! "+it.full+` <button class="saybtn" onclick="event.stopPropagation();say('${escQ(it.full)}')">🔊</button>`;
+      fb.className="feedback ok"; opts.forEach(o=>o.disabled=true);
+      if(!readDone[i]){ readDone[i]=true; updateRead(); }
+    } else {
+      opts[j].classList.add("wrong");
+      fb.textContent="Rileggi il testo e riprova 🙂"; fb.className="feedback no";
+    }
+  }
+  function updateRead(){
+    const data=readLevels[rLevel];
+    const pr=document.getElementById("read-prog");
+    const done=readDone.filter(Boolean).length;
+    if(done<data.q.length){ pr.textContent=`Risposte ${done} di ${data.q.length}`; return; }
+    levelResult(pr, data.q.length, data.q.length, rLevel, 2, "setReadLevel");
+  }
+
+  /* ============ SEZIONE 4 — LESSICO ============ */
+  const matchLevels = [
+    [ // L1 — preposizioni base
+      {en:"to", it:"verso / a ➡️"},{en:"into", it:"dentro ⬇️"},{en:"out of", it:"fuori da ⬆️"},{en:"up", it:"su 🔼"},
+      {en:"down", it:"giù 🔽"},{en:"go", it:"andare"},{en:"come", it:"venire"},{en:"run", it:"correre 🏃"},
+    ],
+    [ // L2 — altre preposizioni
+      {en:"through", it:"attraverso (uno spazio) 🚇"},{en:"across", it:"dall'altra parte 🛣️"},{en:"along", it:"lungo 🏞️"},{en:"over", it:"sopra / oltre ⤴️"},
+      {en:"past", it:"oltre / davanti a"},{en:"under", it:"sotto 🌉"},{en:"around", it:"intorno 🔄"},{en:"towards", it:"verso 👉"},
+    ],
+    [ // L3 — verbi di movimento
+      {en:"walk", it:"camminare 🚶"},{en:"jump", it:"saltare 🦘"},{en:"climb", it:"arrampicarsi 🧗"},{en:"drive", it:"guidare 🚗"},
+      {en:"fly", it:"volare 🐦"},{en:"swim", it:"nuotare 🏊"},{en:"ride", it:"andare (in bici) 🚲"},{en:"cross", it:"attraversare"},
+    ],
+    [ // L4 — frasi intere
+      {en:"Go to school", it:"Vai a scuola 🏫"},{en:"Come into the room", it:"Entra nella stanza 🚪"},{en:"Get out of the car", it:"Esci dalla macchina 🚗"},{en:"Walk through the park", it:"Cammina nel parco 🌳"},
+      {en:"Walk across the road", it:"Attraversa la strada 🛣️"},{en:"Jump over the wall", it:"Salta oltre il muro 🧱"},{en:"Go up the stairs", it:"Sali le scale 🪜"},{en:"Go past the school", it:"Passa oltre la scuola"},
+    ],
+  ];
+  let mLevel=0, selEn=null, matched=0, firstTry=0, spoiled;
+  function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+  function setMatchLevel(lvl){
+    mLevel=lvl; selEn=null; matched=0; firstTry=0; spoiled=new Set();
+    const pairs=matchLevels[lvl];
+    document.getElementById("match-level").innerHTML=levelBar(lvl);
+    const grid=document.getElementById("match-grid");
+    const left=pairs.map((p,i)=>`<button class="match-btn" id="en${i}" onclick="pickEn(${i})">
+        <span>${p.en}</span>
+        <span class="saybtn" onclick="event.stopPropagation();say('${escQ(p.en)}')">🔊</span></button>`).join("");
+    const order=shuffle(pairs.map((p,i)=>i));
+    const right=order.map(i=>`<button class="match-btn" id="it${i}" onclick="pickIt(${i})">${pairs[i].it}</button>`).join("");
+    grid.innerHTML=`<div class="match-col">${left}</div><div class="match-col">${right}</div>`;
+    document.getElementById("match-prog").textContent=`Coppie collegate: 0 di ${pairs.length}`;
+  }
+  function pickEn(i){
+    const btn=document.getElementById("en"+i);
+    if(btn.classList.contains("done")) return;
+    document.querySelectorAll(".match-btn.sel").forEach(b=>b.classList.remove("sel"));
+    selEn=i; btn.classList.add("sel");
+  }
+  function pickIt(i){
+    if(selEn===null) return;
+    const itBtn=document.getElementById("it"+i);
+    if(itBtn.classList.contains("done")) return;
+    const enBtn=document.getElementById("en"+selEn);
+    const pairs=matchLevels[mLevel];
+    if(selEn===i){
+      enBtn.classList.remove("sel"); enBtn.classList.add("done"); itBtn.classList.add("done");
+      say(pairs[i].en);
+      if(!spoiled.has(selEn)) firstTry++;
+      selEn=null; matched++;
+      const pr=document.getElementById("match-prog");
+      if(matched>=pairs.length){
+        levelResult(pr, firstTry, pairs.length, mLevel, 5, "setMatchLevel");
+      } else {
+        pr.textContent=`Coppie collegate: ${matched} di ${pairs.length}`;
+      }
+    } else {
+      spoiled.add(selEn);
+      itBtn.classList.add("flash");
+      setTimeout(()=>itBtn.classList.remove("flash"),500);
+      enBtn.classList.remove("sel"); selEn=null;
+    }
+  }
+
+  // avvio: ogni sezione parte dal Livello 1
+  setListenLevel(0);
+  setWriteLevel(0);
+  setReadLevel(0, true);
+  setMatchLevel(0);
+</script>
+
+<script>
+  // === Avviso al genitore: invio al completamento del livello Sfida (fire-and-forget) ===
+  const ENDPOINT_ALERT = "https://script.google.com/macros/s/AKfycbyYq0yCTaBWEd8NCl-sRj7xrnJMpU63FV4yv26MYaOL_WPrS_0ljidhJdVHxD6_47kN/exec";
+  let alertQuizInviato = false;
+  function inviaAlertQuiz(){
+    if(alertQuizInviato) return;          // invia una sola volta per visita
+    alertQuizInviato = true;
+    try{
+      const h1 = document.querySelector("h1");
+      const unita = ((h1 ? h1.textContent : document.title) || "")
+        .replace(/^[^A-Za-zÀ-ÿ]+/, "")               // toglie emoji/simboli iniziali
+        .replace(/\s*[—–-]\s*Allenamento\s*$/i, "")  // toglie "— Allenamento"
+        .trim();
+      fetch(ENDPOINT_ALERT, {
+        method: "POST",
+        mode: "no-cors",                  // Apps Script: evita problemi CORS
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({ unita: unita, dispositivo: navigator.userAgent })
+      }).catch(function(){});             // se non c'è rete, ignora in silenzio
+    }catch(e){}                           // qualsiasi errore non blocca l'app
+  }
+</script>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./service-worker.js');
+  }
+</script>
+</body>
+</html>
