@@ -11,7 +11,7 @@
 (function () {
   "use strict";
 
-  function apri(src, testo) {
+  function apri(src, testo, audioSrc) {
     var ov = document.createElement("div");
     ov.style.cssText =
       "position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,.9);" +
@@ -27,6 +27,24 @@
     btn.style.cssText =
       "background:#fff;color:#333;border:none;border-radius:12px;padding:10px 18px;" +
       "font-size:1rem;font-weight:bold;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.4);";
+
+    // Player audio (overview) dentro l'overlay: ascolta mentre guardi l'infografica
+    var audioWrap = null;
+    if (audioSrc) {
+      audioWrap = document.createElement("div");
+      audioWrap.style.cssText =
+        "position:sticky;top:48px;width:100%;max-width:520px;background:rgba(255,255,255,.95);" +
+        "border-radius:12px;padding:10px 12px;margin-bottom:10px;box-shadow:0 2px 8px rgba(0,0,0,.3);";
+      var lbl = document.createElement("div");
+      lbl.textContent = "🎧 Ascolta la spiegazione mentre guardi";
+      lbl.style.cssText = "font-size:.9rem;font-weight:bold;color:#333;margin-bottom:6px;";
+      var audio = document.createElement("audio");
+      audio.controls = true;
+      audio.src = audioSrc;
+      audio.style.cssText = "width:100%;";
+      audioWrap.appendChild(lbl);
+      audioWrap.appendChild(audio);
+    }
 
     var img = document.createElement("img");
     img.src = src;
@@ -45,6 +63,7 @@
 
     bar.appendChild(btn);
     ov.appendChild(bar);
+    if (audioWrap) ov.appendChild(audioWrap);
     ov.appendChild(img);
     ov.appendChild(hint);
 
@@ -69,7 +88,7 @@
       a.removeAttribute("rel");
       a.addEventListener("click", function (e) {
         e.preventDefault();
-        apri(a.getAttribute("href"), a.textContent);
+        apri(a.getAttribute("href"), a.textContent, a.getAttribute("data-audio"));
       });
     });
   }
