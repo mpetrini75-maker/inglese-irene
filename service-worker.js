@@ -1,4 +1,4 @@
-const CACHE = 'inglese-irene-v17';
+const CACHE = 'inglese-irene-v18';
 
 const ASSETS = [
   './',
@@ -35,6 +35,9 @@ const ASSETS = [
   './manifest.json',
   './icon-192.svg',
   './icon-512.svg',
+  './icon-180.png',
+  './icon-192.png',
+  './icon-512.png',
 ];
 
 // Installazione: pre-carica tutte le pagine locali
