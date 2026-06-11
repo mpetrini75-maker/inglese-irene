@@ -1,4 +1,4 @@
-const CACHE = 'inglese-irene-v18';
+const CACHE = 'inglese-irene-v19';
 
 const ASSETS = [
   './',
@@ -6,6 +6,7 @@ const ASSETS = [
   './TO-BE.html',
   './to-be-infografica.png',
   './TO-HAVE.html',
+  './to-have-infografica.png',
   './pronomi-personali.html',
   './pronomi-personali-infografica.png',
   './articoli-plurali.html',
