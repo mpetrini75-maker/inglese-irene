@@ -410,6 +410,7 @@
       const msg=pct===1?"Perfetto! Hai imparato articoli e plurali! 🏆":pct>=0.5?"Bravissima, ci sei quasi! 💪":"Bene, riprova: si impara ripetendo! 🌱";
       prog.innerHTML=`<div class="star">${stars}</div>${score}/${questions.length} giuste<br><b>${msg}</b>`;
       document.getElementById("restartBtn").style.display="block";
+      if(window.inviaAlert) inviaAlert('fine-lezione');
       return;
     }
     const item=questions[current];
@@ -444,6 +445,8 @@
   startGuided();
   startQuiz();
 </script>
+
+<script src="alert.js"></script>
 
 <script>
   if ('serviceWorker' in navigator) {
