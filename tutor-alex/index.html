@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Olivia — English Tutor per Irene</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  html, body { height: 100%; }
+  body { overscroll-behavior: none; }
+  .chat-scroll { scrollbar-width: thin; }
+  .bubble-alex   { border-radius: 1.25rem 1.25rem 1.25rem 0.25rem; }
+  .bubble-irene  { border-radius: 1.25rem 1.25rem 0.25rem 1.25rem; }
+  .typing-dot { animation: blink 1.2s infinite both; }
+  .typing-dot:nth-child(2) { animation-delay: .2s; }
+  .typing-dot:nth-child(3) { animation-delay: .4s; }
+  @keyframes blink { 0%, 80%, 100% { opacity: .25; } 40% { opacity: 1; } }
+  .quick-tip { border-left: 4px solid #f59e0b; }
+  #micBtn { transition: background .15s, color .15s; }
+  #micBtn.recording { background:#ef4444!important; color:#fff!important; animation: pulse-mic 1s infinite; }
+  @keyframes pulse-mic { 0%,100%{opacity:1} 50%{opacity:.55} }
+</style>
+</head>
+<body class="bg-slate-100 font-sans">
+
+<div class="flex h-full">
+
+  <!-- ======== SIDEBAR (Pannello di controllo) ======== -->
+  <aside id="sidebar"
+         class="fixed inset-y-0 left-0 z-40 w-80 max-w-[85vw] bg-white border-r border-slate-200 flex flex-col
+                transform -translate-x-full transition-transform duration-200 md:relative md:translate-x-0 md:flex-shrink-0">
+    <div class="p-4 border-b border-slate-200 flex items-center justify-between">
+      <div>
+        <h1 class="text-lg font-bold text-slate-800">🇬🇧 English con Olivia</h1>
+        <p class="text-xs text-slate-500">Il tuo tutor di conversazione</p>
+      </div>
+      <button id="closeSidebar" class="md:hidden text-slate-400 hover:text-slate-600 text-2xl leading-none px-2">×</button>
+    </div>
+
+    <div class="flex-1 overflow-y-auto p-4 space-y-6">
+
+      <!-- Topic -->
+      <div>
+        <label class="block text-sm font-semibold text-slate-700 mb-1.5">📌 Argomento del giorno</label>
+        <select id="topicSelect" class="w-full rounded-lg border border-slate-300 bg-white p-2.5 text-sm focus:ring-2 focus:ring-indigo-400 focus:outline-none">
+          <option value="free">💬 Free Chat (chiacchiere libere)</option>
+          <option value="travel">✈️ Traveling (viaggi)</option>
+          <option value="daily">⏰ Daily Routine (vita quotidiana)</option>
+          <option value="job">💼 Job Interview (colloquio di lavoro)</option>
+          <option value="school">🏫 School &amp; Friends (scuola e amici)</option>
+          <option value="food">🍕 Food &amp; Cooking (cibo)</option>
+        </select>
+      </div>
+
+      <!-- Level -->
+      <div>
+        <label class="block text-sm font-semibold text-slate-700 mb-1.5">📊 Livello</label>
+        <div class="grid grid-cols-2 gap-2">
+          <button data-level="beginner"
+                  class="level-btn rounded-lg border p-2 text-sm font-medium transition border-indigo-500 bg-indigo-50 text-indigo-700">
+            🌱 Beginner
+          </button>
+          <button data-level="intermediate"
+                  class="level-btn rounded-lg border p-2 text-sm font-medium transition border-slate-300 bg-white text-slate-600">
+            🌿 Intermediate
+          </button>
+        </div>
+      </div>
+
+      <!-- TTS -->
+      <div class="flex items-center justify-between">
+        <div>
+          <span class="text-sm font-semibold text-slate-700">🔊 Voce di Olivia</span>
+          <p class="text-xs text-slate-500">Leggi ad alta voce le risposte</p>
+        </div>
+        <button id="ttsToggle" role="switch" aria-checked="false"
+                class="relative inline-flex h-6 w-11 items-center rounded-full bg-slate-300 transition">
+          <span id="ttsKnob" class="inline-block h-5 w-5 transform rounded-full bg-white shadow transition translate-x-0.5"></span>
+        </button>
+      </div>
+
+      <!-- My Corrections -->
+      <div>
+        <div class="flex items-center justify-between mb-1.5">
+          <label class="text-sm font-semibold text-slate-700">💡 My Corrections</label>
+          <span id="tipCount" class="text-xs font-bold bg-amber-100 text-amber-700 rounded-full px-2 py-0.5">0</span>
+        </div>
+        <div id="tipList" class="space-y-2">
+          <p id="tipEmpty" class="text-xs text-slate-400 italic">Le correzioni gentili di Olivia appariranno qui durante la chiacchierata. ✨</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="p-4 border-t border-slate-200 space-y-2">
+      <button id="newChatBtn" class="w-full rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold py-2.5 transition">
+        🔄 Nuova conversazione
+      </button>
+      <button id="apiKeyBtn" class="w-full rounded-lg border border-slate-300 hover:bg-slate-50 text-slate-600 text-xs font-medium py-2 transition">
+        🔑 Imposta chiave API
+      </button>
+      <a href="../index.html" class="block w-full text-center rounded-lg border border-slate-300 hover:bg-slate-50 text-slate-600 text-xs font-medium py-2 transition">
+        ← Indice
+      </a>
+    </div>
+  </aside>
+
+  <div id="sidebarBackdrop" class="fixed inset-0 z-30 bg-black/40 hidden md:hidden"></div>
+
+  <!-- ======== AREA CHAT ======== -->
+  <main class="flex-1 flex flex-col min-w-0">
+
+    <!-- Header -->
+    <header class="bg-white border-b border-slate-200 px-4 py-3 flex items-center gap-3 shadow-sm">
+      <button id="openSidebar" class="md:hidden text-slate-500 text-2xl leading-none px-1">☰</button>
+      <div class="h-10 w-10 rounded-full bg-gradient-to-br from-indigo-500 to-teal-400 flex items-center justify-center text-xl shadow">👩‍🏫</div>
+      <div class="min-w-0">
+        <h2 class="font-bold text-slate-800 leading-tight">Olivia</h2>
+        <p id="statusLine" class="text-xs text-emerald-600">● online — ready to chat!</p>
+      </div>
+    </header>
+
+    <!-- Messages -->
+    <div id="chatBox" class="chat-scroll flex-1 overflow-y-auto px-4 py-5 space-y-4"></div>
+
+    <!-- Input -->
+    <footer class="bg-white border-t border-slate-200 p-3">
+      <form id="chatForm" class="flex items-end gap-2 max-w-3xl mx-auto">
+        <textarea id="userInput" rows="1" placeholder="Write in English… (o chiedi aiuto in italiano!)"
+                  class="flex-1 resize-none rounded-2xl border border-slate-300 px-4 py-2.5 text-sm focus:ring-2 focus:ring-indigo-400 focus:outline-none max-h-32"></textarea>
+        <button id="micBtn" type="button" title="Parla in inglese"
+                class="rounded-full bg-slate-200 hover:bg-slate-300 text-slate-600 h-11 w-11 flex items-center justify-center text-xl shadow flex-shrink-0 hidden">
+          🎤
+        </button>
+        <button id="sendBtn" type="submit"
+                class="rounded-full bg-indigo-600 hover:bg-indigo-700 disabled:opacity-40 text-white h-11 w-11 flex items-center justify-center text-lg shadow transition flex-shrink-0">
+          ➤
+        </button>
+      </form>
+      <p class="text-center text-[10px] text-slate-400 mt-1.5">Olivia può sbagliare: per i dubbi grossi chiedi conferma. · Powered by Claude</p>
+    </footer>
+  </main>
+</div>
+
+<!-- ======== MODALE CHIAVE API ======== -->
+<div id="apiKeyModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50 p-4">
+  <div class="bg-white rounded-2xl shadow-xl w-full max-w-md p-6">
+    <h3 class="text-lg font-bold text-slate-800 mb-1">🔑 Chiave API Anthropic</h3>
+    <p class="text-sm text-slate-500 mb-4">
+      Serve una chiave API per parlare con Olivia. La trovi su
+      <a href="https://console.anthropic.com/settings/keys" target="_blank" class="text-indigo-600 underline">console.anthropic.com</a>.
+      Viene salvata <strong>solo su questo dispositivo</strong> (localStorage).
+    </p>
+    <input id="apiKeyInput" type="password" placeholder="sk-ant-…"
+           class="w-full rounded-lg border border-slate-300 p-2.5 text-sm mb-4 focus:ring-2 focus:ring-indigo-400 focus:outline-none">
+    <div class="flex gap-2 justify-end">
+      <button id="apiKeyCancel" class="rounded-lg px-4 py-2 text-sm text-slate-500 hover:bg-slate-100">Annulla</button>
+      <button id="apiKeySave" class="rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 text-sm font-semibold">Salva</button>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+import Anthropic from "https://esm.sh/@anthropic-ai/sdk";
+
+/* ================= STATO ================= */
+
+const MODEL = "claude-opus-4-8";
+const LS_KEY = "alex_api_key";
+const LS_TTS = "alex_tts_on";
+
+const state = {
+  level: "beginner",
+  topic: "free",
+  ttsOn: localStorage.getItem(LS_TTS) !== "0",   // voce attiva di default
+  history: [],        // [{role:"user"|"assistant", content:string}]
+  tips: [],           // correzioni estratte
+  busy: false,
+};
+
+const TOPICS = {
+  free:   { label: "Free Chat",        brief: "open, friendly free conversation about anything Irene wants" },
+  travel: { label: "Traveling",        brief: "traveling: trips, holidays, airports, hotels, describing places" },
+  daily:  { label: "Daily Routine",    brief: "daily routine: school days, mornings, evenings, habits, telling the time" },
+  job:    { label: "Job Interview",    brief: "a simulated, friendly job interview: introducing yourself, strengths, simple role-play" },
+  school: { label: "School & Friends", brief: "school life and friends: subjects, teachers, classmates, after-school activities" },
+  food:   { label: "Food & Cooking",   brief: "food and cooking: favourite dishes, recipes, ordering at a restaurant" },
+};
+
+const GREETINGS = {
+  free:   "Hi Irene! 👋 I'm Olivia, your English buddy. I'm so happy to chat with you today! How are you feeling right now?",
+  travel: "Hi Irene! ✈️ Today let's talk about traveling — I love this topic! Tell me: what's the most beautiful place you have ever visited?",
+  daily:  "Hi Irene! ⏰ Let's chat about your daily routine. First question: what time do you usually wake up in the morning?",
+  job:    "Hi Irene! 💼 Let's practice a friendly job interview — don't worry, I'm a very nice interviewer! 😊 Ready? First question: can you tell me a little about yourself?",
+  school: "Hi Irene! 🏫 Let's talk about school! What's your favourite subject, and why do you like it?",
+  food:   "Hi Irene! 🍕 Yum, today we talk about food — my favourite topic! What did you eat today? Was it good?",
+};
+
+/* ================= SYSTEM PROMPT ================= */
+
+function buildSystemPrompt() {
+  const t = TOPICS[state.topic];
+  const levelNote = state.level === "beginner"
+    ? "Irene is a BEGINNER: use short sentences, very common vocabulary, and a slow, patient pace. One question at a time."
+    : "Irene is INTERMEDIATE: use natural everyday English, introduce some new vocabulary gently, and ask slightly more open questions.";
+
+  return `User Name: Irene
+Role: AI English Tutor named "Olivia"
+Objective: Help Irene practice conversational English naturally and build confidence.
+
+BEHAVIORAL RULES:
+1. ADAPTABILITY: Maintain an intermediate, accessible, and highly encouraging tone. Avoid overly academic explanations or robotic language.
+2. CONVERSATION FLOW: Never end a turn without keeping the conversation alive. Always wrap up your response with an open-ended question or a dynamic prompt to encourage Irene to reply.
+3. ERROR HANDLING (CRITICAL): Never interrupt the conversation to fix grammar. If Irene makes a mistake, respond to the meaning of her message first. Then, at the very end of your response, create a distinct, polite section that starts EXACTLY with the marker "Quick Tip 💡:" followed by the gentle correction. Use this exact marker so the app can detect it. The Quick Tip MUST be structured in two parts: FIRST a short, friendly explanation of the mistake written in ITALIAN, THEN the corrected sentence/example in ENGLISH. Example: "Quick Tip 💡: In inglese si usa 'went', non 'goed' — il passato di 'go' è irregolare. You say: Yesterday I went to school." If there is nothing to correct, do NOT include the section.
+4. ITALIAN SAFETY NET: Converse 95% in English. If Irene explicitly asks for help in Italian (e.g., "Come si dice...?"), shows frustration, or gets stuck, reply briefly in Italian to explain and reassure her, then immediately switch back to English with a question.
+
+SESSION SETTINGS (set by Irene in the app):
+- Topic of the day: ${t.label} — focus the conversation on ${t.brief}. If Irene drifts to another topic, follow her naturally, but gently steer back when there is a good moment.
+- Difficulty level: ${levelNote}
+
+STYLE: Keep replies short and chatty (2-5 sentences before the optional Quick Tip). Use a few friendly emojis, but don't overdo it.`;
+}
+
+/* ================= CLIENT API ================= */
+
+function getClient() {
+  const key = localStorage.getItem(LS_KEY);
+  if (!key) return null;
+  return new Anthropic({ apiKey: key, dangerouslyAllowBrowser: true });
+}
+
+/* ================= UI: ELEMENTI ================= */
+
+const $ = (id) => document.getElementById(id);
+const chatBox = $("chatBox"), userInput = $("userInput"), sendBtn = $("sendBtn");
+const statusLine = $("statusLine");
+
+/* ---- sidebar mobile ---- */
+$("openSidebar").onclick = () => { $("sidebar").classList.remove("-translate-x-full"); $("sidebarBackdrop").classList.remove("hidden"); };
+const closeSidebar = () => { $("sidebar").classList.add("-translate-x-full"); $("sidebarBackdrop").classList.add("hidden"); };
+$("closeSidebar").onclick = closeSidebar;
+$("sidebarBackdrop").onclick = closeSidebar;
+
+/* ---- livello ---- */
+document.querySelectorAll(".level-btn").forEach(btn => {
+  btn.onclick = () => {
+    state.level = btn.dataset.level;
+    document.querySelectorAll(".level-btn").forEach(b => {
+      const active = b.dataset.level === state.level;
+      b.className = "level-btn rounded-lg border p-2 text-sm font-medium transition " +
+        (active ? "border-indigo-500 bg-indigo-50 text-indigo-700" : "border-slate-300 bg-white text-slate-600");
+    });
+    systemNote(`Livello impostato su ${state.level === "beginner" ? "🌱 Beginner" : "🌿 Intermediate"} — vale dal prossimo messaggio.`);
+  };
+});
+
+/* ---- topic ---- */
+$("topicSelect").onchange = (e) => {
+  state.topic = e.target.value;
+  systemNote(`Argomento: ${TOPICS[state.topic].label}. Olivia lo seguirà dal prossimo messaggio — oppure premi "Nuova conversazione" per ripartire sul tema.`);
+};
+
+/* ---- TTS toggle ---- */
+function renderTtsToggle() {
+  $("ttsToggle").classList.toggle("bg-indigo-600", state.ttsOn);
+  $("ttsToggle").classList.toggle("bg-slate-300", !state.ttsOn);
+  $("ttsToggle").setAttribute("aria-checked", String(state.ttsOn));
+  $("ttsKnob").classList.toggle("translate-x-5", state.ttsOn);
+  $("ttsKnob").classList.toggle("translate-x-0.5", !state.ttsOn);
+}
+$("ttsToggle").onclick = () => {
+  state.ttsOn = !state.ttsOn;
+  localStorage.setItem(LS_TTS, state.ttsOn ? "1" : "0");
+  renderTtsToggle();
+  if (!state.ttsOn) speechSynthesis.cancel();
+};
+renderTtsToggle();
+
+/* ---- chiave API ---- */
+function showKeyModal() {
+  $("apiKeyInput").value = localStorage.getItem(LS_KEY) || "";
+  $("apiKeyModal").classList.remove("hidden");
+  $("apiKeyModal").classList.add("flex");
+  $("apiKeyInput").focus();
+}
+function hideKeyModal() {
+  $("apiKeyModal").classList.add("hidden");
+  $("apiKeyModal").classList.remove("flex");
+}
+$("apiKeyBtn").onclick = showKeyModal;
+$("apiKeyCancel").onclick = hideKeyModal;
+$("apiKeySave").onclick = () => {
+  const v = $("apiKeyInput").value.trim();
+  if (v) localStorage.setItem(LS_KEY, v);
+  hideKeyModal();
+  if (v && state.history.length === 0) startConversation();
+};
+
+/* ---- nuova conversazione ---- */
+$("newChatBtn").onclick = () => {
+  speechSynthesis.cancel();
+  state.history = [];
+  state.tips = [];
+  chatBox.innerHTML = "";
+  renderTips();
+  startConversation();
+  closeSidebar();
+};
+
+/* ================= RENDERING MESSAGGI ================= */
+
+function escapeHtml(s) {
+  return s.replace(/[&<>"']/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]));
+}
+
+const TIP_MARKER = /Quick Tip 💡:\s*/;
+
+function formatAssistant(text) {
+  // separa l'eventuale sezione Quick Tip
+  const m = text.split(TIP_MARKER);
+  const mdLite = (s) => escapeHtml(s)
+    .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+    .replace(/\*(.+?)\*/g, "<em>$1</em>")
+    .replace(/\n/g, "<br>");
+  let html = mdLite(m[0].trim());
+  if (m.length > 1 && m[1].trim()) {
+    html += `<div class="quick-tip mt-2 rounded-lg bg-amber-50 px-3 py-2 text-amber-800 text-[13px]">
+               <span class="font-bold">Quick Tip 💡:</span> ${mdLite(m[1].trim())}
+             </div>`;
+  }
+  return html;
+}
+
+function addBubble(role, text = "") {
+  const wrap = document.createElement("div");
+  const isOlivia = role === "assistant";
+  wrap.className = "flex " + (isOlivia ? "justify-start" : "justify-end");
+  wrap.innerHTML = isOlivia
+    ? `<div class="flex items-end gap-2 max-w-[85%] md:max-w-[70%]">
+         <div class="h-8 w-8 rounded-full bg-gradient-to-br from-indigo-500 to-teal-400 flex items-center justify-center text-sm flex-shrink-0 shadow">👩‍🏫</div>
+         <div class="bubble-alex bg-white border border-slate-200 shadow-sm px-4 py-2.5 text-sm text-slate-800">
+           <div class="msg-body">${formatAssistant(text)}</div>
+           <button class="speak-btn mt-1 text-slate-400 hover:text-indigo-600 text-xs hidden" title="Ascolta">🔊 listen</button>
+         </div>
+       </div>`
+    : `<div class="bubble-irene bg-indigo-600 text-white shadow-sm px-4 py-2.5 text-sm max-w-[85%] md:max-w-[70%]">${escapeHtml(text).replace(/\n/g, "<br>")}</div>`;
+  chatBox.appendChild(wrap);
+  chatBox.scrollTop = chatBox.scrollHeight;
+  return wrap;
+}
+
+function systemNote(text) {
+  const div = document.createElement("div");
+  div.className = "text-center";
+  div.innerHTML = `<span class="inline-block text-[11px] text-slate-500 bg-slate-200/70 rounded-full px-3 py-1">${escapeHtml(text)}</span>`;
+  chatBox.appendChild(div);
+  chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+function typingIndicator() {
+  const wrap = document.createElement("div");
+  wrap.className = "flex justify-start";
+  wrap.innerHTML = `
+    <div class="flex items-end gap-2">
+      <div class="h-8 w-8 rounded-full bg-gradient-to-br from-indigo-500 to-teal-400 flex items-center justify-center text-sm shadow">👩‍🏫</div>
+      <div class="bubble-alex bg-white border border-slate-200 px-4 py-3 flex gap-1">
+        <span class="typing-dot h-2 w-2 rounded-full bg-slate-400"></span>
+        <span class="typing-dot h-2 w-2 rounded-full bg-slate-400"></span>
+        <span class="typing-dot h-2 w-2 rounded-full bg-slate-400"></span>
+      </div>
+    </div>`;
+  chatBox.appendChild(wrap);
+  chatBox.scrollTop = chatBox.scrollHeight;
+  return wrap;
+}
+
+/* ================= MY CORRECTIONS ================= */
+
+function extractTip(text) {
+  const m = text.split(TIP_MARKER);
+  if (m.length > 1 && m[1].trim()) {
+    state.tips.push(m[1].trim());
+    renderTips();
+  }
+}
+
+function renderTips() {
+  $("tipCount").textContent = state.tips.length;
+  const list = $("tipList");
+  if (state.tips.length === 0) {
+    list.innerHTML = `<p class="text-xs text-slate-400 italic">Le correzioni gentili di Olivia appariranno qui durante la chiacchierata. ✨</p>`;
+    return;
+  }
+  list.innerHTML = state.tips.map((t, i) => `
+    <div class="quick-tip rounded-lg bg-amber-50 px-3 py-2 text-[12px] text-amber-800">
+      <span class="font-bold">#${i + 1}</span> ${escapeHtml(t)}
+    </div>`).join("");
+}
+
+/* ================= TEXT-TO-SPEECH ================= */
+
+// Parole italiane comuni per il rilevamento automatico della lingua
+const IT_WORDS = new Set(["di","il","la","le","lo","sono","ho","hai","ha","ci","mi","ti","si","ne","che","non","per","con","una","questo","quello","quando","dove","chi","molto","bene","poi","anche","del","della","degli","alle","prova","parla","inglese","capisco","vuoi","devi","puoi","sei","siamo","come","cosa","ma","se","gli","sua","suo","dai","cioè","quindi","però","oppure","allora","ovviamente","esattamente","perfetto","giusto","ecco","grazie","prego","scusa","vediamo","ricorda","significa","vuol","dire","aiuto","capito","ok"]);
+
+function detectLang(text) {
+  const words = text.toLowerCase().replace(/[^a-zàèéìíîòóùú\s]/g,"").split(/\s+/).filter(w => w.length > 2);
+  if (!words.length) return "en";
+  const hits = words.filter(w => IT_WORDS.has(w)).length;
+  return hits / words.length > 0.2 ? "it" : "en";
+}
+
+// Punteggio qualità: le voci neurali (Edge "Natural", Google, iOS "Enhanced") suonano
+// molto più umane delle vecchie voci di sistema — vengono sempre preferite se presenti
+function scoreVoice(v) {
+  const n = v.name.toLowerCase();
+  let s = 0;
+  if (n.includes("natural"))  s += 100;  // voci neurali di Microsoft Edge
+  if (n.includes("enhanced") || n.includes("premium")) s += 60;  // voci di qualità iOS/macOS
+  if (n.includes("google"))   s += 50;   // voci di rete di Chrome
+  if (n.includes("online"))   s += 30;
+  if (!v.localService)        s += 20;   // le voci remote sono quasi sempre migliori
+  return s;
+}
+
+const VOICE_MALE   = /daniel|tom|david|james|oliver|ryan|guy|thomas|cosimo|diego|male/i;
+const VOICE_FEMALE = /samantha|serena|libby|aria|jenny|kate|moira|sonia|hazel|susan|elsa|alice|federica|isabella|female/i;
+
+function pickVoice(langTag, preferMale = false) {
+  const prefix = langTag.slice(0, 2).toLowerCase();
+  let pool = speechSynthesis.getVoices()
+    .filter(v => v.lang.toLowerCase().replace("_", "-").startsWith(prefix));
+  if (!pool.length) return null;
+  // per l'inglese filtra per genere (Olivia = femminile, Quick Tip = maschile)
+  if (prefix === "en") {
+    const byGender = pool.filter(v => (preferMale ? VOICE_MALE : VOICE_FEMALE).test(v.name));
+    if (byGender.length) pool = byGender;
+  }
+  pool.sort((a, b) => scoreVoice(b) - scoreVoice(a));
+  return pool[0];
+}
+
+function cleanForTTS(text) {
+  return text
+    .replace(/\*\*?/g, "")
+    .replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/gu, "")
+    .replace(/[👩‍🏫💡👋🎤🔊🇬🇧]/g, "")
+    .replace(/\s{2,}/g, " ")
+    .trim();
+}
+
+function makeUtterance(text, langTag, preferMale) {
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = langTag;
+  u.pitch = preferMale ? 0.95 : 1.05;
+  u.rate = langTag.startsWith("it") ? 0.97 : (state.level === "beginner" ? 0.82 : 0.92);
+  const v = pickVoice(langTag, preferMale);
+  if (v) u.voice = v;
+  return u;
+}
+
+// Legge il Quick Tip frase per frase: italiano con voce italiana, inglese con voce (maschile) inglese
+function speakTip(tipClean) {
+  const sentences = tipClean.split(/(?<=[.!?…])\s+/).filter(s => s.trim());
+  // raggruppa frasi consecutive nella stessa lingua
+  const chunks = [];
+  for (const s of sentences) {
+    const lang = detectLang(s) === "it" ? "it-IT" : "en-GB";
+    const last = chunks[chunks.length - 1];
+    if (last && last.lang === lang) last.text += " " + s;
+    else chunks.push({ lang, text: s });
+  }
+  for (const c of chunks) {
+    speechSynthesis.speak(makeUtterance(c.text, c.lang, c.lang === "en-GB"));
+  }
+}
+
+// Chrome/Edge bloccano speechSynthesis prima del primo gesto dell'utente:
+// se succede, il testo viene messo da parte e letto al primo tocco/tasto
+let speechUnlocked = false, pendingSpeech = null;
+function unlockSpeech() {
+  speechUnlocked = true;
+  if (pendingSpeech) { const t = pendingSpeech; pendingSpeech = null; speakResponse(t); }
+}
+window.addEventListener("pointerdown", unlockSpeech, { once: true });
+window.addEventListener("keydown", unlockSpeech, { once: true });
+
+function speakResponse(fullText) {
+  if (!("speechSynthesis" in window)) return;
+  const canSpeak = speechUnlocked || (navigator.userActivation && navigator.userActivation.hasBeenActive);
+  if (!canSpeak) { pendingSpeech = fullText; return; }
+  speechUnlocked = true;
+  // su Edge le voci arrivano in modo asincrono: aspetta che siano pronte
+  if (!speechSynthesis.getVoices().length) {
+    speechSynthesis.addEventListener("voiceschanged", () => speakResponse(fullText), { once: true });
+    return;
+  }
+  speechSynthesis.cancel();
+  speechSynthesis.resume();   // Edge a volte resta in pausa dopo un cancel
+  const parts = fullText.split(TIP_MARKER);
+  const mainClean = cleanForTTS(parts[0].trim());
+  const tipClean  = parts.length > 1 && parts[1].trim() ? cleanForTTS(parts[1].trim()) : null;
+  if (!mainClean && !tipClean) return;
+
+  const mainLang = detectLang(mainClean) === "it" ? "it-IT" : "en-GB";
+
+  if (mainClean) {
+    const u1 = makeUtterance(mainClean, mainLang, false);
+    if (tipClean) {
+      u1.onend = () => setTimeout(() => speakTip(tipClean), 400);
+    }
+    speechSynthesis.speak(u1);
+  } else if (tipClean) {
+    speakTip(tipClean);
+  }
+}
+
+// le voci vengono caricate in modo asincrono su alcune piattaforme
+if ("speechSynthesis" in window) speechSynthesis.onvoiceschanged = () => {};
+
+function wireSpeakBtn(bubbleWrap, text) {
+  const btn = bubbleWrap.querySelector(".speak-btn");
+  if (!btn) return;
+  btn.classList.remove("hidden");
+  btn.onclick = () => speakResponse(text);
+}
+
+/* ================= RICONOSCIMENTO VOCALE (STT) ================= */
+
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+const micBtn = $("micBtn");
+let recognition = null;
+let micActive = false;
+
+if (SpeechRecognition) {
+  micBtn.classList.remove("hidden");
+  recognition = new SpeechRecognition();
+  recognition.lang = "en-US";
+  recognition.continuous = false;
+  recognition.interimResults = true;
+
+  recognition.onresult = (e) => {
+    const transcript = Array.from(e.results).map(r => r[0].transcript).join("");
+    userInput.value = transcript;
+    userInput.style.height = "auto";
+    userInput.style.height = Math.min(userInput.scrollHeight, 128) + "px";
+    // se il risultato è finale, ferma l'ascolto
+    if (e.results[e.results.length - 1].isFinal) stopMic();
+  };
+
+  recognition.onerror = (e) => { console.warn("STT:", e.error); stopMic(); };
+  recognition.onend = () => { if (micActive) stopMic(); };
+
+  function startMic() {
+    if (micActive) return;
+    speechSynthesis.cancel();   // interrompi TTS prima di ascoltare
+    micActive = true;
+    micBtn.classList.add("recording");
+    micBtn.title = "Tocca per fermare";
+    recognition.start();
+  }
+  function stopMic() {
+    micActive = false;
+    micBtn.classList.remove("recording");
+    micBtn.title = "Parla in inglese";
+    try { recognition.stop(); } catch(_) {}
+  }
+  micBtn.onclick = () => { micActive ? stopMic() : startMic(); };
+} else {
+  // Browser senza STT: tieni il pulsante nascosto
+}
+
+/* ================= FLUSSO CONVERSAZIONE ================= */
+
+function startConversation() {
+  const greeting = GREETINGS[state.topic];
+  state.history.push({ role: "assistant", content: greeting });
+  const wrap = addBubble("assistant", greeting);
+  wireSpeakBtn(wrap, greeting);
+  if (state.ttsOn) speakResponse(greeting);
+}
+
+function setBusy(b) {
+  state.busy = b;
+  sendBtn.disabled = b;
+  userInput.disabled = b;
+  statusLine.textContent = b ? "✏️ Olivia is typing…" : "● online — ready to chat!";
+  statusLine.className = b ? "text-xs text-indigo-500" : "text-xs text-emerald-600";
+}
+
+async function sendMessage(text) {
+  const client = getClient();
+  if (!client) { showKeyModal(); return; }
+
+  state.history.push({ role: "user", content: text });
+  addBubble("user", text);
+  setBusy(true);
+
+  const typing = typingIndicator();
+  let bubble = null, body = null, acc = "";
+
+  try {
+    const stream = client.messages.stream({
+      model: MODEL,
+      max_tokens: 8192,
+      system: buildSystemPrompt(),
+      messages: state.history,
+    });
+
+    stream.on("text", (delta) => {
+      if (!bubble) {
+        typing.remove();
+        bubble = addBubble("assistant", "");
+        body = bubble.querySelector(".msg-body");
+      }
+      acc += delta;
+      body.innerHTML = formatAssistant(acc);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    });
+
+    const final = await stream.finalMessage();
+    const fullText = final.content.filter(b => b.type === "text").map(b => b.text).join("");
+
+    if (!bubble) { typing.remove(); bubble = addBubble("assistant", fullText); }
+    else body.innerHTML = formatAssistant(fullText);
+
+    state.history.push({ role: "assistant", content: fullText });
+    extractTip(fullText);
+    wireSpeakBtn(bubble, fullText);
+    if (state.ttsOn) speakResponse(fullText);
+
+  } catch (err) {
+    typing.remove();
+    let msg = "Ops, qualcosa è andato storto. Riprova tra poco.";
+    if (err instanceof Anthropic.AuthenticationError) {
+      msg = "Chiave API non valida. Controllala con il bottone 🔑 nel pannello.";
+    } else if (err instanceof Anthropic.RateLimitError) {
+      msg = "Troppe richieste in poco tempo: aspetta qualche secondo e riprova.";
+    } else if (err instanceof Anthropic.APIConnectionError) {
+      msg = "Problema di connessione: controlla internet e riprova.";
+    } else if (err instanceof Anthropic.APIError) {
+      msg = `Errore API (${err.status}): ${err.message}`;
+    }
+    systemNote("⚠️ " + msg);
+    state.history.pop(); // rimuovi il messaggio utente non risposto, così può riprovare
+    console.error(err);
+  } finally {
+    setBusy(false);
+    userInput.focus();
+  }
+}
+
+/* ---- input ---- */
+$("chatForm").onsubmit = (e) => {
+  e.preventDefault();
+  const text = userInput.value.trim();
+  if (!text || state.busy) return;
+  userInput.value = "";
+  userInput.style.height = "auto";
+  sendMessage(text);
+};
+userInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter" && !e.shiftKey) {
+    e.preventDefault();
+    $("chatForm").requestSubmit();
+  }
+});
+userInput.addEventListener("input", () => {
+  userInput.style.height = "auto";
+  userInput.style.height = Math.min(userInput.scrollHeight, 128) + "px";
+});
+
+/* ================= AVVIO ================= */
+
+if (!localStorage.getItem(LS_KEY)) {
+  showKeyModal();
+} else {
+  startConversation();
+}
+</script>
+</body>
+</html>
