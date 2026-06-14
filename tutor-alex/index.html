@@ -352,8 +352,18 @@ $("voicePicker").onchange = (e) => {
 $("testVoiceBtn").onclick = () => {
   const testText = "Hi Irene! I'm Olivia, your English tutor. Let's practice together!";
   if (localStorage.getItem(LS_ELEVEN)) {
+    const btn = $("testVoiceBtn");
     stopAllAudio();
-    queueElevenSpeak(testText);
+    btn.textContent = "⌛ Caricamento…";
+    btn.disabled = true;
+    elevenSpeak(cleanForTTS(testText))
+      .then(() => { btn.textContent = "▶ Ascolta anteprima"; btn.disabled = false; })
+      .catch(e => {
+        console.warn("ElevenLabs:", e);
+        btn.textContent = "⚠️ Errore — controlla la chiave";
+        btn.disabled = false;
+        setTimeout(() => { btn.textContent = "▶ Ascolta anteprima"; }, 4000);
+      });
     return;
   }
   speechSynthesis.cancel();
