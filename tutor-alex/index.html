@@ -360,9 +360,9 @@ $("testVoiceBtn").onclick = () => {
       .then(() => { btn.textContent = "▶ Ascolta anteprima"; btn.disabled = false; })
       .catch(e => {
         console.warn("ElevenLabs:", e);
-        btn.textContent = "⚠️ Errore — controlla la chiave";
+        btn.textContent = "⚠️ " + (e.message || "errore").slice(0, 40);
         btn.disabled = false;
-        setTimeout(() => { btn.textContent = "▶ Ascolta anteprima"; }, 4000);
+        setTimeout(() => { btn.textContent = "▶ Ascolta anteprima"; }, 6000);
       });
     return;
   }
@@ -578,14 +578,21 @@ async function elevenSpeak(text) {
   const voiceId = localStorage.getItem(LS_ELEVEN_VOICE) || ELEVEN_DEFAULT_VOICE;
   const res = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`, {
     method: "POST",
-    headers: { "xi-api-key": key, "Content-Type": "application/json" },
+    headers: {
+      "xi-api-key": key,
+      "Content-Type": "application/json",
+      "Accept": "audio/mpeg"
+    },
     body: JSON.stringify({
       text,
       model_id: "eleven_multilingual_v2",
       voice_settings: { stability: 0.5, similarity_boost: 0.75 }
     })
   });
-  if (!res.ok) throw new Error(`ElevenLabs ${res.status}`);
+  if (!res.ok) {
+    const body = await res.text().catch(() => "");
+    throw new Error(`ElevenLabs ${res.status}: ${body.slice(0, 80)}`);
+  }
   const blob = await res.blob();
   const url = URL.createObjectURL(blob);
   return new Promise((resolve, reject) => {
