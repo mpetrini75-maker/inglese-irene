@@ -457,10 +457,10 @@ function makeUtterance(text, langTag, preferMale) {
   return u;
 }
 
-// Legge il Quick Tip frase per frase: italiano con voce italiana, inglese con voce (maschile) inglese
-function speakTip(tipClean) {
-  const sentences = tipClean.split(/(?<=[.!?…])\s+/).filter(s => s.trim());
-  // raggruppa frasi consecutive nella stessa lingua
+// Suddivide un testo in blocchi per lingua e li accoda in speechSynthesis
+// preferMaleEn=true per il Quick Tip (voce maschile sull'esempio in inglese)
+function speakChunked(text, preferMaleEn = false) {
+  const sentences = text.split(/(?<=[.!?…])\s+/).filter(s => s.trim());
   const chunks = [];
   for (const s of sentences) {
     const lang = detectLang(s) === "it" ? "it-IT" : "en-GB";
@@ -469,7 +469,8 @@ function speakTip(tipClean) {
     else chunks.push({ lang, text: s });
   }
   for (const c of chunks) {
-    speechSynthesis.speak(makeUtterance(c.text, c.lang, c.lang === "en-GB"));
+    const male = preferMaleEn && c.lang === "en-GB";
+    speechSynthesis.speak(makeUtterance(c.text, c.lang, male));
   }
 }
 
@@ -500,16 +501,24 @@ function speakResponse(fullText) {
   const tipClean  = parts.length > 1 && parts[1].trim() ? cleanForTTS(parts[1].trim()) : null;
   if (!mainClean && !tipClean) return;
 
-  const mainLang = detectLang(mainClean) === "it" ? "it-IT" : "en-GB";
+  // corpo principale: frase per frase con cambio voce per lingua
+  if (mainClean) speakChunked(mainClean, false);
 
-  if (mainClean) {
-    const u1 = makeUtterance(mainClean, mainLang, false);
-    if (tipClean) {
-      u1.onend = () => setTimeout(() => speakTip(tipClean), 400);
+  // Quick Tip: pausa 400ms dopo la fine del corpo, poi frase per frase
+  if (tipClean) {
+    if (mainClean) {
+      // aspetta che il corpo finisca: polling sul flag paused+queue vuota
+      const waitAndSpeak = () => {
+        if (!speechSynthesis.speaking) {
+          setTimeout(() => speakChunked(tipClean, true), 400);
+        } else {
+          setTimeout(waitAndSpeak, 200);
+        }
+      };
+      setTimeout(waitAndSpeak, 300);
+    } else {
+      speakChunked(tipClean, true);
     }
-    speechSynthesis.speak(u1);
-  } else if (tipClean) {
-    speakTip(tipClean);
   }
 }
 
