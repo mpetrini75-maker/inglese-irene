@@ -547,40 +547,80 @@ const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecogni
 const micBtn = $("micBtn");
 let recognition = null;
 let micActive = false;
+let sttTranscript = "";  // trascrizione accumulata nella sessione corrente
 
 if (SpeechRecognition) {
   micBtn.classList.remove("hidden");
-  recognition = new SpeechRecognition();
-  recognition.lang = "en-US";
-  recognition.continuous = false;
-  recognition.interimResults = true;
 
-  recognition.onresult = (e) => {
-    const transcript = Array.from(e.results).map(r => r[0].transcript).join("");
-    userInput.value = transcript;
-    userInput.style.height = "auto";
-    userInput.style.height = Math.min(userInput.scrollHeight, 128) + "px";
-    // se il risultato è finale, ferma l'ascolto
-    if (e.results[e.results.length - 1].isFinal) stopMic();
-  };
+  function buildRecognition() {
+    const r = new SpeechRecognition();
+    r.lang = "en-US";
+    r.continuous = false;
+    r.interimResults = true;
+    r.maxAlternatives = 1;
 
-  recognition.onerror = (e) => { console.warn("STT:", e.error); stopMic(); };
-  recognition.onend = () => { if (micActive) stopMic(); };
+    r.onresult = (e) => {
+      // mostra la trascrizione in tempo reale nel campo testo
+      const interim = Array.from(e.results).map(res => res[0].transcript).join("");
+      userInput.value = interim;
+      userInput.style.height = "auto";
+      userInput.style.height = Math.min(userInput.scrollHeight, 128) + "px";
+
+      const last = e.results[e.results.length - 1];
+      if (last.isFinal) {
+        sttTranscript = interim.trim();
+      }
+    };
+
+    r.onerror = (e) => {
+      // "no-speech" su iOS: riprova una volta automaticamente
+      if (e.error === "no-speech" && micActive) {
+        try { recognition.start(); } catch(_) {}
+      } else {
+        console.warn("STT:", e.error);
+        stopMic(false);
+      }
+    };
+
+    r.onend = () => {
+      if (!micActive) return;
+      if (sttTranscript) {
+        // ho una trascrizione finale: invia automaticamente
+        stopMic(false);
+        const text = sttTranscript;
+        sttTranscript = "";
+        userInput.value = "";
+        userInput.style.height = "auto";
+        sendMessage(text);
+      } else {
+        // onend senza risultati (tipico su iOS): riprova subito
+        try { recognition.start(); } catch(_) { stopMic(false); }
+      }
+    };
+    return r;
+  }
 
   function startMic() {
-    if (micActive) return;
-    speechSynthesis.cancel();   // interrompi TTS prima di ascoltare
+    if (micActive || state.busy) return;
+    speechSynthesis.cancel();        // interrompi TTS prima di ascoltare
+    sttTranscript = "";
+    userInput.value = "";
     micActive = true;
-    micBtn.classList.add("recording");
+    micBtn.textContent = "🔴";
     micBtn.title = "Tocca per fermare";
-    recognition.start();
+    recognition = buildRecognition();
+    try { recognition.start(); } catch(e) { stopMic(false); console.warn(e); }
   }
-  function stopMic() {
+
+  function stopMic(abortRecognition = true) {
     micActive = false;
-    micBtn.classList.remove("recording");
+    micBtn.textContent = "🎤";
     micBtn.title = "Parla in inglese";
-    try { recognition.stop(); } catch(_) {}
+    if (abortRecognition && recognition) {
+      try { recognition.abort(); } catch(_) {}
+    }
   }
+
   micBtn.onclick = () => { micActive ? stopMic() : startMic(); };
 } else {
   // Browser senza STT: tieni il pulsante nascosto
