@@ -398,14 +398,18 @@ function renderTips() {
 
 /* ================= TEXT-TO-SPEECH ================= */
 
-// Parole italiane comuni per il rilevamento automatico della lingua
-const IT_WORDS = new Set(["di","il","la","le","lo","sono","ho","hai","ha","ci","mi","ti","si","ne","che","non","per","con","una","questo","quello","quando","dove","chi","molto","bene","poi","anche","del","della","degli","alle","prova","parla","inglese","capisco","vuoi","devi","puoi","sei","siamo","come","cosa","ma","se","gli","sua","suo","dai","cioè","quindi","però","oppure","allora","ovviamente","esattamente","perfetto","giusto","ecco","grazie","prego","scusa","vediamo","ricorda","significa","vuol","dire","aiuto","capito","ok"]);
+// Le lettere accentate italiane (è, à, ì, ò, ù, é) sono quasi assenti in inglese:
+// anche una sola è sufficiente per classificare il testo come italiano.
+const IT_ACCENT = /[àèéìíîòóùú]/i;
+const IT_WORDS  = new Set(["di","il","la","le","lo","sono","ho","hai","ha","ci","mi","ti","si","ne","che","non","per","con","una","questo","quello","quando","dove","chi","molto","bene","poi","anche","del","della","degli","alle","usa","usato","invece","verbo","frase","regola","passato","presente","futuro","forma","modo","caso","basta","esempio","ricorda","attenzione","nota","giusto","sbagliato","errore","grammatica","italiano","inglese","lingua","parola","pronome","articolo","plurale","singolare","prova","parla","capisco","vuoi","devi","puoi","sei","siamo","come","cosa","ma","se","gli","sua","suo","cioè","quindi","però","oppure","allora","ovviamente","esattamente","perfetto","ecco","grazie","prego","scusa","vediamo","significa","vuol","dire","aiuto","capito"]);
 
 function detectLang(text) {
-  const words = text.toLowerCase().replace(/[^a-zàèéìíîòóùú\s]/g,"").split(/\s+/).filter(w => w.length > 2);
+  // Accenti italiani = segnale forte (è, à, ì... rarissimi in inglese)
+  if (IT_ACCENT.test(text)) return "it";
+  const words = text.toLowerCase().replace(/[^a-z\s]/g, "").split(/\s+/).filter(w => w.length > 2);
   if (!words.length) return "en";
   const hits = words.filter(w => IT_WORDS.has(w)).length;
-  return hits / words.length > 0.2 ? "it" : "en";
+  return hits / words.length > 0.15 ? "it" : "en";
 }
 
 // Punteggio qualità: le voci neurali (Edge "Natural", Google, iOS "Enhanced") suonano
