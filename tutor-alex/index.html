@@ -358,6 +358,9 @@ $("testVoiceBtn").onclick = () => {
   const testText = "Hi Irene! I'm Olivia, your English tutor. Let's practice together!";
   if (localStorage.getItem(LS_ELEVEN)) {
     const btn = $("testVoiceBtn");
+    // usa sempre la voce visibile nel picker (ignora localStorage stale)
+    const pickerVal = $("voicePicker").value || ELEVEN_DEFAULT_VOICE;
+    localStorage.setItem(LS_ELEVEN_VOICE, pickerVal);
     stopAllAudio();
     btn.textContent = "⌛ Caricamento…";
     btn.disabled = true;
@@ -410,7 +413,7 @@ $("apiKeySave").onclick = () => {
   const v = $("apiKeyInput").value.trim();
   if (v) localStorage.setItem(LS_KEY, v);
   const ev = $("elevenKeyInput").value.trim();
-  if (ev) localStorage.setItem(LS_ELEVEN, ev);
+  if (ev) { localStorage.setItem(LS_ELEVEN, ev); localStorage.removeItem(LS_ELEVEN_VOICE); }
   else localStorage.removeItem(LS_ELEVEN);
   hideKeyModal();
   populateVoicePicker();
