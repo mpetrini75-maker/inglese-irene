@@ -301,30 +301,29 @@ renderTtsToggle();
 const LS_VOICE = "alex_voice_name";
 let selectedVoiceName = localStorage.getItem(LS_VOICE) || "";
 
+const ELEVEN_VOICES = [
+  { id: "21m00Tcm4TlvDq8ikWAM", name: "Rachel — americana, calma" },
+  { id: "EXAVITQu4vr4xnSDxMaL", name: "Bella — americana, morbida" },
+  { id: "MF3mGyEYCl7XYWbV9V6O", name: "Elli — americana, giovane" },
+  { id: "AZnzlk1XvdvUeBnXmlld", name: "Domi — americana, decisa" },
+  { id: "XB0fDUnXU5powFXDhCwa", name: "Charlotte — britannica, calda" },
+  { id: "ThT5KcBeYPX3keUQqHPh", name: "Dorothy — britannica" },
+  { id: "ErXwobaYiN019PkySvjV", name: "Antoni — americano maschile" },
+];
+
 async function populateVoicePicker() {
   const sel = $("voicePicker");
   const elevenKey = localStorage.getItem(LS_ELEVEN);
   if (elevenKey) {
-    sel.innerHTML = '<option value="">⌛ Caricamento voci…</option>';
-    try {
-      const res = await fetch("https://api.elevenlabs.io/v1/voices", {
-        headers: { "xi-api-key": elevenKey }
-      });
-      if (res.ok) {
-        const data = await res.json();
-        const saved = localStorage.getItem(LS_ELEVEN_VOICE);
-        sel.innerHTML = '<option value="">⭐ Rachel (default)</option>';
-        (data.voices || []).sort((a, b) => a.name.localeCompare(b.name)).forEach(v => {
-          const opt = document.createElement("option");
-          opt.value = v.voice_id;
-          opt.textContent = v.name;
-          if (v.voice_id === saved) opt.selected = true;
-          sel.appendChild(opt);
-        });
-        return;
-      }
-    } catch {}
-    sel.innerHTML = '<option value="">⚠️ Errore caricamento voci</option>';
+    const saved = localStorage.getItem(LS_ELEVEN_VOICE);
+    sel.innerHTML = '<option value="">⭐ Rachel (default)</option>';
+    ELEVEN_VOICES.forEach(v => {
+      const opt = document.createElement("option");
+      opt.value = v.id;
+      opt.textContent = v.name;
+      if (v.id === saved) opt.selected = true;
+      sel.appendChild(opt);
+    });
     return;
   }
   // Web Speech fallback
