@@ -187,7 +187,7 @@ const LS_KEY = "alex_api_key";
 const LS_TTS = "alex_tts_on";
 const LS_ELEVEN = "eleven_api_key";
 const LS_ELEVEN_VOICE = "eleven_voice_id";
-const ELEVEN_DEFAULT_VOICE = "EXAVITQu4vr4xnSDxMaL"; // Bella
+const ELEVEN_DEFAULT_VOICE = "hpp4J3VqNfWAUOO0d1Us"; // Bella
 
 const state = {
   level: "beginner",
@@ -593,7 +593,7 @@ async function elevenSpeak(text) {
     },
     body: JSON.stringify({
       text,
-      model_id: "eleven_monolingual_v1",
+      model_id: "eleven_multilingual_v2",
       voice_settings: { stability: 0.5, similarity_boost: 0.75 }
     })
   });
