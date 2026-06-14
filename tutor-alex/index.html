@@ -478,56 +478,61 @@ function speakChunked(text, preferMaleEn = false) {
   }
 }
 
-// Chrome/Edge bloccano speechSynthesis prima del primo gesto dell'utente:
-// se succede, il testo viene messo da parte e letto al primo tocco/tasto
+// iOS Safari blocca speechSynthesis prima del primo gesto; anche voiceschanged
+// a volte non scatta mai su iOS in modalità PWA. Soluzione: al primo gesto
+// parla subito (voce predefinita se necessario) e, se le voci non erano ancora
+// pronte, le voci migliori verranno usate per tutti i messaggi successivi.
 let speechUnlocked = false, pendingSpeech = null;
-function unlockSpeech() {
-  speechUnlocked = true;
-  if (pendingSpeech) { const t = pendingSpeech; pendingSpeech = null; speakResponse(t); }
-}
-window.addEventListener("pointerdown", unlockSpeech, { once: true });
-window.addEventListener("keydown", unlockSpeech, { once: true });
 
-function speakResponse(fullText) {
-  if (!("speechSynthesis" in window)) return;
-  const canSpeak = speechUnlocked || (navigator.userActivation && navigator.userActivation.hasBeenActive);
-  if (!canSpeak) { pendingSpeech = fullText; return; }
-  speechUnlocked = true;
-  // su Edge le voci arrivano in modo asincrono: aspetta che siano pronte
-  if (!speechSynthesis.getVoices().length) {
-    speechSynthesis.addEventListener("voiceschanged", () => speakResponse(fullText), { once: true });
-    return;
-  }
+function doSpeakNow(fullText) {
   speechSynthesis.cancel();
-  speechSynthesis.resume();   // Edge a volte resta in pausa dopo un cancel
+  speechSynthesis.resume();
   const parts = fullText.split(TIP_MARKER);
   const mainClean = cleanForTTS(parts[0].trim());
   const tipClean  = parts.length > 1 && parts[1].trim() ? cleanForTTS(parts[1].trim()) : null;
   if (!mainClean && !tipClean) return;
-
-  // corpo principale: frase per frase con cambio voce per lingua
   if (mainClean) speakChunked(mainClean, false);
-
-  // Quick Tip: pausa 400ms dopo la fine del corpo, poi frase per frase
   if (tipClean) {
-    if (mainClean) {
-      // aspetta che il corpo finisca: polling sul flag paused+queue vuota
-      const waitAndSpeak = () => {
-        if (!speechSynthesis.speaking) {
-          setTimeout(() => speakChunked(tipClean, true), 400);
-        } else {
-          setTimeout(waitAndSpeak, 200);
-        }
-      };
-      setTimeout(waitAndSpeak, 300);
-    } else {
-      speakChunked(tipClean, true);
-    }
+    const waitAndSpeak = () => {
+      if (!speechSynthesis.speaking) {
+        setTimeout(() => speakChunked(tipClean, true), 400);
+      } else {
+        setTimeout(waitAndSpeak, 200);
+      }
+    };
+    setTimeout(waitAndSpeak, 300);
   }
 }
 
-// le voci vengono caricate in modo asincrono su alcune piattaforme
-if ("speechSynthesis" in window) speechSynthesis.onvoiceschanged = () => {};
+function unlockSpeech() {
+  if (speechUnlocked) return;
+  speechUnlocked = true;
+  if (pendingSpeech) { const t = pendingSpeech; pendingSpeech = null; doSpeakNow(t); }
+}
+// touchstart è più affidabile di pointerdown su iOS Safari
+window.addEventListener("touchstart", unlockSpeech, { once: true, passive: true });
+window.addEventListener("pointerdown", unlockSpeech, { once: true });
+window.addEventListener("keydown",     unlockSpeech, { once: true });
+
+function speakResponse(fullText) {
+  if (!("speechSynthesis" in window)) return;
+  const canSpeak = speechUnlocked || !!(navigator.userActivation?.hasBeenActive);
+  if (!canSpeak) { pendingSpeech = fullText; return; }
+  speechUnlocked = true;
+
+  const voices = speechSynthesis.getVoices();
+  if (voices.length) {
+    doSpeakNow(fullText);
+  } else {
+    // Android Chrome carica le voci in ritardo; su iOS invece le voci ci sono
+    // subito ma getVoices() può restituire [] al primissimo accesso:
+    // aspetta voiceschanged ma con fallback dopo 600ms per non bloccarsi mai.
+    let done = false;
+    const go = () => { if (done) return; done = true; doSpeakNow(fullText); };
+    speechSynthesis.addEventListener("voiceschanged", go, { once: true });
+    setTimeout(go, 600);   // fallback: parla comunque anche senza voce preferita
+  }
+}
 
 function wireSpeakBtn(bubbleWrap, text) {
   const btn = bubbleWrap.querySelector(".speak-btn");
