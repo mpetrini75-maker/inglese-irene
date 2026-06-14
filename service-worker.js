@@ -1,4 +1,4 @@
-const CACHE = 'inglese-irene-v40';
+const CACHE = 'inglese-irene-v41';
 
 const ASSETS = [
   './',
