@@ -1,4 +1,4 @@
-const CACHE = 'inglese-irene-v44';
+const CACHE = 'inglese-irene-v45';
 
 const ASSETS = [
   './',
@@ -87,8 +87,22 @@ self.addEventListener('fetch', e => {
     return;
   }
 
-  // Pagine e risorse locali: stale-while-revalidate
-  // → risponde subito dalla cache, aggiorna in background
+  // Pagine HTML: network-first → prende sempre l'ultima versione se online,
+  // ricade sulla cache solo offline. Evita di servire codice vecchio.
+  const isHTML = e.request.mode === "navigate" || url.pathname.endsWith(".html") || url.pathname.endsWith("/");
+  if (url.origin === self.location.origin && isHTML) {
+    e.respondWith(
+      caches.open(CACHE).then(cache =>
+        fetch(e.request).then(res => {
+          cache.put(e.request, res.clone());
+          return res;
+        }).catch(() => cache.match(e.request))
+      )
+    );
+    return;
+  }
+
+  // Altre risorse locali (immagini, audio, js): stale-while-revalidate
   if (url.origin === self.location.origin) {
     e.respondWith(
       caches.open(CACHE).then(cache =>
