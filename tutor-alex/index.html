@@ -187,7 +187,7 @@ const LS_KEY = "alex_api_key";
 const LS_TTS = "alex_tts_on";
 const LS_ELEVEN = "eleven_api_key";
 const LS_ELEVEN_VOICE = "eleven_voice_id";
-const ELEVEN_DEFAULT_VOICE = "21m00Tcm4TlvDq8ikWAM"; // Rachel
+const ELEVEN_DEFAULT_VOICE = "EXAVITQu4vr4xnSDxMaL"; // Bella
 
 const state = {
   level: "beginner",
@@ -301,29 +301,34 @@ renderTtsToggle();
 const LS_VOICE = "alex_voice_name";
 let selectedVoiceName = localStorage.getItem(LS_VOICE) || "";
 
-const ELEVEN_VOICES = [
-  { id: "21m00Tcm4TlvDq8ikWAM", name: "Rachel — americana, calma" },
-  { id: "EXAVITQu4vr4xnSDxMaL", name: "Bella — americana, morbida" },
-  { id: "MF3mGyEYCl7XYWbV9V6O", name: "Elli — americana, giovane" },
-  { id: "AZnzlk1XvdvUeBnXmlld", name: "Domi — americana, decisa" },
-  { id: "XB0fDUnXU5powFXDhCwa", name: "Charlotte — britannica, calda" },
-  { id: "ThT5KcBeYPX3keUQqHPh", name: "Dorothy — britannica" },
-  { id: "ErXwobaYiN019PkySvjV", name: "Antoni — americano maschile" },
-];
-
 async function populateVoicePicker() {
   const sel = $("voicePicker");
   const elevenKey = localStorage.getItem(LS_ELEVEN);
   if (elevenKey) {
-    const saved = localStorage.getItem(LS_ELEVEN_VOICE);
-    sel.innerHTML = '<option value="">⭐ Rachel (default)</option>';
-    ELEVEN_VOICES.forEach(v => {
-      const opt = document.createElement("option");
-      opt.value = v.id;
-      opt.textContent = v.name;
-      if (v.id === saved) opt.selected = true;
-      sel.appendChild(opt);
-    });
+    sel.innerHTML = '<option value="">⌛ Caricamento voci…</option>';
+    try {
+      const res = await fetch("https://api.elevenlabs.io/v1/voices", {
+        headers: { "xi-api-key": elevenKey }
+      });
+      if (res.ok) {
+        const data = await res.json();
+        const saved = localStorage.getItem(LS_ELEVEN_VOICE);
+        sel.innerHTML = '<option value="">⭐ Bella (default)</option>';
+        (data.voices || [])
+          .filter(v => v.category === "premade")
+          .sort((a, b) => a.name.localeCompare(b.name))
+          .forEach(v => {
+            const opt = document.createElement("option");
+            opt.value = v.voice_id;
+            opt.textContent = v.name;
+            if (v.voice_id === saved) opt.selected = true;
+            sel.appendChild(opt);
+          });
+        return;
+      }
+    } catch {}
+    // fallback: solo Bella (ID verificato)
+    sel.innerHTML = '<option value="EXAVITQu4vr4xnSDxMaL">⭐ Bella (default)</option>';
     return;
   }
   // Web Speech fallback
