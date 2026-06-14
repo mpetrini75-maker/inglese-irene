@@ -377,7 +377,7 @@ $("testVoiceBtn").onclick = () => {
   speechSynthesis.cancel();
   const u = new SpeechSynthesisUtterance(testText);
   u.lang = "en-GB";
-  u.rate = state.level === "beginner" ? 0.72 : 0.82;
+  u.rate = state.level === "beginner" ? 0.95 : 1.0;
   u.pitch = 1.05;
   if (selectedVoiceName) {
     const v = speechSynthesis.getVoices().find(v => v.name === selectedVoiceName);
@@ -633,7 +633,7 @@ function makeUtterance(text, langTag, preferMale) {
   const u = new SpeechSynthesisUtterance(text);
   u.lang = langTag;
   u.pitch = preferMale ? 0.95 : 1.05;
-  u.rate = langTag.startsWith("it") ? 0.90 : (state.level === "beginner" ? 0.72 : 0.82);
+  u.rate = langTag.startsWith("it") ? 1.0 : (state.level === "beginner" ? 0.95 : 1.0);
   const v = pickVoice(langTag, preferMale);
   if (v) u.voice = v;
   return u;
