@@ -1,4 +1,4 @@
-const CACHE = 'inglese-irene-v46';
+const CACHE = 'inglese-irene-v47';
 
 const ASSETS = [
   './',
@@ -38,6 +38,8 @@ const ASSETS = [
   './imperativo.html',
   './preposizioni-movimento.html',
   './preposizioni-movimento-allenamento.html',
+  './past-continuous.html',
+  './past-continuous-allenamento.html',
   './tutor-alex/index.html',
   './alert.js',
   './lightbox.js',
