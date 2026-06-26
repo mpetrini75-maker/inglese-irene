@@ -22,6 +22,7 @@
   "use strict";
 
   var ENDPOINT = "https://script.google.com/macros/s/AKfycbyYq0yCTaBWEd8NCl-sRj7xrnJMpU63FV4yv26MYaOL_WPrS_0ljidhJdVHxD6_47kN/exec";
+  var MATERIA = "Inglese";
   var TOT_SEZIONI = 4;                 // sezioni per allenamento (Ascolto, Scrittura, Lettura, Lessico)
 
   var isAllenamento = /allenamento/i.test(location.pathname) ||
@@ -57,6 +58,7 @@
         mode: "no-cors",                                  // Apps Script: evita problemi CORS
         headers: { "Content-Type": "text/plain;charset=utf-8" },
         body: JSON.stringify({
+          materia: MATERIA,
           unita: nomeUnita(),
           evento: evento,
           dispositivo: navigator.userAgent
