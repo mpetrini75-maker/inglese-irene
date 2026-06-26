@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inglese - Must / Mustn't / Have to</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#FAF6EE">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Inglese di Irene">
+<style>
+  :root{
+    --bg:#FAF6EE;
+    --card:#FFFFFF;
+    --ink:#2F2A24;
+    --accent:#8A6BB0;
+    --accent-soft:#EAE1F2;
+    --green:#3E8E5A;
+    --green-soft:#E2F0E6;
+    --red:#C2492F;
+    --red-soft:#F6E1DB;
+    --blue:#3B6EA5;
+    --blue-soft:#E2ECF5;
+    --orange:#C96F35;
+    --orange-soft:#F5E6D8;
+    --teal:#2E7E72;
+    --teal-soft:#DFF0EE;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:"Trebuchet MS","Comic Sans MS",Verdana,sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.7;
+    letter-spacing:0.3px;
+    padding:24px 14px 60px;
+  }
+  .wrap{max-width:620px;margin:0 auto;}
+  .backbtn{display:inline-block;background:var(--accent-soft);color:var(--accent);
+    text-decoration:none;border-radius:12px;padding:8px 16px;font-size:0.98rem;font-weight:bold;margin-bottom:14px;}
+  h1{color:var(--accent);font-size:1.7rem;text-align:center;margin:0 0 6px;}
+  .sub{text-align:center;color:#8a7f70;margin:0 0 26px;font-size:1rem;}
+  .card{background:var(--card);border-radius:18px;padding:22px 20px;margin-bottom:22px;
+    box-shadow:0 4px 14px rgba(0,0,0,0.06);border:1px solid #efe7da;}
+  .card h2{margin:0 0 14px;font-size:1.25rem;color:var(--accent);display:flex;align-items:center;gap:8px;}
+  table{width:100%;border-collapse:collapse;margin:6px 0;}
+  td,th{padding:10px;text-align:center;border-bottom:2px solid var(--accent-soft);font-size:1.02rem;}
+  th{color:var(--accent);}
+  .saybtn{background:var(--blue-soft);color:var(--blue);border:none;border-radius:10px;
+    padding:6px 12px;font-size:0.95rem;cursor:pointer;font-family:inherit;}
+  .ex{margin:18px 0;}
+  .qnum{font-weight:bold;color:var(--accent);}
+  .qtext{font-size:1.15rem;margin:6px 0 12px;}
+  .options{display:flex;gap:10px;flex-wrap:wrap;}
+  .opt{flex:1;min-width:80px;background:var(--bg);border:2px solid var(--accent-soft);
+    border-radius:12px;padding:14px;font-size:1.05rem;cursor:pointer;
+    text-align:center;font-family:inherit;color:var(--ink);transition:all .15s;}
+  .opt:hover{border-color:var(--accent);}
+  .opt.correct{background:var(--green-soft);border-color:var(--green);color:var(--green);font-weight:bold;}
+  .opt.wrong{background:var(--red-soft);border-color:var(--red);color:var(--red);}
+  .feedback{margin-top:12px;font-size:1.05rem;font-weight:bold;min-height:26px;}
+  .feedback.ok{color:var(--green);}
+  .feedback.no{color:var(--red);}
+  .progress{text-align:center;font-size:1.1rem;margin:10px 0 0;color:#8a7f70;}
+  .star{font-size:1.4rem;}
+  .restart{display:block;margin:20px auto 0;background:var(--accent);color:#fff;border:none;
+    border-radius:12px;padding:12px 24px;font-size:1.05rem;cursor:pointer;font-family:inherit;}
+  .tip{border-radius:10px;padding:10px 14px;font-size:0.98rem;margin-top:10px;}
+  .tip.purple{background:var(--accent-soft);}
+  .tip.red{background:var(--red-soft);color:var(--red);}
+  .tip.green{background:var(--green-soft);color:var(--green);}
+  .badge{display:inline-block;border-radius:8px;padding:3px 10px;font-size:0.95rem;font-weight:bold;margin-right:4px;}
+  .badge.must{background:var(--orange-soft);color:var(--orange);}
+  .badge.mustnt{background:var(--red-soft);color:var(--red);}
+  .badge.haveto{background:var(--teal-soft);color:var(--teal);}
+  .badge.donthave{background:var(--green-soft);color:var(--green);}
+  .big-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0;}
+  .mini-card{border-radius:12px;padding:14px;font-size:0.96rem;}
+  .mini-card.must{background:var(--orange-soft);}
+  .mini-card.mustnt{background:var(--red-soft);}
+  .mini-card.haveto{background:var(--teal-soft);}
+  .mini-card.donthave{background:var(--green-soft);}
+  .mini-card h3{margin:0 0 4px;font-size:1rem;}
+  .mini-card h3.must{color:var(--orange);}
+  .mini-card h3.mustnt{color:var(--red);}
+  .mini-card h3.haveto{color:var(--teal);}
+  .mini-card h3.donthave{color:var(--green);}
+  .danger-box{background:#fff0f0;border:2px solid var(--red);border-radius:12px;padding:14px;margin:10px 0;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="backbtn" href="index.html">← Indice</a>
+  <h1>🔒 Must / Mustn't / Have to</h1>
+  <p class="sub">obblighi, divieti e necessità — devo, non posso, è obbligatorio</p>
+
+  <!-- LE 4 FORME -->
+  <div class="card">
+    <h2>💡 Le quattro forme</h2>
+    <div class="big-grid">
+      <div class="mini-card must">
+        <h3 class="must">🟠 must</h3>
+        <b>obbligo</b> — lo dico io<br>
+        <i>You <b>must</b> study!</i><br>
+        <small>stessa forma per tutti</small>
+      </div>
+      <div class="mini-card mustnt">
+        <h3 class="mustnt">🔴 mustn't</h3>
+        <b>divieto</b> — è vietato!<br>
+        <i>You <b>mustn't</b> smoke.</i><br>
+        <small>must + not = mustn't</small>
+      </div>
+      <div class="mini-card haveto">
+        <h3 class="haveto">🔵 have to</h3>
+        <b>obbligo esterno</b> — è una regola<br>
+        <i>I <b>have to</b> work.</i><br>
+        <small>she/he/it → <b>has to</b></small>
+      </div>
+      <div class="mini-card donthave">
+        <h3 class="donthave">🟢 don't have to</h3>
+        <b>non necessario</b> — puoi scegliere<br>
+        <i>You <b>don't have to</b> come.</i><br>
+        <small>she/he → <b>doesn't have to</b></small>
+      </div>
+    </div>
+    <table>
+      <tr><th>Soggetto</th><th>must / mustn't</th><th>have to</th></tr>
+      <tr><td>I / You / We / They</td><td style="color:var(--orange)"><b>must / mustn't</b></td><td style="color:var(--teal)"><b>have to</b></td></tr>
+      <tr><td>He / She / It</td><td style="color:var(--orange)"><b>must / mustn't</b></td><td style="color:var(--teal)"><b>has to</b></td></tr>
+    </table>
+    <div class="tip purple">🎨 <b>Trucco:</b> <span style="color:var(--orange)"><b>must</b></span> non cambia mai — stessa forma per tutti! Con <span style="color:var(--teal)"><b>have to</b></span> invece si usa <b>has to</b> per he/she/it (come i verbi normali).</div>
+  </div>
+
+  <!-- DIFFERENZA CHIAVE -->
+  <div class="card">
+    <h2>⚠️ La differenza chiave</h2>
+    <table>
+      <tr><th>Forma</th><th>Significa</th><th>Esempio</th></tr>
+      <tr>
+        <td><span class="badge must">must</span></td>
+        <td>obbligo personale<br><small>(lo dico io)</small></td>
+        <td style="text-align:left;">You <b>must</b> eat — you're too thin!</td>
+      </tr>
+      <tr>
+        <td><span class="badge haveto">have to</span></td>
+        <td>obbligo esterno<br><small>(è una regola)</small></td>
+        <td style="text-align:left;">I <b>have to</b> wear a uniform at school.</td>
+      </tr>
+      <tr>
+        <td><span class="badge mustnt">mustn't</span></td>
+        <td>🚫 è <b>vietato</b><br><small>(NON puoi farlo)</small></td>
+        <td style="text-align:left;">You <b>mustn't</b> smoke here!</td>
+      </tr>
+      <tr>
+        <td><span class="badge donthave">don't have to</span></td>
+        <td>😌 non è <b>necessario</b><br><small>(puoi scegliere)</small></td>
+        <td style="text-align:left;">You <b>don't have to</b> come — it's optional.</td>
+      </tr>
+    </table>
+    <div class="danger-box">
+      🚨 <b>ATTENZIONE — errore classico!</b><br>
+      <span class="badge mustnt">mustn't</span> ≠ <span class="badge donthave">don't have to</span><br><br>
+      ❌ <i>"You <b>mustn't</b> pay."</i> → significa che è <b>vietato</b> pagare!<br>
+      ✅ <i>"You <b>don't have to</b> pay."</i> → significa che <b>non è necessario</b> pagare (è gratis).<br>
+    </div>
+  </div>
+
+  <!-- DOMANDE -->
+  <div class="card">
+    <h2>❓ Come fare le domande</h2>
+    <table>
+      <tr><th>Forma</th><th>Domanda</th></tr>
+      <tr><td><b>must</b></td><td style="text-align:left;"><b>Must</b> I wear a uniform? <small>(formale/raro)</small></td></tr>
+      <tr><td><b>have to</b></td><td style="text-align:left;"><b>Do</b> I <b>have to</b> wear a uniform? <small>(normale)</small></td></tr>
+      <tr><td><b>has to</b></td><td style="text-align:left;"><b>Does</b> she <b>have to</b> work on Sundays?</td></tr>
+    </table>
+    <div class="tip purple">💡 Per le domande si usa quasi sempre <b>Do/Does … have to?</b></div>
+  </div>
+
+  <!-- FRASI PRONTE -->
+  <div class="card">
+    <h2>🗣️ Frasi pronte (ascolta!)</h2>
+    <table>
+      <tr><th>Inglese</th><th>Italiano</th><th>🔊</th></tr>
+      <tr>
+        <td>You <b>must</b> wear a seatbelt.</td>
+        <td>Devi mettere la cintura.</td>
+        <td><button class="saybtn" onclick="say('You must wear a seatbelt.')">🔊</button></td>
+      </tr>
+      <tr>
+        <td>You <b>mustn't</b> smoke here!</td>
+        <td>Non puoi fumare qui!</td>
+        <td><button class="saybtn" onclick="say('You mustn\'t smoke here!')">🔊</button></td>
+      </tr>
+      <tr>
+        <td>I <b>have to</b> be at school by eight.</td>
+        <td>Devo essere a scuola per le otto.</td>
+        <td><button class="saybtn" onclick="say('I have to be at school by eight.')">🔊</button></td>
+      </tr>
+      <tr>
+        <td>She <b>has to</b> wear a uniform.</td>
+        <td>Lei deve indossare la divisa.</td>
+        <td><button class="saybtn" onclick="say('She has to wear a uniform.')">🔊</button></td>
+      </tr>
+      <tr>
+        <td>You <b>don't have to</b> come — it's optional.</td>
+        <td>Non devi venire — è facoltativo.</td>
+        <td><button class="saybtn" onclick="say('You don\'t have to come — it\'s optional.')">🔊</button></td>
+      </tr>
+      <tr>
+        <td><b>Does</b> she <b>have to</b> work on Sundays?</td>
+        <td>Deve lavorare di domenica?</td>
+        <td><button class="saybtn" onclick="say('Does she have to work on Sundays?')">🔊</button></td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- ESERCIZI -->
+  <div class="card">
+    <h2>✅ Prova tu!</h2>
+    <p style="margin-top:0;color:#8a7f70;">Scegli la risposta giusta. Se sbagli, riprova: nessuna fretta! 🙂</p>
+    <div id="quiz"></div>
+    <div class="progress" id="progress"></div>
+    <button class="restart" id="restartBtn" style="display:none;" onclick="startQuiz()">🔄 Ricomincia</button>
+  </div>
+
+  <!-- CTA -->
+  <div class="card" style="text-align:center;">
+    <h2 style="justify-content:center;">🎧 Pronta ad allenarti?</h2>
+    <p style="margin:0 0 18px;color:#8a7f70;">Hai studiato la lezione: ora mettiti alla prova con gli esercizi di ascolto, scrittura, lettura e lessico! 💪</p>
+    <a class="restart" href="must-have-to-allenamento.html" style="text-decoration:none;display:inline-block;font-size:1.25rem;padding:16px 34px;">Allenati! →</a>
+  </div>
+</div>
+
+<script>
+  function say(text){
+    try{
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = "en-US"; u.rate = 0.85;
+      speechSynthesis.cancel(); speechSynthesis.speak(u);
+    }catch(e){}
+  }
+
+  const questions = [
+    {q:"You ____ wear a seatbelt. It's the law!", opts:["must","mustn't","don't have to"], correct:0, full:"You must wear a seatbelt"},
+    {q:"You ____ touch that — it's very hot!", opts:["have to","must","mustn't"], correct:2, full:"You mustn't touch that — it's very hot"},
+    {q:"She ____ work every Saturday. It's a rule.", opts:["doesn't have to","has to","mustn't"], correct:1, full:"She has to work every Saturday"},
+    {q:"We ____ hurry — the film starts in one hour!", opts:["must","mustn't","don't have to"], correct:0, full:"We must hurry — the film starts in one hour"},
+    {q:"You ____ bring food — I'll cook for everyone.", opts:["mustn't","have to","don't have to"], correct:2, full:"You don't have to bring food — I'll cook for everyone"},
+    {q:"Students ____ use phones in class. (vietato)", opts:["mustn't","must","don't have to"], correct:0, full:"Students mustn't use phones in class"},
+    {q:"____ I wear a uniform at this school?", opts:["Must","Do I have to","Mustn't"], correct:1, full:"Do I have to wear a uniform at this school"},
+    {q:"He ____ see the doctor today. (obbligo esterno)", opts:["mustn't","doesn't have to","has to"], correct:2, full:"He has to see the doctor today"},
+  ];
+
+  let current = 0, score = 0;
+
+  function startQuiz(){
+    current = 0; score = 0;
+    document.getElementById("restartBtn").style.display = "none";
+    showQuestion();
+  }
+
+  function showQuestion(){
+    const quiz = document.getElementById("quiz");
+    const prog = document.getElementById("progress");
+    if(current >= questions.length){
+      quiz.innerHTML = "";
+      const pct = score/questions.length;
+      const n = pct===1?5:pct>=0.75?4:pct>=0.5?3:pct>=0.25?2:1;
+      const msg = pct===1 ? "Perfetto! Must e have to non hanno più segreti! 🏆" :
+                  pct>=0.5 ? "Bravissima, ci sei quasi! 💪" :
+                  "Bene, riprova: si impara ripetendo! 🌱";
+      prog.innerHTML = `<div class="star">${"⭐".repeat(n)}</div>${score}/${questions.length} giuste<br><b>${msg}</b>`;
+      document.getElementById("restartBtn").style.display = "block";
+      return;
+    }
+    const item = questions[current];
+    prog.textContent = `Domanda ${current+1} di ${questions.length}`;
+    quiz.innerHTML = `
+      <div class="ex">
+        <div class="qnum">Domanda ${current+1}</div>
+        <div class="qtext">${item.q}</div>
+        <div class="options">
+          ${item.opts.map((o,i)=>`<button class="opt" onclick="answer(${i})">${o}</button>`).join("")}
+        </div>
+        <div class="feedback" id="fb"></div>
+      </div>`;
+  }
+
+  function answer(i){
+    const item = questions[current];
+    const opts = document.querySelectorAll(".opt");
+    const fb = document.getElementById("fb");
+    if(i === item.correct){
+      opts[i].classList.add("correct");
+      fb.textContent = "✅ Giusto! " + item.full;
+      fb.className = "feedback ok";
+      score++;
+      say(item.full);
+      opts.forEach(o=>o.disabled=true);
+      setTimeout(()=>{ current++; showQuestion(); }, 1600);
+    } else {
+      opts[i].classList.add("wrong");
+      fb.textContent = "Riprova! 🙂";
+      fb.className = "feedback no";
+    }
+  }
+
+  startQuiz();
+</script>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./service-worker.js');
+  }
+</script>
+</body>
+</html>

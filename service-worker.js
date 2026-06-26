@@ -1,4 +1,4 @@
-const CACHE = 'inglese-irene-v49';
+const CACHE = 'inglese-irene-v50';
 
 const ASSETS = [
   './',
@@ -42,6 +42,8 @@ const ASSETS = [
   './past-continuous-allenamento.html',
   './past-simple-vs-continuous.html',
   './past-simple-vs-continuous-allenamento.html',
+  './must-have-to.html',
+  './must-have-to-allenamento.html',
   './tutor-alex/index.html',
   './alert.js',
   './lightbox.js',

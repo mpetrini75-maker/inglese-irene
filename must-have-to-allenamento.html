@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Must / Mustn't / Have to — Allenamento</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#FAF6EE">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Inglese di Irene">
+<script src="alert.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FAF6EE; --card:#FFFFFF; --ink:#2F2A24;
+    --accent:#8A6BB0; --accent-soft:#EAE1F2;
+    --green:#3E8E5A; --green-soft:#E2F0E6;
+    --red:#C2492F; --red-soft:#F6E1DB;
+    --blue:#3B6EA5; --blue-soft:#E2ECF5;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; font-family:"Lexend","Trebuchet MS",Verdana,sans-serif;
+    background:var(--bg); color:var(--ink); line-height:1.7; letter-spacing:0.3px; padding:24px 14px 60px;}
+  .wrap{max-width:620px;margin:0 auto;}
+  .backbtn{display:inline-block;background:var(--accent-soft);color:var(--accent);
+    text-decoration:none;border-radius:12px;padding:8px 16px;font-size:0.98rem;font-weight:bold;margin-bottom:14px;}
+  h1{color:var(--accent);font-size:1.6rem;text-align:center;margin:0 0 6px;}
+  .sub{text-align:center;color:#8a7f70;margin:0 0 26px;font-size:1rem;}
+  .card{background:var(--card);border-radius:18px;padding:22px 20px;margin-bottom:22px;
+    box-shadow:0 4px 14px rgba(0,0,0,0.06);border:1px solid #efe7da;}
+  .card h2{margin:0 0 10px;font-size:1.25rem;color:var(--accent);display:flex;align-items:center;gap:8px;}
+  .card .lead{color:#8a7f70;margin:0 0 12px;font-size:0.97rem;}
+  .levelbar{margin:0 0 12px;}
+  .lvrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:0.98rem;color:var(--accent);}
+  .lvdots{display:inline-flex;gap:6px;}
+  .lvdot{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    background:var(--bg);border:2px solid var(--accent-soft);color:#b9ad9c;font-size:0.85rem;font-weight:bold;}
+  .lvdot.on{background:var(--accent-soft);border-color:var(--accent);color:var(--accent);}
+  .saybtn{background:var(--blue-soft);color:var(--blue);border:none;border-radius:10px;
+    padding:6px 12px;font-size:0.95rem;cursor:pointer;font-family:inherit;}
+  .big-listen{display:block;margin:6px auto 14px;background:var(--blue);color:#fff;
+    border:none;border-radius:16px;padding:18px 26px;font-size:1.2rem;font-weight:bold;
+    cursor:pointer;font-family:inherit;box-shadow:0 4px 12px rgba(59,110,165,0.3);}
+  .big-listen:hover{opacity:0.92;}
+  .ex{margin:14px 0;}
+  .qnum{font-weight:bold;color:var(--accent);}
+  .qtext{font-size:1.12rem;margin:6px 0 8px;}
+  .options{display:flex;flex-direction:column;gap:10px;}
+  .opt{background:var(--bg);border:2px solid var(--accent-soft);
+    border-radius:12px;padding:13px 14px;font-size:1.08rem;cursor:pointer;
+    text-align:left;font-family:inherit;color:var(--ink);transition:all .15s;}
+  .opt:hover{border-color:var(--accent);}
+  .opt.correct{background:var(--green-soft);border-color:var(--green);color:var(--green);font-weight:bold;}
+  .opt.wrong{background:var(--red-soft);border-color:var(--red);color:var(--red);}
+  .feedback{margin-top:10px;font-size:1.02rem;font-weight:bold;min-height:24px;}
+  .feedback.ok{color:var(--green);}
+  .feedback.no{color:var(--red);}
+  .progress{text-align:center;font-size:1.05rem;margin:12px 0 0;color:#8a7f70;}
+  .star{font-size:1.4rem;}
+  .write-input{width:100%;font-family:"Lexend",sans-serif;font-size:1.2rem;
+    padding:12px 14px;border:2px solid var(--accent-soft);border-radius:12px;
+    background:var(--bg);color:var(--ink);margin-top:4px;}
+  .write-input:focus{outline:none;border-color:var(--accent);}
+  .checkbtn{margin-top:10px;background:var(--accent);color:#fff;border:none;
+    border-radius:12px;padding:10px 20px;font-size:1rem;cursor:pointer;font-family:inherit;}
+  .write-input.okbox{border-color:var(--green);background:var(--green-soft);}
+  .write-input.nobox{border-color:var(--red);}
+  .reading{background:var(--bg);border-radius:14px;padding:16px 18px;font-size:1.12rem;
+    border:2px solid var(--accent-soft);margin-bottom:6px;}
+  .reading p{margin:0 0 6px;}
+  .match-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px;}
+  .match-col{display:flex;flex-direction:column;gap:10px;}
+  .match-btn{background:var(--bg);border:2px solid var(--accent-soft);border-radius:12px;
+    padding:12px;font-size:1.05rem;cursor:pointer;font-family:inherit;color:var(--ink);
+    display:flex;align-items:center;justify-content:space-between;gap:6px;transition:all .15s;}
+  .match-btn:hover{border-color:var(--accent);}
+  .match-btn.sel{border-color:var(--blue);background:var(--blue-soft);color:var(--blue);font-weight:bold;}
+  .match-btn.done{background:var(--green-soft);border-color:var(--green);color:var(--green);
+    font-weight:bold;cursor:default;opacity:0.85;}
+  .match-btn.flash{border-color:var(--red);background:var(--red-soft);}
+  .restart{display:inline-block;margin:12px auto 0;background:var(--accent);color:#fff;border:none;
+    border-radius:12px;padding:11px 22px;font-size:1rem;cursor:pointer;font-family:inherit;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="backbtn" href="must-have-to.html">← Torna alla lezione</a>
+  <h1>🏋️ Must / Mustn't / Have to — Allenamento</h1>
+  <p class="sub">4 livelli · ascolto · scrittura · lettura · lessico</p>
+
+  <div class="card">
+    <h2>🎧 1. Ascolto</h2>
+    <p class="lead">Tocca il pulsante blu e ascolta. Scegli la frase giusta. Puoi riascoltare quante volte vuoi!</p>
+    <div class="levelbar" id="listen-level"></div>
+    <div id="listen-quiz"></div>
+    <div class="progress" id="listen-prog"></div>
+  </div>
+
+  <div class="card">
+    <h2>✏️ 2. Scrittura</h2>
+    <p class="lead">Scrivi la parola o le parole giuste. Non contano maiuscole o spazi extra. Poi tocca "Controlla".</p>
+    <div class="levelbar" id="write-level"></div>
+    <div id="write-list"></div>
+    <div class="progress" id="write-prog"></div>
+  </div>
+
+  <div class="card" id="read-card">
+    <h2>📖 3. Lettura</h2>
+    <p class="lead">Ascolta e leggi il testo, poi rispondi alle domande.</p>
+    <div class="levelbar" id="read-level"></div>
+    <div class="reading" id="reading-text"></div>
+    <button class="saybtn" onclick="event.stopPropagation();sayReading()">🔊 Ascolta tutto il testo</button>
+    <div id="read-list" style="margin-top:8px;"></div>
+    <div class="progress" id="read-prog"></div>
+  </div>
+
+  <div class="card">
+    <h2>🔤 4. Lessico</h2>
+    <p class="lead">Tocca una parola inglese (ascoltala con 🔊), poi il suo significato. Collega tutte le coppie!</p>
+    <div class="levelbar" id="match-level"></div>
+    <div class="match-grid" id="match-grid"></div>
+    <div class="progress" id="match-prog"></div>
+  </div>
+</div>
+
+<script>
+  function say(text){
+    try{
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = "en-US"; u.rate = 0.85;
+      speechSynthesis.cancel(); speechSynthesis.speak(u);
+    }catch(e){}
+  }
+  function escQ(s){ return s.replace(/'/g, "\\'"); }
+  function stars(correct,total){
+    const pct=correct/total;
+    const n=pct===1?5:pct>=0.75?4:pct>=0.5?3:pct>=0.25?2:1;
+    return "⭐".repeat(n);
+  }
+  const LV=["Base","Intermedio","Avanzato","Sfida"];
+  function levelBar(level){
+    let dots="";
+    for(let i=0;i<4;i++) dots+=`<span class="lvdot ${i<=level?'on':''}">${i+1}</span>`;
+    return `<div class="lvrow"><b>Livello ${level+1} di 4 · ${LV[level]} 🔓</b><span class="lvdots">${dots}</span></div>`;
+  }
+  function levelResult(progEl, score, total, level, threshold, setFnName){
+    const passed = score>=threshold;
+    let html=`<div class="star">${stars(score,total)}</div>${score}/${total} giuste<br>`;
+    if(passed && level<3){
+      html+=`<b>Bravissima! Livello ${level+2} sbloccato 🔓</b><br>`;
+      html+=`<button class="restart" onclick="${setFnName}(${level+1})">➡️ Vai al Livello ${level+2}</button>`;
+    } else if(passed && level===3){
+      inviaAlertQuiz();
+      html+=`<b>🏆 Hai completato tutti i livelli!</b><br>`;
+      html+=`<button class="restart" onclick="${setFnName}(0)">🔄 Rigioca dal Livello 1</button>`;
+    } else {
+      html+=`<b>Ci sei quasi! Riprova questo livello, ce la fai 🌱</b><br>`;
+      html+=`<button class="restart" onclick="${setFnName}(${level})">🔄 Rifai il Livello ${level+1}</button>`;
+    }
+    progEl.innerHTML=html;
+  }
+
+  /* ============ SEZIONE 1 — ASCOLTO ============ */
+  const listenLevels = [
+    [ // L1 Base — must / mustn't
+      {audio:"You must wear a seatbelt.", opts:["You must wear a seatbelt.","You mustn't wear a seatbelt.","You have to wear a helmet."], correct:0},
+      {audio:"She must study harder.", opts:["She must study harder.","She has to study harder.","She mustn't study harder."], correct:0},
+      {audio:"You mustn't smoke here.", opts:["You mustn't smoke here.","You must smoke here.","You don't have to smoke here."], correct:0},
+      {audio:"We must be quiet in the library.", opts:["We must be quiet in the library.","We mustn't be quiet in the library.","We must be quick in the library."], correct:0},
+      {audio:"He mustn't be late.", opts:["He mustn't be late.","He must be late.","He doesn't have to be late."], correct:0},
+      {audio:"I must call mum.", opts:["I must call mum.","I mustn't call mum.","I have to call dad."], correct:0},
+    ],
+    [ // L2 Intermedio — have to / has to / don't have to
+      {audio:"I have to wear a uniform at school.", opts:["I have to wear a uniform at school.","She has to wear a uniform at school.","I don't have to wear a uniform at school."], correct:0},
+      {audio:"She has to work on Saturdays.", opts:["She has to work on Saturdays.","She has to work on Sundays.","She doesn't have to work on Saturdays."], correct:0},
+      {audio:"We have to buy a ticket.", opts:["We have to buy a ticket.","We don't have to buy a ticket.","We have to buy a present."], correct:0},
+      {audio:"Do you have to work tonight?", opts:["Do you have to work tonight?","Does she have to work tonight?","Do you have to work tomorrow?"], correct:0},
+      {audio:"She doesn't have to come if she doesn't want to.", opts:["She doesn't have to come if she doesn't want to.","She mustn't come if she doesn't want to.","He doesn't have to come if he doesn't want to."], correct:0},
+      {audio:"He has to take his medicine every day.", opts:["He has to take his medicine every day.","He doesn't have to take his medicine every day.","She has to take her medicine every day."], correct:0},
+    ],
+    [ // L3 Avanzato — misto + differenza mustn't / don't have to
+      {audio:"You mustn't touch that — it's very hot!", opts:["You mustn't touch that — it's very hot!","You don't have to touch that — it's very hot!","You must touch that — it's very hot!"], correct:0},
+      {audio:"I don't have to wake up early tomorrow.", opts:["I don't have to wake up early tomorrow.","I mustn't wake up early tomorrow.","She doesn't have to wake up early tomorrow."], correct:0},
+      {audio:"Does she have to wear a uniform?", opts:["Does she have to wear a uniform?","Must she wear a uniform?","Do they have to wear a uniform?"], correct:0},
+      {audio:"We mustn't park here — it's illegal.", opts:["We mustn't park here — it's illegal.","We don't have to park here — it's illegal.","We must park here — it's illegal."], correct:0},
+      {audio:"You don't have to bring anything — I have everything.", opts:["You don't have to bring anything — I have everything.","You mustn't bring anything — I have everything.","You don't have to bring something — I have everything."], correct:0},
+      {audio:"Students mustn't use their phones during the lesson.", opts:["Students mustn't use their phones during the lesson.","Students don't have to use their phones during the lesson.","Students must use their phones during the lesson."], correct:0},
+    ],
+    [ // L4 Sfida — frasi lunghe e articolate
+      {audio:"You must remember: mustn't means forbidden, don't have to means not necessary.", opts:["You must remember: mustn't means forbidden, don't have to means not necessary.","You must remember: mustn't means not necessary, don't have to means forbidden.","You mustn't forget: must means forbidden, have to means not necessary."], correct:0},
+      {audio:"I have to go to the doctor every month.", opts:["I have to go to the doctor every month.","I have to go to the doctor every week.","She has to go to the doctor every month."], correct:0},
+      {audio:"She must be more careful when she crosses the road.", opts:["She must be more careful when she crosses the road.","She mustn't be more careful when she crosses the road.","He must be more careful when he crosses the road."], correct:0},
+      {audio:"We don't have to decide now — we have until Friday.", opts:["We don't have to decide now — we have until Friday.","We mustn't decide now — we have until Friday.","We don't have to decide now — we have until Thursday."], correct:0},
+      {audio:"Do you have to wear a uniform at your new school?", opts:["Do you have to wear a uniform at your new school?","Does she have to wear a uniform at her new school?","Do you have to wear a uniform at your old school?"], correct:0},
+      {audio:"He doesn't have to come — but it would be nice if he did.", opts:["He doesn't have to come — but it would be nice if he did.","He mustn't come — but it would be nice if he did.","She doesn't have to come — but it would be nice if she did."], correct:0},
+    ],
+  ];
+  let lLevel=0, lc=0, ls=0, lCorrect=0, lAudio="";
+  function setListenLevel(lvl){ lLevel=lvl; lc=0; ls=0; document.getElementById("listen-level").innerHTML=levelBar(lvl); showListen(); }
+  function showListen(){
+    const data=listenLevels[lLevel];
+    const box=document.getElementById("listen-quiz");
+    const pr=document.getElementById("listen-prog");
+    if(lc>=data.length){ box.innerHTML=""; levelResult(pr, ls, data.length, lLevel, 4, "setListenLevel"); return; }
+    const it=data[lc];
+    lAudio=it.audio;
+    const order=shuffle(it.opts.map((o,i)=>i));
+    const shown=order.map(k=>it.opts[k]);
+    lCorrect=order.indexOf(it.correct);
+    pr.textContent=`Esercizio ${lc+1} di ${data.length}`;
+    box.innerHTML=`
+      <div class="ex">
+        <div class="qnum">Ascolto ${lc+1}</div>
+        <button class="big-listen" onclick="event.stopPropagation();say('${escQ(it.audio)}')">🔊 Ascolta la frase</button>
+        <div class="options">
+          ${shown.map((o,i)=>`<button class="opt" onclick="listenAns(${i})">${o}</button>`).join("")}
+        </div>
+        <div class="feedback" id="lfb"></div>
+      </div>`;
+  }
+  function listenAns(i){
+    const opts=document.querySelectorAll("#listen-quiz .opt");
+    const fb=document.getElementById("lfb");
+    if(i===lCorrect){
+      opts[i].classList.add("correct");
+      fb.textContent="✅ Giusto! "+lAudio; fb.className="feedback ok";
+      ls++; say(lAudio); opts.forEach(o=>o.disabled=true);
+      setTimeout(()=>{ lc++; showListen(); },1800);
+    } else {
+      opts[i].classList.add("wrong");
+      fb.textContent="Riascolta e riprova 🙂"; fb.className="feedback no";
+    }
+  }
+
+  /* ============ SEZIONE 2 — SCRITTURA ============ */
+  const writeLevels = [
+    [ // L1 — must / mustn't
+      {q:"You ____ eat in the library.  (è vietato)", answers:["mustn't"], full:"You mustn't eat in the library.", hint:"vietato → mustn't."},
+      {q:"You ____ wash your hands before eating.  (obbligo)", answers:["must"], full:"You must wash your hands before eating.", hint:"obbligo → must."},
+      {q:"We ____ be quiet here.  (obbligo)", answers:["must"], full:"We must be quiet here.", hint:"obbligo → must."},
+      {q:"She ____ drive too fast — it's dangerous!  (vietato)", answers:["mustn't"], full:"She mustn't drive too fast.", hint:"vietato → mustn't."},
+      {q:"He ____ study for the exam.  (obbligo)", answers:["must"], full:"He must study for the exam.", hint:"obbligo → must."},
+      {q:"You ____ use your phone during the test.  (vietato)", answers:["mustn't"], full:"You mustn't use your phone during the test.", hint:"vietato → mustn't."},
+    ],
+    [ // L2 — have to / has to (soggetti variati)
+      {q:"I ____ ____ go to school every day.  (have/has)", answers:["have to"], full:"I have to go to school every day.", hint:"I → have to."},
+      {q:"She ____ ____ work on Sundays.  (have/has)", answers:["has to"], full:"She has to work on Sundays.", hint:"she → has to."},
+      {q:"They ____ ____ buy a ticket.  (have/has)", answers:["have to"], full:"They have to buy a ticket.", hint:"they → have to."},
+      {q:"He ____ ____ take his medicine.  (have/has)", answers:["has to"], full:"He has to take his medicine.", hint:"he → has to."},
+      {q:"We ____ ____ leave now.  (have/has)", answers:["have to"], full:"We have to leave now.", hint:"we → have to."},
+      {q:"My sister ____ ____ wear a uniform.  (have/has)", answers:["has to"], full:"My sister has to wear a uniform.", hint:"my sister (she) → has to."},
+    ],
+    [ // L3 — mustn't / don't have to / doesn't have to (LA DIFFERENZA CHIAVE)
+      {q:"You ____ ____ pay — it's free!  (non è necessario)", answers:["don't have to"], full:"You don't have to pay — it's free!", hint:"non necessario (non vietato!) → don't have to."},
+      {q:"She ____ ____ eat meat if she doesn't want to.  (non è necessario)", answers:["doesn't have to"], full:"She doesn't have to eat meat if she doesn't want to.", hint:"she + non necessario → doesn't have to."},
+      {q:"You ____ run near the pool!  (vietato)", answers:["mustn't"], full:"You mustn't run near the pool!", hint:"vietato → mustn't."},
+      {q:"He ____ ____ come to the meeting.  (facoltativo)", answers:["doesn't have to"], full:"He doesn't have to come to the meeting.", hint:"he + non necessario → doesn't have to."},
+      {q:"We ____ smoke inside.  (vietato)", answers:["mustn't"], full:"We mustn't smoke inside.", hint:"vietato → mustn't."},
+      {q:"You ____ ____ bring anything — I have everything.  (non necessario)", answers:["don't have to"], full:"You don't have to bring anything — I have everything.", hint:"non necessario → don't have to."},
+    ],
+    [ // L4 — Sfida: forme complete
+      {q:"You ____ ____ your vegetables — they're good for you!  (must eat)", answers:["must eat"], full:"You must eat your vegetables — they're good for you!", hint:"obbligo personale → must + eat."},
+      {q:"She ____ ____ a uniform at her new school.  (has to / wear)", answers:["has to wear"], full:"She has to wear a uniform at her new school.", hint:"regola esterna + she → has to + wear."},
+      {q:"You ____ ____ that — it's dangerous!  (mustn't / touch)", answers:["mustn't touch"], full:"You mustn't touch that — it's dangerous!", hint:"vietato → mustn't + touch."},
+      {q:"We ____ ____ a ticket — it's free!  (don't have to / buy)", answers:["don't have to buy"], full:"We don't have to buy a ticket — it's free!", hint:"non necessario → don't have to + buy."},
+      {q:"He ____ ____ the doctor today.  (has to / see)", answers:["has to see"], full:"He has to see the doctor today.", hint:"obbligo esterno + he → has to + see."},
+      {q:"Students ____ ____ phones in class.  (mustn't / use)", answers:["mustn't use"], full:"Students mustn't use phones in class.", hint:"vietato → mustn't + use."},
+    ],
+  ];
+  let wLevel=0, writeDone=[];
+  function norm(s){ return s.trim().toLowerCase().replace(/…/g,"...").replace(/\.\.\./g," ").replace(/\s+/g," "); }
+  function setWriteLevel(lvl){
+    wLevel=lvl;
+    const data=writeLevels[lvl];
+    writeDone=new Array(data.length).fill(false);
+    document.getElementById("write-level").innerHTML=levelBar(lvl);
+    document.getElementById("write-prog").textContent=`Completate 0 di ${data.length}`;
+    const list=document.getElementById("write-list");
+    list.innerHTML=data.map((it,i)=>`
+      <div class="ex">
+        <div class="qnum">Frase ${i+1}</div>
+        <div class="qtext">${it.q}</div>
+        <input class="write-input" id="wi${i}" type="text" autocomplete="off" placeholder="scrivi qui…">
+        <button class="checkbtn" onclick="checkWrite(${i})">Controlla</button>
+        <div class="feedback" id="wfb${i}"></div>
+      </div>`).join("");
+  }
+  function checkWrite(i){
+    const it=writeLevels[wLevel][i];
+    const inp=document.getElementById("wi"+i);
+    const fb=document.getElementById("wfb"+i);
+    const ok=it.answers.some(a=>norm(a)===norm(inp.value));
+    if(ok){
+      inp.classList.add("okbox"); inp.classList.remove("nobox");
+      fb.innerHTML="✅ Perfetto! "+it.full; fb.className="feedback ok";
+      say(it.full);
+    } else {
+      inp.classList.add("nobox");
+      fb.innerHTML=`💛 Quasi! ${it.hint}<br>La risposta è: <b>${it.full}</b> <button class="saybtn" onclick="event.stopPropagation();say('${escQ(it.full)}')">🔊</button>`;
+      fb.className="feedback no";
+    }
+    if(!writeDone[i]){ writeDone[i]=true; updateWrite(); }
+  }
+  function updateWrite(){
+    const data=writeLevels[wLevel];
+    const pr=document.getElementById("write-prog");
+    const done=writeDone.filter(Boolean).length;
+    if(done<data.length){ pr.textContent=`Completate ${done} di ${data.length}`; return; }
+    let correct=0;
+    data.forEach((it,i)=>{ if(document.getElementById("wi"+i).classList.contains("okbox")) correct++; });
+    levelResult(pr, correct, data.length, wLevel, 4, "setWriteLevel");
+  }
+
+  /* ============ SEZIONE 3 — LETTURA ============ */
+  const readLevels = [
+    { // L1
+      lines:["At Tom's school there are important rules.","You must be on time — class starts at eight.","You mustn't use your phone in lessons.","You don't have to wear a uniform, but you must dress neatly."],
+      q:[
+        {q:"What time does class start? ⏰", opts:["At seven","At eight","At nine"], correct:1, full:"Class starts at eight."},
+        {q:"What mustn't students do in lessons? 📵", opts:["Talk to friends","Eat in class","Use their phone"], correct:2, full:"Students mustn't use their phone in lessons."},
+        {q:"Do students have to wear a uniform? 👕", opts:["Yes, always","No, but they must dress neatly","No, they can wear anything"], correct:1, full:"They don't have to wear a uniform, but they must dress neatly."},
+      ]
+    },
+    { // L2
+      lines:["Sara has a summer job at a café.","She has to start work at seven every morning.","She doesn't have to work on Sundays — it's her day off.","She must always be polite to the customers.","She mustn't be late, or she could lose her job."],
+      q:[
+        {q:"What time does Sara have to start work? ☕", opts:["At six","At seven","At eight"], correct:1, full:"Sara has to start work at seven."},
+        {q:"When doesn't Sara have to work? 😌", opts:["On Mondays","On Saturdays","On Sundays"], correct:2, full:"Sara doesn't have to work on Sundays."},
+        {q:"What mustn't Sara do? ⚠️", opts:["Be polite","Be late","Talk to customers"], correct:1, full:"Sara mustn't be late, or she could lose her job."},
+      ]
+    },
+    { // L3
+      lines:["Marco is going on a school trip tomorrow.","He has to be at school by seven-thirty.","He must bring his permission slip — without it, he can't come.","He doesn't have to bring lunch — the school will provide it.","He mustn't forget his jacket: it might be cold."],
+      q:[
+        {q:"What time does Marco have to be at school? 🕢", opts:["Seven o'clock","Seven-thirty","Eight o'clock"], correct:1, full:"Marco has to be at school by seven-thirty."},
+        {q:"What must Marco bring? 📄", opts:["His lunch","His permission slip","His jacket (only)"], correct:1, full:"Marco must bring his permission slip."},
+        {q:"Does Marco have to bring lunch? 🥪", opts:["Yes, he must","No, the school will provide it","Only if he wants to"], correct:1, full:"He doesn't have to bring lunch — the school will provide it."},
+      ]
+    },
+    { // L4
+      lines:["Becoming a pilot is hard work.","You have to study for many years and pass difficult exams.","You must have perfect eyesight — this is essential.","You don't have to be very tall, but you must be healthy.","You mustn't be afraid of heights, of course!","Once you qualify, you have to keep training every single year."],
+      q:[
+        {q:"What physical requirement must pilots have? 👁️", opts:["They must be very tall","They must have perfect eyesight","They must be very strong"], correct:1, full:"Pilots must have perfect eyesight."},
+        {q:"What do pilots NOT have to be? 📏", opts:["Very healthy","Very afraid","Very tall"], correct:2, full:"Pilots don't have to be very tall."},
+        {q:"How often do qualified pilots have to train? 🎓", opts:["Every month","Every year","Every five years"], correct:1, full:"Qualified pilots have to keep training every year."},
+      ]
+    },
+  ];
+  let rLevel=0, readDone=[], readingText="", readCorrect=[];
+  function sayReading(){ say(readingText); }
+  function setReadLevel(lvl, noScroll){
+    rLevel=lvl;
+    const data=readLevels[lvl];
+    readingText=data.lines.join(" ");
+    readDone=new Array(data.q.length).fill(false);
+    document.getElementById("read-level").innerHTML=levelBar(lvl);
+    document.getElementById("reading-text").innerHTML=data.lines.map(l=>`<p>${l}</p>`).join("");
+    document.getElementById("read-prog").textContent=`Risposte 0 di ${data.q.length}`;
+    readCorrect=[];
+    const list=document.getElementById("read-list");
+    list.innerHTML=data.q.map((it,i)=>{
+      const order=shuffle(it.opts.map((o,k)=>k));
+      const shown=order.map(k=>it.opts[k]);
+      readCorrect[i]=order.indexOf(it.correct);
+      return `
+      <div class="ex">
+        <div class="qnum">Domanda ${i+1}</div>
+        <div class="qtext">${it.q}</div>
+        <div class="options">
+          ${shown.map((o,j)=>`<button class="opt" onclick="readAns(${i},${j})">${o}</button>`).join("")}
+        </div>
+        <div class="feedback" id="rfb${i}"></div>
+      </div>`;
+    }).join("");
+    if(!noScroll){
+      const card=document.getElementById("read-card");
+      if(card) card.scrollIntoView({behavior:"smooth", block:"start"});
+    }
+  }
+  function readAns(i,j){
+    const it=readLevels[rLevel].q[i];
+    const opts=document.querySelectorAll("#read-list .ex:nth-child("+(i+1)+") .opt");
+    const fb=document.getElementById("rfb"+i);
+    if(j===readCorrect[i]){
+      opts[j].classList.add("correct");
+      fb.innerHTML="✅ Giusto! "+it.full+` <button class="saybtn" onclick="event.stopPropagation();say('${escQ(it.full)}')">🔊</button>`;
+      fb.className="feedback ok"; opts.forEach(o=>o.disabled=true);
+      if(!readDone[i]){ readDone[i]=true; updateRead(); }
+    } else {
+      opts[j].classList.add("wrong");
+      fb.textContent="Rileggi il testo e riprova 🙂"; fb.className="feedback no";
+    }
+  }
+  function updateRead(){
+    const data=readLevels[rLevel];
+    const pr=document.getElementById("read-prog");
+    const done=readDone.filter(Boolean).length;
+    if(done<data.q.length){ pr.textContent=`Risposte ${done} di ${data.q.length}`; return; }
+    levelResult(pr, data.q.length, data.q.length, rLevel, 2, "setReadLevel");
+  }
+
+  /* ============ SEZIONE 4 — LESSICO ============ */
+  const matchLevels = [
+    [ // L1 — le 4 forme + significato
+      {en:"must", it:"devo / devi (obbligo) 💪"},
+      {en:"mustn't", it:"non posso / non puoi (vietato) 🚫"},
+      {en:"have to", it:"devo (regola esterna) 📋"},
+      {en:"don't have to", it:"non è necessario 😌"},
+      {en:"must study", it:"devo studiare 📚"},
+      {en:"mustn't smoke", it:"non puoi fumare 🚭"},
+      {en:"have to work", it:"devo lavorare 💼"},
+      {en:"don't have to come", it:"non è necessario venire ✌️"},
+    ],
+    [ // L2 — have to / has to con soggetti
+      {en:"I have to", it:"devo (io) 👤"},
+      {en:"she has to", it:"deve (lei) 👩"},
+      {en:"they have to", it:"devono (loro) 👥"},
+      {en:"he doesn't have to", it:"non deve (lui, non necessario) 🙂"},
+      {en:"we have to", it:"dobbiamo (noi) 👫"},
+      {en:"she doesn't have to", it:"non deve (lei, non necessario) 🙂"},
+      {en:"do you have to?", it:"devi? / sei obbligato? ❓"},
+      {en:"does he have to?", it:"deve? / è obbligato? ❓"},
+    ],
+    [ // L3 — parole chiave
+      {en:"forbidden", it:"vietato 🚫"},
+      {en:"compulsory", it:"obbligatorio ✅"},
+      {en:"optional", it:"facoltativo 🤷"},
+      {en:"necessary", it:"necessario ❗"},
+      {en:"permission", it:"permesso 🔑"},
+      {en:"rule", it:"regola 📋"},
+      {en:"obligation", it:"obbligo 💪"},
+      {en:"not necessary", it:"non necessario 😌"},
+    ],
+    [ // L4 — frasi complete
+      {en:"You must study", it:"Devi studiare (lo dico io) 📚"},
+      {en:"She has to wear a uniform", it:"Deve mettere la divisa (è una regola) 👔"},
+      {en:"You mustn't run", it:"Non puoi correre (è vietato) 🚫"},
+      {en:"We don't have to pay", it:"Non dobbiamo pagare (è gratis) 💚"},
+      {en:"Does he have to come?", it:"Deve venire? (è obbligatorio?) ❓"},
+      {en:"I must remember", it:"Devo ricordare (è importante) 🧠"},
+      {en:"They don't have to wait", it:"Non devono aspettare 😌"},
+      {en:"You mustn't be late", it:"Non puoi fare tardi 🚫"},
+    ],
+  ];
+  let mLevel=0, selEn=null, matched=0, firstTry=0, spoiled;
+  function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+  function setMatchLevel(lvl){
+    mLevel=lvl; selEn=null; matched=0; firstTry=0; spoiled=new Set();
+    const pairs=matchLevels[lvl];
+    document.getElementById("match-level").innerHTML=levelBar(lvl);
+    const grid=document.getElementById("match-grid");
+    const left=pairs.map((p,i)=>`<button class="match-btn" id="en${i}" onclick="pickEn(${i})">
+        <span>${p.en}</span>
+        <span class="saybtn" onclick="event.stopPropagation();say('${escQ(p.en)}')">🔊</span></button>`).join("");
+    const order=shuffle(pairs.map((p,i)=>i));
+    const right=order.map(i=>`<button class="match-btn" id="it${i}" onclick="pickIt(${i})">${pairs[i].it}</button>`).join("");
+    grid.innerHTML=`<div class="match-col">${left}</div><div class="match-col">${right}</div>`;
+    document.getElementById("match-prog").textContent=`Coppie collegate: 0 di ${pairs.length}`;
+  }
+  function pickEn(i){
+    const btn=document.getElementById("en"+i);
+    if(btn.classList.contains("done")) return;
+    document.querySelectorAll(".match-btn.sel").forEach(b=>b.classList.remove("sel"));
+    selEn=i; btn.classList.add("sel");
+  }
+  function pickIt(i){
+    if(selEn===null) return;
+    const itBtn=document.getElementById("it"+i);
+    if(itBtn.classList.contains("done")) return;
+    const enBtn=document.getElementById("en"+selEn);
+    const pairs=matchLevels[mLevel];
+    if(selEn===i){
+      enBtn.classList.remove("sel"); enBtn.classList.add("done"); itBtn.classList.add("done");
+      say(pairs[i].en);
+      if(!spoiled.has(selEn)) firstTry++;
+      selEn=null; matched++;
+      const pr=document.getElementById("match-prog");
+      if(matched>=pairs.length){
+        levelResult(pr, firstTry, pairs.length, mLevel, 5, "setMatchLevel");
+      } else {
+        pr.textContent=`Coppie collegate: ${matched} di ${pairs.length}`;
+      }
+    } else {
+      spoiled.add(selEn);
+      itBtn.classList.add("flash");
+      setTimeout(()=>itBtn.classList.remove("flash"),500);
+      enBtn.classList.remove("sel"); selEn=null;
+    }
+  }
+
+  setListenLevel(0);
+  setWriteLevel(0);
+  setReadLevel(0, true);
+  setMatchLevel(0);
+</script>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./service-worker.js');
+  }
+</script>
+</body>
+</html>
