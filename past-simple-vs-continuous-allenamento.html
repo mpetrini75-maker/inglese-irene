@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Past Simple vs Past Continuous — Allenamento</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#FAF6EE">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Inglese di Irene">
+<script src="alert.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FAF6EE; --card:#FFFFFF; --ink:#2F2A24;
+    --accent:#8A6BB0; --accent-soft:#EAE1F2;
+    --green:#3E8E5A; --green-soft:#E2F0E6;
+    --red:#C2492F; --red-soft:#F6E1DB;
+    --blue:#3B6EA5; --blue-soft:#E2ECF5;
+    --purple:#7B5EA7; --purple-soft:#EDE8F5;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; font-family:"Lexend","Trebuchet MS",Verdana,sans-serif;
+    background:var(--bg); color:var(--ink); line-height:1.7; letter-spacing:0.3px; padding:24px 14px 60px;}
+  .wrap{max-width:620px;margin:0 auto;}
+  .backbtn{display:inline-block;background:var(--accent-soft);color:var(--accent);
+    text-decoration:none;border-radius:12px;padding:8px 16px;font-size:0.98rem;font-weight:bold;margin-bottom:14px;}
+  h1{color:var(--accent);font-size:1.6rem;text-align:center;margin:0 0 6px;}
+  .sub{text-align:center;color:#8a7f70;margin:0 0 26px;font-size:1rem;}
+  .card{background:var(--card);border-radius:18px;padding:22px 20px;margin-bottom:22px;
+    box-shadow:0 4px 14px rgba(0,0,0,0.06);border:1px solid #efe7da;}
+  .card h2{margin:0 0 10px;font-size:1.25rem;color:var(--accent);display:flex;align-items:center;gap:8px;}
+  .card .lead{color:#8a7f70;margin:0 0 12px;font-size:0.97rem;}
+  .levelbar{margin:0 0 12px;}
+  .lvrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:0.98rem;color:var(--accent);}
+  .lvdots{display:inline-flex;gap:6px;}
+  .lvdot{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    background:var(--bg);border:2px solid var(--accent-soft);color:#b9ad9c;font-size:0.85rem;font-weight:bold;}
+  .lvdot.on{background:var(--accent-soft);border-color:var(--accent);color:var(--accent);}
+  .saybtn{background:var(--blue-soft);color:var(--blue);border:none;border-radius:10px;
+    padding:6px 12px;font-size:0.95rem;cursor:pointer;font-family:inherit;}
+  .big-listen{display:block;margin:6px auto 14px;background:var(--blue);color:#fff;
+    border:none;border-radius:16px;padding:18px 26px;font-size:1.2rem;font-weight:bold;
+    cursor:pointer;font-family:inherit;box-shadow:0 4px 12px rgba(59,110,165,0.3);}
+  .big-listen:hover{opacity:0.92;}
+  .ex{margin:14px 0;}
+  .qnum{font-weight:bold;color:var(--accent);}
+  .qtext{font-size:1.12rem;margin:6px 0 8px;}
+  .options{display:flex;flex-direction:column;gap:10px;}
+  .opt{background:var(--bg);border:2px solid var(--accent-soft);
+    border-radius:12px;padding:13px 14px;font-size:1.08rem;cursor:pointer;
+    text-align:left;font-family:inherit;color:var(--ink);transition:all .15s;}
+  .opt:hover{border-color:var(--accent);}
+  .opt.correct{background:var(--green-soft);border-color:var(--green);color:var(--green);font-weight:bold;}
+  .opt.wrong{background:var(--red-soft);border-color:var(--red);color:var(--red);}
+  .feedback{margin-top:10px;font-size:1.02rem;font-weight:bold;min-height:24px;}
+  .feedback.ok{color:var(--green);}
+  .feedback.no{color:var(--red);}
+  .progress{text-align:center;font-size:1.05rem;margin:12px 0 0;color:#8a7f70;}
+  .star{font-size:1.4rem;}
+  .write-input{width:100%;font-family:"Lexend",sans-serif;font-size:1.2rem;
+    padding:12px 14px;border:2px solid var(--accent-soft);border-radius:12px;
+    background:var(--bg);color:var(--ink);margin-top:4px;}
+  .write-input:focus{outline:none;border-color:var(--accent);}
+  .checkbtn{margin-top:10px;background:var(--accent);color:#fff;border:none;
+    border-radius:12px;padding:10px 20px;font-size:1rem;cursor:pointer;font-family:inherit;}
+  .write-input.okbox{border-color:var(--green);background:var(--green-soft);}
+  .write-input.nobox{border-color:var(--red);}
+  .reading{background:var(--bg);border-radius:14px;padding:16px 18px;font-size:1.12rem;
+    border:2px solid var(--accent-soft);margin-bottom:6px;}
+  .reading p{margin:0 0 6px;}
+  .match-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px;}
+  .match-col{display:flex;flex-direction:column;gap:10px;}
+  .match-btn{background:var(--bg);border:2px solid var(--accent-soft);border-radius:12px;
+    padding:12px;font-size:1.05rem;cursor:pointer;font-family:inherit;color:var(--ink);
+    display:flex;align-items:center;justify-content:space-between;gap:6px;transition:all .15s;}
+  .match-btn:hover{border-color:var(--accent);}
+  .match-btn.sel{border-color:var(--blue);background:var(--blue-soft);color:var(--blue);font-weight:bold;}
+  .match-btn.done{background:var(--green-soft);border-color:var(--green);color:var(--green);
+    font-weight:bold;cursor:default;opacity:0.85;}
+  .match-btn.flash{border-color:var(--red);background:var(--red-soft);}
+  .restart{display:inline-block;margin:12px auto 0;background:var(--accent);color:#fff;border:none;
+    border-radius:12px;padding:11px 22px;font-size:1rem;cursor:pointer;font-family:inherit;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="backbtn" href="past-simple-vs-continuous.html">← Torna alla lezione</a>
+  <h1>🏋️ Past Simple vs Past Continuous — Allenamento</h1>
+  <p class="sub">4 livelli · ascolto · scrittura · lettura · lessico</p>
+
+  <!-- SEZIONE 1 — ASCOLTO -->
+  <div class="card">
+    <h2>🎧 1. Ascolto</h2>
+    <p class="lead">Tocca il pulsante blu e ascolta. Scegli la frase giusta. Puoi riascoltare quante volte vuoi!</p>
+    <div class="levelbar" id="listen-level"></div>
+    <div id="listen-quiz"></div>
+    <div class="progress" id="listen-prog"></div>
+  </div>
+
+  <!-- SEZIONE 2 — SCRITTURA -->
+  <div class="card">
+    <h2>✏️ 2. Scrittura</h2>
+    <p class="lead">Scrivi la parola giusta. Non contano maiuscole o spazi extra: conta la parola! Poi tocca "Controlla".</p>
+    <div class="levelbar" id="write-level"></div>
+    <div id="write-list"></div>
+    <div class="progress" id="write-prog"></div>
+  </div>
+
+  <!-- SEZIONE 3 — LETTURA -->
+  <div class="card" id="read-card">
+    <h2>📖 3. Lettura</h2>
+    <p class="lead">Ascolta e leggi il testo, poi rispondi alle domande.</p>
+    <div class="levelbar" id="read-level"></div>
+    <div class="reading" id="reading-text"></div>
+    <button class="saybtn" onclick="event.stopPropagation();sayReading()">🔊 Ascolta tutto il testo</button>
+    <div id="read-list" style="margin-top:8px;"></div>
+    <div class="progress" id="read-prog"></div>
+  </div>
+
+  <!-- SEZIONE 4 — LESSICO -->
+  <div class="card">
+    <h2>🔤 4. Lessico</h2>
+    <p class="lead">Tocca una parola inglese (ascoltala con 🔊), poi il suo significato. Collega tutte le coppie!</p>
+    <div class="levelbar" id="match-level"></div>
+    <div class="match-grid" id="match-grid"></div>
+    <div class="progress" id="match-prog"></div>
+  </div>
+</div>
+
+<script>
+  function say(text){
+    try{
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = "en-US"; u.rate = 0.85;
+      speechSynthesis.cancel(); speechSynthesis.speak(u);
+    }catch(e){}
+  }
+  function escQ(s){ return s.replace(/'/g, "\\'"); }
+  function stars(correct,total){
+    const pct=correct/total;
+    const n=pct===1?5:pct>=0.75?4:pct>=0.5?3:pct>=0.25?2:1;
+    return "⭐".repeat(n);
+  }
+  const LV=["Base","Intermedio","Avanzato","Sfida"];
+  function levelBar(level){
+    let dots="";
+    for(let i=0;i<4;i++) dots+=`<span class="lvdot ${i<=level?'on':''}">${i+1}</span>`;
+    return `<div class="lvrow"><b>Livello ${level+1} di 4 · ${LV[level]} 🔓</b><span class="lvdots">${dots}</span></div>`;
+  }
+  function levelResult(progEl, score, total, level, threshold, setFnName){
+    const passed = score>=threshold;
+    let html=`<div class="star">${stars(score,total)}</div>${score}/${total} giuste<br>`;
+    if(passed && level<3){
+      html+=`<b>Bravissima! Livello ${level+2} sbloccato 🔓</b><br>`;
+      html+=`<button class="restart" onclick="${setFnName}(${level+1})">➡️ Vai al Livello ${level+2}</button>`;
+    } else if(passed && level===3){
+      inviaAlertQuiz();
+      html+=`<b>🏆 Hai completato tutti i livelli!</b><br>`;
+      html+=`<button class="restart" onclick="${setFnName}(0)">🔄 Rigioca dal Livello 1</button>`;
+    } else {
+      html+=`<b>Ci sei quasi! Riprova questo livello, ce la fai 🌱</b><br>`;
+      html+=`<button class="restart" onclick="${setFnName}(${level})">🔄 Rifai il Livello ${level+1}</button>`;
+    }
+    progEl.innerHTML=html;
+  }
+
+  /* ============ SEZIONE 1 — ASCOLTO ============ */
+  const listenLevels = [
+    [ // L1 Base — azioni in corso con interruzione semplice
+      {audio:"She was cooking when I arrived.", opts:["She was cooking when I arrived.","She was reading when I arrived.","She was cooking when he arrived."], correct:0},
+      {audio:"When the phone rang, I was sleeping.", opts:["When the phone rang, I was sleeping.","When the door opened, I was sleeping.","When the phone rang, I was reading."], correct:0},
+      {audio:"We were watching TV when it started to rain.", opts:["We were watching TV when it started to rain.","We were watching a film when it started to rain.","We were watching TV when it stopped raining."], correct:0},
+      {audio:"While I was studying, he called.", opts:["While I was studying, he called.","While she was studying, he called.","While I was studying, she called."], correct:0},
+      {audio:"They were playing when mum came home.", opts:["They were playing when mum came home.","They were sleeping when mum came home.","They were playing when dad came home."], correct:0},
+      {audio:"I was reading when you arrived.", opts:["I was reading when you arrived.","I was writing when you arrived.","I was sleeping when you arrived."], correct:0},
+    ],
+    [ // L2 Intermedio — while + azioni contemporanee e frasi più ricche
+      {audio:"While mum was cooking, we were setting the table.", opts:["While mum was cooking, we were setting the table.","While mum was eating, we were setting the table.","While mum was cooking, we were cleaning the table."], correct:0},
+      {audio:"It started to rain while we were walking to school.", opts:["It started to rain while we were walking to school.","It started to rain while we were running to school.","It stopped raining while we were walking to school."], correct:0},
+      {audio:"While she was talking on the phone, her brother was playing video games.", opts:["While she was talking on the phone, her brother was playing video games.","While she was talking on the phone, her sister was playing video games.","While she was working, her brother was playing video games."], correct:0},
+      {audio:"When I got home, my sister was listening to music.", opts:["When I got home, my sister was listening to music.","When she got home, my sister was listening to music.","When I got home, my brother was listening to music."], correct:0},
+      {audio:"She suddenly dropped her phone while she was running.", opts:["She suddenly dropped her phone while she was running.","She suddenly found her phone while she was running.","He suddenly dropped his phone while he was running."], correct:0},
+      {audio:"Dad was reading the newspaper while mum was watering the plants.", opts:["Dad was reading the newspaper while mum was watering the plants.","Dad was watching TV while mum was watering the plants.","Dad was reading the newspaper while mum was making dinner."], correct:0},
+    ],
+    [ // L3 Avanzato — negativi e domande
+      {audio:"I wasn't listening when the teacher explained.", opts:["I wasn't listening when the teacher explained.","I was listening when the teacher explained.","She wasn't listening when the teacher explained."], correct:0},
+      {audio:"Were you sleeping when I called?", opts:["Were you sleeping when I called?","Was she sleeping when I called?","Were you sleeping when she called?"], correct:0},
+      {audio:"She wasn't cooking — she was reading.", opts:["She wasn't cooking — she was reading.","She was cooking — she wasn't reading.","He wasn't cooking — he was reading."], correct:0},
+      {audio:"What were you doing when the accident happened?", opts:["What were you doing when the accident happened?","Where were you going when the accident happened?","What was she doing when the accident happened?"], correct:0},
+      {audio:"They weren't playing outside; they were doing homework.", opts:["They weren't playing outside; they were doing homework.","They were playing outside; they weren't doing homework.","She wasn't playing outside; she was doing homework."], correct:0},
+      {audio:"Was it raining when you left home?", opts:["Was it raining when you left home?","Was it snowing when you left home?","Was it raining when you arrived home?"], correct:0},
+    ],
+    [ // L4 Sfida — frasi lunghe con when/while
+      {audio:"While I was walking home, I suddenly saw an old friend.", opts:["While I was walking home, I suddenly saw an old friend.","While I was walking home, I suddenly called an old friend.","While she was walking home, she suddenly saw an old friend."], correct:0},
+      {audio:"When the storm started, we were sitting in the garden.", opts:["When the storm started, we were sitting in the garden.","When the rain stopped, we were sitting in the garden.","When the storm started, they were sitting in the garden."], correct:0},
+      {audio:"While mum was making dinner, dad was helping the kids with their homework.", opts:["While mum was making dinner, dad was helping the kids with their homework.","While mum was making lunch, dad was helping the kids with their homework.","While mum was making dinner, dad was playing with the kids."], correct:0},
+      {audio:"She was just finishing her coffee when the bus arrived.", opts:["She was just finishing her coffee when the bus arrived.","She was just having her coffee when the bus arrived.","He was just finishing his coffee when the bus arrived."], correct:0},
+      {audio:"What was she doing when you knocked on the door?", opts:["What was she doing when you knocked on the door?","What was she doing when she knocked on the door?","Where was she going when you knocked on the door?"], correct:0},
+      {audio:"They were waiting for the bus when they suddenly saw their teacher.", opts:["They were waiting for the bus when they suddenly saw their teacher.","They were waiting for the bus when they suddenly met their teacher.","We were waiting for the bus when we suddenly saw our teacher."], correct:0},
+    ],
+  ];
+  let lLevel=0, lc=0, ls=0, lCorrect=0, lAudio="";
+  function setListenLevel(lvl){ lLevel=lvl; lc=0; ls=0; document.getElementById("listen-level").innerHTML=levelBar(lvl); showListen(); }
+  function showListen(){
+    const data=listenLevels[lLevel];
+    const box=document.getElementById("listen-quiz");
+    const pr=document.getElementById("listen-prog");
+    if(lc>=data.length){ box.innerHTML=""; levelResult(pr, ls, data.length, lLevel, 4, "setListenLevel"); return; }
+    const it=data[lc];
+    lAudio=it.audio;
+    const order=shuffle(it.opts.map((o,i)=>i));
+    const shown=order.map(k=>it.opts[k]);
+    lCorrect=order.indexOf(it.correct);
+    pr.textContent=`Esercizio ${lc+1} di ${data.length}`;
+    box.innerHTML=`
+      <div class="ex">
+        <div class="qnum">Ascolto ${lc+1}</div>
+        <button class="big-listen" onclick="event.stopPropagation();say('${escQ(it.audio)}')">🔊 Ascolta la frase</button>
+        <div class="options">
+          ${shown.map((o,i)=>`<button class="opt" onclick="listenAns(${i})">${o}</button>`).join("")}
+        </div>
+        <div class="feedback" id="lfb"></div>
+      </div>`;
+  }
+  function listenAns(i){
+    const opts=document.querySelectorAll("#listen-quiz .opt");
+    const fb=document.getElementById("lfb");
+    if(i===lCorrect){
+      opts[i].classList.add("correct");
+      fb.textContent="✅ Giusto! "+lAudio; fb.className="feedback ok";
+      ls++; say(lAudio); opts.forEach(o=>o.disabled=true);
+      setTimeout(()=>{ lc++; showListen(); },1800);
+    } else {
+      opts[i].classList.add("wrong");
+      fb.textContent="Riascolta e riprova 🙂"; fb.className="feedback no";
+    }
+  }
+
+  /* ============ SEZIONE 2 — SCRITTURA ============ */
+  const writeLevels = [
+    [ // L1 — was / were
+      {q:"She ____ cooking when I arrived.  (stava)", answers:["was"], full:"She was cooking when I arrived.", hint:"she → was."},
+      {q:"They ____ playing when it started to rain.  (stavano)", answers:["were"], full:"They were playing when it started to rain.", hint:"they → were."},
+      {q:"I ____ sleeping when you called.  (stavo)", answers:["was"], full:"I was sleeping when you called.", hint:"I → was."},
+      {q:"We ____ watching TV when the lights went out.  (stavamo)", answers:["were"], full:"We were watching TV when the lights went out.", hint:"we → were."},
+      {q:"He ____ reading when mum came home.  (stava)", answers:["was"], full:"He was reading when mum came home.", hint:"he → was."},
+      {q:"You ____ listening when I explained.  (stavi)", answers:["were"], full:"You were listening when I explained.", hint:"you → were."},
+    ],
+    [ // L2 — forma -ing del verbo
+      {q:"I was ____ to music when you called.  (listen)", answers:["listening"], full:"I was listening to music when you called.", hint:"listen + ing → listening."},
+      {q:"While she was ____ , the phone rang.  (cook)", answers:["cooking"], full:"While she was cooking, the phone rang.", hint:"cook + ing → cooking."},
+      {q:"He was ____ a book when I arrived.  (read)", answers:["reading"], full:"He was reading a book when I arrived.", hint:"read + ing → reading."},
+      {q:"They were ____ football when it started to rain.  (play)", answers:["playing"], full:"They were playing football when it started to rain.", hint:"play + ing → playing."},
+      {q:"She was ____ home when she saw her friend.  (run)", answers:["running"], full:"She was running home when she saw her friend.", hint:"run → raddoppia la n → running."},
+      {q:"We were ____ the table while mum was cooking.  (set)", answers:["setting"], full:"We were setting the table while mum was cooking.", hint:"set → raddoppia la t → setting."},
+    ],
+    [ // L3 — PS o PC? Scrivi la forma giusta
+      {q:"When the alarm went off, I ____ ____ .  (sleep — era in corso)", answers:["was sleeping"], full:"When the alarm went off, I was sleeping.", hint:"azione in corso → was + sleeping."},
+      {q:"She ____ her phone while she was walking.  (drop — improvviso)", answers:["dropped"], full:"She dropped her phone while she was walking.", hint:"azione improvvisa → Past Simple → dropped."},
+      {q:"While we ____ ____ , it suddenly started to snow.  (walk — in corso)", answers:["were walking"], full:"While we were walking, it suddenly started to snow.", hint:"azione in corso → were + walking."},
+      {q:"He ____ home when I called.  (come — azione puntuale)", answers:["came"], full:"He came home when I called.", hint:"azione puntuale → Past Simple → came."},
+      {q:"They ____ ____ TV when I arrived.  (watch — in corso)", answers:["were watching"], full:"They were watching TV when I arrived.", hint:"azione in corso → were + watching."},
+      {q:"I ____ my bag while I was running.  (lose — improvviso)", answers:["lost"], full:"I lost my bag while I was running.", hint:"azione improvvisa → Past Simple → lost."},
+    ],
+    [ // L4 — Sfida: forme complete
+      {q:"When the alarm went off, I ____ ____ .  (be + sleep — in corso)", answers:["was sleeping"], full:"When the alarm went off, I was sleeping.", hint:"I + was + sleeping."},
+      {q:"While I was cooking, my sister ____ me.  (call — interrompe)", answers:["called"], full:"While I was cooking, my sister called me.", hint:"azione che interrompe → Past Simple → called."},
+      {q:"We ____ ____ dinner when you knocked.  (have — in corso)", answers:["were having"], full:"We were having dinner when you knocked.", hint:"azione in corso → were + having."},
+      {q:"She ____ her keys while she was running.  (lose — improvviso)", answers:["lost"], full:"She lost her keys while she was running.", hint:"azione improvvisa → Past Simple → lost."},
+      {q:"While they ____ ____ home, it started to snow.  (walk — in corso)", answers:["were walking"], full:"While they were walking home, it started to snow.", hint:"they + were + walking."},
+      {q:"The children ____ ____ when the teacher came in.  (not talk — in corso)", answers:["weren't talking","were not talking"], full:"The children weren't talking when the teacher came in.", hint:"weren't + talking (PC negativo)."},
+    ],
+  ];
+  let wLevel=0, writeDone=[];
+  function norm(s){ return s.trim().toLowerCase().replace(/…/g,"...").replace(/\.\.\./g," ").replace(/\s+/g," "); }
+  function setWriteLevel(lvl){
+    wLevel=lvl;
+    const data=writeLevels[lvl];
+    writeDone=new Array(data.length).fill(false);
+    document.getElementById("write-level").innerHTML=levelBar(lvl);
+    document.getElementById("write-prog").textContent=`Completate 0 di ${data.length}`;
+    const list=document.getElementById("write-list");
+    list.innerHTML=data.map((it,i)=>`
+      <div class="ex">
+        <div class="qnum">Frase ${i+1}</div>
+        <div class="qtext">${it.q}</div>
+        <input class="write-input" id="wi${i}" type="text" autocomplete="off" placeholder="scrivi qui…">
+        <button class="checkbtn" onclick="checkWrite(${i})">Controlla</button>
+        <div class="feedback" id="wfb${i}"></div>
+      </div>`).join("");
+  }
+  function checkWrite(i){
+    const it=writeLevels[wLevel][i];
+    const inp=document.getElementById("wi"+i);
+    const fb=document.getElementById("wfb"+i);
+    const ok=it.answers.some(a=>norm(a)===norm(inp.value));
+    if(ok){
+      inp.classList.add("okbox"); inp.classList.remove("nobox");
+      fb.innerHTML="✅ Perfetto! "+it.full; fb.className="feedback ok";
+      say(it.full);
+    } else {
+      inp.classList.add("nobox");
+      fb.innerHTML=`💛 Quasi! ${it.hint}<br>La risposta è: <b>${it.full}</b> <button class="saybtn" onclick="event.stopPropagation();say('${escQ(it.full)}')">🔊</button>`;
+      fb.className="feedback no";
+    }
+    if(!writeDone[i]){ writeDone[i]=true; updateWrite(); }
+  }
+  function updateWrite(){
+    const data=writeLevels[wLevel];
+    const pr=document.getElementById("write-prog");
+    const done=writeDone.filter(Boolean).length;
+    if(done<data.length){ pr.textContent=`Completate ${done} di ${data.length}`; return; }
+    let correct=0;
+    data.forEach((it,i)=>{ if(document.getElementById("wi"+i).classList.contains("okbox")) correct++; });
+    levelResult(pr, correct, data.length, wLevel, 4, "setWriteLevel");
+  }
+
+  /* ============ SEZIONE 3 — LETTURA ============ */
+  const readLevels = [
+    { // L1
+      lines:["It was a rainy afternoon.","Tom was doing his homework at the kitchen table.","His mum was reading a book on the sofa.","Suddenly, the lights went out!"],
+      q:[
+        {q:"What was Tom doing? 📚", opts:["He was sleeping","He was doing his homework","He was watching TV"], correct:1, full:"Tom was doing his homework."},
+        {q:"Where was his mum? 📖", opts:["In the kitchen","In the garden","On the sofa"], correct:2, full:"His mum was on the sofa, reading."},
+        {q:"What happened suddenly? 💡", opts:["It started to rain","The lights went out","Someone knocked"], correct:1, full:"The lights went out."},
+      ]
+    },
+    { // L2
+      lines:["Yesterday morning, Sara was walking to school.","She was listening to music and thinking about her homework.","Suddenly it started to rain.","She ran to a coffee shop and called her mum."],
+      q:[
+        {q:"What was Sara doing when it started to rain? 🎵", opts:["She was running","She was listening to music","She was reading"], correct:1, full:"She was listening to music."},
+        {q:"What happened suddenly? 🌧️", opts:["She fell down","She saw a friend","It started to rain"], correct:2, full:"It started to rain."},
+        {q:"What did Sara do then? ☕", opts:["She ran home","She ran to a coffee shop","She kept walking"], correct:1, full:"She ran to a coffee shop and called her mum."},
+      ]
+    },
+    { // L3
+      lines:["Last Saturday, the whole family was busy.","Dad wasn't sleeping — he was making pancakes in the kitchen.","Mum was watering the plants in the garden.","I was still sleeping when they called me for breakfast!"],
+      q:[
+        {q:"What was dad making? 🥞", opts:["Eggs","Pancakes","Coffee"], correct:1, full:"Dad was making pancakes."},
+        {q:"Where was mum? 🌸", opts:["In the kitchen","In her room","In the garden"], correct:2, full:"Mum was in the garden, watering the plants."},
+        {q:"What was I doing when they called? 😴", opts:["Reading","Still sleeping","Having breakfast"], correct:1, full:"I was still sleeping."},
+      ]
+    },
+    { // L4
+      lines:["Last summer, something funny happened while we were on holiday.","We were visiting a market when it suddenly started to pour.","Everyone was running to find shelter.","A nice old lady was selling hats nearby.","She smiled at us while we were buying them.","We were wearing our new hats when the rain stopped!"],
+      q:[
+        {q:"What were they doing when it started to rain? 🏪", opts:["Swimming at the beach","Eating at a restaurant","Visiting a market"], correct:2, full:"They were visiting a market."},
+        {q:"What was the old lady selling? 🎩", opts:["Umbrellas","Hats","Raincoats"], correct:1, full:"The old lady was selling hats."},
+        {q:"What were they doing when the rain stopped? ☀️", opts:["Running home","Wearing their new hats","Having lunch"], correct:1, full:"They were wearing their new hats."},
+      ]
+    },
+  ];
+  let rLevel=0, readDone=[], readingText="", readCorrect=[];
+  function sayReading(){ say(readingText); }
+  function setReadLevel(lvl, noScroll){
+    rLevel=lvl;
+    const data=readLevels[lvl];
+    readingText=data.lines.join(" ");
+    readDone=new Array(data.q.length).fill(false);
+    document.getElementById("read-level").innerHTML=levelBar(lvl);
+    document.getElementById("reading-text").innerHTML=data.lines.map(l=>`<p>${l}</p>`).join("");
+    document.getElementById("read-prog").textContent=`Risposte 0 di ${data.q.length}`;
+    readCorrect=[];
+    const list=document.getElementById("read-list");
+    list.innerHTML=data.q.map((it,i)=>{
+      const order=shuffle(it.opts.map((o,k)=>k));
+      const shown=order.map(k=>it.opts[k]);
+      readCorrect[i]=order.indexOf(it.correct);
+      return `
+      <div class="ex">
+        <div class="qnum">Domanda ${i+1}</div>
+        <div class="qtext">${it.q}</div>
+        <div class="options">
+          ${shown.map((o,j)=>`<button class="opt" onclick="readAns(${i},${j})">${o}</button>`).join("")}
+        </div>
+        <div class="feedback" id="rfb${i}"></div>
+      </div>`;
+    }).join("");
+    if(!noScroll){
+      const card=document.getElementById("read-card");
+      if(card) card.scrollIntoView({behavior:"smooth", block:"start"});
+    }
+  }
+  function readAns(i,j){
+    const it=readLevels[rLevel].q[i];
+    const opts=document.querySelectorAll("#read-list .ex:nth-child("+(i+1)+") .opt");
+    const fb=document.getElementById("rfb"+i);
+    if(j===readCorrect[i]){
+      opts[j].classList.add("correct");
+      fb.innerHTML="✅ Giusto! "+it.full+` <button class="saybtn" onclick="event.stopPropagation();say('${escQ(it.full)}')">🔊</button>`;
+      fb.className="feedback ok"; opts.forEach(o=>o.disabled=true);
+      if(!readDone[i]){ readDone[i]=true; updateRead(); }
+    } else {
+      opts[j].classList.add("wrong");
+      fb.textContent="Rileggi il testo e riprova 🙂"; fb.className="feedback no";
+    }
+  }
+  function updateRead(){
+    const data=readLevels[rLevel];
+    const pr=document.getElementById("read-prog");
+    const done=readDone.filter(Boolean).length;
+    if(done<data.q.length){ pr.textContent=`Risposte ${done} di ${data.q.length}`; return; }
+    levelResult(pr, data.q.length, data.q.length, rLevel, 2, "setReadLevel");
+  }
+
+  /* ============ SEZIONE 4 — LESSICO ============ */
+  const matchLevels = [
+    [ // L1 — connettori e parole chiave
+      {en:"while", it:"mentre 🔗"},{en:"when", it:"quando ⏰"},
+      {en:"suddenly", it:"improvvisamente ⚡"},{en:"still", it:"ancora ⏳"},
+      {en:"was doing", it:"stava facendo 🎬"},{en:"were doing", it:"stavano facendo 🎬"},
+      {en:"at that moment", it:"in quel momento 📍"},{en:"then", it:"poi / allora ➡️"},
+    ],
+    [ // L2 — verbi al Past Simple (evento puntuale)
+      {en:"rang", it:"squillò 📞"},{en:"arrived", it:"arrivò 🚶"},
+      {en:"started", it:"iniziò ▶️"},{en:"dropped", it:"lasciò cadere 📱"},
+      {en:"called", it:"chiamò 📲"},{en:"knocked", it:"bussò 🚪"},
+      {en:"stopped", it:"si fermò ✋"},{en:"came home", it:"tornò a casa 🏠"},
+    ],
+    [ // L3 — verbi in forma -ing (azione in corso)
+      {en:"was watching", it:"stava guardando 📺"},{en:"was sleeping", it:"stava dormendo 😴"},
+      {en:"was cooking", it:"stava cucinando 🍳"},{en:"was walking", it:"stava camminando 🚶"},
+      {en:"was studying", it:"stava studiando 📚"},{en:"was listening", it:"stava ascoltando 🎧"},
+      {en:"were playing", it:"stavano giocando ⚽"},{en:"were waiting", it:"stavano aspettando ⏳"},
+    ],
+    [ // L4 — frasi complete
+      {en:"While I was reading", it:"Mentre leggevo 📖"},{en:"When you called", it:"Quando hai chiamato 📲"},
+      {en:"She was sleeping", it:"Stava dormendo 😴"},{en:"He suddenly arrived", it:"Arrivò all'improvviso 🚶"},
+      {en:"We were having lunch", it:"Stavamo pranzando 🍽️"},{en:"It started to rain", it:"Iniziò a piovere 🌧️"},
+      {en:"They were playing", it:"Stavano giocando ⚽"},{en:"I was just leaving", it:"Stavo per uscire 🚪"},
+    ],
+  ];
+  let mLevel=0, selEn=null, matched=0, firstTry=0, spoiled;
+  function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+  function setMatchLevel(lvl){
+    mLevel=lvl; selEn=null; matched=0; firstTry=0; spoiled=new Set();
+    const pairs=matchLevels[lvl];
+    document.getElementById("match-level").innerHTML=levelBar(lvl);
+    const grid=document.getElementById("match-grid");
+    const left=pairs.map((p,i)=>`<button class="match-btn" id="en${i}" onclick="pickEn(${i})">
+        <span>${p.en}</span>
+        <span class="saybtn" onclick="event.stopPropagation();say('${escQ(p.en)}')">🔊</span></button>`).join("");
+    const order=shuffle(pairs.map((p,i)=>i));
+    const right=order.map(i=>`<button class="match-btn" id="it${i}" onclick="pickIt(${i})">${pairs[i].it}</button>`).join("");
+    grid.innerHTML=`<div class="match-col">${left}</div><div class="match-col">${right}</div>`;
+    document.getElementById("match-prog").textContent=`Coppie collegate: 0 di ${pairs.length}`;
+  }
+  function pickEn(i){
+    const btn=document.getElementById("en"+i);
+    if(btn.classList.contains("done")) return;
+    document.querySelectorAll(".match-btn.sel").forEach(b=>b.classList.remove("sel"));
+    selEn=i; btn.classList.add("sel");
+  }
+  function pickIt(i){
+    if(selEn===null) return;
+    const itBtn=document.getElementById("it"+i);
+    if(itBtn.classList.contains("done")) return;
+    const enBtn=document.getElementById("en"+selEn);
+    const pairs=matchLevels[mLevel];
+    if(selEn===i){
+      enBtn.classList.remove("sel"); enBtn.classList.add("done"); itBtn.classList.add("done");
+      say(pairs[i].en);
+      if(!spoiled.has(selEn)) firstTry++;
+      selEn=null; matched++;
+      const pr=document.getElementById("match-prog");
+      if(matched>=pairs.length){
+        levelResult(pr, firstTry, pairs.length, mLevel, 5, "setMatchLevel");
+      } else {
+        pr.textContent=`Coppie collegate: ${matched} di ${pairs.length}`;
+      }
+    } else {
+      spoiled.add(selEn);
+      itBtn.classList.add("flash");
+      setTimeout(()=>itBtn.classList.remove("flash"),500);
+      enBtn.classList.remove("sel"); selEn=null;
+    }
+  }
+
+  // avvio: ogni sezione parte dal Livello 1
+  setListenLevel(0);
+  setWriteLevel(0);
+  setReadLevel(0, true);
+  setMatchLevel(0);
+</script>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./service-worker.js');
+  }
+</script>
+</body>
+</html>

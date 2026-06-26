@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inglese - Past Simple vs Past Continuous</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#FAF6EE">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Inglese di Irene">
+<style>
+  :root{
+    --bg:#FAF6EE;
+    --card:#FFFFFF;
+    --ink:#2F2A24;
+    --accent:#8A6BB0;
+    --accent-soft:#EAE1F2;
+    --green:#3E8E5A;
+    --green-soft:#E2F0E6;
+    --red:#C2492F;
+    --red-soft:#F6E1DB;
+    --blue:#3B6EA5;
+    --blue-soft:#E2ECF5;
+    --orange:#C96F35;
+    --orange-soft:#F5E6D8;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:"Trebuchet MS","Comic Sans MS",Verdana,sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.7;
+    letter-spacing:0.3px;
+    padding:24px 14px 60px;
+  }
+  .wrap{max-width:620px;margin:0 auto;}
+  .backbtn{display:inline-block;background:var(--accent-soft);color:var(--accent);
+    text-decoration:none;border-radius:12px;padding:8px 16px;font-size:0.98rem;font-weight:bold;margin-bottom:14px;}
+  h1{color:var(--accent);font-size:1.7rem;text-align:center;margin:0 0 6px;}
+  .sub{text-align:center;color:#8a7f70;margin:0 0 26px;font-size:1rem;}
+  .card{background:var(--card);border-radius:18px;padding:22px 20px;margin-bottom:22px;
+    box-shadow:0 4px 14px rgba(0,0,0,0.06);border:1px solid #efe7da;}
+  .card h2{margin:0 0 14px;font-size:1.25rem;color:var(--accent);display:flex;align-items:center;gap:8px;}
+  table{width:100%;border-collapse:collapse;margin:6px 0;}
+  td,th{padding:10px;text-align:center;border-bottom:2px solid var(--accent-soft);font-size:1.05rem;}
+  th{color:var(--accent);}
+  .saybtn{background:var(--blue-soft);color:var(--blue);border:none;border-radius:10px;
+    padding:6px 12px;font-size:0.95rem;cursor:pointer;font-family:inherit;}
+  .ex{margin:18px 0;}
+  .qnum{font-weight:bold;color:var(--accent);}
+  .qtext{font-size:1.15rem;margin:6px 0 12px;}
+  .options{display:flex;gap:10px;flex-wrap:wrap;}
+  .opt{flex:1;min-width:80px;background:var(--bg);border:2px solid var(--accent-soft);
+    border-radius:12px;padding:14px;font-size:1.1rem;cursor:pointer;
+    text-align:center;font-family:inherit;color:var(--ink);transition:all .15s;}
+  .opt:hover{border-color:var(--accent);}
+  .opt.correct{background:var(--green-soft);border-color:var(--green);color:var(--green);font-weight:bold;}
+  .opt.wrong{background:var(--red-soft);border-color:var(--red);color:var(--red);}
+  .feedback{margin-top:12px;font-size:1.05rem;font-weight:bold;min-height:26px;}
+  .feedback.ok{color:var(--green);}
+  .feedback.no{color:var(--red);}
+  .progress{text-align:center;font-size:1.1rem;margin:10px 0 0;color:#8a7f70;}
+  .star{font-size:1.4rem;}
+  .restart{display:block;margin:20px auto 0;background:var(--accent);color:#fff;border:none;
+    border-radius:12px;padding:12px 24px;font-size:1.05rem;cursor:pointer;font-family:inherit;}
+  .tip{background:var(--accent-soft);border-radius:10px;padding:10px 14px;font-size:0.98rem;margin-top:10px;}
+  .formula{border-radius:12px;padding:14px;text-align:center;font-size:1.1rem;font-weight:bold;margin:6px 0 14px;}
+  .formula.blue{background:var(--blue-soft);color:var(--blue);}
+  .formula.orange{background:var(--orange-soft);color:var(--orange);}
+  .formula.purple{background:var(--accent-soft);color:var(--accent);}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0;}
+  .mini-card{border-radius:12px;padding:14px;font-size:0.97rem;}
+  .mini-card.ps{background:var(--orange-soft);}
+  .mini-card.pc{background:var(--accent-soft);}
+  .mini-card h3{margin:0 0 6px;font-size:1rem;}
+  .mini-card h3.ps{color:var(--orange);}
+  .mini-card h3.pc{color:var(--accent);}
+  .timeline-box{background:#f5f0e8;border-radius:14px;padding:16px 18px;margin:10px 0;}
+  .tl-row{display:flex;align-items:center;gap:10px;margin:8px 0;font-size:0.95rem;}
+  .tl-bar{height:9px;border-radius:99px;flex:1;}
+  .tl-bar.pc{background:var(--accent);}
+  .tl-dot{width:16px;height:16px;border-radius:50%;background:var(--orange);flex-shrink:0;border:2px solid #fff;box-shadow:0 0 0 2px var(--orange);}
+  .tl-lbl{min-width:90px;font-size:0.88rem;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="backbtn" href="index.html">← Indice</a>
+  <h1>⚡ Past Simple vs Past Continuous</h1>
+  <p class="sub">cosa finì e cosa stava succedendo? — <span style="color:var(--orange)"><b>did</b></span> vs <span style="color:var(--accent)"><b>was / were doing</b></span></p>
+
+  <!-- DUE TEMPI, DUE IDEE -->
+  <div class="card">
+    <h2>💡 Due tempi, due idee</h2>
+    <div class="two-col">
+      <div class="mini-card ps">
+        <h3 class="ps">🟠 Past Simple</h3>
+        Azione <b>finita</b> nel passato.<br>
+        <i>I <b>called</b> you.</i><br>
+        <i>She <b>arrived</b> late.</i>
+      </div>
+      <div class="mini-card pc">
+        <h3 class="pc">🟣 Past Continuous</h3>
+        Azione <b>in corso</b> nel passato.<br>
+        <i>I <b>was sleeping</b>.</i><br>
+        <i>She <b>was cooking</b>.</i>
+      </div>
+    </div>
+    <div class="tip">🎨 <b>Trucco visivo:</b> il Past Simple è un <span style="color:var(--orange)"><b>punto</b> 🔴</span> sulla linea del tempo — accade e finisce. Il Past Continuous è una <span style="color:var(--accent)"><b>linea lunga</b> ━━━</span> — stava già succedendo.</div>
+  </div>
+
+  <!-- WHEN / WHILE -->
+  <div class="card">
+    <h2>🔑 La coppia magica: <span style="color:var(--orange)">when</span> e <span style="color:var(--accent)">while</span></h2>
+
+    <p style="margin:0 0 8px;"><b><span style="color:var(--orange)">WHEN</span></b> (quando) + Past Simple → <b>interrompe</b> il Past Continuous</p>
+    <div class="formula orange">I <b>was sleeping</b> <span style="color:#b05a1a">when</span> the phone <b>rang</b>.</div>
+    <div class="timeline-box">
+      <div class="tl-row">
+        <span class="tl-lbl" style="color:var(--accent);">was sleeping ━</span>
+        <div class="tl-bar pc"></div>
+        <div class="tl-dot"></div>
+        <span style="font-size:0.88rem;color:var(--orange);font-weight:bold;">rang!</span>
+      </div>
+      <p style="margin:4px 0 0;font-size:0.88rem;color:#776;"><span style="color:var(--accent);">Linea viola</span> = stavo dormendo (in corso) · <span style="color:var(--orange);">Punto arancione</span> = il telefono squillò (e mi svegliò)</p>
+    </div>
+
+    <p style="margin:16px 0 8px;"><b><span style="color:var(--accent)">WHILE</span></b> (mentre) + Past Continuous → azione di <b>sfondo</b> o due azioni <b>insieme</b></p>
+    <div class="formula purple"><span style="color:#6a4a9c">While</span> I <b>was cooking</b>, she <b>called</b>. &nbsp;🔗&nbsp; sfondo + evento</div>
+    <div class="formula purple"><span style="color:#6a4a9c">While</span> I <b>was studying</b>, my brother <b>was playing</b>. &nbsp;🔗&nbsp; due azioni insieme</div>
+
+    <div class="tip">
+      ✅ <b>Schema rapido:</b><br>
+      🟠 <b>when</b> + Past Simple → evento che <i>interrompe</i> 🎯<br>
+      🟣 <b>while</b> + Past Continuous → azione di <i>sfondo</i> 🌅<br>
+      🟣 <b>while</b> + PC … PC → due azioni <i>contemporanee</i> 🔄
+    </div>
+  </div>
+
+  <!-- PAROLE SEGNALE -->
+  <div class="card">
+    <h2>📡 Parole segnale</h2>
+    <table>
+      <tr><th style="color:var(--orange)">🟠 Past Simple</th><th style="color:var(--accent)">🟣 Past Continuous</th></tr>
+      <tr>
+        <td style="text-align:left;padding-left:14px;">
+          <b>when</b> — quando<br>
+          <b>suddenly</b> — improvvisamente<br>
+          <b>then</b> — poi / allora<br>
+          <b>at 8 o'clock</b> — alle 8
+        </td>
+        <td style="text-align:left;padding-left:14px;">
+          <b>while</b> — mentre<br>
+          <b>as</b> — mentre / man mano che<br>
+          <b>at that moment</b> — in quel momento<br>
+          <b>still</b> — ancora
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- FRASI PRONTE -->
+  <div class="card">
+    <h2>🗣️ Frasi pronte (ascolta!)</h2>
+    <table>
+      <tr><th>Inglese</th><th>Italiano</th><th>🔊</th></tr>
+      <tr>
+        <td>I <b>was sleeping</b> when the phone <b>rang</b>.</td>
+        <td>Stavo dormendo quando squillò il telefono.</td>
+        <td><button class="saybtn" onclick="say('I was sleeping when the phone rang.')">🔊</button></td>
+      </tr>
+      <tr>
+        <td>She <b>was cooking</b> when I <b>arrived</b>.</td>
+        <td>Stava cucinando quando sono arrivata.</td>
+        <td><button class="saybtn" onclick="say('She was cooking when I arrived.')">🔊</button></td>
+      </tr>
+      <tr>
+        <td>While I <b>was studying</b>, he <b>called</b>.</td>
+        <td>Mentre studiavo, lui chiamò.</td>
+        <td><button class="saybtn" onclick="say('While I was studying, he called.')">🔊</button></td>
+      </tr>
+      <tr>
+        <td>It <b>started</b> to rain while we <b>were walking</b>.</td>
+        <td>Iniziò a piovere mentre camminavamo.</td>
+        <td><button class="saybtn" onclick="say('It started to rain while we were walking.')">🔊</button></td>
+      </tr>
+      <tr>
+        <td>While mum <b>was cooking</b>, we <b>were setting</b> the table.</td>
+        <td>Mentre la mamma cucinava, noi apparecchiavamo.</td>
+        <td><button class="saybtn" onclick="say('While mum was cooking, we were setting the table.')">🔊</button></td>
+      </tr>
+      <tr>
+        <td>When I <b>came</b> home, the dog <b>was sleeping</b>.</td>
+        <td>Quando sono tornata a casa, il cane dormiva.</td>
+        <td><button class="saybtn" onclick="say('When I came home, the dog was sleeping.')">🔊</button></td>
+      </tr>
+    </table>
+    <div class="tip">❌ <b>Negativo PC:</b> <i>I <b>wasn't listening</b> when you spoke.</i><br>
+    ❓ <b>Domanda:</b> <i><b>What were you doing</b> when I called?</i></div>
+  </div>
+
+  <!-- ESERCIZI -->
+  <div class="card">
+    <h2>✅ Prova tu!</h2>
+    <p style="margin-top:0;color:#8a7f70;">Scegli la risposta giusta. Se sbagli, riprova: nessuna fretta! 🙂</p>
+    <div id="quiz"></div>
+    <div class="progress" id="progress"></div>
+    <button class="restart" id="restartBtn" style="display:none;" onclick="startQuiz()">🔄 Ricomincia</button>
+  </div>
+
+  <!-- CTA ALLENAMENTO -->
+  <div class="card" style="text-align:center;">
+    <h2 style="justify-content:center;">🎧 Pronta ad allenarti?</h2>
+    <p style="margin:0 0 18px;color:#8a7f70;">Hai studiato la lezione: ora mettiti alla prova con gli esercizi di ascolto, scrittura, lettura e lessico! 💪</p>
+    <a class="restart" href="past-simple-vs-continuous-allenamento.html" style="text-decoration:none;display:inline-block;font-size:1.25rem;padding:16px 34px;">Allenati! →</a>
+  </div>
+</div>
+
+<script>
+  function say(text){
+    try{
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = "en-US"; u.rate = 0.85;
+      speechSynthesis.cancel(); speechSynthesis.speak(u);
+    }catch(e){}
+  }
+
+  const questions = [
+    {q:"She ____ when I arrived.", opts:["was cooking","cooked","is cooking"], correct:0, full:"She was cooking when I arrived"},
+    {q:"While he was sleeping, the baby ____.", opts:["cried","was crying","cries"], correct:0, full:"While he was sleeping, the baby cried"},
+    {q:"I ____ TV when the lights went out.", opts:["watched","was watching","watch"], correct:1, full:"I was watching TV when the lights went out"},
+    {q:"____ we were talking, the dog started barking.", opts:["When","While","After"], correct:1, full:"While we were talking, the dog started barking"},
+    {q:"He was reading ____ you called.", opts:["while","because","when"], correct:2, full:"He was reading when you called"},
+    {q:"She ____ her bag while she was running.", opts:["was dropping","dropped","drops"], correct:1, full:"She dropped her bag while she was running"},
+    {q:"When mum came home, we ____ dinner.", opts:["had","are having","were having"], correct:2, full:"When mum came home, we were having dinner"},
+    {q:"I ____ to music when my friend arrived.", opts:["listened","am listening","was listening"], correct:2, full:"I was listening to music when my friend arrived"},
+  ];
+
+  let current = 0, score = 0;
+
+  function startQuiz(){
+    current = 0; score = 0;
+    document.getElementById("restartBtn").style.display = "none";
+    showQuestion();
+  }
+
+  function showQuestion(){
+    const quiz = document.getElementById("quiz");
+    const prog = document.getElementById("progress");
+    if(current >= questions.length){
+      quiz.innerHTML = "";
+      const pct = score/questions.length;
+      const n = pct===1?5:pct>=0.75?4:pct>=0.5?3:pct>=0.25?2:1;
+      const msg = pct===1 ? "Perfetto! Ora conosci la differenza! 🏆" :
+                  pct>=0.5 ? "Bravissima, ci sei quasi! 💪" :
+                  "Bene, riprova: si impara ripetendo! 🌱";
+      prog.innerHTML = `<div class="star">${"⭐".repeat(n)}</div>${score}/${questions.length} giuste<br><b>${msg}</b>`;
+      document.getElementById("restartBtn").style.display = "block";
+      return;
+    }
+    const item = questions[current];
+    prog.textContent = `Domanda ${current+1} di ${questions.length}`;
+    quiz.innerHTML = `
+      <div class="ex">
+        <div class="qnum">Domanda ${current+1}</div>
+        <div class="qtext">${item.q}</div>
+        <div class="options">
+          ${item.opts.map((o,i)=>`<button class="opt" onclick="answer(${i})">${o}</button>`).join("")}
+        </div>
+        <div class="feedback" id="fb"></div>
+      </div>`;
+  }
+
+  function answer(i){
+    const item = questions[current];
+    const opts = document.querySelectorAll(".opt");
+    const fb = document.getElementById("fb");
+    if(i === item.correct){
+      opts[i].classList.add("correct");
+      fb.textContent = "✅ Giusto! " + item.full;
+      fb.className = "feedback ok";
+      score++;
+      say(item.full);
+      opts.forEach(o=>o.disabled=true);
+      setTimeout(()=>{ current++; showQuestion(); }, 1600);
+    } else {
+      opts[i].classList.add("wrong");
+      fb.textContent = "Riprova! 🙂";
+      fb.className = "feedback no";
+    }
+  }
+
+  startQuiz();
+</script>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./service-worker.js');
+  }
+</script>
+</body>
+</html>
