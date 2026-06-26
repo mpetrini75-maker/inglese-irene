@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Should / Shouldn't — Allenamento</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#FAF6EE">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Inglese di Irene">
+<script src="alert.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FAF6EE; --card:#FFFFFF; --ink:#2F2A24;
+    --accent:#8A6BB0; --accent-soft:#EAE1F2;
+    --green:#3E8E5A; --green-soft:#E2F0E6;
+    --red:#C2492F; --red-soft:#F6E1DB;
+    --blue:#3B6EA5; --blue-soft:#E2ECF5;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:"Lexend","Trebuchet MS",Verdana,sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.7;letter-spacing:0.3px;padding:24px 14px 60px;}
+  .wrap{max-width:620px;margin:0 auto;}
+  .backbtn{display:inline-block;background:var(--accent-soft);color:var(--accent);
+    text-decoration:none;border-radius:12px;padding:8px 16px;font-size:0.98rem;font-weight:bold;margin-bottom:14px;}
+  h1{color:var(--accent);font-size:1.6rem;text-align:center;margin:0 0 6px;}
+  .sub{text-align:center;color:#8a7f70;margin:0 0 26px;font-size:1rem;}
+  .card{background:var(--card);border-radius:18px;padding:22px 20px;margin-bottom:22px;
+    box-shadow:0 4px 14px rgba(0,0,0,0.06);border:1px solid #efe7da;}
+  .card h2{margin:0 0 10px;font-size:1.25rem;color:var(--accent);display:flex;align-items:center;gap:8px;}
+  .card .lead{color:#8a7f70;margin:0 0 12px;font-size:0.97rem;}
+  .levelbar{margin:0 0 12px;}
+  .lvrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:0.98rem;color:var(--accent);}
+  .lvdots{display:inline-flex;gap:6px;}
+  .lvdot{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    background:var(--bg);border:2px solid var(--accent-soft);color:#b9ad9c;font-size:0.85rem;font-weight:bold;}
+  .lvdot.on{background:var(--accent-soft);border-color:var(--accent);color:var(--accent);}
+  .saybtn{background:var(--blue-soft);color:var(--blue);border:none;border-radius:10px;
+    padding:6px 12px;font-size:0.95rem;cursor:pointer;font-family:inherit;}
+  .big-listen{display:block;margin:6px auto 14px;background:var(--blue);color:#fff;
+    border:none;border-radius:16px;padding:18px 26px;font-size:1.2rem;font-weight:bold;
+    cursor:pointer;font-family:inherit;box-shadow:0 4px 12px rgba(59,110,165,0.3);}
+  .big-listen:hover{opacity:0.92;}
+  .ex{margin:14px 0;}
+  .qnum{font-weight:bold;color:var(--accent);}
+  .qtext{font-size:1.12rem;margin:6px 0 8px;}
+  .options{display:flex;flex-direction:column;gap:10px;}
+  .opt{background:var(--bg);border:2px solid var(--accent-soft);border-radius:12px;
+    padding:13px 14px;font-size:1.08rem;cursor:pointer;text-align:left;
+    font-family:inherit;color:var(--ink);transition:all .15s;}
+  .opt:hover{border-color:var(--accent);}
+  .opt.correct{background:var(--green-soft);border-color:var(--green);color:var(--green);font-weight:bold;}
+  .opt.wrong{background:var(--red-soft);border-color:var(--red);color:var(--red);}
+  .feedback{margin-top:10px;font-size:1.02rem;font-weight:bold;min-height:24px;}
+  .feedback.ok{color:var(--green);}
+  .feedback.no{color:var(--red);}
+  .progress{text-align:center;font-size:1.05rem;margin:12px 0 0;color:#8a7f70;}
+  .star{font-size:1.4rem;}
+  .write-input{width:100%;font-family:"Lexend",sans-serif;font-size:1.2rem;
+    padding:12px 14px;border:2px solid var(--accent-soft);border-radius:12px;
+    background:var(--bg);color:var(--ink);margin-top:4px;}
+  .write-input:focus{outline:none;border-color:var(--accent);}
+  .checkbtn{margin-top:10px;background:var(--accent);color:#fff;border:none;
+    border-radius:12px;padding:10px 20px;font-size:1rem;cursor:pointer;font-family:inherit;}
+  .write-input.okbox{border-color:var(--green);background:var(--green-soft);}
+  .write-input.nobox{border-color:var(--red);}
+  .reading{background:var(--bg);border-radius:14px;padding:16px 18px;font-size:1.12rem;
+    border:2px solid var(--accent-soft);margin-bottom:6px;}
+  .reading p{margin:0 0 6px;}
+  .match-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px;}
+  .match-col{display:flex;flex-direction:column;gap:10px;}
+  .match-btn{background:var(--bg);border:2px solid var(--accent-soft);border-radius:12px;
+    padding:12px;font-size:1.05rem;cursor:pointer;font-family:inherit;color:var(--ink);
+    display:flex;align-items:center;justify-content:space-between;gap:6px;transition:all .15s;}
+  .match-btn:hover{border-color:var(--accent);}
+  .match-btn.sel{border-color:var(--blue);background:var(--blue-soft);color:var(--blue);font-weight:bold;}
+  .match-btn.done{background:var(--green-soft);border-color:var(--green);color:var(--green);
+    font-weight:bold;cursor:default;opacity:0.85;}
+  .match-btn.flash{border-color:var(--red);background:var(--red-soft);}
+  .restart{display:inline-block;margin:12px auto 0;background:var(--accent);color:#fff;border:none;
+    border-radius:12px;padding:11px 22px;font-size:1rem;cursor:pointer;font-family:inherit;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="backbtn" href="should.html">← Torna alla lezione</a>
+  <h1>🏋️ Should / Shouldn't — Allenamento</h1>
+  <p class="sub">4 livelli · ascolto · scrittura · lettura · lessico</p>
+
+  <div class="card">
+    <h2>🎧 1. Ascolto</h2>
+    <p class="lead">Tocca il pulsante blu e ascolta. Scegli la frase giusta. Puoi riascoltare quante volte vuoi!</p>
+    <div class="levelbar" id="listen-level"></div>
+    <div id="listen-quiz"></div>
+    <div class="progress" id="listen-prog"></div>
+  </div>
+
+  <div class="card">
+    <h2>✏️ 2. Scrittura</h2>
+    <p class="lead">Scrivi la parola o le parole giuste. Non contano maiuscole o spazi extra. Poi tocca "Controlla".</p>
+    <div class="levelbar" id="write-level"></div>
+    <div id="write-list"></div>
+    <div class="progress" id="write-prog"></div>
+  </div>
+
+  <div class="card" id="read-card">
+    <h2>📖 3. Lettura</h2>
+    <p class="lead">Ascolta e leggi il testo, poi rispondi alle domande.</p>
+    <div class="levelbar" id="read-level"></div>
+    <div class="reading" id="reading-text"></div>
+    <button class="saybtn" onclick="event.stopPropagation();sayReading()">🔊 Ascolta tutto il testo</button>
+    <div id="read-list" style="margin-top:8px;"></div>
+    <div class="progress" id="read-prog"></div>
+  </div>
+
+  <div class="card">
+    <h2>🔤 4. Lessico</h2>
+    <p class="lead">Tocca una parola inglese (ascoltala con 🔊), poi il suo significato. Collega tutte le coppie!</p>
+    <div class="levelbar" id="match-level"></div>
+    <div class="match-grid" id="match-grid"></div>
+    <div class="progress" id="match-prog"></div>
+  </div>
+</div>
+
+<script>
+  function say(text){
+    try{
+      const u=new SpeechSynthesisUtterance(text);
+      u.lang="en-US"; u.rate=0.85;
+      speechSynthesis.cancel(); speechSynthesis.speak(u);
+    }catch(e){}
+  }
+  function escQ(s){ return s.replace(/'/g,"\\'"); }
+  function stars(correct,total){
+    const pct=correct/total;
+    return "⭐".repeat(pct===1?5:pct>=0.75?4:pct>=0.5?3:pct>=0.25?2:1);
+  }
+  const LV=["Base","Intermedio","Avanzato","Sfida"];
+  function levelBar(level){
+    let dots="";
+    for(let i=0;i<4;i++) dots+=`<span class="lvdot ${i<=level?'on':''}">${i+1}</span>`;
+    return `<div class="lvrow"><b>Livello ${level+1} di 4 · ${LV[level]} 🔓</b><span class="lvdots">${dots}</span></div>`;
+  }
+  function levelResult(progEl,score,total,level,threshold,setFnName){
+    const passed=score>=threshold;
+    let html=`<div class="star">${stars(score,total)}</div>${score}/${total} giuste<br>`;
+    if(passed && level<3){
+      html+=`<b>Bravissima! Livello ${level+2} sbloccato 🔓</b><br>`;
+      html+=`<button class="restart" onclick="${setFnName}(${level+1})">➡️ Vai al Livello ${level+2}</button>`;
+    } else if(passed && level===3){
+      inviaAlertQuiz();
+      html+=`<b>🏆 Hai completato tutti i livelli!</b><br>`;
+      html+=`<button class="restart" onclick="${setFnName}(0)">🔄 Rigioca dal Livello 1</button>`;
+    } else {
+      html+=`<b>Ci sei quasi! Riprova questo livello, ce la fai 🌱</b><br>`;
+      html+=`<button class="restart" onclick="${setFnName}(${level})">🔄 Rifai il Livello ${level+1}</button>`;
+    }
+    progEl.innerHTML=html;
+  }
+
+  /* ============ SEZIONE 1 — ASCOLTO ============ */
+  const listenLevels=[
+    [ // L1 — should: consigli semplici
+      {audio:"You should rest — you look tired.",opts:["You should rest — you look tired.","You should run — you look tired.","You shouldn't rest — you look tired."],correct:0},
+      {audio:"She should see a doctor.",opts:["She should see a doctor.","She shouldn't see a doctor.","He should see a doctor."],correct:0},
+      {audio:"You should drink more water.",opts:["You should drink more water.","You shouldn't drink more water.","You should drink more coffee."],correct:0},
+      {audio:"I think he should apologize.",opts:["I think he should apologize.","I think he shouldn't apologize.","I think she should apologize."],correct:0},
+      {audio:"We should leave now — it's late.",opts:["We should leave now — it's late.","We shouldn't leave now — it's late.","We should leave later — it's late."],correct:0},
+      {audio:"You should try this pizza — it's delicious!",opts:["You should try this pizza — it's delicious!","You shouldn't try this pizza — it's delicious!","You should try this pasta — it's delicious!"],correct:0},
+    ],
+    [ // L2 — shouldn't: cosa non fare
+      {audio:"You shouldn't eat so much junk food.",opts:["You shouldn't eat so much junk food.","You should eat so much junk food.","You shouldn't eat so much fruit."],correct:0},
+      {audio:"She shouldn't stay up so late.",opts:["She shouldn't stay up so late.","She should stay up so late.","He shouldn't stay up so late."],correct:0},
+      {audio:"You shouldn't worry — everything will be fine.",opts:["You shouldn't worry — everything will be fine.","You should worry — everything will be fine.","You shouldn't hurry — everything will be fine."],correct:0},
+      {audio:"He shouldn't be so rude to his friends.",opts:["He shouldn't be so rude to his friends.","He should be so rude to his friends.","She shouldn't be so rude to her friends."],correct:0},
+      {audio:"We shouldn't spend all our money.",opts:["We shouldn't spend all our money.","We should spend all our money.","We shouldn't save all our money."],correct:0},
+      {audio:"You shouldn't forget your umbrella — it might rain.",opts:["You shouldn't forget your umbrella — it might rain.","You should forget your umbrella — it might rain.","You shouldn't forget your jacket — it might rain."],correct:0},
+    ],
+    [ // L3 — misto should/shouldn't + domande
+      {audio:"Should I call him or send a message?",opts:["Should I call him or send a message?","Should she call him or send a message?","Should I call him or write a letter?"],correct:0},
+      {audio:"I think you should talk to your teacher.",opts:["I think you should talk to your teacher.","I think you shouldn't talk to your teacher.","I think she should talk to her teacher."],correct:0},
+      {audio:"You should exercise more and eat less sugar.",opts:["You should exercise more and eat less sugar.","You shouldn't exercise more and eat less sugar.","You should exercise less and eat more sugar."],correct:0},
+      {audio:"Should we book the tickets now?",opts:["Should we book the tickets now?","Shouldn't we book the tickets now?","Should they book the tickets now?"],correct:0},
+      {audio:"She should study harder — the exam is next week.",opts:["She should study harder — the exam is next week.","She shouldn't study harder — the exam is next week.","She should study harder — the exam is next month."],correct:0},
+      {audio:"You shouldn't use your phone while driving.",opts:["You shouldn't use your phone while driving.","You should use your phone while driving.","You shouldn't use your phone while walking."],correct:0},
+    ],
+    [ // L4 — frasi lunghe con contesto
+      {audio:"I feel terrible — I think I should go home and rest.",opts:["I feel terrible — I think I should go home and rest.","I feel terrible — I think I shouldn't go home and rest.","She feels terrible — I think she should go home and rest."],correct:0},
+      {audio:"You should try to sleep earlier — you're always tired in the morning.",opts:["You should try to sleep earlier — you're always tired in the morning.","You shouldn't try to sleep earlier — you're always tired in the morning.","You should try to wake up earlier — you're always tired in the morning."],correct:0},
+      {audio:"Should I apologize, or do you think she already forgot about it?",opts:["Should I apologize, or do you think she already forgot about it?","Should I apologize, or do you think he already forgot about it?","Shouldn't I apologize, or do you think she already forgot about it?"],correct:0},
+      {audio:"We shouldn't be late — the teacher gets angry if we miss the beginning.",opts:["We shouldn't be late — the teacher gets angry if we miss the beginning.","We should be late — the teacher gets angry if we miss the beginning.","We shouldn't be early — the teacher gets angry if we miss the beginning."],correct:0},
+      {audio:"I don't know what to do — do you think I should tell her the truth?",opts:["I don't know what to do — do you think I should tell her the truth?","I don't know what to do — do you think I shouldn't tell her the truth?","I don't know what to do — do you think she should tell the truth?"],correct:0},
+      {audio:"You should take an umbrella — it looks like it's going to rain.",opts:["You should take an umbrella — it looks like it's going to rain.","You shouldn't take an umbrella — it looks like it's going to rain.","You should take a jacket — it looks like it's going to rain."],correct:0},
+    ],
+  ];
+  let lLevel=0,lc=0,ls=0,lCorrect=0,lAudio="";
+  function setListenLevel(lvl){lLevel=lvl;lc=0;ls=0;document.getElementById("listen-level").innerHTML=levelBar(lvl);showListen();}
+  function showListen(){
+    const data=listenLevels[lLevel],box=document.getElementById("listen-quiz"),pr=document.getElementById("listen-prog");
+    if(lc>=data.length){box.innerHTML="";levelResult(pr,ls,data.length,lLevel,4,"setListenLevel");return;}
+    const it=data[lc]; lAudio=it.audio;
+    const order=shuffle(it.opts.map((o,i)=>i)),shown=order.map(k=>it.opts[k]);
+    lCorrect=order.indexOf(it.correct);
+    pr.textContent=`Esercizio ${lc+1} di ${data.length}`;
+    box.innerHTML=`<div class="ex"><div class="qnum">Ascolto ${lc+1}</div>
+      <button class="big-listen" onclick="event.stopPropagation();say('${escQ(it.audio)}')">🔊 Ascolta la frase</button>
+      <div class="options">${shown.map((o,i)=>`<button class="opt" onclick="listenAns(${i})">${o}</button>`).join("")}</div>
+      <div class="feedback" id="lfb"></div></div>`;
+  }
+  function listenAns(i){
+    const opts=document.querySelectorAll("#listen-quiz .opt"),fb=document.getElementById("lfb");
+    if(i===lCorrect){
+      opts[i].classList.add("correct");fb.textContent="✅ Giusto! "+lAudio;fb.className="feedback ok";
+      ls++;say(lAudio);opts.forEach(o=>o.disabled=true);
+      setTimeout(()=>{lc++;showListen();},1800);
+    } else {opts[i].classList.add("wrong");fb.textContent="Riascolta e riprova 🙂";fb.className="feedback no";}
+  }
+
+  /* ============ SEZIONE 2 — SCRITTURA ============ */
+  const writeLevels=[
+    [ // L1 — should / shouldn't
+      {q:"You ____ rest — you look really tired.  (consiglio positivo)", answers:["should"], full:"You should rest — you look really tired.", hint:"consiglio positivo → should."},
+      {q:"You ____ eat so much sugar.  (consiglio negativo)", answers:["shouldn't"], full:"You shouldn't eat so much sugar.", hint:"consiglio negativo → shouldn't."},
+      {q:"She ____ see a doctor.  (consiglio positivo)", answers:["should"], full:"She should see a doctor.", hint:"consiglio positivo → should."},
+      {q:"He ____ be so rude.  (consiglio negativo)", answers:["shouldn't"], full:"He shouldn't be so rude.", hint:"consiglio negativo → shouldn't."},
+      {q:"I think we ____ leave now.  (consiglio positivo)", answers:["should"], full:"I think we should leave now.", hint:"consiglio positivo → should."},
+      {q:"You ____ stay up so late!  (consiglio negativo)", answers:["shouldn't"], full:"You shouldn't stay up so late!", hint:"consiglio negativo → shouldn't."},
+    ],
+    [ // L2 — should / shouldn't + verbo intero
+      {q:"You ____ ____ more water every day.  (drink — consiglio)", answers:["should drink"], full:"You should drink more water every day.", hint:"consiglio → should + drink."},
+      {q:"She ____ ____ to the doctor.  (go — consiglio)", answers:["should go"], full:"She should go to the doctor.", hint:"should + go."},
+      {q:"He ____ ____ his phone while driving.  (not use — vietato/consiglio neg.)", answers:["shouldn't use"], full:"He shouldn't use his phone while driving.", hint:"consiglio negativo → shouldn't + use."},
+      {q:"You ____ ____ so much fast food.  (not eat — consiglio neg.)", answers:["shouldn't eat"], full:"You shouldn't eat so much fast food.", hint:"shouldn't + eat."},
+      {q:"We ____ ____ the tickets now.  (book — consiglio)", answers:["should book"], full:"We should book the tickets now.", hint:"should + book."},
+      {q:"They ____ ____ the truth.  (tell — consiglio)", answers:["should tell"], full:"They should tell the truth.", hint:"should + tell."},
+    ],
+    [ // L3 — should vs must vs don't have to (distingui)
+      {q:"You ____ study — the exam is tomorrow!  (obbligo forte)", answers:["must"], full:"You must study — the exam is tomorrow!", hint:"obbligo forte → must (non should!)."},
+      {q:"I think you ____ apologize.  (consiglio, opinione)", answers:["should"], full:"I think you should apologize.", hint:"opinione/consiglio → should."},
+      {q:"She ____ come — it's optional.  (non è necessario)", answers:["doesn't have to"], full:"She doesn't have to come — it's optional.", hint:"non necessario → doesn't have to."},
+      {q:"You ____ use your phone in class.  (vietato)", answers:["mustn't"], full:"You mustn't use your phone in class.", hint:"vietato → mustn't."},
+      {q:"He ____ eat healthier.  (consiglio)", answers:["should"], full:"He should eat healthier.", hint:"consiglio → should."},
+      {q:"We ____ be late — it's a rule!  (obbligo)", answers:["mustn't"], full:"We mustn't be late — it's a rule!", hint:"regola/divieto → mustn't."},
+    ],
+    [ // L4 — Sfida: forme complete con contesto
+      {q:"You ____ ____ to bed earlier — you're always tired!  (should / go)", answers:["should go"], full:"You should go to bed earlier — you're always tired!", hint:"consiglio → should + go."},
+      {q:"I feel sick. I think I ____ ____ home.  (should / go)", answers:["should go"], full:"I feel sick. I think I should go home.", hint:"should + go."},
+      {q:"____ I ____ him the truth?  (should / tell)", answers:["should … tell","should tell"], full:"Should I tell him the truth?", hint:"domanda → Should + I + tell."},
+      {q:"You ____ ____ so much coffee — it's bad for you!  (shouldn't / drink)", answers:["shouldn't drink"], full:"You shouldn't drink so much coffee — it's bad for you!", hint:"shouldn't + drink."},
+      {q:"She ____ ____ harder if she wants to pass.  (should / study)", answers:["should study"], full:"She should study harder if she wants to pass.", hint:"should + study."},
+      {q:"We ____ ____ — the film starts in five minutes!  (should / hurry)", answers:["should hurry"], full:"We should hurry — the film starts in five minutes!", hint:"should + hurry."},
+    ],
+  ];
+  let wLevel=0,writeDone=[];
+  function norm(s){return s.trim().toLowerCase().replace(/…/g,"...").replace(/\.\.\./g," ").replace(/\s+/g," ");}
+  function setWriteLevel(lvl){
+    wLevel=lvl;const data=writeLevels[lvl];
+    writeDone=new Array(data.length).fill(false);
+    document.getElementById("write-level").innerHTML=levelBar(lvl);
+    document.getElementById("write-prog").textContent=`Completate 0 di ${data.length}`;
+    document.getElementById("write-list").innerHTML=data.map((it,i)=>`
+      <div class="ex"><div class="qnum">Frase ${i+1}</div><div class="qtext">${it.q}</div>
+      <input class="write-input" id="wi${i}" type="text" autocomplete="off" placeholder="scrivi qui…">
+      <button class="checkbtn" onclick="checkWrite(${i})">Controlla</button>
+      <div class="feedback" id="wfb${i}"></div></div>`).join("");
+  }
+  function checkWrite(i){
+    const it=writeLevels[wLevel][i],inp=document.getElementById("wi"+i),fb=document.getElementById("wfb"+i);
+    const ok=it.answers.some(a=>norm(a)===norm(inp.value));
+    if(ok){
+      inp.classList.add("okbox");inp.classList.remove("nobox");
+      fb.innerHTML="✅ Perfetto! "+it.full;fb.className="feedback ok";say(it.full);
+    } else {
+      inp.classList.add("nobox");
+      fb.innerHTML=`💛 Quasi! ${it.hint}<br>La risposta è: <b>${it.full}</b> <button class="saybtn" onclick="event.stopPropagation();say('${escQ(it.full)}')">🔊</button>`;
+      fb.className="feedback no";
+    }
+    if(!writeDone[i]){writeDone[i]=true;updateWrite();}
+  }
+  function updateWrite(){
+    const data=writeLevels[wLevel],pr=document.getElementById("write-prog");
+    const done=writeDone.filter(Boolean).length;
+    if(done<data.length){pr.textContent=`Completate ${done} di ${data.length}`;return;}
+    let correct=0;
+    data.forEach((it,i)=>{if(document.getElementById("wi"+i).classList.contains("okbox"))correct++;});
+    levelResult(pr,correct,data.length,wLevel,4,"setWriteLevel");
+  }
+
+  /* ============ SEZIONE 3 — LETTURA ============ */
+  const readLevels=[
+    { // L1
+      lines:["Sara is always tired at school.","Her mum thinks she should go to bed earlier.","She also shouldn't use her phone after ten o'clock.","And she should eat a good breakfast every morning!"],
+      q:[
+        {q:"What should Sara do in the evening? 🌙",opts:["Study more","Go to bed earlier","Eat more"],correct:1,full:"Sara should go to bed earlier."},
+        {q:"What shouldn't Sara do after ten? 📵",opts:["Eat","Use her phone","Study"],correct:1,full:"She shouldn't use her phone after ten o'clock."},
+        {q:"What should Sara do every morning? 🥣",opts:["Exercise","Call her friends","Eat a good breakfast"],correct:2,full:"Sara should eat a good breakfast every morning."},
+      ]
+    },
+    { // L2
+      lines:["Tom has an important exam next week.","His teacher says he should review his notes every day.","He shouldn't leave everything to the last minute.","He should also take short breaks while studying — it helps!","And he definitely shouldn't stay up all night before the exam."],
+      q:[
+        {q:"What should Tom do every day? 📝",opts:["Exercise","Review his notes","Call his friends"],correct:1,full:"Tom should review his notes every day."},
+        {q:"What shouldn't Tom do? ⏰",opts:["Study","Take breaks","Leave everything to the last minute"],correct:2,full:"Tom shouldn't leave everything to the last minute."},
+        {q:"What is a good tip while studying? ☕",opts:["Drink coffee all night","Take short breaks","Study without stopping"],correct:1,full:"Tom should take short breaks while studying."},
+      ]
+    },
+    { // L3
+      lines:["Luca is going to visit London next month.","His English teacher gave him some advice.","He should practise speaking English as much as possible.","He shouldn't be shy — most people are very friendly!","He should also carry a small phrasebook just in case.","And he shouldn't forget to buy travel insurance."],
+      q:[
+        {q:"What should Luca practise? 🗣️",opts:["Writing English","Speaking English","Reading English"],correct:1,full:"Luca should practise speaking English."},
+        {q:"Why shouldn't Luca be shy? 😊",opts:["Because he speaks well","Because most people are friendly","Because he knows the city"],correct:1,full:"Most people are very friendly!"},
+        {q:"What shouldn't Luca forget to buy? 🛡️",opts:["A phrasebook","A map","Travel insurance"],correct:2,full:"Luca shouldn't forget to buy travel insurance."},
+      ]
+    },
+    { // L4
+      lines:["Anna is worried about her friend Mia.","Mia looks pale and tired, and she hasn't been eating well lately.","Anna thinks Mia should see a doctor as soon as possible.","She also thinks Mia shouldn't ignore how she's feeling.","Anna wants to help: she says Mia should talk to someone she trusts.","She told her: 'You shouldn't keep everything inside — it's not healthy.'"],
+      q:[
+        {q:"Why is Anna worried about Mia? 😟",opts:["Mia failed an exam","Mia looks pale, tired and isn't eating well","Mia is always late to school"],correct:1,full:"Mia looks pale, tired and hasn't been eating well."},
+        {q:"What does Anna think Mia should do first? 🏥",opts:["See a doctor","Talk to her teacher","Rest at home"],correct:0,full:"Anna thinks Mia should see a doctor as soon as possible."},
+        {q:"What shouldn't Mia do, according to Anna? 💬",opts:["See a doctor","Talk to someone","Keep everything inside"],correct:2,full:"Mia shouldn't keep everything inside — it's not healthy."},
+      ]
+    },
+  ];
+  let rLevel=0,readDone=[],readingText="",readCorrect=[];
+  function sayReading(){say(readingText);}
+  function setReadLevel(lvl,noScroll){
+    rLevel=lvl;const data=readLevels[lvl];
+    readingText=data.lines.join(" ");
+    readDone=new Array(data.q.length).fill(false);
+    document.getElementById("read-level").innerHTML=levelBar(lvl);
+    document.getElementById("reading-text").innerHTML=data.lines.map(l=>`<p>${l}</p>`).join("");
+    document.getElementById("read-prog").textContent=`Risposte 0 di ${data.q.length}`;
+    readCorrect=[];
+    document.getElementById("read-list").innerHTML=data.q.map((it,i)=>{
+      const order=shuffle(it.opts.map((o,k)=>k)),shown=order.map(k=>it.opts[k]);
+      readCorrect[i]=order.indexOf(it.correct);
+      return `<div class="ex"><div class="qnum">Domanda ${i+1}</div><div class="qtext">${it.q}</div>
+        <div class="options">${shown.map((o,j)=>`<button class="opt" onclick="readAns(${i},${j})">${o}</button>`).join("")}</div>
+        <div class="feedback" id="rfb${i}"></div></div>`;
+    }).join("");
+    if(!noScroll){const card=document.getElementById("read-card");if(card)card.scrollIntoView({behavior:"smooth",block:"start"});}
+  }
+  function readAns(i,j){
+    const it=readLevels[rLevel].q[i];
+    const opts=document.querySelectorAll("#read-list .ex:nth-child("+(i+1)+") .opt");
+    const fb=document.getElementById("rfb"+i);
+    if(j===readCorrect[i]){
+      opts[j].classList.add("correct");
+      fb.innerHTML="✅ Giusto! "+it.full+` <button class="saybtn" onclick="event.stopPropagation();say('${escQ(it.full)}')">🔊</button>`;
+      fb.className="feedback ok";opts.forEach(o=>o.disabled=true);
+      if(!readDone[i]){readDone[i]=true;updateRead();}
+    } else {
+      opts[j].classList.add("wrong");fb.textContent="Rileggi il testo e riprova 🙂";fb.className="feedback no";
+    }
+  }
+  function updateRead(){
+    const data=readLevels[rLevel],pr=document.getElementById("read-prog");
+    const done=readDone.filter(Boolean).length;
+    if(done<data.q.length){pr.textContent=`Risposte ${done} di ${data.q.length}`;return;}
+    levelResult(pr,data.q.length,data.q.length,rLevel,2,"setReadLevel");
+  }
+
+  /* ============ SEZIONE 4 — LESSICO ============ */
+  const matchLevels=[
+    [ // L1 — should/shouldn't + significato
+      {en:"should",it:"dovresti / dovrebbe 💡"},{en:"shouldn't",it:"non dovresti / non dovrebbe 🚫"},
+      {en:"should go",it:"dovresti andare 🚶"},{en:"shouldn't eat",it:"non dovresti mangiare 🍔"},
+      {en:"should rest",it:"dovresti riposare 😴"},{en:"should study",it:"dovresti studiare 📚"},
+      {en:"shouldn't worry",it:"non dovresti preoccuparti 😌"},{en:"should try",it:"dovresti provare ✨"},
+    ],
+    [ // L2 — verbi comuni con should
+      {en:"apologize",it:"scusarsi 🙏"},{en:"exercise",it:"fare esercizio 🏃"},
+      {en:"rest",it:"riposare 😴"},{en:"drink more water",it:"bere più acqua 💧"},
+      {en:"sleep earlier",it:"dormire prima 🌙"},{en:"eat healthier",it:"mangiare più sano 🥗"},
+      {en:"see a doctor",it:"andare dal medico 🏥"},{en:"tell the truth",it:"dire la verità 💬"},
+    ],
+    [ // L3 — confronto modali
+      {en:"should",it:"dovresti (consiglio) 💡"},{en:"must",it:"devi (obbligo forte) 💪"},
+      {en:"mustn't",it:"non puoi (vietato) 🚫"},{en:"don't have to",it:"non è necessario 😌"},
+      {en:"I think you should",it:"penso che tu debba 🤔"},{en:"you should try",it:"dovresti provare ✨"},
+      {en:"advice",it:"consiglio 💬"},{en:"recommendation",it:"raccomandazione ⭐"},
+    ],
+    [ // L4 — frasi complete
+      {en:"You should rest",it:"Dovresti riposare 😴"},{en:"She shouldn't worry",it:"Non dovrebbe preoccuparsi 😌"},
+      {en:"Should I call him?",it:"Dovrei chiamarlo? 📲"},{en:"I think you should go",it:"Penso che tu debba andare 🚶"},
+      {en:"You shouldn't be late",it:"Non dovresti fare tardi ⏰"},{en:"We should book now",it:"Dovremmo prenotare ora 📅"},
+      {en:"He should apologize",it:"Dovrebbe scusarsi 🙏"},{en:"Should we leave?",it:"Dovremmo andare? 🚪"},
+    ],
+  ];
+  let mLevel=0,selEn=null,matched=0,firstTry=0,spoiled;
+  function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+  function setMatchLevel(lvl){
+    mLevel=lvl;selEn=null;matched=0;firstTry=0;spoiled=new Set();
+    const pairs=matchLevels[lvl];
+    document.getElementById("match-level").innerHTML=levelBar(lvl);
+    const left=pairs.map((p,i)=>`<button class="match-btn" id="en${i}" onclick="pickEn(${i})">
+      <span>${p.en}</span><span class="saybtn" onclick="event.stopPropagation();say('${escQ(p.en)}')">🔊</span></button>`).join("");
+    const order=shuffle(pairs.map((p,i)=>i));
+    const right=order.map(i=>`<button class="match-btn" id="it${i}" onclick="pickIt(${i})">${pairs[i].it}</button>`).join("");
+    document.getElementById("match-grid").innerHTML=`<div class="match-col">${left}</div><div class="match-col">${right}</div>`;
+    document.getElementById("match-prog").textContent=`Coppie collegate: 0 di ${pairs.length}`;
+  }
+  function pickEn(i){
+    const btn=document.getElementById("en"+i);if(btn.classList.contains("done"))return;
+    document.querySelectorAll(".match-btn.sel").forEach(b=>b.classList.remove("sel"));
+    selEn=i;btn.classList.add("sel");
+  }
+  function pickIt(i){
+    if(selEn===null)return;
+    const itBtn=document.getElementById("it"+i),enBtn=document.getElementById("en"+selEn);
+    if(itBtn.classList.contains("done"))return;
+    const pairs=matchLevels[mLevel];
+    if(selEn===i){
+      enBtn.classList.remove("sel");enBtn.classList.add("done");itBtn.classList.add("done");
+      say(pairs[i].en);if(!spoiled.has(selEn))firstTry++;selEn=null;matched++;
+      const pr=document.getElementById("match-prog");
+      if(matched>=pairs.length){levelResult(pr,firstTry,pairs.length,mLevel,5,"setMatchLevel");}
+      else pr.textContent=`Coppie collegate: ${matched} di ${pairs.length}`;
+    } else {
+      spoiled.add(selEn);itBtn.classList.add("flash");
+      setTimeout(()=>itBtn.classList.remove("flash"),500);
+      enBtn.classList.remove("sel");selEn=null;
+    }
+  }
+
+  setListenLevel(0);setWriteLevel(0);setReadLevel(0,true);setMatchLevel(0);
+</script>
+<script>
+  if('serviceWorker' in navigator) navigator.serviceWorker.register('./service-worker.js');
+</script>
+</body>
+</html>

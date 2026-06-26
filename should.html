@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inglese - Should / Shouldn't</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#FAF6EE">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Inglese di Irene">
+<style>
+  :root{
+    --bg:#FAF6EE;
+    --card:#FFFFFF;
+    --ink:#2F2A24;
+    --accent:#8A6BB0;
+    --accent-soft:#EAE1F2;
+    --green:#3E8E5A;
+    --green-soft:#E2F0E6;
+    --red:#C2492F;
+    --red-soft:#F6E1DB;
+    --blue:#3B6EA5;
+    --blue-soft:#E2ECF5;
+    --orange:#C96F35;
+    --orange-soft:#F5E6D8;
+    --teal:#2E7E72;
+    --teal-soft:#DFF0EE;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:"Trebuchet MS","Comic Sans MS",Verdana,sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.7;letter-spacing:0.3px;padding:24px 14px 60px;}
+  .wrap{max-width:620px;margin:0 auto;}
+  .backbtn{display:inline-block;background:var(--accent-soft);color:var(--accent);
+    text-decoration:none;border-radius:12px;padding:8px 16px;font-size:0.98rem;font-weight:bold;margin-bottom:14px;}
+  h1{color:var(--accent);font-size:1.7rem;text-align:center;margin:0 0 6px;}
+  .sub{text-align:center;color:#8a7f70;margin:0 0 26px;font-size:1rem;}
+  .card{background:var(--card);border-radius:18px;padding:22px 20px;margin-bottom:22px;
+    box-shadow:0 4px 14px rgba(0,0,0,0.06);border:1px solid #efe7da;}
+  .card h2{margin:0 0 14px;font-size:1.25rem;color:var(--accent);display:flex;align-items:center;gap:8px;}
+  table{width:100%;border-collapse:collapse;margin:6px 0;}
+  td,th{padding:10px;text-align:center;border-bottom:2px solid var(--accent-soft);font-size:1.02rem;}
+  th{color:var(--accent);}
+  .saybtn{background:var(--blue-soft);color:var(--blue);border:none;border-radius:10px;
+    padding:6px 12px;font-size:0.95rem;cursor:pointer;font-family:inherit;}
+  .ex{margin:18px 0;}
+  .qnum{font-weight:bold;color:var(--accent);}
+  .qtext{font-size:1.15rem;margin:6px 0 12px;}
+  .options{display:flex;gap:10px;flex-wrap:wrap;}
+  .opt{flex:1;min-width:80px;background:var(--bg);border:2px solid var(--accent-soft);
+    border-radius:12px;padding:14px;font-size:1.05rem;cursor:pointer;
+    text-align:center;font-family:inherit;color:var(--ink);transition:all .15s;}
+  .opt:hover{border-color:var(--accent);}
+  .opt.correct{background:var(--green-soft);border-color:var(--green);color:var(--green);font-weight:bold;}
+  .opt.wrong{background:var(--red-soft);border-color:var(--red);color:var(--red);}
+  .feedback{margin-top:12px;font-size:1.05rem;font-weight:bold;min-height:26px;}
+  .feedback.ok{color:var(--green);}
+  .feedback.no{color:var(--red);}
+  .progress{text-align:center;font-size:1.1rem;margin:10px 0 0;color:#8a7f70;}
+  .star{font-size:1.4rem;}
+  .restart{display:block;margin:20px auto 0;background:var(--accent);color:#fff;border:none;
+    border-radius:12px;padding:12px 24px;font-size:1.05rem;cursor:pointer;font-family:inherit;}
+  .tip{border-radius:10px;padding:10px 14px;font-size:0.98rem;margin-top:10px;}
+  .tip.purple{background:var(--accent-soft);}
+  .tip.green{background:var(--green-soft);color:#2a6040;}
+  .formula{border-radius:12px;padding:14px;text-align:center;font-size:1.12rem;font-weight:bold;margin:8px 0;}
+  .formula.pos{background:var(--green-soft);color:var(--green);}
+  .formula.neg{background:var(--red-soft);color:var(--red);}
+  .formula.q{background:var(--blue-soft);color:var(--blue);}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0;}
+  .mini-card{border-radius:12px;padding:14px;font-size:0.96rem;}
+  .mini-card.pos{background:var(--green-soft);}
+  .mini-card.neg{background:var(--red-soft);}
+  .mini-card h3{margin:0 0 4px;font-size:1rem;}
+  .mini-card h3.pos{color:var(--green);}
+  .mini-card h3.neg{color:var(--red);}
+  .compare-row{display:flex;align-items:flex-start;gap:10px;margin:8px 0;font-size:1rem;}
+  .cmp-badge{border-radius:8px;padding:3px 10px;font-size:0.92rem;font-weight:bold;white-space:nowrap;flex-shrink:0;}
+  .cmp-badge.must{background:var(--orange-soft);color:var(--orange);}
+  .cmp-badge.should{background:var(--accent-soft);color:var(--accent);}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="backbtn" href="index.html">← Indice</a>
+  <h1>💡 Should / Shouldn't</h1>
+  <p class="sub">dare consigli — <span style="color:var(--green)"><b>dovresti</b></span> e <span style="color:var(--red)"><b>non dovresti</b></span></p>
+
+  <!-- LA REGOLA -->
+  <div class="card">
+    <h2>💡 La regola</h2>
+    <p style="margin:0 0 10px;color:#8a7f70;"><b>Should</b> si usa per dare <b>consigli</b> o fare <b>raccomandazioni</b>. Non è un obbligo — è un suggerimento gentile!</p>
+    <div class="two-col">
+      <div class="mini-card pos">
+        <h3 class="pos">✅ should</h3>
+        <b>dovresti</b> — consiglio positivo<br>
+        <i>You <b>should</b> rest.</i><br>
+        <i>She <b>should</b> see a doctor.</i>
+      </div>
+      <div class="mini-card neg">
+        <h3 class="neg">❌ shouldn't</h3>
+        <b>non dovresti</b> — consiglio negativo<br>
+        <i>You <b>shouldn't</b> eat that.</i><br>
+        <i>He <b>shouldn't</b> be rude.</i>
+      </div>
+    </div>
+    <div class="formula pos">soggetto + <b>should</b> + verbo base</div>
+    <div class="formula neg">soggetto + <b>shouldn't</b> + verbo base</div>
+    <table>
+      <tr><th>Soggetto</th><th>Affermativo</th><th>Negativo</th></tr>
+      <tr><td>I / You / He / She / We / They</td>
+          <td style="color:var(--green)"><b>should</b> go</td>
+          <td style="color:var(--red)"><b>shouldn't</b> go</td></tr>
+    </table>
+    <div class="tip purple">🎨 <b>Trucco:</b> <b>should</b> non cambia mai! Stessa forma per tutti i soggetti — niente <i>-s</i> per he/she/it. Molto più semplice di have to!</div>
+  </div>
+
+  <!-- SHOULD VS MUST -->
+  <div class="card">
+    <h2>⚖️ Should vs Must — la differenza</h2>
+    <div class="compare-row">
+      <span class="cmp-badge must">must</span>
+      <span>= <b>DEVI</b> farlo — è un obbligo forte<br><i>You <b>must</b> wear a seatbelt. (è la legge!)</i></span>
+    </div>
+    <div class="compare-row">
+      <span class="cmp-badge should">should</span>
+      <span>= <b>DOVRESTI</b> farlo — è un consiglio<br><i>You <b>should</b> sleep more. (sarebbe meglio!)</i></span>
+    </div>
+    <div class="tip green">💬 <b>Situazioni tipiche per should:</b><br>
+      • Consigli di salute: <i>"You should drink more water."</i><br>
+      • Raccomandazioni: <i>"You should try this pizza!"</i><br>
+      • Opinioni: <i>"I think she should apologize."</i><br>
+      • Chiedere consiglio: <i>"Should I call him?"</i>
+    </div>
+  </div>
+
+  <!-- DOMANDE -->
+  <div class="card">
+    <h2>❓ Come fare le domande</h2>
+    <div class="formula q"><b>Should</b> + soggetto + verbo base?</div>
+    <table>
+      <tr><th>Domanda</th><th>Risposta breve</th></tr>
+      <tr><td style="text-align:left;"><b>Should</b> I call him?</td><td>Yes, you <b>should</b>. / No, you <b>shouldn't</b>.</td></tr>
+      <tr><td style="text-align:left;"><b>Should</b> she see a doctor?</td><td>Yes, she <b>should</b>. / No, she <b>shouldn't</b>.</td></tr>
+      <tr><td style="text-align:left;"><b>Should</b> we leave now?</td><td>Yes, you <b>should</b>. / No, you <b>shouldn't</b>.</td></tr>
+    </table>
+  </div>
+
+  <!-- FRASI PRONTE -->
+  <div class="card">
+    <h2>🗣️ Frasi pronte (ascolta!)</h2>
+    <table>
+      <tr><th>Inglese</th><th>Italiano</th><th>🔊</th></tr>
+      <tr>
+        <td>You <b>should</b> rest — you look tired.</td>
+        <td>Dovresti riposare — sembri stanca.</td>
+        <td><button class="saybtn" onclick="say('You should rest — you look tired.')">🔊</button></td>
+      </tr>
+      <tr>
+        <td>She <b>should</b> see a doctor.</td>
+        <td>Lei dovrebbe andare dal medico.</td>
+        <td><button class="saybtn" onclick="say('She should see a doctor.')">🔊</button></td>
+      </tr>
+      <tr>
+        <td>You <b>shouldn't</b> eat so much sugar.</td>
+        <td>Non dovresti mangiare così tanto zucchero.</td>
+        <td><button class="saybtn" onclick="say('You shouldn\'t eat so much sugar.')">🔊</button></td>
+      </tr>
+      <tr>
+        <td>I think you <b>should</b> apologize.</td>
+        <td>Penso che tu debba scusarti.</td>
+        <td><button class="saybtn" onclick="say('I think you should apologize.')">🔊</button></td>
+      </tr>
+      <tr>
+        <td><b>Should</b> I call him?</td>
+        <td>Dovrei chiamarlo?</td>
+        <td><button class="saybtn" onclick="say('Should I call him?')">🔊</button></td>
+      </tr>
+      <tr>
+        <td>He <b>shouldn't</b> be so rude to his friends.</td>
+        <td>Non dovrebbe essere così scortese con gli amici.</td>
+        <td><button class="saybtn" onclick="say('He shouldn\'t be so rude to his friends.')">🔊</button></td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- QUIZ -->
+  <div class="card">
+    <h2>✅ Prova tu!</h2>
+    <p style="margin-top:0;color:#8a7f70;">Scegli la risposta giusta. Se sbagli, riprova: nessuna fretta! 🙂</p>
+    <div id="quiz"></div>
+    <div class="progress" id="progress"></div>
+    <button class="restart" id="restartBtn" style="display:none;" onclick="startQuiz()">🔄 Ricomincia</button>
+  </div>
+
+  <!-- CTA -->
+  <div class="card" style="text-align:center;">
+    <h2 style="justify-content:center;">🎧 Pronta ad allenarti?</h2>
+    <p style="margin:0 0 18px;color:#8a7f70;">Hai studiato la lezione: ora mettiti alla prova con gli esercizi di ascolto, scrittura, lettura e lessico! 💪</p>
+    <a class="restart" href="should-allenamento.html" style="text-decoration:none;display:inline-block;font-size:1.25rem;padding:16px 34px;">Allenati! →</a>
+  </div>
+</div>
+
+<script>
+  function say(text){
+    try{
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = "en-US"; u.rate = 0.85;
+      speechSynthesis.cancel(); speechSynthesis.speak(u);
+    }catch(e){}
+  }
+
+  const questions = [
+    {q:"You look tired. You ____ go to bed earlier.", opts:["should","shouldn't","must"], correct:0, full:"You should go to bed earlier"},
+    {q:"You ____ eat so much junk food — it's bad for you.", opts:["should","must","shouldn't"], correct:2, full:"You shouldn't eat so much junk food"},
+    {q:"____ I call him to apologize?", opts:["Mustn't","Should","Have to"], correct:1, full:"Should I call him to apologize"},
+    {q:"She ____ study harder if she wants to pass.", opts:["should","shouldn't","don't have to"], correct:0, full:"She should study harder if she wants to pass"},
+    {q:"You ____ stay up so late — you're always tired!", opts:["should","must","shouldn't"], correct:2, full:"You shouldn't stay up so late"},
+    {q:"I think we ____ visit grandma — she misses us.", opts:["should","shouldn't","mustn't"], correct:0, full:"I think we should visit grandma"},
+    {q:"He ____ be so rude to his friends.", opts:["must","shouldn't","don't have to"], correct:1, full:"He shouldn't be so rude to his friends"},
+    {q:"____ she talk to the teacher about the problem?", opts:["Mustn't","Doesn't have to","Should"], correct:2, full:"Should she talk to the teacher about the problem"},
+  ];
+
+  let current = 0, score = 0;
+
+  function startQuiz(){
+    current = 0; score = 0;
+    document.getElementById("restartBtn").style.display = "none";
+    showQuestion();
+  }
+  function showQuestion(){
+    const quiz = document.getElementById("quiz");
+    const prog = document.getElementById("progress");
+    if(current >= questions.length){
+      quiz.innerHTML = "";
+      const pct = score/questions.length;
+      const n = pct===1?5:pct>=0.75?4:pct>=0.5?3:pct>=0.25?2:1;
+      const msg = pct===1 ? "Perfetto! Should non ha più segreti! 🏆" :
+                  pct>=0.5 ? "Bravissima, ci sei quasi! 💪" :
+                  "Bene, riprova: si impara ripetendo! 🌱";
+      prog.innerHTML = `<div class="star">${"⭐".repeat(n)}</div>${score}/${questions.length} giuste<br><b>${msg}</b>`;
+      document.getElementById("restartBtn").style.display = "block";
+      return;
+    }
+    const item = questions[current];
+    prog.textContent = `Domanda ${current+1} di ${questions.length}`;
+    quiz.innerHTML = `
+      <div class="ex">
+        <div class="qnum">Domanda ${current+1}</div>
+        <div class="qtext">${item.q}</div>
+        <div class="options">
+          ${item.opts.map((o,i)=>`<button class="opt" onclick="answer(${i})">${o}</button>`).join("")}
+        </div>
+        <div class="feedback" id="fb"></div>
+      </div>`;
+  }
+  function answer(i){
+    const item = questions[current];
+    const opts = document.querySelectorAll(".opt");
+    const fb = document.getElementById("fb");
+    if(i === item.correct){
+      opts[i].classList.add("correct");
+      fb.textContent = "✅ Giusto! " + item.full;
+      fb.className = "feedback ok";
+      score++; say(item.full);
+      opts.forEach(o=>o.disabled=true);
+      setTimeout(()=>{ current++; showQuestion(); }, 1600);
+    } else {
+      opts[i].classList.add("wrong");
+      fb.textContent = "Riprova! 🙂";
+      fb.className = "feedback no";
+    }
+  }
+  startQuiz();
+</script>
+<script>
+  if ('serviceWorker' in navigator) navigator.serviceWorker.register('./service-worker.js');
+</script>
+</body>
+</html>
