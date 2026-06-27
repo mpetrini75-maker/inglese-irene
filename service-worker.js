@@ -1,4 +1,4 @@
-const CACHE = 'inglese-irene-v54';
+const CACHE = 'inglese-irene-v56';
 
 const ASSETS = [
   './',
@@ -49,6 +49,18 @@ const ASSETS = [
   './preposizioni-infografica.png',
   './avverbi-frequenza-overview.mp3',
   './avverbi-frequenza-infografica.png',
+  './imperativo-overview.mp3',
+  './imperativo-infografica.png',
+  './like-love-hate-overview.mp3',
+  './like-love-hate-infografica.png',
+  './this-that-overview.mp3',
+  './this-that-infografica.png',
+  './preposizioni-movimento-overview.mp3',
+  './preposizioni-movimento-infografica.png',
+  './past-simple-vs-continuous-overview.mp3',
+  './past-simple-vs-continuous-infografica.png',
+  './simple-vs-continuous-overview.mp3',
+  './simple-vs-continuous-infografica.png',
   './question-words.html',
   './there-is-there-are.html',
   './can-cant.html',
@@ -74,6 +86,10 @@ const ASSETS = [
   './must-have-to-allenamento.html',
   './should.html',
   './should-allenamento.html',
+  './be-going-to-vs-will.html',
+  './be-going-to-vs-will-allenamento.html',
+  './present-perfect.html',
+  './present-perfect-allenamento.html',
   './tutor-alex/index.html',
   './alert.js',
   './lightbox.js',
