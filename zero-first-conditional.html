@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inglese - Zero e First Conditional</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#FAF6EE">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Inglese di Irene">
+<style>
+  :root{
+    --bg:#FAF6EE;
+    --card:#FFFFFF;
+    --ink:#2F2A24;
+    --accent:#C96F35;
+    --accent-soft:#F5E6D8;
+    --green:#3E8E5A;
+    --green-soft:#E2F0E6;
+    --red:#C2492F;
+    --red-soft:#F6E1DB;
+    --blue:#3B6EA5;
+    --blue-soft:#E2ECF5;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:"Trebuchet MS","Comic Sans MS",Verdana,sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.7;letter-spacing:0.3px;padding:24px 14px 60px;}
+  .wrap{max-width:620px;margin:0 auto;}
+  .backbtn{display:inline-block;background:var(--accent-soft);color:var(--accent);
+    text-decoration:none;border-radius:12px;padding:8px 16px;font-size:0.98rem;font-weight:bold;margin-bottom:14px;}
+  h1{color:var(--accent);font-size:1.7rem;text-align:center;margin:0 0 6px;}
+  .sub{text-align:center;color:#8a7f70;margin:0 0 26px;font-size:1rem;}
+  .card{background:var(--card);border-radius:18px;padding:22px 20px;margin-bottom:22px;
+    box-shadow:0 4px 14px rgba(0,0,0,0.06);border:1px solid #efe7da;}
+  .card h2{margin:0 0 14px;font-size:1.25rem;color:var(--accent);display:flex;align-items:center;gap:8px;}
+  table{width:100%;border-collapse:collapse;margin:6px 0;}
+  td,th{padding:10px;text-align:center;border-bottom:2px solid var(--accent-soft);font-size:1.02rem;}
+  th{color:var(--accent);}
+  .saybtn{background:var(--blue-soft);color:var(--blue);border:none;border-radius:10px;
+    padding:6px 12px;font-size:0.95rem;cursor:pointer;font-family:inherit;}
+  .ex{margin:18px 0;}
+  .qnum{font-weight:bold;color:var(--accent);}
+  .qtext{font-size:1.15rem;margin:6px 0 12px;}
+  .options{display:flex;gap:10px;flex-wrap:wrap;}
+  .opt{flex:1;min-width:80px;background:var(--bg);border:2px solid var(--accent-soft);
+    border-radius:12px;padding:14px;font-size:1.05rem;cursor:pointer;
+    text-align:center;font-family:inherit;color:var(--ink);transition:all .15s;}
+  .opt:hover{border-color:var(--accent);}
+  .opt.correct{background:var(--green-soft);border-color:var(--green);color:var(--green);font-weight:bold;}
+  .opt.wrong{background:var(--red-soft);border-color:var(--red);color:var(--red);}
+  .feedback{margin-top:12px;font-size:1.05rem;font-weight:bold;min-height:26px;}
+  .feedback.ok{color:var(--green);}
+  .feedback.no{color:var(--red);}
+  .progress{text-align:center;font-size:1.1rem;margin:10px 0 0;color:#8a7f70;}
+  .star{font-size:1.4rem;}
+  .restart{display:block;margin:20px auto 0;background:var(--accent);color:#fff;border:none;
+    border-radius:12px;padding:12px 24px;font-size:1.05rem;cursor:pointer;font-family:inherit;}
+  .tip{border-radius:10px;padding:10px 14px;font-size:0.98rem;margin-top:10px;}
+  .tip.orange{background:var(--accent-soft);color:var(--accent);}
+  .tip.green{background:var(--green-soft);color:#2a6040;}
+  .tip.blue{background:var(--blue-soft);color:var(--blue);}
+  .formula{border-radius:12px;padding:14px;text-align:center;font-size:1.08rem;font-weight:bold;margin:8px 0;}
+  .formula.zero{background:var(--green-soft);color:var(--green);}
+  .formula.first{background:var(--blue-soft);color:var(--blue);}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0;}
+  .mini-card{border-radius:12px;padding:14px;font-size:0.96rem;}
+  .mini-card.zero{background:var(--green-soft);}
+  .mini-card.first{background:var(--blue-soft);}
+  .mini-card h3{margin:0 0 4px;font-size:1rem;}
+  .mini-card h3.zero{color:var(--green);}
+  .mini-card h3.first{color:var(--blue);}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="backbtn" href="index.html">← Indice</a>
+  <h1>🔀 Zero e First Conditional</h1>
+  <p class="sub">le frasi con <b>if</b> — <span style="color:var(--green)"><b>sempre vero</b></span> o <span style="color:var(--blue)"><b>futuro possibile</b></span>?</p>
+
+  <!-- DUE TIPI -->
+  <div class="card">
+    <h2>💡 Due frasi con "if"</h2>
+    <p style="margin:0 0 10px;color:#8a7f70;">Una frase con <b>if</b> (se) ha due parti: la <b>condizione</b> (if...) e il <b>risultato</b>. Cambia tutto a seconda che sia una verità di sempre o un'ipotesi sul futuro.</p>
+    <div class="two-col">
+      <div class="mini-card zero">
+        <h3 class="zero">0️⃣ Zero Conditional</h3>
+        <b>sempre vero</b> 🔁<br>
+        fatti, scienza, regole<br>
+        <i>If you heat ice, it <b>melts</b>.</i>
+      </div>
+      <div class="mini-card first">
+        <h3 class="first">1️⃣ First Conditional</h3>
+        <b>futuro possibile</b> 🔮<br>
+        ipotesi reale, previsione<br>
+        <i>If it rains, I'<b>ll</b> stay home.</i>
+      </div>
+    </div>
+    <div class="tip orange">🎨 <b>Trucco:</b> se è una cosa che succede <b>sempre</b> 🔁 → Zero. Se parli di un <b>futuro</b> che <b>potrebbe</b> succedere 🔮 → First.</div>
+  </div>
+
+  <!-- ZERO -->
+  <div class="card">
+    <h2>0️⃣ Zero Conditional — verità sempre vere</h2>
+    <div class="formula zero">If + presente , &nbsp;presente</div>
+    <table>
+      <tr><th>Frase</th><th>🔊</th></tr>
+      <tr><td><i>If you <b>heat</b> ice, it <b>melts</b>.</i></td><td><button class="saybtn" onclick="say('If you heat ice, it melts.')">🔊</button></td></tr>
+      <tr><td><i>If you <b>don't water</b> plants, they <b>die</b>.</i></td><td><button class="saybtn" onclick="say('If you do not water plants, they die.')">🔊</button></td></tr>
+      <tr><td><i>If you <b>mix</b> blue and yellow, you <b>get</b> green.</i></td><td><button class="saybtn" onclick="say('If you mix blue and yellow, you get green.')">🔊</button></td></tr>
+    </table>
+    <div class="tip green">💡 Si usa per <b>fatti</b>, <b>leggi scientifiche</b> e <b>abitudini</b> sempre vere. Qui <b>if</b> vuol dire "ogni volta che" (whenever). Tutti e due i verbi al <b>presente</b>.</div>
+  </div>
+
+  <!-- FIRST -->
+  <div class="card">
+    <h2>1️⃣ First Conditional — futuro possibile</h2>
+    <div class="formula first">If + presente , &nbsp;will + verbo base</div>
+    <table>
+      <tr><th>Frase</th><th>🔊</th></tr>
+      <tr><td><i>If it <b>rains</b> tomorrow, I'<b>ll stay</b> home.</i></td><td><button class="saybtn" onclick="say('If it rains tomorrow, I will stay home.')">🔊</button></td></tr>
+      <tr><td><i>If you <b>study</b>, you'<b>ll pass</b> the exam.</i></td><td><button class="saybtn" onclick="say('If you study, you will pass the exam.')">🔊</button></td></tr>
+      <tr><td><i>If we <b>hurry</b>, we'<b>ll catch</b> the bus.</i></td><td><button class="saybtn" onclick="say('If we hurry, we will catch the bus.')">🔊</button></td></tr>
+    </table>
+    <div class="tip blue">💡 Si usa per il <b>futuro reale e probabile</b>: previsioni, promesse, avvertimenti. La condizione (if...) resta al <b>presente</b>, il risultato va con <b>will</b>.</div>
+  </div>
+
+  <!-- REGOLE D'ORO -->
+  <div class="card">
+    <h2>⚠️ Le 3 regole d'oro</h2>
+    <table>
+      <tr><th>Regola</th><th>Esempio</th></tr>
+      <tr><td>Dopo <b>if</b> mai <b>will</b>!</td><td>✓ If it <b>rains</b>… &nbsp; ✗ <s>If it will rain…</s></td></tr>
+      <tr><td><b>if</b> può stare prima o dopo</td><td>If it rains, I'll stay. = I'll stay if it rains.</td></tr>
+      <tr><td>Virgola solo se <b>if</b> è all'inizio</td><td>If…, … &nbsp;·&nbsp; … if … <i>(niente virgola)</i></td></tr>
+    </table>
+    <div class="tip orange">🧲 Errore classico: <s>If you will study, you will pass.</s> → giusto: <b>If you study, you will pass.</b> <button class="saybtn" onclick="say('If you study, you will pass.')">🔊</button></div>
+  </div>
+
+  <!-- FRASI PRONTE -->
+  <div class="card">
+    <h2>🗣️ Frasi pronte (ascolta!)</h2>
+    <table>
+      <tr><th>Inglese</th><th>Italiano</th><th>🔊</th></tr>
+      <tr><td>If you <b>touch</b> fire, you <b>get</b> burned. (0️⃣)</td><td>Se tocchi il fuoco, ti bruci.</td><td><button class="saybtn" onclick="say('If you touch fire, you get burned.')">🔊</button></td></tr>
+      <tr><td>If it's sunny, we'<b>ll go</b> to the beach. (1️⃣)</td><td>Se c'è sole, andremo in spiaggia.</td><td><button class="saybtn" onclick="say('If it is sunny, we will go to the beach.')">🔊</button></td></tr>
+      <tr><td>Water <b>freezes</b> if it's very cold. (0️⃣)</td><td>L'acqua gela se fa molto freddo.</td><td><button class="saybtn" onclick="say('Water freezes if it is very cold.')">🔊</button></td></tr>
+      <tr><td>I'<b>ll help</b> you if you <b>ask</b> me. (1️⃣)</td><td>Ti aiuterò se me lo chiedi.</td><td><button class="saybtn" onclick="say('I will help you if you ask me.')">🔊</button></td></tr>
+    </table>
+  </div>
+
+  <!-- QUIZ -->
+  <div class="card">
+    <h2>✅ Prova tu!</h2>
+    <p style="margin-top:0;color:#8a7f70;">Scegli la risposta giusta. Se sbagli, riprova: nessuna fretta! 🙂</p>
+    <div id="quiz"></div>
+    <div class="progress" id="progress"></div>
+    <button class="restart" id="restartBtn" style="display:none;" onclick="startQuiz()">🔄 Ricomincia</button>
+  </div>
+
+  <!-- CTA -->
+  <div class="card" style="text-align:center;">
+    <h2 style="justify-content:center;">🎧 Pronta ad allenarti?</h2>
+    <p style="margin:0 0 18px;color:#8a7f70;">Hai studiato la lezione: ora mettiti alla prova con gli esercizi di ascolto, scrittura, lettura e lessico! 💪</p>
+    <a class="restart" href="zero-first-conditional-allenamento.html" style="text-decoration:none;display:inline-block;font-size:1.25rem;padding:16px 34px;">Allenati! →</a>
+  </div>
+</div>
+
+<script>
+  function say(text){
+    try{
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = "en-US"; u.rate = 0.85;
+      speechSynthesis.cancel(); speechSynthesis.speak(u);
+    }catch(e){}
+  }
+
+  const questions = [
+    {q:"If you heat ice, it ____ . (verità sempre vera)", opts:["melts","will melt","melt"], correct:0, full:"If you heat ice, it melts."},
+    {q:"If it rains tomorrow, I ____ at home. (futuro possibile)", opts:["stay","will stay","stayed"], correct:1, full:"If it rains tomorrow, I will stay at home."},
+    {q:"If you ____ water to 100°C, it boils.", opts:["heat","will heat","heated"], correct:0, full:"If you heat water to 100°C, it boils."},
+    {q:"If you study hard, you ____ the exam.", opts:["pass","will pass","passed"], correct:1, full:"If you study hard, you will pass the exam."},
+    {q:"Plants die if they ____ enough water. (0️⃣)", opts:["don't get","won't get","didn't get"], correct:0, full:"Plants die if they don't get enough water."},
+    {q:"I'll help you if you ____ me. (dopo if: presente!)", opts:["ask","will ask","asked"], correct:0, full:"I'll help you if you ask me."},
+    {q:"If she ____ late, call me. (dopo if: presente)", opts:["is","will be","be"], correct:0, full:"If she is late, call me."},
+    {q:"If you mix blue and yellow, you ____ green. (sempre vero)", opts:["get","will get","got"], correct:0, full:"If you mix blue and yellow, you get green."},
+  ];
+
+  let current = 0, score = 0;
+
+  function startQuiz(){
+    current = 0; score = 0;
+    document.getElementById("restartBtn").style.display = "none";
+    showQuestion();
+  }
+  function showQuestion(){
+    const quiz = document.getElementById("quiz");
+    const prog = document.getElementById("progress");
+    if(current >= questions.length){
+      quiz.innerHTML = "";
+      const pct = score/questions.length;
+      const n = pct===1?5:pct>=0.75?4:pct>=0.5?3:pct>=0.25?2:1;
+      const msg = pct===1 ? "Perfetto! I conditional non hanno più segreti! 🏆" :
+                  pct>=0.5 ? "Bravissima, ci sei quasi! 💪" :
+                  "Bene, riprova: si impara ripetendo! 🌱";
+      prog.innerHTML = `<div class="star">${"⭐".repeat(n)}</div>${score}/${questions.length} giuste<br><b>${msg}</b>`;
+      document.getElementById("restartBtn").style.display = "block";
+      if(window.inviaAlert) inviaAlert('fine-lezione');
+      return;
+    }
+    const item = questions[current];
+    prog.textContent = `Domanda ${current+1} di ${questions.length}`;
+    quiz.innerHTML = `
+      <div class="ex">
+        <div class="qnum">Domanda ${current+1}</div>
+        <div class="qtext">${item.q}</div>
+        <div class="options">
+          ${item.opts.map((o,i)=>`<button class="opt" onclick="answer(${i})">${o}</button>`).join("")}
+        </div>
+        <div class="feedback" id="fb"></div>
+      </div>`;
+  }
+  function answer(i){
+    const item = questions[current];
+    const opts = document.querySelectorAll(".opt");
+    const fb = document.getElementById("fb");
+    if(i === item.correct){
+      opts[i].classList.add("correct");
+      fb.textContent = "✅ Giusto! " + item.full;
+      fb.className = "feedback ok";
+      score++; say(item.full);
+      opts.forEach(o=>o.disabled=true);
+      setTimeout(()=>{ current++; showQuestion(); }, 1600);
+    } else {
+      opts[i].classList.add("wrong");
+      fb.textContent = "Riprova! 🙂";
+      fb.className = "feedback no";
+    }
+  }
+  startQuiz();
+</script>
+<script>
+  if ('serviceWorker' in navigator) navigator.serviceWorker.register('./service-worker.js');
+</script>
+<script src="alert.js"></script>
+</body>
+</html>

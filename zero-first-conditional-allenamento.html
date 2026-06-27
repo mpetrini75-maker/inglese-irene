@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zero e First Conditional — Allenamento</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#FAF6EE">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Inglese di Irene">
+<script src="alert.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FAF6EE; --card:#FFFFFF; --ink:#2F2A24;
+    --accent:#C96F35; --accent-soft:#F5E6D8;
+    --green:#3E8E5A; --green-soft:#E2F0E6;
+    --red:#C2492F; --red-soft:#F6E1DB;
+    --blue:#3B6EA5; --blue-soft:#E2ECF5;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:"Lexend","Trebuchet MS",Verdana,sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.7;letter-spacing:0.3px;padding:24px 14px 60px;}
+  .wrap{max-width:620px;margin:0 auto;}
+  .backbtn{display:inline-block;background:var(--accent-soft);color:var(--accent);
+    text-decoration:none;border-radius:12px;padding:8px 16px;font-size:0.98rem;font-weight:bold;margin-bottom:14px;}
+  h1{color:var(--accent);font-size:1.6rem;text-align:center;margin:0 0 6px;}
+  .sub{text-align:center;color:#8a7f70;margin:0 0 26px;font-size:1rem;}
+  .card{background:var(--card);border-radius:18px;padding:22px 20px;margin-bottom:22px;
+    box-shadow:0 4px 14px rgba(0,0,0,0.06);border:1px solid #efe7da;}
+  .card h2{margin:0 0 10px;font-size:1.25rem;color:var(--accent);display:flex;align-items:center;gap:8px;}
+  .card .lead{color:#8a7f70;margin:0 0 12px;font-size:0.97rem;}
+  .levelbar{margin:0 0 12px;}
+  .lvrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:0.98rem;color:var(--accent);}
+  .lvdots{display:inline-flex;gap:6px;}
+  .lvdot{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    background:var(--bg);border:2px solid var(--accent-soft);color:#b9ad9c;font-size:0.85rem;font-weight:bold;}
+  .lvdot.on{background:var(--accent-soft);border-color:var(--accent);color:var(--accent);}
+  .saybtn{background:var(--blue-soft);color:var(--blue);border:none;border-radius:10px;
+    padding:6px 12px;font-size:0.95rem;cursor:pointer;font-family:inherit;}
+  .big-listen{display:block;margin:6px auto 14px;background:var(--blue);color:#fff;
+    border:none;border-radius:16px;padding:18px 26px;font-size:1.2rem;font-weight:bold;
+    cursor:pointer;font-family:inherit;box-shadow:0 4px 12px rgba(59,110,165,0.3);}
+  .big-listen:hover{opacity:0.92;}
+  .ex{margin:14px 0;}
+  .qnum{font-weight:bold;color:var(--accent);}
+  .qtext{font-size:1.12rem;margin:6px 0 8px;}
+  .options{display:flex;flex-direction:column;gap:10px;}
+  .opt{background:var(--bg);border:2px solid var(--accent-soft);border-radius:12px;
+    padding:13px 14px;font-size:1.08rem;cursor:pointer;text-align:left;
+    font-family:inherit;color:var(--ink);transition:all .15s;}
+  .opt:hover{border-color:var(--accent);}
+  .opt.correct{background:var(--green-soft);border-color:var(--green);color:var(--green);font-weight:bold;}
+  .opt.wrong{background:var(--red-soft);border-color:var(--red);color:var(--red);}
+  .feedback{margin-top:10px;font-size:1.02rem;font-weight:bold;min-height:24px;}
+  .feedback.ok{color:var(--green);}
+  .feedback.no{color:var(--red);}
+  .progress{text-align:center;font-size:1.05rem;margin:12px 0 0;color:#8a7f70;}
+  .star{font-size:1.4rem;}
+  .write-input{width:100%;font-family:"Lexend",sans-serif;font-size:1.2rem;
+    padding:12px 14px;border:2px solid var(--accent-soft);border-radius:12px;
+    background:var(--bg);color:var(--ink);margin-top:4px;}
+  .write-input:focus{outline:none;border-color:var(--accent);}
+  .checkbtn{margin-top:10px;background:var(--accent);color:#fff;border:none;
+    border-radius:12px;padding:10px 20px;font-size:1rem;cursor:pointer;font-family:inherit;}
+  .write-input.okbox{border-color:var(--green);background:var(--green-soft);}
+  .write-input.nobox{border-color:var(--red);}
+  .reading{background:var(--bg);border-radius:14px;padding:16px 18px;font-size:1.12rem;
+    border:2px solid var(--accent-soft);margin-bottom:6px;}
+  .reading p{margin:0 0 6px;}
+  .match-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px;}
+  .match-col{display:flex;flex-direction:column;gap:10px;}
+  .match-btn{background:var(--bg);border:2px solid var(--accent-soft);border-radius:12px;
+    padding:12px;font-size:1.05rem;cursor:pointer;font-family:inherit;color:var(--ink);
+    display:flex;align-items:center;justify-content:space-between;gap:6px;transition:all .15s;}
+  .match-btn:hover{border-color:var(--accent);}
+  .match-btn.sel{border-color:var(--blue);background:var(--blue-soft);color:var(--blue);font-weight:bold;}
+  .match-btn.done{background:var(--green-soft);border-color:var(--green);color:var(--green);
+    font-weight:bold;cursor:default;opacity:0.85;}
+  .match-btn.flash{border-color:var(--red);background:var(--red-soft);}
+  .restart{display:inline-block;margin:12px auto 0;background:var(--accent);color:#fff;border:none;
+    border-radius:12px;padding:11px 22px;font-size:1rem;cursor:pointer;font-family:inherit;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="backbtn" href="zero-first-conditional.html">← Torna alla lezione</a>
+  <h1>🏋️ Zero e First Conditional — Allenamento</h1>
+  <p class="sub">4 livelli · ascolto · scrittura · lettura · lessico</p>
+
+  <div class="card">
+    <h2>🎧 1. Ascolto</h2>
+    <p class="lead">Tocca il pulsante blu e ascolta. Scegli la frase giusta. Puoi riascoltare quante volte vuoi!</p>
+    <div class="levelbar" id="listen-level"></div>
+    <div id="listen-quiz"></div>
+    <div class="progress" id="listen-prog"></div>
+  </div>
+
+  <div class="card">
+    <h2>✏️ 2. Scrittura</h2>
+    <p class="lead">Scrivi la parola o le parole giuste. Non contano maiuscole o spazi extra. Poi tocca "Controlla".</p>
+    <div class="levelbar" id="write-level"></div>
+    <div id="write-list"></div>
+    <div class="progress" id="write-prog"></div>
+  </div>
+
+  <div class="card" id="read-card">
+    <h2>📖 3. Lettura</h2>
+    <p class="lead">Ascolta e leggi il testo, poi rispondi alle domande.</p>
+    <div class="levelbar" id="read-level"></div>
+    <div class="reading" id="reading-text"></div>
+    <button class="saybtn" onclick="event.stopPropagation();sayReading()">🔊 Ascolta tutto il testo</button>
+    <div id="read-list" style="margin-top:8px;"></div>
+    <div class="progress" id="read-prog"></div>
+  </div>
+
+  <div class="card">
+    <h2>🔤 4. Lessico</h2>
+    <p class="lead">Tocca una parola inglese (ascoltala con 🔊), poi il suo significato. Collega tutte le coppie!</p>
+    <div class="levelbar" id="match-level"></div>
+    <div class="match-grid" id="match-grid"></div>
+    <div class="progress" id="match-prog"></div>
+  </div>
+</div>
+
+<script>
+  function say(text){
+    try{
+      const u=new SpeechSynthesisUtterance(text);
+      u.lang="en-US"; u.rate=0.85;
+      speechSynthesis.cancel(); speechSynthesis.speak(u);
+    }catch(e){}
+  }
+  function escQ(s){ return s.replace(/'/g,"\\'"); }
+  function stars(correct,total){
+    const pct=correct/total;
+    return "⭐".repeat(pct===1?5:pct>=0.75?4:pct>=0.5?3:pct>=0.25?2:1);
+  }
+  const LV=["Base","Intermedio","Avanzato","Sfida"];
+  function levelBar(level){
+    let dots="";
+    for(let i=0;i<4;i++) dots+=`<span class="lvdot ${i<=level?'on':''}">${i+1}</span>`;
+    return `<div class="lvrow"><b>Livello ${level+1} di 4 · ${LV[level]} 🔓</b><span class="lvdots">${dots}</span></div>`;
+  }
+  function levelResult(progEl,score,total,level,threshold,setFnName){
+    const passed=score>=threshold;
+    let html=`<div class="star">${stars(score,total)}</div>${score}/${total} giuste<br>`;
+    if(passed && level<3){
+      html+=`<b>Bravissima! Livello ${level+2} sbloccato 🔓</b><br>`;
+      html+=`<button class="restart" onclick="${setFnName}(${level+1})">➡️ Vai al Livello ${level+2}</button>`;
+    } else if(passed && level===3){
+      inviaAlertQuiz();
+      html+=`<b>🏆 Hai completato tutti i livelli!</b><br>`;
+      html+=`<button class="restart" onclick="${setFnName}(0)">🔄 Rigioca dal Livello 1</button>`;
+    } else {
+      html+=`<b>Ci sei quasi! Riprova questo livello, ce la fai 🌱</b><br>`;
+      html+=`<button class="restart" onclick="${setFnName}(${level})">🔄 Rifai il Livello ${level+1}</button>`;
+    }
+    progEl.innerHTML=html;
+  }
+
+  /* ============ SEZIONE 1 — ASCOLTO ============ */
+  const listenLevels=[
+    [ // L1 — Zero Conditional
+      {audio:"If you heat ice, it melts.",opts:["If you heat ice, it melts.","If you heat ice, it freezes.","If you heat water, it melts."],correct:0},
+      {audio:"If you don't water plants, they die.",opts:["If you don't water plants, they die.","If you water plants, they die.","If you don't water plants, they grow."],correct:0},
+      {audio:"Ice melts if you heat it.",opts:["Ice melts if you heat it.","Ice melts if you freeze it.","Ice freezes if you heat it."],correct:0},
+      {audio:"If you mix red and white, you get pink.",opts:["If you mix red and white, you get pink.","If you mix red and blue, you get pink.","If you mix red and white, you get purple."],correct:0},
+      {audio:"Water boils if you heat it to 100 degrees.",opts:["Water boils if you heat it to 100 degrees.","Water freezes if you heat it to 100 degrees.","Water boils if you cool it to 100 degrees."],correct:0},
+      {audio:"If you press this button, the light turns on.",opts:["If you press this button, the light turns on.","If you press this button, the light turns off.","If you press this door, the light turns on."],correct:0},
+    ],
+    [ // L2 — First Conditional
+      {audio:"If it rains tomorrow, I'll stay home.",opts:["If it rains tomorrow, I'll stay home.","If it rains tomorrow, I stay home.","If it snows tomorrow, I'll stay home."],correct:0},
+      {audio:"If you study, you'll pass the exam.",opts:["If you study, you'll pass the exam.","If you study, you pass the exam.","If you study, you'll fail the exam."],correct:0},
+      {audio:"She'll be happy if you call her.",opts:["She'll be happy if you call her.","She'll be happy if you call him.","She's happy if you call her."],correct:0},
+      {audio:"If we hurry, we'll catch the bus.",opts:["If we hurry, we'll catch the bus.","If we hurry, we'll miss the bus.","If we hurry, we'll catch the train."],correct:0},
+      {audio:"If you don't sleep, you'll be tired.",opts:["If you don't sleep, you'll be tired.","If you sleep, you'll be tired.","If you don't sleep, you'll be happy."],correct:0},
+      {audio:"I'll help you if you ask me.",opts:["I'll help you if you ask me.","I help you if you ask me.","I'll help you if you call me."],correct:0},
+    ],
+    [ // L3 — misto Zero / First
+      {audio:"If you touch fire, you get burned.",opts:["If you touch fire, you get burned.","If you touch fire, you'll get burned tomorrow.","If you touch ice, you get burned."],correct:0},
+      {audio:"If the weather is nice, we'll go to the beach.",opts:["If the weather is nice, we'll go to the beach.","If the weather is nice, we go to the beach yesterday.","If the weather is bad, we'll go to the beach."],correct:0},
+      {audio:"Plants grow if you give them water.",opts:["Plants grow if you give them water.","Plants die if you give them water.","Plants grow if you give them salt."],correct:0},
+      {audio:"If you eat too much, you'll feel sick.",opts:["If you eat too much, you'll feel sick.","If you eat too much, you feel great.","If you sleep too much, you'll feel sick."],correct:0},
+      {audio:"If you heat chocolate, it melts.",opts:["If you heat chocolate, it melts.","If you freeze chocolate, it melts.","If you heat chocolate, it grows."],correct:0},
+      {audio:"We'll be late if we don't leave now.",opts:["We'll be late if we don't leave now.","We'll be early if we don't leave now.","We're late if we don't leave now."],correct:0},
+    ],
+    [ // L4 — frasi lunghe
+      {audio:"If it's sunny this weekend, we'll go for a long walk in the mountains.",opts:["If it's sunny this weekend, we'll go for a long walk in the mountains.","If it's rainy this weekend, we'll go for a long walk in the mountains.","If it's sunny this weekend, we go for a long walk in the mountains."],correct:0},
+      {audio:"If you don't understand the lesson, the teacher will explain it again.",opts:["If you don't understand the lesson, the teacher will explain it again.","If you understand the lesson, the teacher will explain it again.","If you don't understand the lesson, the teacher explains it yesterday."],correct:0},
+      {audio:"Water freezes if the temperature drops below zero degrees.",opts:["Water freezes if the temperature drops below zero degrees.","Water boils if the temperature drops below zero degrees.","Water freezes if the temperature rises above zero degrees."],correct:0},
+      {audio:"If you finish your homework early, you can watch a film tonight.",opts:["If you finish your homework early, you can watch a film tonight.","If you finish your homework late, you can watch a film tonight.","If you start your homework early, you can watch a film tonight."],correct:0},
+      {audio:"If she doesn't hurry, she'll miss the beginning of the concert.",opts:["If she doesn't hurry, she'll miss the beginning of the concert.","If she hurries, she'll miss the beginning of the concert.","If she doesn't hurry, she'll catch the beginning of the concert."],correct:0},
+      {audio:"If you mix all the colours together, you usually get a dark brown.",opts:["If you mix all the colours together, you usually get a dark brown.","If you mix all the colours together, you usually get a bright white.","If you mix two colours together, you usually get a dark brown."],correct:0},
+    ],
+  ];
+  let lLevel=0,lc=0,ls=0,lCorrect=0,lAudio="";
+  function setListenLevel(lvl){lLevel=lvl;lc=0;ls=0;document.getElementById("listen-level").innerHTML=levelBar(lvl);showListen();}
+  function showListen(){
+    const data=listenLevels[lLevel],box=document.getElementById("listen-quiz"),pr=document.getElementById("listen-prog");
+    if(lc>=data.length){box.innerHTML="";levelResult(pr,ls,data.length,lLevel,4,"setListenLevel");return;}
+    const it=data[lc]; lAudio=it.audio;
+    const order=shuffle(it.opts.map((o,i)=>i)),shown=order.map(k=>it.opts[k]);
+    lCorrect=order.indexOf(it.correct);
+    pr.textContent=`Esercizio ${lc+1} di ${data.length}`;
+    box.innerHTML=`<div class="ex"><div class="qnum">Ascolto ${lc+1}</div>
+      <button class="big-listen" onclick="event.stopPropagation();say('${escQ(it.audio)}')">🔊 Ascolta la frase</button>
+      <div class="options">${shown.map((o,i)=>`<button class="opt" onclick="listenAns(${i})">${o}</button>`).join("")}</div>
+      <div class="feedback" id="lfb"></div></div>`;
+  }
+  function listenAns(i){
+    const opts=document.querySelectorAll("#listen-quiz .opt"),fb=document.getElementById("lfb");
+    if(i===lCorrect){
+      opts[i].classList.add("correct");fb.textContent="✅ Giusto! "+lAudio;fb.className="feedback ok";
+      ls++;say(lAudio);opts.forEach(o=>o.disabled=true);
+      setTimeout(()=>{lc++;showListen();},1800);
+    } else {opts[i].classList.add("wrong");fb.textContent="Riascolta e riprova 🙂";fb.className="feedback no";}
+  }
+
+  /* ============ SEZIONE 2 — SCRITTURA ============ */
+  const writeLevels=[
+    [ // L1 — Zero: present nel risultato
+      {q:"If you heat ice, it ____ .  (melt)", answers:["melts"], full:"If you heat ice, it melts.", hint:"Zero: present anche nel risultato → melts."},
+      {q:"Plants die if they ____ water.  (not get)", answers:["don't get","do not get"], full:"Plants die if they don't get water.", hint:"Zero negativo → don't get."},
+      {q:"If you mix blue and yellow, you ____ green.  (get)", answers:["get"], full:"If you mix blue and yellow, you get green.", hint:"verità → get."},
+      {q:"Water ____ if you heat it to 100°C.  (boil)", answers:["boils"], full:"Water boils if you heat it to 100°C.", hint:"verità → boils."},
+      {q:"If you don't water flowers, they ____ .  (die)", answers:["die"], full:"If you don't water flowers, they die.", hint:"verità → die."},
+      {q:"If you press this button, the machine ____ .  (start)", answers:["starts"], full:"If you press this button, the machine starts.", hint:"verità → starts."},
+    ],
+    [ // L2 — First: will + verbo (e if-clause present)
+      {q:"If it rains, I ____ ____ at home.  (will / stay)", answers:["will stay","'ll stay"], full:"If it rains, I will stay at home.", hint:"First: risultato → will + stay."},
+      {q:"If you study, you ____ ____ the exam.  (will / pass)", answers:["will pass","'ll pass"], full:"If you study, you will pass the exam.", hint:"will + pass."},
+      {q:"She ____ ____ happy if you call her.  (will / be)", answers:["will be","'ll be"], full:"She will be happy if you call her.", hint:"will + be."},
+      {q:"If we hurry, we ____ ____ the bus.  (will / catch)", answers:["will catch","'ll catch"], full:"If we hurry, we will catch the bus.", hint:"will + catch."},
+      {q:"If you ____ now, you'll feel better.  (rest — dopo if: presente!)", answers:["rest"], full:"If you rest now, you'll feel better.", hint:"dopo if si usa il presente → rest."},
+      {q:"I ____ ____ you if you ask.  (will / help)", answers:["will help","'ll help"], full:"I will help you if you ask.", hint:"will + help."},
+    ],
+    [ // L3 — distingui Zero vs First
+      {q:"If you heat ice, it ____ .  (Zero → melt)", answers:["melts"], full:"If you heat ice, it melts.", hint:"verità sempre vera = Zero → present."},
+      {q:"If it ____ tomorrow, we'll cancel the trip.  (dopo if → rain)", answers:["rains"], full:"If it rains tomorrow, we'll cancel the trip.", hint:"dopo if sempre present → rains."},
+      {q:"If the sun ____ , the snow melts.  (Zero → shine)", answers:["shines"], full:"If the sun shines, the snow melts.", hint:"verità → shines."},
+      {q:"If you ____ hard, you'll succeed.  (dopo if → work)", answers:["work"], full:"If you work hard, you'll succeed.", hint:"dopo if present → work."},
+      {q:"Ice ____ if you leave it in the sun.  (Zero → melt)", answers:["melts"], full:"Ice melts if you leave it in the sun.", hint:"verità → melts."},
+      {q:"We ____ ____ a picnic if the weather is nice.  (First → will have)", answers:["will have","'ll have"], full:"We will have a picnic if the weather is nice.", hint:"First risultato → will have."},
+    ],
+    [ // L4 — Sfida
+      {q:"If you mix red and blue, you ____ purple.  (Zero / get)", answers:["get"], full:"If you mix red and blue, you get purple.", hint:"Zero → get."},
+      {q:"If it ____ tomorrow, I'll take an umbrella.  (rain)", answers:["rains"], full:"If it rains tomorrow, I'll take an umbrella.", hint:"dopo if → rains."},
+      {q:"If you don't hurry, you ____ ____ the train.  (will / miss)", answers:["will miss","'ll miss"], full:"If you don't hurry, you will miss the train.", hint:"First → will miss."},
+      {q:"Plants ____ well if you give them light and water.  (grow)", answers:["grow"], full:"Plants grow well if you give them light and water.", hint:"verità → grow."},
+      {q:"If she ____ me, I'll be very happy.  (call)", answers:["calls"], full:"If she calls me, I'll be very happy.", hint:"dopo if → calls."},
+      {q:"If you heat water enough, it ____ .  (boil)", answers:["boils"], full:"If you heat water enough, it boils.", hint:"verità → boils."},
+    ],
+  ];
+  let wLevel=0,writeDone=[];
+  function norm(s){return s.trim().toLowerCase().replace(/…/g,"...").replace(/\.\.\./g," ").replace(/\s+/g," ");}
+  function setWriteLevel(lvl){
+    wLevel=lvl;const data=writeLevels[lvl];
+    writeDone=new Array(data.length).fill(false);
+    document.getElementById("write-level").innerHTML=levelBar(lvl);
+    document.getElementById("write-prog").textContent=`Completate 0 di ${data.length}`;
+    document.getElementById("write-list").innerHTML=data.map((it,i)=>`
+      <div class="ex"><div class="qnum">Frase ${i+1}</div><div class="qtext">${it.q}</div>
+      <input class="write-input" id="wi${i}" type="text" autocomplete="off" placeholder="scrivi qui…">
+      <button class="checkbtn" onclick="checkWrite(${i})">Controlla</button>
+      <div class="feedback" id="wfb${i}"></div></div>`).join("");
+  }
+  function checkWrite(i){
+    const it=writeLevels[wLevel][i],inp=document.getElementById("wi"+i),fb=document.getElementById("wfb"+i);
+    const ok=it.answers.some(a=>norm(a)===norm(inp.value));
+    if(ok){
+      inp.classList.add("okbox");inp.classList.remove("nobox");
+      fb.innerHTML="✅ Perfetto! "+it.full;fb.className="feedback ok";say(it.full);
+    } else {
+      inp.classList.add("nobox");
+      fb.innerHTML=`💛 Quasi! ${it.hint}<br>La risposta è: <b>${it.full}</b> <button class="saybtn" onclick="event.stopPropagation();say('${escQ(it.full)}')">🔊</button>`;
+      fb.className="feedback no";
+    }
+    if(!writeDone[i]){writeDone[i]=true;updateWrite();}
+  }
+  function updateWrite(){
+    const data=writeLevels[wLevel],pr=document.getElementById("write-prog");
+    const done=writeDone.filter(Boolean).length;
+    if(done<data.length){pr.textContent=`Completate ${done} di ${data.length}`;return;}
+    let correct=0;
+    data.forEach((it,i)=>{if(document.getElementById("wi"+i).classList.contains("okbox"))correct++;});
+    levelResult(pr,correct,data.length,wLevel,4,"setWriteLevel");
+  }
+
+  /* ============ SEZIONE 3 — LETTURA ============ */
+  const readLevels=[
+    { // L1 — Zero (fatti)
+      lines:["Here are some facts about nature.","If you heat ice, it melts and becomes water.","If you put water in the freezer, it freezes.","Plants die if they don't get enough water and light.","And if you mix blue and yellow, you always get green!"],
+      q:[
+        {q:"What happens if you heat ice? 🧊",opts:["It freezes","It melts","Nothing"],correct:1,full:"If you heat ice, it melts."},
+        {q:"What do plants need to live? 🌱",opts:["Water and light","Only sugar","Nothing"],correct:0,full:"Plants die if they don't get water and light."},
+        {q:"What colour do blue and yellow make? 🎨",opts:["Red","Purple","Green"],correct:2,full:"If you mix blue and yellow, you get green."},
+      ]
+    },
+    { // L2 — First (piani)
+      lines:["Tomorrow is Saturday and Leo has a plan.","If the weather is nice, he'll go to the park with his friends.","If it rains, they'll play video games at his house instead.","\"If you come early, we'll have more time to play,\" he tells them.","He's sure they'll have fun either way!"],
+      q:[
+        {q:"What will Leo do if the weather is nice? ☀️",opts:["Go to the park","Stay in bed","Study"],correct:0,full:"If the weather is nice, he'll go to the park."},
+        {q:"What will they do if it rains? 🎮",opts:["Go to the cinema","Play video games at his house","Cancel everything"],correct:1,full:"If it rains, they'll play video games."},
+        {q:"Why does Leo want them to come early? ⏰",opts:["To have more time to play","To do homework","To cook"],correct:0,full:"If they come early, they'll have more time to play."},
+      ]
+    },
+    { // L3 — misto
+      lines:["Mr Bianchi is a science teacher and a careful man.","\"If you mix these two liquids, they change colour,\" he explains.","\"And if you add heat, the reaction goes faster.\"","Then he warns the class: \"If you don't wear your goggles, I'll stop the experiment.\"","\"If everyone is careful, we'll finish the lesson with a little surprise!\""],
+      q:[
+        {q:"What happens if you mix the two liquids? 🧪",opts:["They explode","They change colour","Nothing happens"],correct:1,full:"If you mix them, they change colour."},
+        {q:"What will the teacher do if students don't wear goggles? 🥽",opts:["Stop the experiment","Give homework","Leave the room"],correct:0,full:"If you don't wear goggles, I'll stop the experiment."},
+        {q:"What happens if everyone is careful? 🎁",opts:["They'll finish with a surprise","They'll go home early","Nothing"],correct:0,full:"If everyone is careful, we'll finish with a surprise."},
+      ]
+    },
+    { // L4
+      lines:["Sofia is nervous about her first job interview tomorrow.","Her sister gives her some advice.","\"If you go to bed early, you'll feel fresh in the morning.\"","\"And remember: if you smile and stay calm, you'll make a good impression.\"","\"If they ask a difficult question, just take your time before answering.\"","\"You've prepared so well — if you believe in yourself, everything will be fine!\""],
+      q:[
+        {q:"What will happen if Sofia goes to bed early? 😴",opts:["She'll feel fresh","She'll be late","She'll be nervous"],correct:0,full:"If she goes to bed early, she'll feel fresh."},
+        {q:"How can Sofia make a good impression? 😊",opts:["By smiling and staying calm","By talking fast","By arriving late"],correct:0,full:"If she smiles and stays calm, she'll make a good impression."},
+        {q:"What should she do with a difficult question? 🤔",opts:["Take her time","Leave immediately","Refuse to answer"],correct:0,full:"If they ask a difficult question, take your time."},
+      ]
+    },
+  ];
+  let rLevel=0,readDone=[],readingText="",readCorrect=[];
+  function sayReading(){say(readingText);}
+  function setReadLevel(lvl,noScroll){
+    rLevel=lvl;const data=readLevels[lvl];
+    readingText=data.lines.join(" ");
+    readDone=new Array(data.q.length).fill(false);
+    document.getElementById("read-level").innerHTML=levelBar(lvl);
+    document.getElementById("reading-text").innerHTML=data.lines.map(l=>`<p>${l}</p>`).join("");
+    document.getElementById("read-prog").textContent=`Risposte 0 di ${data.q.length}`;
+    readCorrect=[];
+    document.getElementById("read-list").innerHTML=data.q.map((it,i)=>{
+      const order=shuffle(it.opts.map((o,k)=>k)),shown=order.map(k=>it.opts[k]);
+      readCorrect[i]=order.indexOf(it.correct);
+      return `<div class="ex"><div class="qnum">Domanda ${i+1}</div><div class="qtext">${it.q}</div>
+        <div class="options">${shown.map((o,j)=>`<button class="opt" onclick="readAns(${i},${j})">${o}</button>`).join("")}</div>
+        <div class="feedback" id="rfb${i}"></div></div>`;
+    }).join("");
+    if(!noScroll){const card=document.getElementById("read-card");if(card)card.scrollIntoView({behavior:"smooth",block:"start"});}
+  }
+  function readAns(i,j){
+    const it=readLevels[rLevel].q[i];
+    const opts=document.querySelectorAll("#read-list .ex:nth-child("+(i+1)+") .opt");
+    const fb=document.getElementById("rfb"+i);
+    if(j===readCorrect[i]){
+      opts[j].classList.add("correct");
+      fb.innerHTML="✅ Giusto! "+it.full+` <button class="saybtn" onclick="event.stopPropagation();say('${escQ(it.full)}')">🔊</button>`;
+      fb.className="feedback ok";opts.forEach(o=>o.disabled=true);
+      if(!readDone[i]){readDone[i]=true;updateRead();}
+    } else {
+      opts[j].classList.add("wrong");fb.textContent="Rileggi il testo e riprova 🙂";fb.className="feedback no";
+    }
+  }
+  function updateRead(){
+    const data=readLevels[rLevel],pr=document.getElementById("read-prog");
+    const done=readDone.filter(Boolean).length;
+    if(done<data.q.length){pr.textContent=`Risposte ${done} di ${data.q.length}`;return;}
+    levelResult(pr,data.q.length,data.q.length,rLevel,2,"setReadLevel");
+  }
+
+  /* ============ SEZIONE 4 — LESSICO ============ */
+  const matchLevels=[
+    [ // L1 — concetti base
+      {en:"if",it:"se 🔀"},{en:"Zero Conditional",it:"verità sempre vere ♾️"},
+      {en:"First Conditional",it:"futuro possibile 🔮"},{en:"will + verbo",it:"risultato del First 1️⃣"},
+      {en:"present + present",it:"schema dello Zero 0️⃣"},{en:"melts",it:"si scioglie 🧊"},
+      {en:"boils",it:"bolle ♨️"},{en:"freezes",it:"si congela ❄️"},
+    ],
+    [ // L2 — azioni comuni
+      {en:"if it rains",it:"se piove 🌧️"},{en:"if you study",it:"se studi 📚"},
+      {en:"you'll pass",it:"passerai 🎓"},{en:"you'll be tired",it:"sarai stanco 😴"},
+      {en:"we'll go out",it:"usciremo 🚶"},{en:"she'll be happy",it:"sarà felice 😊"},
+      {en:"if you don't hurry",it:"se non ti sbrighi ⏰"},{en:"we'll miss it",it:"lo perderemo 🚌"},
+    ],
+    [ // L3 — frasi Zero
+      {en:"If you heat ice, it melts",it:"Se scaldi il ghiaccio, si scioglie 🧊"},{en:"If you don't water plants, they die",it:"Se non innaffi le piante, muoiono 🥀"},
+      {en:"Water boils at 100°C",it:"L'acqua bolle a 100°C ♨️"},{en:"If you mix blue and yellow...",it:"Se mescoli blu e giallo... 🎨"},
+      {en:"Ice melts in the sun",it:"Il ghiaccio si scioglie al sole ☀️"},{en:"a fact",it:"un fatto ✔️"},
+      {en:"a general truth",it:"una verità generale ♾️"},{en:"always",it:"sempre 🔁"},
+    ],
+    [ // L4 — frasi First
+      {en:"If it rains, I'll stay home",it:"Se piove, resto a casa 🏠"},{en:"If you study, you'll pass",it:"Se studi, passerai 🎓"},
+      {en:"I'll help you if you ask",it:"Ti aiuto se me lo chiedi 🤝"},{en:"If we hurry, we'll catch it",it:"Se ci sbrighiamo, lo prendiamo 🚌"},
+      {en:"She'll call if she's free",it:"Chiamerà se è libera 📞"},{en:"If you're tired, go to bed",it:"Se sei stanco, vai a letto 🛏️"},
+      {en:"a possible future",it:"un futuro possibile 🔮"},{en:"a condition",it:"una condizione 🔀"},
+    ],
+  ];
+  let mLevel=0,selEn=null,matched=0,firstTry=0,spoiled;
+  function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+  function setMatchLevel(lvl){
+    mLevel=lvl;selEn=null;matched=0;firstTry=0;spoiled=new Set();
+    const pairs=matchLevels[lvl];
+    document.getElementById("match-level").innerHTML=levelBar(lvl);
+    const left=pairs.map((p,i)=>`<button class="match-btn" id="en${i}" onclick="pickEn(${i})">
+      <span>${p.en}</span><span class="saybtn" onclick="event.stopPropagation();say('${escQ(p.en)}')">🔊</span></button>`).join("");
+    const order=shuffle(pairs.map((p,i)=>i));
+    const right=order.map(i=>`<button class="match-btn" id="it${i}" onclick="pickIt(${i})">${pairs[i].it}</button>`).join("");
+    document.getElementById("match-grid").innerHTML=`<div class="match-col">${left}</div><div class="match-col">${right}</div>`;
+    document.getElementById("match-prog").textContent=`Coppie collegate: 0 di ${pairs.length}`;
+  }
+  function pickEn(i){
+    const btn=document.getElementById("en"+i);if(btn.classList.contains("done"))return;
+    document.querySelectorAll(".match-btn.sel").forEach(b=>b.classList.remove("sel"));
+    selEn=i;btn.classList.add("sel");
+  }
+  function pickIt(i){
+    if(selEn===null)return;
+    const itBtn=document.getElementById("it"+i),enBtn=document.getElementById("en"+selEn);
+    if(itBtn.classList.contains("done"))return;
+    const pairs=matchLevels[mLevel];
+    if(selEn===i){
+      enBtn.classList.remove("sel");enBtn.classList.add("done");itBtn.classList.add("done");
+      say(pairs[i].en);if(!spoiled.has(selEn))firstTry++;selEn=null;matched++;
+      const pr=document.getElementById("match-prog");
+      if(matched>=pairs.length){levelResult(pr,firstTry,pairs.length,mLevel,5,"setMatchLevel");}
+      else pr.textContent=`Coppie collegate: ${matched} di ${pairs.length}`;
+    } else {
+      spoiled.add(selEn);itBtn.classList.add("flash");
+      setTimeout(()=>itBtn.classList.remove("flash"),500);
+      enBtn.classList.remove("sel");selEn=null;
+    }
+  }
+
+  setListenLevel(0);setWriteLevel(0);setReadLevel(0,true);setMatchLevel(0);
+</script>
+<script>
+  if('serviceWorker' in navigator) navigator.serviceWorker.register('./service-worker.js');
+</script>
+</body>
+</html>
