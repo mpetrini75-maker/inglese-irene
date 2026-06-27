@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inglese - Be going to vs Will</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#FAF6EE">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Inglese di Irene">
+<style>
+  :root{
+    --bg:#FAF6EE;
+    --card:#FFFFFF;
+    --ink:#2F2A24;
+    --accent:#3B6EA5;
+    --accent-soft:#E2ECF5;
+    --green:#3E8E5A;
+    --green-soft:#E2F0E6;
+    --red:#C2492F;
+    --red-soft:#F6E1DB;
+    --blue:#3B6EA5;
+    --blue-soft:#E2ECF5;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:"Trebuchet MS","Comic Sans MS",Verdana,sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.7;letter-spacing:0.3px;padding:24px 14px 60px;}
+  .wrap{max-width:620px;margin:0 auto;}
+  .backbtn{display:inline-block;background:var(--accent-soft);color:var(--accent);
+    text-decoration:none;border-radius:12px;padding:8px 16px;font-size:0.98rem;font-weight:bold;margin-bottom:14px;}
+  h1{color:var(--accent);font-size:1.7rem;text-align:center;margin:0 0 6px;}
+  .sub{text-align:center;color:#8a7f70;margin:0 0 26px;font-size:1rem;}
+  .card{background:var(--card);border-radius:18px;padding:22px 20px;margin-bottom:22px;
+    box-shadow:0 4px 14px rgba(0,0,0,0.06);border:1px solid #efe7da;}
+  .card h2{margin:0 0 14px;font-size:1.25rem;color:var(--accent);display:flex;align-items:center;gap:8px;}
+  table{width:100%;border-collapse:collapse;margin:6px 0;}
+  td,th{padding:10px;text-align:center;border-bottom:2px solid var(--accent-soft);font-size:1.02rem;}
+  th{color:var(--accent);}
+  .saybtn{background:var(--blue-soft);color:var(--blue);border:none;border-radius:10px;
+    padding:6px 12px;font-size:0.95rem;cursor:pointer;font-family:inherit;}
+  .ex{margin:18px 0;}
+  .qnum{font-weight:bold;color:var(--accent);}
+  .qtext{font-size:1.15rem;margin:6px 0 12px;}
+  .options{display:flex;gap:10px;flex-wrap:wrap;}
+  .opt{flex:1;min-width:80px;background:var(--bg);border:2px solid var(--accent-soft);
+    border-radius:12px;padding:14px;font-size:1.05rem;cursor:pointer;
+    text-align:center;font-family:inherit;color:var(--ink);transition:all .15s;}
+  .opt:hover{border-color:var(--accent);}
+  .opt.correct{background:var(--green-soft);border-color:var(--green);color:var(--green);font-weight:bold;}
+  .opt.wrong{background:var(--red-soft);border-color:var(--red);color:var(--red);}
+  .feedback{margin-top:12px;font-size:1.05rem;font-weight:bold;min-height:26px;}
+  .feedback.ok{color:var(--green);}
+  .feedback.no{color:var(--red);}
+  .progress{text-align:center;font-size:1.1rem;margin:10px 0 0;color:#8a7f70;}
+  .star{font-size:1.4rem;}
+  .restart{display:block;margin:20px auto 0;background:var(--accent);color:#fff;border:none;
+    border-radius:12px;padding:12px 24px;font-size:1.05rem;cursor:pointer;font-family:inherit;}
+  .tip{border-radius:10px;padding:10px 14px;font-size:0.98rem;margin-top:10px;}
+  .tip.blue{background:var(--blue-soft);color:var(--blue);}
+  .tip.green{background:var(--green-soft);color:#2a6040;}
+  .formula{border-radius:12px;padding:14px;text-align:center;font-size:1.12rem;font-weight:bold;margin:8px 0;}
+  .formula.will{background:var(--blue-soft);color:var(--blue);}
+  .formula.going{background:var(--green-soft);color:var(--green);}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0;}
+  .mini-card{border-radius:12px;padding:14px;font-size:0.96rem;}
+  .mini-card.will{background:var(--blue-soft);}
+  .mini-card.going{background:var(--green-soft);}
+  .mini-card h3{margin:0 0 4px;font-size:1rem;}
+  .mini-card h3.will{color:var(--blue);}
+  .mini-card h3.going{color:var(--green);}
+  .compare-row{display:flex;align-items:flex-start;gap:10px;margin:8px 0;font-size:1rem;}
+  .cmp-badge{border-radius:8px;padding:3px 10px;font-size:0.92rem;font-weight:bold;white-space:nowrap;flex-shrink:0;}
+  .cmp-badge.will{background:var(--blue-soft);color:var(--blue);}
+  .cmp-badge.going{background:var(--green-soft);color:var(--green);}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="backbtn" href="index.html">← Indice</a>
+  <h1>🔮 Be going to vs Will</h1>
+  <p class="sub">due modi per il futuro — <span style="color:var(--blue)"><b>will</b></span> o <span style="color:var(--green)"><b>going to</b></span>?</p>
+
+  <!-- LA DIFFERENZA -->
+  <div class="card">
+    <h2>💡 La differenza in due parole</h2>
+    <p style="margin:0 0 10px;color:#8a7f70;">Tutti e due parlano del <b>futuro</b>, ma la scelta dipende da <b>cosa</b> stai dicendo: una decisione del momento o un piano già fatto?</p>
+    <div class="two-col">
+      <div class="mini-card will">
+        <h3 class="will">💭 will</h3>
+        <b>decido ORA</b> mentre parlo<br>
+        previsione · promessa · offerta<br>
+        <i>I'<b>ll</b> help you!</i>
+      </div>
+      <div class="mini-card going">
+        <h3 class="going">📋 going to</h3>
+        <b>piano GIÀ deciso</b> prima<br>
+        intenzione · prova evidente<br>
+        <i>I'm <b>going to</b> study tonight.</i>
+      </div>
+    </div>
+    <div class="tip blue">🎨 <b>Trucco:</b> se c'è già un <b>piano</b> o vedi una <b>prova</b> 👀 → <b>going to</b>. Se decidi <b>sul momento</b> o dai un'opinione → <b>will</b>.</div>
+  </div>
+
+  <!-- WILL -->
+  <div class="card">
+    <h2>💭 Quando si usa WILL</h2>
+    <div class="formula will">soggetto + <b>will</b> + verbo base</div>
+    <table>
+      <tr><th>Uso</th><th>Esempio 🔊</th></tr>
+      <tr><td>Decisione sul momento</td><td><i>The phone's ringing — I'<b>ll</b> get it!</i> <button class="saybtn" onclick="say('The phone is ringing. I will get it!')">🔊</button></td></tr>
+      <tr><td>Previsione / opinione</td><td><i>I think it <b>will</b> rain tomorrow.</i> <button class="saybtn" onclick="say('I think it will rain tomorrow.')">🔊</button></td></tr>
+      <tr><td>Promessa</td><td><i>I <b>won't</b> be late, I promise.</i> <button class="saybtn" onclick="say('I will not be late, I promise.')">🔊</button></td></tr>
+      <tr><td>Offerta</td><td><i>I'<b>ll</b> carry that for you.</i> <button class="saybtn" onclick="say('I will carry that for you.')">🔊</button></td></tr>
+    </table>
+    <div class="tip blue">💡 Forma breve: <b>I'll, she'll, we'll…</b> · Negativo: <b>won't</b> (= will not). Spesso con <i>I think, maybe, probably, I promise</i>.</div>
+  </div>
+
+  <!-- GOING TO -->
+  <div class="card">
+    <h2>📋 Quando si usa GOING TO</h2>
+    <div class="formula going">soggetto + <b>am/is/are</b> + going to + verbo base</div>
+    <table>
+      <tr><th>Uso</th><th>Esempio 🔊</th></tr>
+      <tr><td>Piano / intenzione già deciso</td><td><i>We'<b>re going to</b> visit grandma on Sunday.</i> <button class="saybtn" onclick="say('We are going to visit grandma on Sunday.')">🔊</button></td></tr>
+      <tr><td>Previsione con una <b>prova</b> 👀</td><td><i>Look at those clouds — it'<b>s going to</b> rain!</i> <button class="saybtn" onclick="say('Look at those clouds. It is going to rain!')">🔊</button></td></tr>
+    </table>
+    <div class="tip green">💡 Si forma col verbo <b>to be</b> (am/is/are) + <b>going to</b> + verbo, come il Present Continuous. La prova è qualcosa che <b>vedi adesso</b> (nuvole, qualcuno che inciampa…).</div>
+  </div>
+
+  <!-- CONFRONTO DIRETTO -->
+  <div class="card">
+    <h2>⚖️ Stesso futuro, due scelte</h2>
+    <div class="compare-row">
+      <span class="cmp-badge will">will</span>
+      <span><i>"What do you want?" "I'<b>ll</b> have the pizza."</i><br><small>decido <b>ora</b>, al ristorante</small></span>
+    </div>
+    <div class="compare-row">
+      <span class="cmp-badge going">going to</span>
+      <span><i>I'<b>m going to</b> have pizza tonight.</i><br><small>l'avevo <b>già deciso</b></small></span>
+    </div>
+    <hr style="border:none;border-top:1px dashed var(--accent-soft);margin:12px 0;">
+    <div class="compare-row">
+      <span class="cmp-badge will">will</span>
+      <span><i>I think it <b>will</b> be sunny.</i><br><small>una mia <b>opinione</b></small></span>
+    </div>
+    <div class="compare-row">
+      <span class="cmp-badge going">going to</span>
+      <span><i>It'<b>s going to</b> rain — look at the sky!</i><br><small>c'è una <b>prova</b> 👀</small></span>
+    </div>
+  </div>
+
+  <!-- QUIZ -->
+  <div class="card">
+    <h2>✅ Prova tu!</h2>
+    <p style="margin-top:0;color:#8a7f70;">Scegli la risposta giusta. Se sbagli, riprova: nessuna fretta! 🙂</p>
+    <div id="quiz"></div>
+    <div class="progress" id="progress"></div>
+    <button class="restart" id="restartBtn" style="display:none;" onclick="startQuiz()">🔄 Ricomincia</button>
+  </div>
+
+  <!-- CTA -->
+  <div class="card" style="text-align:center;">
+    <h2 style="justify-content:center;">🎧 Pronta ad allenarti?</h2>
+    <p style="margin:0 0 18px;color:#8a7f70;">Hai studiato la lezione: ora mettiti alla prova con gli esercizi di ascolto, scrittura, lettura e lessico! 💪</p>
+    <a class="restart" href="be-going-to-vs-will-allenamento.html" style="text-decoration:none;display:inline-block;font-size:1.25rem;padding:16px 34px;">Allenati! →</a>
+  </div>
+</div>
+
+<script>
+  function say(text){
+    try{
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = "en-US"; u.rate = 0.85;
+      speechSynthesis.cancel(); speechSynthesis.speak(u);
+    }catch(e){}
+  }
+
+  const questions = [
+    {q:"\"The phone is ringing!\" \"I ____ get it!\"  (decido ora)", opts:["will","'m going to","going to"], correct:0, full:"I'll get it!"},
+    {q:"Look at those black clouds! It ____ rain.  (c'è una prova)", opts:["will","'s going to","will to"], correct:1, full:"It's going to rain."},
+    {q:"We ____ visit grandma on Sunday — it's already planned.", opts:["will","won't","'re going to"], correct:2, full:"We're going to visit grandma on Sunday."},
+    {q:"I think she ____ love this present.  (una mia opinione)", opts:["will","is going to","going to"], correct:0, full:"I think she will love this present."},
+    {q:"Watch out! You ____ fall!  (lo vedo succedere ora)", opts:["will","'re going to","won't"], correct:1, full:"You're going to fall!"},
+    {q:"Don't worry, I ____ be late. I promise!", opts:["am going to","won't","will not be going"], correct:1, full:"I won't be late. I promise!"},
+    {q:"\"I'm cold.\" \"I ____ close the window for you.\"  (offerta sul momento)", opts:["'m going to","will","going to"], correct:1, full:"I'll close the window for you."},
+    {q:"When I grow up, I ____ become a vet — it's my dream plan.", opts:["will","'m going to","won't"], correct:1, full:"I'm going to become a vet."},
+  ];
+
+  let current = 0, score = 0;
+
+  function startQuiz(){
+    current = 0; score = 0;
+    document.getElementById("restartBtn").style.display = "none";
+    showQuestion();
+  }
+  function showQuestion(){
+    const quiz = document.getElementById("quiz");
+    const prog = document.getElementById("progress");
+    if(current >= questions.length){
+      quiz.innerHTML = "";
+      const pct = score/questions.length;
+      const n = pct===1?5:pct>=0.75?4:pct>=0.5?3:pct>=0.25?2:1;
+      const msg = pct===1 ? "Perfetto! will e going to non hanno più segreti! 🏆" :
+                  pct>=0.5 ? "Bravissima, ci sei quasi! 💪" :
+                  "Bene, riprova: si impara ripetendo! 🌱";
+      prog.innerHTML = `<div class="star">${"⭐".repeat(n)}</div>${score}/${questions.length} giuste<br><b>${msg}</b>`;
+      document.getElementById("restartBtn").style.display = "block";
+      if(window.inviaAlert) inviaAlert('fine-lezione');
+      return;
+    }
+    const item = questions[current];
+    prog.textContent = `Domanda ${current+1} di ${questions.length}`;
+    quiz.innerHTML = `
+      <div class="ex">
+        <div class="qnum">Domanda ${current+1}</div>
+        <div class="qtext">${item.q}</div>
+        <div class="options">
+          ${item.opts.map((o,i)=>`<button class="opt" onclick="answer(${i})">${o}</button>`).join("")}
+        </div>
+        <div class="feedback" id="fb"></div>
+      </div>`;
+  }
+  function answer(i){
+    const item = questions[current];
+    const opts = document.querySelectorAll(".opt");
+    const fb = document.getElementById("fb");
+    if(i === item.correct){
+      opts[i].classList.add("correct");
+      fb.textContent = "✅ Giusto! " + item.full;
+      fb.className = "feedback ok";
+      score++; say(item.full);
+      opts.forEach(o=>o.disabled=true);
+      setTimeout(()=>{ current++; showQuestion(); }, 1600);
+    } else {
+      opts[i].classList.add("wrong");
+      fb.textContent = "Riprova! 🙂";
+      fb.className = "feedback no";
+    }
+  }
+  startQuiz();
+</script>
+<script>
+  if ('serviceWorker' in navigator) navigator.serviceWorker.register('./service-worker.js');
+</script>
+<script src="alert.js"></script>
+</body>
+</html>

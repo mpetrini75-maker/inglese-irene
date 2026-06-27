@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Be going to vs Will — Allenamento</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#FAF6EE">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Inglese di Irene">
+<script src="alert.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FAF6EE; --card:#FFFFFF; --ink:#2F2A24;
+    --accent:#3B6EA5; --accent-soft:#E2ECF5;
+    --green:#3E8E5A; --green-soft:#E2F0E6;
+    --red:#C2492F; --red-soft:#F6E1DB;
+    --blue:#3B6EA5; --blue-soft:#E2ECF5;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:"Lexend","Trebuchet MS",Verdana,sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.7;letter-spacing:0.3px;padding:24px 14px 60px;}
+  .wrap{max-width:620px;margin:0 auto;}
+  .backbtn{display:inline-block;background:var(--accent-soft);color:var(--accent);
+    text-decoration:none;border-radius:12px;padding:8px 16px;font-size:0.98rem;font-weight:bold;margin-bottom:14px;}
+  h1{color:var(--accent);font-size:1.6rem;text-align:center;margin:0 0 6px;}
+  .sub{text-align:center;color:#8a7f70;margin:0 0 26px;font-size:1rem;}
+  .card{background:var(--card);border-radius:18px;padding:22px 20px;margin-bottom:22px;
+    box-shadow:0 4px 14px rgba(0,0,0,0.06);border:1px solid #efe7da;}
+  .card h2{margin:0 0 10px;font-size:1.25rem;color:var(--accent);display:flex;align-items:center;gap:8px;}
+  .card .lead{color:#8a7f70;margin:0 0 12px;font-size:0.97rem;}
+  .levelbar{margin:0 0 12px;}
+  .lvrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:0.98rem;color:var(--accent);}
+  .lvdots{display:inline-flex;gap:6px;}
+  .lvdot{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    background:var(--bg);border:2px solid var(--accent-soft);color:#b9ad9c;font-size:0.85rem;font-weight:bold;}
+  .lvdot.on{background:var(--accent-soft);border-color:var(--accent);color:var(--accent);}
+  .saybtn{background:var(--blue-soft);color:var(--blue);border:none;border-radius:10px;
+    padding:6px 12px;font-size:0.95rem;cursor:pointer;font-family:inherit;}
+  .big-listen{display:block;margin:6px auto 14px;background:var(--blue);color:#fff;
+    border:none;border-radius:16px;padding:18px 26px;font-size:1.2rem;font-weight:bold;
+    cursor:pointer;font-family:inherit;box-shadow:0 4px 12px rgba(59,110,165,0.3);}
+  .big-listen:hover{opacity:0.92;}
+  .ex{margin:14px 0;}
+  .qnum{font-weight:bold;color:var(--accent);}
+  .qtext{font-size:1.12rem;margin:6px 0 8px;}
+  .options{display:flex;flex-direction:column;gap:10px;}
+  .opt{background:var(--bg);border:2px solid var(--accent-soft);border-radius:12px;
+    padding:13px 14px;font-size:1.08rem;cursor:pointer;text-align:left;
+    font-family:inherit;color:var(--ink);transition:all .15s;}
+  .opt:hover{border-color:var(--accent);}
+  .opt.correct{background:var(--green-soft);border-color:var(--green);color:var(--green);font-weight:bold;}
+  .opt.wrong{background:var(--red-soft);border-color:var(--red);color:var(--red);}
+  .feedback{margin-top:10px;font-size:1.02rem;font-weight:bold;min-height:24px;}
+  .feedback.ok{color:var(--green);}
+  .feedback.no{color:var(--red);}
+  .progress{text-align:center;font-size:1.05rem;margin:12px 0 0;color:#8a7f70;}
+  .star{font-size:1.4rem;}
+  .write-input{width:100%;font-family:"Lexend",sans-serif;font-size:1.2rem;
+    padding:12px 14px;border:2px solid var(--accent-soft);border-radius:12px;
+    background:var(--bg);color:var(--ink);margin-top:4px;}
+  .write-input:focus{outline:none;border-color:var(--accent);}
+  .checkbtn{margin-top:10px;background:var(--accent);color:#fff;border:none;
+    border-radius:12px;padding:10px 20px;font-size:1rem;cursor:pointer;font-family:inherit;}
+  .write-input.okbox{border-color:var(--green);background:var(--green-soft);}
+  .write-input.nobox{border-color:var(--red);}
+  .reading{background:var(--bg);border-radius:14px;padding:16px 18px;font-size:1.12rem;
+    border:2px solid var(--accent-soft);margin-bottom:6px;}
+  .reading p{margin:0 0 6px;}
+  .match-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px;}
+  .match-col{display:flex;flex-direction:column;gap:10px;}
+  .match-btn{background:var(--bg);border:2px solid var(--accent-soft);border-radius:12px;
+    padding:12px;font-size:1.05rem;cursor:pointer;font-family:inherit;color:var(--ink);
+    display:flex;align-items:center;justify-content:space-between;gap:6px;transition:all .15s;}
+  .match-btn:hover{border-color:var(--accent);}
+  .match-btn.sel{border-color:var(--blue);background:var(--blue-soft);color:var(--blue);font-weight:bold;}
+  .match-btn.done{background:var(--green-soft);border-color:var(--green);color:var(--green);
+    font-weight:bold;cursor:default;opacity:0.85;}
+  .match-btn.flash{border-color:var(--red);background:var(--red-soft);}
+  .restart{display:inline-block;margin:12px auto 0;background:var(--accent);color:#fff;border:none;
+    border-radius:12px;padding:11px 22px;font-size:1rem;cursor:pointer;font-family:inherit;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="backbtn" href="be-going-to-vs-will.html">← Torna alla lezione</a>
+  <h1>🏋️ Be going to vs Will — Allenamento</h1>
+  <p class="sub">4 livelli · ascolto · scrittura · lettura · lessico</p>
+
+  <div class="card">
+    <h2>🎧 1. Ascolto</h2>
+    <p class="lead">Tocca il pulsante blu e ascolta. Scegli la frase giusta. Puoi riascoltare quante volte vuoi!</p>
+    <div class="levelbar" id="listen-level"></div>
+    <div id="listen-quiz"></div>
+    <div class="progress" id="listen-prog"></div>
+  </div>
+
+  <div class="card">
+    <h2>✏️ 2. Scrittura</h2>
+    <p class="lead">Scrivi la parola o le parole giuste. Non contano maiuscole o spazi extra. Poi tocca "Controlla".</p>
+    <div class="levelbar" id="write-level"></div>
+    <div id="write-list"></div>
+    <div class="progress" id="write-prog"></div>
+  </div>
+
+  <div class="card" id="read-card">
+    <h2>📖 3. Lettura</h2>
+    <p class="lead">Ascolta e leggi il testo, poi rispondi alle domande.</p>
+    <div class="levelbar" id="read-level"></div>
+    <div class="reading" id="reading-text"></div>
+    <button class="saybtn" onclick="event.stopPropagation();sayReading()">🔊 Ascolta tutto il testo</button>
+    <div id="read-list" style="margin-top:8px;"></div>
+    <div class="progress" id="read-prog"></div>
+  </div>
+
+  <div class="card">
+    <h2>🔤 4. Lessico</h2>
+    <p class="lead">Tocca una parola inglese (ascoltala con 🔊), poi il suo significato. Collega tutte le coppie!</p>
+    <div class="levelbar" id="match-level"></div>
+    <div class="match-grid" id="match-grid"></div>
+    <div class="progress" id="match-prog"></div>
+  </div>
+</div>
+
+<script>
+  function say(text){
+    try{
+      const u=new SpeechSynthesisUtterance(text);
+      u.lang="en-US"; u.rate=0.85;
+      speechSynthesis.cancel(); speechSynthesis.speak(u);
+    }catch(e){}
+  }
+  function escQ(s){ return s.replace(/'/g,"\\'"); }
+  function stars(correct,total){
+    const pct=correct/total;
+    return "⭐".repeat(pct===1?5:pct>=0.75?4:pct>=0.5?3:pct>=0.25?2:1);
+  }
+  const LV=["Base","Intermedio","Avanzato","Sfida"];
+  function levelBar(level){
+    let dots="";
+    for(let i=0;i<4;i++) dots+=`<span class="lvdot ${i<=level?'on':''}">${i+1}</span>`;
+    return `<div class="lvrow"><b>Livello ${level+1} di 4 · ${LV[level]} 🔓</b><span class="lvdots">${dots}</span></div>`;
+  }
+  function levelResult(progEl,score,total,level,threshold,setFnName){
+    const passed=score>=threshold;
+    let html=`<div class="star">${stars(score,total)}</div>${score}/${total} giuste<br>`;
+    if(passed && level<3){
+      html+=`<b>Bravissima! Livello ${level+2} sbloccato 🔓</b><br>`;
+      html+=`<button class="restart" onclick="${setFnName}(${level+1})">➡️ Vai al Livello ${level+2}</button>`;
+    } else if(passed && level===3){
+      inviaAlertQuiz();
+      html+=`<b>🏆 Hai completato tutti i livelli!</b><br>`;
+      html+=`<button class="restart" onclick="${setFnName}(0)">🔄 Rigioca dal Livello 1</button>`;
+    } else {
+      html+=`<b>Ci sei quasi! Riprova questo livello, ce la fai 🌱</b><br>`;
+      html+=`<button class="restart" onclick="${setFnName}(${level})">🔄 Rifai il Livello ${level+1}</button>`;
+    }
+    progEl.innerHTML=html;
+  }
+
+  /* ============ SEZIONE 1 — ASCOLTO ============ */
+  const listenLevels=[
+    [ // L1 — will: decisioni, previsioni, promesse, offerte
+      {audio:"I'll help you with your bag.",opts:["I'll help you with your bag.","I'm going to help you with your bag.","I'll help her with your bag."],correct:0},
+      {audio:"I think it will be sunny tomorrow.",opts:["I think it will be sunny tomorrow.","I think it won't be sunny tomorrow.","I think it will be rainy tomorrow."],correct:0},
+      {audio:"Don't worry, I won't forget.",opts:["Don't worry, I won't forget.","Don't worry, I will forget.","Don't worry, she won't forget."],correct:0},
+      {audio:"The phone's ringing — I'll get it!",opts:["The phone's ringing — I'll get it!","The phone's ringing — I'm going to get it!","The phone's ringing — I'll get them!"],correct:0},
+      {audio:"I'll carry that box for you.",opts:["I'll carry that box for you.","I'm going to carry that box for you.","I'll carry that bag for you."],correct:0},
+      {audio:"Maybe she'll come to the party.",opts:["Maybe she'll come to the party.","Maybe she won't come to the party.","Maybe he'll come to the party."],correct:0},
+    ],
+    [ // L2 — going to: piani e prove
+      {audio:"I'm going to study tonight.",opts:["I'm going to study tonight.","I'll study tonight.","I'm going to study tomorrow."],correct:0},
+      {audio:"Look out! You're going to fall!",opts:["Look out! You're going to fall!","Look out! You'll fall!","Look out! You're going to fail!"],correct:0},
+      {audio:"We're going to visit grandma on Sunday.",opts:["We're going to visit grandma on Sunday.","We'll visit grandma on Sunday.","We're going to visit grandpa on Sunday."],correct:0},
+      {audio:"It's going to rain — look at the clouds.",opts:["It's going to rain — look at the clouds.","It will rain — look at the clouds.","It's going to snow — look at the clouds."],correct:0},
+      {audio:"She's going to have a baby!",opts:["She's going to have a baby!","She'll have a baby!","He's going to have a baby!"],correct:0},
+      {audio:"They're going to build a new school here.",opts:["They're going to build a new school here.","They'll build a new school here.","They're going to build a new park here."],correct:0},
+    ],
+    [ // L3 — misto will / going to
+      {audio:"I'm going to travel to Spain next summer.",opts:["I'm going to travel to Spain next summer.","I'll travel to Spain next summer.","I'm going to travel to Italy next summer."],correct:0},
+      {audio:"I think our team will win the match.",opts:["I think our team will win the match.","I think our team won't win the match.","I think your team will win the match."],correct:0},
+      {audio:"Watch out — that glass is going to fall!",opts:["Watch out — that glass is going to fall!","Watch out — that glass will fall!","Watch out — that plate is going to fall!"],correct:0},
+      {audio:"I promise I'll call you tonight.",opts:["I promise I'll call you tonight.","I promise I'm going to call you tonight.","I promise I'll call you tomorrow."],correct:0},
+      {audio:"We're going to paint the house this weekend.",opts:["We're going to paint the house this weekend.","We'll paint the house this weekend.","We're going to paint the fence this weekend."],correct:0},
+      {audio:"Maybe I'll buy a new phone — I'm not sure yet.",opts:["Maybe I'll buy a new phone — I'm not sure yet.","I'm going to buy a new phone — I'm not sure yet.","Maybe I'll buy a new bike — I'm not sure yet."],correct:0},
+    ],
+    [ // L4 — frasi lunghe con contesto
+      {audio:"I haven't decided yet, but I think I'll stay home tonight.",opts:["I haven't decided yet, but I think I'll stay home tonight.","I haven't decided yet, but I'm going to stay home tonight.","I haven't decided yet, but I think I'll stay home tomorrow."],correct:0},
+      {audio:"Look at the time! We're going to miss the train if we don't run.",opts:["Look at the time! We're going to miss the train if we don't run.","Look at the time! We'll miss the train if we don't run.","Look at the time! We're going to miss the bus if we don't run."],correct:0},
+      {audio:"Don't worry about dinner — I'll cook something for everyone.",opts:["Don't worry about dinner — I'll cook something for everyone.","Don't worry about dinner — I'm going to cook something for everyone.","Don't worry about dinner — I'll cook something for somebody."],correct:0},
+      {audio:"She's been studying for months — she's going to pass the exam easily.",opts:["She's been studying for months — she's going to pass the exam easily.","She's been studying for months — she'll pass the exam easily.","She's been studying for months — she's going to fail the exam easily."],correct:0},
+      {audio:"I'm not sure what to wear, but I think I'll wear the blue dress.",opts:["I'm not sure what to wear, but I think I'll wear the blue dress.","I'm not sure what to wear, but I'm going to wear the blue dress.","I'm not sure what to wear, but I think I'll wear the red dress."],correct:0},
+      {audio:"We've already booked the flights — we're going to spend two weeks in Greece.",opts:["We've already booked the flights — we're going to spend two weeks in Greece.","We've already booked the flights — we'll spend two weeks in Greece.","We've already booked the flights — we're going to spend two weeks in Spain."],correct:0},
+    ],
+  ];
+  let lLevel=0,lc=0,ls=0,lCorrect=0,lAudio="";
+  function setListenLevel(lvl){lLevel=lvl;lc=0;ls=0;document.getElementById("listen-level").innerHTML=levelBar(lvl);showListen();}
+  function showListen(){
+    const data=listenLevels[lLevel],box=document.getElementById("listen-quiz"),pr=document.getElementById("listen-prog");
+    if(lc>=data.length){box.innerHTML="";levelResult(pr,ls,data.length,lLevel,4,"setListenLevel");return;}
+    const it=data[lc]; lAudio=it.audio;
+    const order=shuffle(it.opts.map((o,i)=>i)),shown=order.map(k=>it.opts[k]);
+    lCorrect=order.indexOf(it.correct);
+    pr.textContent=`Esercizio ${lc+1} di ${data.length}`;
+    box.innerHTML=`<div class="ex"><div class="qnum">Ascolto ${lc+1}</div>
+      <button class="big-listen" onclick="event.stopPropagation();say('${escQ(it.audio)}')">🔊 Ascolta la frase</button>
+      <div class="options">${shown.map((o,i)=>`<button class="opt" onclick="listenAns(${i})">${o}</button>`).join("")}</div>
+      <div class="feedback" id="lfb"></div></div>`;
+  }
+  function listenAns(i){
+    const opts=document.querySelectorAll("#listen-quiz .opt"),fb=document.getElementById("lfb");
+    if(i===lCorrect){
+      opts[i].classList.add("correct");fb.textContent="✅ Giusto! "+lAudio;fb.className="feedback ok";
+      ls++;say(lAudio);opts.forEach(o=>o.disabled=true);
+      setTimeout(()=>{lc++;showListen();},1800);
+    } else {opts[i].classList.add("wrong");fb.textContent="Riascolta e riprova 🙂";fb.className="feedback no";}
+  }
+
+  /* ============ SEZIONE 2 — SCRITTURA ============ */
+  const writeLevels=[
+    [ // L1 — scegli will o going to
+      {q:"Look at those clouds! It ____ rain.  (c'è una prova 👀)", answers:["is going to","'s going to"], full:"It's going to rain.", hint:"prova evidente → going to."},
+      {q:"\"I'm thirsty.\" \"I ____ get you some water.\"  (offerta sul momento)", answers:["will","'ll"], full:"I'll get you some water.", hint:"offerta sul momento → will."},
+      {q:"We ____ visit Rome next month — it's all planned.  (piano)", answers:["are going to","'re going to"], full:"We're going to visit Rome.", hint:"piano già deciso → going to."},
+      {q:"I think she ____ like the gift.  (opinione)", answers:["will","'ll"], full:"I think she will like the gift.", hint:"opinione/previsione → will."},
+      {q:"Watch out! You ____ drop it!  (lo vedo accadere ora)", answers:["are going to","'re going to"], full:"You're going to drop it!", hint:"prova davanti agli occhi → going to."},
+      {q:"I promise I ____ tell anyone.  (promessa negativa)", answers:["won't","will not"], full:"I won't tell anyone.", hint:"promessa → won't."},
+    ],
+    [ // L2 — will / going to + verbo
+      {q:"I ____ ____ a doctor when I grow up.  (be — progetto di vita)", answers:["am going to be","'m going to be"], full:"I'm going to be a doctor when I grow up.", hint:"piano/ambizione → going to + be."},
+      {q:"Don't worry, I ____ ____ you.  (help — offerta)", answers:["will help","'ll help"], full:"I'll help you.", hint:"offerta → will + help."},
+      {q:"Look — that tree ____ ____!  (fall — prova)", answers:["is going to fall","'s going to fall"], full:"That tree is going to fall!", hint:"prova → going to + fall."},
+      {q:"Maybe we ____ ____ to the beach.  (go — non deciso)", answers:["will go","'ll go"], full:"Maybe we'll go to the beach.", hint:"forse/non deciso → will + go."},
+      {q:"They ____ ____ a party next Saturday.  (have — piano)", answers:["are going to have","'re going to have"], full:"They're going to have a party next Saturday.", hint:"piano → going to + have."},
+      {q:"I think it ____ ____ a great film.  (be — opinione)", answers:["will be","'ll be"], full:"I think it will be a great film.", hint:"opinione → will + be."},
+    ],
+    [ // L3 — distingui will vs going to
+      {q:"\"What would you like?\" \"I ____ have the soup.\"  (decido ora al ristorante)", answers:["will","'ll"], full:"I'll have the soup.", hint:"decisione sul momento → will."},
+      {q:"She ____ ____ medicine — she's already enrolled.  (study — piano)", answers:["is going to study","'s going to study"], full:"She's going to study medicine.", hint:"piano deciso → going to + study."},
+      {q:"Be careful, the milk ____ ____ over!  (boil — prova)", answers:["is going to boil","'s going to boil"], full:"The milk is going to boil over!", hint:"prova → going to + boil."},
+      {q:"I'm sure everything ____ ____ fine.  (be — previsione)", answers:["will be","'ll be"], full:"Everything will be fine.", hint:"previsione/opinione → will + be."},
+      {q:"We ____ ____ the house blue — we chose the colour yesterday.  (paint — piano)", answers:["are going to paint","'re going to paint"], full:"We're going to paint the house blue.", hint:"piano deciso → going to + paint."},
+      {q:"OK, you've convinced me — I ____ ____ with you!  (come — decisione ora)", answers:["will come","'ll come"], full:"I'll come with you!", hint:"decisione sul momento → will + come."},
+    ],
+    [ // L4 — Sfida: frasi complete
+      {q:"It's so cloudy. I think it ____ ____ soon.  (going to / rain)", answers:["is going to rain","'s going to rain"], full:"It's going to rain soon.", hint:"prova (nuvole) → going to + rain."},
+      {q:"Don't lift that — I ____ ____ you a hand.  (will / give)", answers:["will give","'ll give"], full:"I'll give you a hand.", hint:"offerta → will + give."},
+      {q:"We ____ ____ in a hotel near the beach — it's booked.  (going to / stay)", answers:["are going to stay","'re going to stay"], full:"We're going to stay in a hotel near the beach.", hint:"piano (prenotato) → going to + stay."},
+      {q:"I haven't decided, but maybe I ____ ____ the red one.  (will / buy)", answers:["will buy","'ll buy"], full:"Maybe I'll buy the red one.", hint:"non deciso → will + buy."},
+      {q:"Look at his face — he ____ ____!  (going to / sneeze)", answers:["is going to sneeze","'s going to sneeze"], full:"He's going to sneeze!", hint:"prova evidente → going to + sneeze."},
+      {q:"Calm down, I promise I ____ ____ late again.  (won't / be)", answers:["won't be"], full:"I won't be late again.", hint:"promessa negativa → won't + be."},
+    ],
+  ];
+  let wLevel=0,writeDone=[];
+  function norm(s){return s.trim().toLowerCase().replace(/…/g,"...").replace(/\.\.\./g," ").replace(/\s+/g," ");}
+  function setWriteLevel(lvl){
+    wLevel=lvl;const data=writeLevels[lvl];
+    writeDone=new Array(data.length).fill(false);
+    document.getElementById("write-level").innerHTML=levelBar(lvl);
+    document.getElementById("write-prog").textContent=`Completate 0 di ${data.length}`;
+    document.getElementById("write-list").innerHTML=data.map((it,i)=>`
+      <div class="ex"><div class="qnum">Frase ${i+1}</div><div class="qtext">${it.q}</div>
+      <input class="write-input" id="wi${i}" type="text" autocomplete="off" placeholder="scrivi qui…">
+      <button class="checkbtn" onclick="checkWrite(${i})">Controlla</button>
+      <div class="feedback" id="wfb${i}"></div></div>`).join("");
+  }
+  function checkWrite(i){
+    const it=writeLevels[wLevel][i],inp=document.getElementById("wi"+i),fb=document.getElementById("wfb"+i);
+    const ok=it.answers.some(a=>norm(a)===norm(inp.value));
+    if(ok){
+      inp.classList.add("okbox");inp.classList.remove("nobox");
+      fb.innerHTML="✅ Perfetto! "+it.full;fb.className="feedback ok";say(it.full);
+    } else {
+      inp.classList.add("nobox");
+      fb.innerHTML=`💛 Quasi! ${it.hint}<br>La risposta è: <b>${it.full}</b> <button class="saybtn" onclick="event.stopPropagation();say('${escQ(it.full)}')">🔊</button>`;
+      fb.className="feedback no";
+    }
+    if(!writeDone[i]){writeDone[i]=true;updateWrite();}
+  }
+  function updateWrite(){
+    const data=writeLevels[wLevel],pr=document.getElementById("write-prog");
+    const done=writeDone.filter(Boolean).length;
+    if(done<data.length){pr.textContent=`Completate ${done} di ${data.length}`;return;}
+    let correct=0;
+    data.forEach((it,i)=>{if(document.getElementById("wi"+i).classList.contains("okbox"))correct++;});
+    levelResult(pr,correct,data.length,wLevel,4,"setWriteLevel");
+  }
+
+  /* ============ SEZIONE 3 — LETTURA ============ */
+  const readLevels=[
+    { // L1
+      lines:["Mia is excited about the weekend.","On Saturday she is going to visit the zoo with her family.","On Sunday they are going to have a picnic in the park.","\"If it rains, I'll bring my umbrella!\" she says with a smile."],
+      q:[
+        {q:"What is Mia going to do on Saturday? 🦁",opts:["Visit the zoo","Have a picnic","Stay home"],correct:0,full:"She is going to visit the zoo."},
+        {q:"What are they going to do on Sunday? 🧺",opts:["Go to the zoo","Have a picnic in the park","Watch a film"],correct:1,full:"They are going to have a picnic in the park."},
+        {q:"What will Mia do if it rains? ☔",opts:["Stay home","Bring her umbrella","Cancel everything"],correct:1,full:"She'll bring her umbrella."},
+      ]
+    },
+    { // L2
+      lines:["Tom and his dad are planning a trip.","They're going to drive to the mountains next month.","\"I think it will be cold up there,\" says Tom.","\"Don't worry, I'll pack warm clothes for both of us,\" his dad replies.","They're going to stay in a small wooden house near a lake."],
+      q:[
+        {q:"Where are Tom and his dad going to go? ⛰️",opts:["To the sea","To the mountains","To the city"],correct:1,full:"They're going to drive to the mountains."},
+        {q:"What does Tom think about the weather? 🥶",opts:["It will be hot","It will be cold","It will be sunny"],correct:1,full:"He thinks it will be cold."},
+        {q:"What will Tom's dad do? 🧥",opts:["Pack warm clothes","Buy a tent","Cook dinner"],correct:0,full:"He'll pack warm clothes."},
+      ]
+    },
+    { // L3
+      lines:["Sara has big plans for the future.","She's going to finish school next year.","After that, she's going to study art at university.","\"One day I'll have my own studio,\" she dreams.","\"And I'll travel the world to see famous paintings!\"","Her parents are sure she will succeed."],
+      q:[
+        {q:"What is Sara going to do next year? 🎓",opts:["Travel the world","Finish school","Open a studio"],correct:1,full:"She's going to finish school next year."},
+        {q:"What is her dream? 🎨",opts:["To have her own studio","To be a doctor","To live abroad forever"],correct:0,full:"One day she'll have her own studio."},
+        {q:"What do her parents think? 💚",opts:["She will fail","She will succeed","She will give up"],correct:1,full:"They're sure she will succeed."},
+      ]
+    },
+    { // L4
+      lines:["The weather forecast looks bad for the festival.","\"Look at those dark clouds — it's going to pour down soon,\" says the organiser.","\"Don't panic. We'll move everything under the big tent,\" answers her assistant.","\"And I'll call the band to warn them about the change.\"","They're going to start the concert one hour later than planned.","\"I'm sure people will still have a great time,\" she smiles."],
+      q:[
+        {q:"Why is the organiser worried? 🌧️",opts:["Nobody bought tickets","Dark clouds — it's going to pour","The band cancelled"],correct:1,full:"It's going to pour down soon."},
+        {q:"What will the assistant do about the rain? ⛺",opts:["Move everything under the tent","Cancel the festival","Sell umbrellas"],correct:0,full:"They'll move everything under the big tent."},
+        {q:"When are they going to start the concert? ⏰",opts:["On time","One hour earlier","One hour later than planned"],correct:2,full:"They're going to start one hour later than planned."},
+      ]
+    },
+  ];
+  let rLevel=0,readDone=[],readingText="",readCorrect=[];
+  function sayReading(){say(readingText);}
+  function setReadLevel(lvl,noScroll){
+    rLevel=lvl;const data=readLevels[lvl];
+    readingText=data.lines.join(" ");
+    readDone=new Array(data.q.length).fill(false);
+    document.getElementById("read-level").innerHTML=levelBar(lvl);
+    document.getElementById("reading-text").innerHTML=data.lines.map(l=>`<p>${l}</p>`).join("");
+    document.getElementById("read-prog").textContent=`Risposte 0 di ${data.q.length}`;
+    readCorrect=[];
+    document.getElementById("read-list").innerHTML=data.q.map((it,i)=>{
+      const order=shuffle(it.opts.map((o,k)=>k)),shown=order.map(k=>it.opts[k]);
+      readCorrect[i]=order.indexOf(it.correct);
+      return `<div class="ex"><div class="qnum">Domanda ${i+1}</div><div class="qtext">${it.q}</div>
+        <div class="options">${shown.map((o,j)=>`<button class="opt" onclick="readAns(${i},${j})">${o}</button>`).join("")}</div>
+        <div class="feedback" id="rfb${i}"></div></div>`;
+    }).join("");
+    if(!noScroll){const card=document.getElementById("read-card");if(card)card.scrollIntoView({behavior:"smooth",block:"start"});}
+  }
+  function readAns(i,j){
+    const it=readLevels[rLevel].q[i];
+    const opts=document.querySelectorAll("#read-list .ex:nth-child("+(i+1)+") .opt");
+    const fb=document.getElementById("rfb"+i);
+    if(j===readCorrect[i]){
+      opts[j].classList.add("correct");
+      fb.innerHTML="✅ Giusto! "+it.full+` <button class="saybtn" onclick="event.stopPropagation();say('${escQ(it.full)}')">🔊</button>`;
+      fb.className="feedback ok";opts.forEach(o=>o.disabled=true);
+      if(!readDone[i]){readDone[i]=true;updateRead();}
+    } else {
+      opts[j].classList.add("wrong");fb.textContent="Rileggi il testo e riprova 🙂";fb.className="feedback no";
+    }
+  }
+  function updateRead(){
+    const data=readLevels[rLevel],pr=document.getElementById("read-prog");
+    const done=readDone.filter(Boolean).length;
+    if(done<data.q.length){pr.textContent=`Risposte ${done} di ${data.q.length}`;return;}
+    levelResult(pr,data.q.length,data.q.length,rLevel,2,"setReadLevel");
+  }
+
+  /* ============ SEZIONE 4 — LESSICO ============ */
+  const matchLevels=[
+    [ // L1 — forme base
+      {en:"will",it:"futuro: decido ora 💭"},{en:"going to",it:"futuro: piano deciso 📋"},
+      {en:"I'll help",it:"ti aiuto (offerta) 🤝"},{en:"I'm going to study",it:"ho intenzione di studiare 📚"},
+      {en:"won't",it:"non lo farò (will not) 🚫"},{en:"It's going to rain",it:"sta per piovere 🌧️"},
+      {en:"I promise",it:"prometto 🤞"},{en:"I think...",it:"penso che… 🤔"},
+    ],
+    [ // L2 — segnali e concetti
+      {en:"maybe",it:"forse (→ will) ❓"},{en:"probably",it:"probabilmente (→ will) 📊"},
+      {en:"a plan",it:"un piano (→ going to) 🗒️"},{en:"a decision now",it:"una decisione ora (→ will) ✅"},
+      {en:"a prediction",it:"una previsione 🔮"},{en:"a promise",it:"una promessa 🤝"},
+      {en:"an offer",it:"un'offerta 🎁"},{en:"an intention",it:"un'intenzione 🎯"},
+    ],
+    [ // L3 — mini-frasi
+      {en:"I'll get it",it:"ci penso io 📞"},{en:"She's going to win",it:"vincerà (si vede) 🏆"},
+      {en:"We'll see",it:"vedremo 👀"},{en:"Look out!",it:"attenzione! ⚠️"},
+      {en:"next summer",it:"l'estate prossima ☀️"},{en:"tonight",it:"stasera 🌙"},
+      {en:"I'm going to travel",it:"ho intenzione di viaggiare ✈️"},{en:"It will be fine",it:"andrà bene 🙂"},
+    ],
+    [ // L4 — frasi complete
+      {en:"I'll call you later",it:"Ti chiamo dopo 📲"},{en:"It's going to snow",it:"Sta per nevicare ❄️"},
+      {en:"We're going to move house",it:"Cambieremo casa (piano) 🏠"},{en:"I won't be late",it:"Non farò tardi ⏰"},
+      {en:"You're going to love it",it:"Ti piacerà un sacco ❤️"},{en:"I think it'll work",it:"Penso funzionerà 🔧"},
+      {en:"They're going to get married",it:"Si sposeranno (deciso) 💍"},{en:"I'll have the pizza",it:"Prendo la pizza (ora) 🍕"},
+    ],
+  ];
+  let mLevel=0,selEn=null,matched=0,firstTry=0,spoiled;
+  function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+  function setMatchLevel(lvl){
+    mLevel=lvl;selEn=null;matched=0;firstTry=0;spoiled=new Set();
+    const pairs=matchLevels[lvl];
+    document.getElementById("match-level").innerHTML=levelBar(lvl);
+    const left=pairs.map((p,i)=>`<button class="match-btn" id="en${i}" onclick="pickEn(${i})">
+      <span>${p.en}</span><span class="saybtn" onclick="event.stopPropagation();say('${escQ(p.en)}')">🔊</span></button>`).join("");
+    const order=shuffle(pairs.map((p,i)=>i));
+    const right=order.map(i=>`<button class="match-btn" id="it${i}" onclick="pickIt(${i})">${pairs[i].it}</button>`).join("");
+    document.getElementById("match-grid").innerHTML=`<div class="match-col">${left}</div><div class="match-col">${right}</div>`;
+    document.getElementById("match-prog").textContent=`Coppie collegate: 0 di ${pairs.length}`;
+  }
+  function pickEn(i){
+    const btn=document.getElementById("en"+i);if(btn.classList.contains("done"))return;
+    document.querySelectorAll(".match-btn.sel").forEach(b=>b.classList.remove("sel"));
+    selEn=i;btn.classList.add("sel");
+  }
+  function pickIt(i){
+    if(selEn===null)return;
+    const itBtn=document.getElementById("it"+i),enBtn=document.getElementById("en"+selEn);
+    if(itBtn.classList.contains("done"))return;
+    const pairs=matchLevels[mLevel];
+    if(selEn===i){
+      enBtn.classList.remove("sel");enBtn.classList.add("done");itBtn.classList.add("done");
+      say(pairs[i].en);if(!spoiled.has(selEn))firstTry++;selEn=null;matched++;
+      const pr=document.getElementById("match-prog");
+      if(matched>=pairs.length){levelResult(pr,firstTry,pairs.length,mLevel,5,"setMatchLevel");}
+      else pr.textContent=`Coppie collegate: ${matched} di ${pairs.length}`;
+    } else {
+      spoiled.add(selEn);itBtn.classList.add("flash");
+      setTimeout(()=>itBtn.classList.remove("flash"),500);
+      enBtn.classList.remove("sel");selEn=null;
+    }
+  }
+
+  setListenLevel(0);setWriteLevel(0);setReadLevel(0,true);setMatchLevel(0);
+</script>
+<script>
+  if('serviceWorker' in navigator) navigator.serviceWorker.register('./service-worker.js');
+</script>
+</body>
+</html>
