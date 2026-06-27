@@ -1,4 +1,4 @@
-const CACHE = 'inglese-irene-v53';
+const CACHE = 'inglese-irene-v54';
 
 const ASSETS = [
   './',
@@ -33,6 +33,22 @@ const ASSETS = [
   './there-is-there-are-infografica.png',
   './question-words-overview.mp3',
   './question-words-infografica.png',
+  './have-got-overview.mp3',
+  './have-got-infografica.png',
+  './can-cant-overview.mp3',
+  './can-cant-infografica.png',
+  './must-have-to-overview.mp3',
+  './must-have-to-infografica.png',
+  './should-overview.mp3',
+  './should-infografica.png',
+  './past-continuous-overview.mp3',
+  './past-continuous-infografica.png',
+  './genitivo-possessivi-overview.mp3',
+  './genitivo-possessivi-infografica.png',
+  './preposizioni-overview.mp3',
+  './preposizioni-infografica.png',
+  './avverbi-frequenza-overview.mp3',
+  './avverbi-frequenza-infografica.png',
   './question-words.html',
   './there-is-there-are.html',
   './can-cant.html',
