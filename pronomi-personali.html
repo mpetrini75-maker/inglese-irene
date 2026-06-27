@@ -301,6 +301,7 @@ function aggiorna(){
   scoreEl.textContent = `Punteggio: ${punti} / ${fatti}`;
   if(fatti === esercizi.length){
     scoreEl.textContent = `🎉 Finito! ${punti} / ${esercizi.length} — Bravissima Irene!`;
+    if(window.inviaAlert) inviaAlert('fine-lezione');
   }
 }
 </script>
@@ -311,5 +312,6 @@ function aggiorna(){
   }
 </script>
 <script src="lightbox.js"></script>
+<script src="alert.js"></script>
 </body>
 </html>

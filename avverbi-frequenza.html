@@ -302,6 +302,7 @@
       const msg=pct===1?"Perfetto! Hai imparato gli avverbi di frequenza! 🏆":pct>=0.5?"Bravissima, ci sei quasi! 💪":"Bene, riprova: si impara ripetendo! 🌱";
       prog.innerHTML=`<div class="star">${stars}</div>${score}/${questions.length} giuste<br><b>${msg}</b>`;
       document.getElementById("restartBtn").style.display="block";
+      if(window.inviaAlert) inviaAlert('fine-lezione');
       return;
     }
     const item=questions[current];
@@ -341,5 +342,6 @@
     navigator.serviceWorker.register('./service-worker.js');
   }
 </script>
+<script src="alert.js"></script>
 </body>
 </html>

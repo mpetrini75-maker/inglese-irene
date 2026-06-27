@@ -90,6 +90,24 @@
     <div class="tip">🎨 <b>Parole-spia:</b> <i>yesterday</i> (ieri), <i>last week</i> (settimana scorsa), <i>two days ago</i> (due giorni fa), <i>in 2010</i>. <button class="saybtn" onclick="say('Yesterday, last week, two days ago')">🔊</button></div>
   </div>
 
+  <!-- OVERVIEW VOCALE + INFOGRAFICA -->
+  <div class="card">
+    <h2>🎧 Overview vocale</h2>
+    <p style="margin-top:0;color:#8a7f70;">Ascolta la spiegazione del Past Simple mentre studi o fai altro.</p>
+    <audio controls preload="none" style="width:100%;">
+      <source src="past-simple-overview.mp3" type="audio/mpeg">
+      Il tuo browser non supporta l'audio.
+    </audio>
+    <h2 style="margin-top:18px;">🗺️ Infografica</h2>
+    <p style="margin-top:0;color:#8a7f70;">Lo schema completo del Past Simple in un'unica immagine.</p>
+    <a href="past-simple-infografica.png" data-audio="past-simple-overview.mp3" target="_blank" rel="noopener"
+       style="display:block;text-align:center;background:var(--green-soft);color:var(--green);
+       text-decoration:none;border:2px solid var(--green);border-radius:14px;
+       padding:16px;font-size:1.1rem;font-weight:bold;">
+      🗺️ Apri l'infografica →
+    </a>
+  </div>
+
   <!-- VERBI REGOLARI -->
   <div class="card">
     <h2>✅ Verbi regolari: + ED</h2>
@@ -314,6 +332,7 @@
       const msg=pct===1?"Perfetto! Hai imparato il Past Simple! 🏆":pct>=0.5?"Bravissima, ci sei quasi! 💪":"Bene, riprova: si impara ripetendo! 🌱";
       prog.innerHTML=`<div class="star">${stars}</div>${score}/${questions.length} giuste<br><b>${msg}</b>`;
       document.getElementById("restartBtn").style.display="block";
+      if(window.inviaAlert) inviaAlert('fine-lezione');
       return;
     }
     const item=questions[current];
@@ -354,5 +373,7 @@
     navigator.serviceWorker.register('./service-worker.js');
   }
 </script>
+<script src="lightbox.js"></script>
+<script src="alert.js"></script>
 </body>
 </html>

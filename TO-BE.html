@@ -205,6 +205,7 @@
                 "Bene, riprova: si impara ripetendo! 🌱";
       prog.innerHTML = `<div class="star">${stars}</div>${score}/${questions.length} giuste<br><b>${msg}</b>`;
       document.getElementById("restartBtn").style.display = "block";
+      if(window.inviaAlert) inviaAlert('fine-lezione');
       return;
     }
     const item = questions[current];
@@ -249,5 +250,6 @@
   }
 </script>
 <script src="lightbox.js"></script>
+<script src="alert.js"></script>
 </body>
 </html>
