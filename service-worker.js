@@ -1,4 +1,4 @@
-const CACHE = 'inglese-irene-v57';
+const CACHE = 'inglese-irene-v58';
 
 const ASSETS = [
   './',
@@ -61,6 +61,12 @@ const ASSETS = [
   './past-simple-vs-continuous-infografica.png',
   './simple-vs-continuous-overview.mp3',
   './simple-vs-continuous-infografica.png',
+  './be-going-to-vs-will-overview.mp3',
+  './be-going-to-vs-will-infografica.png',
+  './present-perfect-overview.mp3',
+  './present-perfect-infografica.png',
+  './zero-first-conditional-overview.mp3',
+  './zero-first-conditional-infografica.png',
   './question-words.html',
   './there-is-there-are.html',
   './can-cant.html',
