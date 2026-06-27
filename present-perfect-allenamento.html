@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Present Perfect — Allenamento</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#FAF6EE">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Inglese di Irene">
+<script src="alert.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FAF6EE; --card:#FFFFFF; --ink:#2F2A24;
+    --accent:#2E7E72; --accent-soft:#DFF0EE;
+    --green:#3E8E5A; --green-soft:#E2F0E6;
+    --red:#C2492F; --red-soft:#F6E1DB;
+    --blue:#3B6EA5; --blue-soft:#E2ECF5;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:"Lexend","Trebuchet MS",Verdana,sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.7;letter-spacing:0.3px;padding:24px 14px 60px;}
+  .wrap{max-width:620px;margin:0 auto;}
+  .backbtn{display:inline-block;background:var(--accent-soft);color:var(--accent);
+    text-decoration:none;border-radius:12px;padding:8px 16px;font-size:0.98rem;font-weight:bold;margin-bottom:14px;}
+  h1{color:var(--accent);font-size:1.6rem;text-align:center;margin:0 0 6px;}
+  .sub{text-align:center;color:#8a7f70;margin:0 0 26px;font-size:1rem;}
+  .card{background:var(--card);border-radius:18px;padding:22px 20px;margin-bottom:22px;
+    box-shadow:0 4px 14px rgba(0,0,0,0.06);border:1px solid #efe7da;}
+  .card h2{margin:0 0 10px;font-size:1.25rem;color:var(--accent);display:flex;align-items:center;gap:8px;}
+  .card .lead{color:#8a7f70;margin:0 0 12px;font-size:0.97rem;}
+  .levelbar{margin:0 0 12px;}
+  .lvrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:0.98rem;color:var(--accent);}
+  .lvdots{display:inline-flex;gap:6px;}
+  .lvdot{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    background:var(--bg);border:2px solid var(--accent-soft);color:#b9ad9c;font-size:0.85rem;font-weight:bold;}
+  .lvdot.on{background:var(--accent-soft);border-color:var(--accent);color:var(--accent);}
+  .saybtn{background:var(--blue-soft);color:var(--blue);border:none;border-radius:10px;
+    padding:6px 12px;font-size:0.95rem;cursor:pointer;font-family:inherit;}
+  .big-listen{display:block;margin:6px auto 14px;background:var(--blue);color:#fff;
+    border:none;border-radius:16px;padding:18px 26px;font-size:1.2rem;font-weight:bold;
+    cursor:pointer;font-family:inherit;box-shadow:0 4px 12px rgba(59,110,165,0.3);}
+  .big-listen:hover{opacity:0.92;}
+  .ex{margin:14px 0;}
+  .qnum{font-weight:bold;color:var(--accent);}
+  .qtext{font-size:1.12rem;margin:6px 0 8px;}
+  .options{display:flex;flex-direction:column;gap:10px;}
+  .opt{background:var(--bg);border:2px solid var(--accent-soft);border-radius:12px;
+    padding:13px 14px;font-size:1.08rem;cursor:pointer;text-align:left;
+    font-family:inherit;color:var(--ink);transition:all .15s;}
+  .opt:hover{border-color:var(--accent);}
+  .opt.correct{background:var(--green-soft);border-color:var(--green);color:var(--green);font-weight:bold;}
+  .opt.wrong{background:var(--red-soft);border-color:var(--red);color:var(--red);}
+  .feedback{margin-top:10px;font-size:1.02rem;font-weight:bold;min-height:24px;}
+  .feedback.ok{color:var(--green);}
+  .feedback.no{color:var(--red);}
+  .progress{text-align:center;font-size:1.05rem;margin:12px 0 0;color:#8a7f70;}
+  .star{font-size:1.4rem;}
+  .write-input{width:100%;font-family:"Lexend",sans-serif;font-size:1.2rem;
+    padding:12px 14px;border:2px solid var(--accent-soft);border-radius:12px;
+    background:var(--bg);color:var(--ink);margin-top:4px;}
+  .write-input:focus{outline:none;border-color:var(--accent);}
+  .checkbtn{margin-top:10px;background:var(--accent);color:#fff;border:none;
+    border-radius:12px;padding:10px 20px;font-size:1rem;cursor:pointer;font-family:inherit;}
+  .write-input.okbox{border-color:var(--green);background:var(--green-soft);}
+  .write-input.nobox{border-color:var(--red);}
+  .reading{background:var(--bg);border-radius:14px;padding:16px 18px;font-size:1.12rem;
+    border:2px solid var(--accent-soft);margin-bottom:6px;}
+  .reading p{margin:0 0 6px;}
+  .match-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px;}
+  .match-col{display:flex;flex-direction:column;gap:10px;}
+  .match-btn{background:var(--bg);border:2px solid var(--accent-soft);border-radius:12px;
+    padding:12px;font-size:1.05rem;cursor:pointer;font-family:inherit;color:var(--ink);
+    display:flex;align-items:center;justify-content:space-between;gap:6px;transition:all .15s;}
+  .match-btn:hover{border-color:var(--accent);}
+  .match-btn.sel{border-color:var(--blue);background:var(--blue-soft);color:var(--blue);font-weight:bold;}
+  .match-btn.done{background:var(--green-soft);border-color:var(--green);color:var(--green);
+    font-weight:bold;cursor:default;opacity:0.85;}
+  .match-btn.flash{border-color:var(--red);background:var(--red-soft);}
+  .restart{display:inline-block;margin:12px auto 0;background:var(--accent);color:#fff;border:none;
+    border-radius:12px;padding:11px 22px;font-size:1rem;cursor:pointer;font-family:inherit;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="backbtn" href="present-perfect.html">← Torna alla lezione</a>
+  <h1>🏋️ Present Perfect — Allenamento</h1>
+  <p class="sub">4 livelli · ascolto · scrittura · lettura · lessico</p>
+
+  <div class="card">
+    <h2>🎧 1. Ascolto</h2>
+    <p class="lead">Tocca il pulsante blu e ascolta. Scegli la frase giusta. Puoi riascoltare quante volte vuoi!</p>
+    <div class="levelbar" id="listen-level"></div>
+    <div id="listen-quiz"></div>
+    <div class="progress" id="listen-prog"></div>
+  </div>
+
+  <div class="card">
+    <h2>✏️ 2. Scrittura</h2>
+    <p class="lead">Scrivi la parola o le parole giuste. Non contano maiuscole o spazi extra. Poi tocca "Controlla".</p>
+    <div class="levelbar" id="write-level"></div>
+    <div id="write-list"></div>
+    <div class="progress" id="write-prog"></div>
+  </div>
+
+  <div class="card" id="read-card">
+    <h2>📖 3. Lettura</h2>
+    <p class="lead">Ascolta e leggi il testo, poi rispondi alle domande.</p>
+    <div class="levelbar" id="read-level"></div>
+    <div class="reading" id="reading-text"></div>
+    <button class="saybtn" onclick="event.stopPropagation();sayReading()">🔊 Ascolta tutto il testo</button>
+    <div id="read-list" style="margin-top:8px;"></div>
+    <div class="progress" id="read-prog"></div>
+  </div>
+
+  <div class="card">
+    <h2>🔤 4. Lessico</h2>
+    <p class="lead">Tocca una parola inglese (ascoltala con 🔊), poi il suo significato. Collega tutte le coppie!</p>
+    <div class="levelbar" id="match-level"></div>
+    <div class="match-grid" id="match-grid"></div>
+    <div class="progress" id="match-prog"></div>
+  </div>
+</div>
+
+<script>
+  function say(text){
+    try{
+      const u=new SpeechSynthesisUtterance(text);
+      u.lang="en-US"; u.rate=0.85;
+      speechSynthesis.cancel(); speechSynthesis.speak(u);
+    }catch(e){}
+  }
+  function escQ(s){ return s.replace(/'/g,"\\'"); }
+  function stars(correct,total){
+    const pct=correct/total;
+    return "⭐".repeat(pct===1?5:pct>=0.75?4:pct>=0.5?3:pct>=0.25?2:1);
+  }
+  const LV=["Base","Intermedio","Avanzato","Sfida"];
+  function levelBar(level){
+    let dots="";
+    for(let i=0;i<4;i++) dots+=`<span class="lvdot ${i<=level?'on':''}">${i+1}</span>`;
+    return `<div class="lvrow"><b>Livello ${level+1} di 4 · ${LV[level]} 🔓</b><span class="lvdots">${dots}</span></div>`;
+  }
+  function levelResult(progEl,score,total,level,threshold,setFnName){
+    const passed=score>=threshold;
+    let html=`<div class="star">${stars(score,total)}</div>${score}/${total} giuste<br>`;
+    if(passed && level<3){
+      html+=`<b>Bravissima! Livello ${level+2} sbloccato 🔓</b><br>`;
+      html+=`<button class="restart" onclick="${setFnName}(${level+1})">➡️ Vai al Livello ${level+2}</button>`;
+    } else if(passed && level===3){
+      inviaAlertQuiz();
+      html+=`<b>🏆 Hai completato tutti i livelli!</b><br>`;
+      html+=`<button class="restart" onclick="${setFnName}(0)">🔄 Rigioca dal Livello 1</button>`;
+    } else {
+      html+=`<b>Ci sei quasi! Riprova questo livello, ce la fai 🌱</b><br>`;
+      html+=`<button class="restart" onclick="${setFnName}(${level})">🔄 Rifai il Livello ${level+1}</button>`;
+    }
+    progEl.innerHTML=html;
+  }
+
+  /* ============ SEZIONE 1 — ASCOLTO ============ */
+  const listenLevels=[
+    [ // L1 — have/has + participio
+      {audio:"I have finished my homework.",opts:["I have finished my homework.","I have started my homework.","She has finished my homework."],correct:0},
+      {audio:"She has lost her phone.",opts:["She has lost her phone.","She has found her phone.","He has lost her phone."],correct:0},
+      {audio:"We have seen this film.",opts:["We have seen this film.","We have seen this book.","They have seen this film."],correct:0},
+      {audio:"He has broken his leg.",opts:["He has broken his leg.","He has broken his arm.","She has broken his leg."],correct:0},
+      {audio:"They have eaten all the cake.",opts:["They have eaten all the cake.","They have eaten all the bread.","They have made all the cake."],correct:0},
+      {audio:"I have written a letter.",opts:["I have written a letter.","I have read a letter.","I have written a poem."],correct:0},
+    ],
+    [ // L2 — ever / never / just / already / yet
+      {audio:"Have you ever been to London?",opts:["Have you ever been to London?","Have you ever been to Paris?","Has she ever been to London?"],correct:0},
+      {audio:"I have never tried sushi.",opts:["I have never tried sushi.","I have always tried sushi.","I have never tried pizza."],correct:0},
+      {audio:"She has just arrived.",opts:["She has just arrived.","She has just left.","He has just arrived."],correct:0},
+      {audio:"We have already eaten.",opts:["We have already eaten.","We haven't eaten yet.","They have already eaten."],correct:0},
+      {audio:"He hasn't finished yet.",opts:["He hasn't finished yet.","He has finished already.","She hasn't finished yet."],correct:0},
+      {audio:"Have they arrived yet?",opts:["Have they arrived yet?","Have they left yet?","Has he arrived yet?"],correct:0},
+    ],
+    [ // L3 — for / since + misto
+      {audio:"I have lived here for ten years.",opts:["I have lived here for ten years.","I have lived here since ten years.","I have lived here for two years."],correct:0},
+      {audio:"She has known him since 2010.",opts:["She has known him since 2010.","She has known him for 2010.","She has known her since 2010."],correct:0},
+      {audio:"We have been friends for a long time.",opts:["We have been friends for a long time.","We have been friends since a long time.","We have been neighbours for a long time."],correct:0},
+      {audio:"They have worked here since June.",opts:["They have worked here since June.","They have worked here for June.","They have worked there since June."],correct:0},
+      {audio:"I have had this bike for two years.",opts:["I have had this bike for two years.","I have had this bike since two years.","I have had this car for two years."],correct:0},
+      {audio:"He has studied English since he was six.",opts:["He has studied English since he was six.","He has studied English for he was six.","He has studied Spanish since he was six."],correct:0},
+    ],
+    [ // L4 — frasi lunghe
+      {audio:"I've just finished my homework, so now I can watch TV.",opts:["I've just finished my homework, so now I can watch TV.","I've just started my homework, so now I can watch TV.","I've just finished my homework, so now I can play outside."],correct:0},
+      {audio:"She has never been abroad, but she's going to travel next year.",opts:["She has never been abroad, but she's going to travel next year.","She has always been abroad, but she's going to travel next year.","She has never been abroad, but she's going to travel next month."],correct:0},
+      {audio:"We have known each other since we were children.",opts:["We have known each other since we were children.","We have known each other for we were children.","We have met each other since we were children."],correct:0},
+      {audio:"Have you ever eaten Japanese food? It's delicious!",opts:["Have you ever eaten Japanese food? It's delicious!","Have you ever cooked Japanese food? It's delicious!","Have you ever eaten Chinese food? It's delicious!"],correct:0},
+      {audio:"He has already read that book twice — he loves it.",opts:["He has already read that book twice — he loves it.","He hasn't read that book yet — he loves it.","He has already read that book once — he loves it."],correct:0},
+      {audio:"They haven't decided yet, but they'll tell us soon.",opts:["They haven't decided yet, but they'll tell us soon.","They have already decided, but they'll tell us soon.","They haven't arrived yet, but they'll tell us soon."],correct:0},
+    ],
+  ];
+  let lLevel=0,lc=0,ls=0,lCorrect=0,lAudio="";
+  function setListenLevel(lvl){lLevel=lvl;lc=0;ls=0;document.getElementById("listen-level").innerHTML=levelBar(lvl);showListen();}
+  function showListen(){
+    const data=listenLevels[lLevel],box=document.getElementById("listen-quiz"),pr=document.getElementById("listen-prog");
+    if(lc>=data.length){box.innerHTML="";levelResult(pr,ls,data.length,lLevel,4,"setListenLevel");return;}
+    const it=data[lc]; lAudio=it.audio;
+    const order=shuffle(it.opts.map((o,i)=>i)),shown=order.map(k=>it.opts[k]);
+    lCorrect=order.indexOf(it.correct);
+    pr.textContent=`Esercizio ${lc+1} di ${data.length}`;
+    box.innerHTML=`<div class="ex"><div class="qnum">Ascolto ${lc+1}</div>
+      <button class="big-listen" onclick="event.stopPropagation();say('${escQ(it.audio)}')">🔊 Ascolta la frase</button>
+      <div class="options">${shown.map((o,i)=>`<button class="opt" onclick="listenAns(${i})">${o}</button>`).join("")}</div>
+      <div class="feedback" id="lfb"></div></div>`;
+  }
+  function listenAns(i){
+    const opts=document.querySelectorAll("#listen-quiz .opt"),fb=document.getElementById("lfb");
+    if(i===lCorrect){
+      opts[i].classList.add("correct");fb.textContent="✅ Giusto! "+lAudio;fb.className="feedback ok";
+      ls++;say(lAudio);opts.forEach(o=>o.disabled=true);
+      setTimeout(()=>{lc++;showListen();},1800);
+    } else {opts[i].classList.add("wrong");fb.textContent="Riascolta e riprova 🙂";fb.className="feedback no";}
+  }
+
+  /* ============ SEZIONE 2 — SCRITTURA ============ */
+  const writeLevels=[
+    [ // L1 — have / has
+      {q:"I ____ finished my homework.  (io)", answers:["have","'ve"], full:"I have finished my homework.", hint:"I → have."},
+      {q:"She ____ lost her keys.  (lei)", answers:["has","'s"], full:"She has lost her keys.", hint:"she → has."},
+      {q:"We ____ seen this film.  (noi)", answers:["have","'ve"], full:"We have seen this film.", hint:"we → have."},
+      {q:"He ____ broken his arm.  (lui)", answers:["has","'s"], full:"He has broken his arm.", hint:"he → has."},
+      {q:"They ____ eaten all the pizza.  (loro)", answers:["have","'ve"], full:"They have eaten all the pizza.", hint:"they → have."},
+      {q:"It ____ stopped raining.  (esso)", answers:["has","'s"], full:"It has stopped raining.", hint:"it → has."},
+    ],
+    [ // L2 — il participio passato
+      {q:"I have ____ my homework.  (do)", answers:["done"], full:"I have done my homework.", hint:"do → done."},
+      {q:"She has ____ to Spain.  (be)", answers:["been"], full:"She has been to Spain.", hint:"be → been."},
+      {q:"We have ____ the film.  (see)", answers:["seen"], full:"We have seen the film.", hint:"see → seen."},
+      {q:"They have ____ all the cake.  (eat)", answers:["eaten"], full:"They have eaten all the cake.", hint:"eat → eaten."},
+      {q:"He has ____ his keys.  (lose)", answers:["lost"], full:"He has lost his keys.", hint:"lose → lost."},
+      {q:"I have ____ a letter.  (write)", answers:["written"], full:"I have written a letter.", hint:"write → written."},
+    ],
+    [ // L3 — ever/never/just/already/yet/for/since
+      {q:"Have you ____ been to London?  (mai, in domanda)", answers:["ever"], full:"Have you ever been to London?", hint:"domanda su esperienza → ever."},
+      {q:"I have ____ eaten snails.  (mai = non l'ho mai fatto)", answers:["never"], full:"I have never eaten snails.", hint:"mai, in positivo → never."},
+      {q:"She has ____ arrived.  (proprio ora)", answers:["just"], full:"She has just arrived.", hint:"appena → just."},
+      {q:"I haven't finished ____ .  (ancora)", answers:["yet"], full:"I haven't finished yet.", hint:"ancora, in negativo → yet."},
+      {q:"We have lived here ____ 2019.  (punto nel tempo)", answers:["since"], full:"We have lived here since 2019.", hint:"da un momento preciso → since."},
+      {q:"I have known her ____ ten years.  (durata)", answers:["for"], full:"I have known her for ten years.", hint:"durata → for."},
+    ],
+    [ // L4 — Sfida: frasi complete
+      {q:"I ____ ____ my keys — I can't get in!  (have / lose)", answers:["have lost","'ve lost"], full:"I have lost my keys.", hint:"have + lost (participio di lose)."},
+      {q:"She ____ ____ to Japan twice.  (has / be)", answers:["has been","'s been"], full:"She has been to Japan twice.", hint:"has + been."},
+      {q:"We ____ ____ each other since school.  (have / know)", answers:["have known","'ve known"], full:"We have known each other since school.", hint:"have + known."},
+      {q:"He has just ____ .  (arrive)", answers:["arrived"], full:"He has just arrived.", hint:"arrive è regolare → arrived."},
+      {q:"They have already ____ the news.  (hear)", answers:["heard"], full:"They have already heard the news.", hint:"hear → heard."},
+      {q:"____ you ____ your homework yet?  (have / do)", answers:["have … done","have done"], full:"Have you done your homework yet?", hint:"domanda → Have + you + done."},
+    ],
+  ];
+  let wLevel=0,writeDone=[];
+  function norm(s){return s.trim().toLowerCase().replace(/…/g,"...").replace(/\.\.\./g," ").replace(/\s+/g," ");}
+  function setWriteLevel(lvl){
+    wLevel=lvl;const data=writeLevels[lvl];
+    writeDone=new Array(data.length).fill(false);
+    document.getElementById("write-level").innerHTML=levelBar(lvl);
+    document.getElementById("write-prog").textContent=`Completate 0 di ${data.length}`;
+    document.getElementById("write-list").innerHTML=data.map((it,i)=>`
+      <div class="ex"><div class="qnum">Frase ${i+1}</div><div class="qtext">${it.q}</div>
+      <input class="write-input" id="wi${i}" type="text" autocomplete="off" placeholder="scrivi qui…">
+      <button class="checkbtn" onclick="checkWrite(${i})">Controlla</button>
+      <div class="feedback" id="wfb${i}"></div></div>`).join("");
+  }
+  function checkWrite(i){
+    const it=writeLevels[wLevel][i],inp=document.getElementById("wi"+i),fb=document.getElementById("wfb"+i);
+    const ok=it.answers.some(a=>norm(a)===norm(inp.value));
+    if(ok){
+      inp.classList.add("okbox");inp.classList.remove("nobox");
+      fb.innerHTML="✅ Perfetto! "+it.full;fb.className="feedback ok";say(it.full);
+    } else {
+      inp.classList.add("nobox");
+      fb.innerHTML=`💛 Quasi! ${it.hint}<br>La risposta è: <b>${it.full}</b> <button class="saybtn" onclick="event.stopPropagation();say('${escQ(it.full)}')">🔊</button>`;
+      fb.className="feedback no";
+    }
+    if(!writeDone[i]){writeDone[i]=true;updateWrite();}
+  }
+  function updateWrite(){
+    const data=writeLevels[wLevel],pr=document.getElementById("write-prog");
+    const done=writeDone.filter(Boolean).length;
+    if(done<data.length){pr.textContent=`Completate ${done} di ${data.length}`;return;}
+    let correct=0;
+    data.forEach((it,i)=>{if(document.getElementById("wi"+i).classList.contains("okbox"))correct++;});
+    levelResult(pr,correct,data.length,wLevel,4,"setWriteLevel");
+  }
+
+  /* ============ SEZIONE 3 — LETTURA ============ */
+  const readLevels=[
+    { // L1
+      lines:["Hi! I'm Emma.","I have visited many countries.","I have been to France, Spain and Greece.","But I have never been to Japan.","I have just booked a trip to Tokyo — I'm so excited!"],
+      q:[
+        {q:"How many countries has Emma visited? 🌍",opts:["None","Many","Only one"],correct:1,full:"She has visited many countries."},
+        {q:"Where has Emma never been? 🗾",opts:["France","Spain","Japan"],correct:2,full:"She has never been to Japan."},
+        {q:"What has Emma just done? ✈️",opts:["Booked a trip to Tokyo","Visited Greece","Cancelled her holiday"],correct:0,full:"She has just booked a trip to Tokyo."},
+      ]
+    },
+    { // L2
+      lines:["Jack looks worried this morning.","He has lost his school bag.","He has looked everywhere, but he hasn't found it yet.","\"Have you checked the kitchen?\" asks his mum.","\"Yes, I have, but it isn't there!\" he answers."],
+      q:[
+        {q:"Why is Jack worried? 🎒",opts:["He has lost his school bag","He has failed a test","He is late"],correct:0,full:"He has lost his school bag."},
+        {q:"Has Jack found his bag? 🔍",opts:["Yes, he has","No, not yet","He didn't look"],correct:1,full:"He hasn't found it yet."},
+        {q:"Where has Jack already checked? 🍽️",opts:["The garden","The kitchen","The car"],correct:1,full:"He has checked the kitchen."},
+      ]
+    },
+    { // L3
+      lines:["Mrs Green has been a teacher for thirty years.","She has taught hundreds of students since 1994.","Many of them have become doctors, artists and engineers.","\"I have loved every single day,\" she says.","Next month she is going to retire."],
+      q:[
+        {q:"How long has Mrs Green been a teacher? ⏳",opts:["For thirty years","For one year","Since last month"],correct:0,full:"She has been a teacher for thirty years."},
+        {q:"Since when has she taught? 📅",opts:["Since 1994","Since 2010","Since last year"],correct:0,full:"She has taught since 1994."},
+        {q:"How does she feel about her job? 💚",opts:["She has hated it","She has loved every day","She is bored"],correct:1,full:"She has loved every single day."},
+      ]
+    },
+    { // L4
+      lines:["The Rossi family have just moved to a new city.","They have already found a nice flat near the park.","The children have started a new school, but they haven't made many friends yet.","\"Have you ever felt nervous about a new place?\" their dad asks.","\"Don't worry — you've always made friends easily,\" says their mum.","So far, it has been a big change, but an exciting one."],
+      q:[
+        {q:"What have the Rossi family just done? 📦",opts:["Moved to a new city","Bought a car","Gone on holiday"],correct:0,full:"They have just moved to a new city."},
+        {q:"What haven't the children done yet? 👫",opts:["Started school","Made many friends","Found a flat"],correct:1,full:"They haven't made many friends yet."},
+        {q:"How has the change been so far? 🌟",opts:["Boring","A big but exciting change","A disaster"],correct:1,full:"It has been a big but exciting change."},
+      ]
+    },
+  ];
+  let rLevel=0,readDone=[],readingText="",readCorrect=[];
+  function sayReading(){say(readingText);}
+  function setReadLevel(lvl,noScroll){
+    rLevel=lvl;const data=readLevels[lvl];
+    readingText=data.lines.join(" ");
+    readDone=new Array(data.q.length).fill(false);
+    document.getElementById("read-level").innerHTML=levelBar(lvl);
+    document.getElementById("reading-text").innerHTML=data.lines.map(l=>`<p>${l}</p>`).join("");
+    document.getElementById("read-prog").textContent=`Risposte 0 di ${data.q.length}`;
+    readCorrect=[];
+    document.getElementById("read-list").innerHTML=data.q.map((it,i)=>{
+      const order=shuffle(it.opts.map((o,k)=>k)),shown=order.map(k=>it.opts[k]);
+      readCorrect[i]=order.indexOf(it.correct);
+      return `<div class="ex"><div class="qnum">Domanda ${i+1}</div><div class="qtext">${it.q}</div>
+        <div class="options">${shown.map((o,j)=>`<button class="opt" onclick="readAns(${i},${j})">${o}</button>`).join("")}</div>
+        <div class="feedback" id="rfb${i}"></div></div>`;
+    }).join("");
+    if(!noScroll){const card=document.getElementById("read-card");if(card)card.scrollIntoView({behavior:"smooth",block:"start"});}
+  }
+  function readAns(i,j){
+    const it=readLevels[rLevel].q[i];
+    const opts=document.querySelectorAll("#read-list .ex:nth-child("+(i+1)+") .opt");
+    const fb=document.getElementById("rfb"+i);
+    if(j===readCorrect[i]){
+      opts[j].classList.add("correct");
+      fb.innerHTML="✅ Giusto! "+it.full+` <button class="saybtn" onclick="event.stopPropagation();say('${escQ(it.full)}')">🔊</button>`;
+      fb.className="feedback ok";opts.forEach(o=>o.disabled=true);
+      if(!readDone[i]){readDone[i]=true;updateRead();}
+    } else {
+      opts[j].classList.add("wrong");fb.textContent="Rileggi il testo e riprova 🙂";fb.className="feedback no";
+    }
+  }
+  function updateRead(){
+    const data=readLevels[rLevel],pr=document.getElementById("read-prog");
+    const done=readDone.filter(Boolean).length;
+    if(done<data.q.length){pr.textContent=`Risposte ${done} di ${data.q.length}`;return;}
+    levelResult(pr,data.q.length,data.q.length,rLevel,2,"setReadLevel");
+  }
+
+  /* ============ SEZIONE 4 — LESSICO ============ */
+  const matchLevels=[
+    [ // L1 — participi irregolari
+      {en:"gone",it:"andato (go) 🚶"},{en:"been",it:"stato (be) 📍"},
+      {en:"done",it:"fatto (do) ✅"},{en:"seen",it:"visto (see) 👀"},
+      {en:"eaten",it:"mangiato (eat) 🍽️"},{en:"written",it:"scritto (write) ✍️"},
+      {en:"lost",it:"perso (lose) 🔍"},{en:"taken",it:"preso (take) ✋"},
+    ],
+    [ // L2 — altri participi
+      {en:"made",it:"fatto/creato (make) 🛠️"},{en:"bought",it:"comprato (buy) 🛒"},
+      {en:"found",it:"trovato (find) 🔦"},{en:"given",it:"dato (give) 🎁"},
+      {en:"broken",it:"rotto (break) 💔"},{en:"read",it:"letto (read) 📖"},
+      {en:"met",it:"incontrato (meet) 🤝"},{en:"known",it:"conosciuto (know) 🧠"},
+    ],
+    [ // L3 — segnali del Present Perfect
+      {en:"ever",it:"mai (in domande) ❓"},{en:"never",it:"mai (negativo) 🚫"},
+      {en:"just",it:"appena ⏱️"},{en:"already",it:"già ✅"},
+      {en:"yet",it:"ancora (neg./dom.) ⌛"},{en:"for",it:"per (durata) ⏳"},
+      {en:"since",it:"da (momento preciso) 📅"},{en:"recently",it:"di recente 🆕"},
+    ],
+    [ // L4 — frasi complete
+      {en:"I've just arrived",it:"Sono appena arrivato/a ⏱️"},{en:"Have you ever been?",it:"Ci sei mai stato/a? ❓"},
+      {en:"She's lost her keys",it:"Ha perso le chiavi 🔑"},{en:"We've known each other for years",it:"Ci conosciamo da anni 🤝"},
+      {en:"I haven't finished yet",it:"Non ho ancora finito ⌛"},{en:"They've already left",it:"Sono già andati via 🚪"},
+      {en:"He's been to Japan",it:"È stato in Giappone 🗾"},{en:"I've never tried it",it:"Non l'ho mai provato 🙅"},
+    ],
+  ];
+  let mLevel=0,selEn=null,matched=0,firstTry=0,spoiled;
+  function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+  function setMatchLevel(lvl){
+    mLevel=lvl;selEn=null;matched=0;firstTry=0;spoiled=new Set();
+    const pairs=matchLevels[lvl];
+    document.getElementById("match-level").innerHTML=levelBar(lvl);
+    const left=pairs.map((p,i)=>`<button class="match-btn" id="en${i}" onclick="pickEn(${i})">
+      <span>${p.en}</span><span class="saybtn" onclick="event.stopPropagation();say('${escQ(p.en)}')">🔊</span></button>`).join("");
+    const order=shuffle(pairs.map((p,i)=>i));
+    const right=order.map(i=>`<button class="match-btn" id="it${i}" onclick="pickIt(${i})">${pairs[i].it}</button>`).join("");
+    document.getElementById("match-grid").innerHTML=`<div class="match-col">${left}</div><div class="match-col">${right}</div>`;
+    document.getElementById("match-prog").textContent=`Coppie collegate: 0 di ${pairs.length}`;
+  }
+  function pickEn(i){
+    const btn=document.getElementById("en"+i);if(btn.classList.contains("done"))return;
+    document.querySelectorAll(".match-btn.sel").forEach(b=>b.classList.remove("sel"));
+    selEn=i;btn.classList.add("sel");
+  }
+  function pickIt(i){
+    if(selEn===null)return;
+    const itBtn=document.getElementById("it"+i),enBtn=document.getElementById("en"+selEn);
+    if(itBtn.classList.contains("done"))return;
+    const pairs=matchLevels[mLevel];
+    if(selEn===i){
+      enBtn.classList.remove("sel");enBtn.classList.add("done");itBtn.classList.add("done");
+      say(pairs[i].en);if(!spoiled.has(selEn))firstTry++;selEn=null;matched++;
+      const pr=document.getElementById("match-prog");
+      if(matched>=pairs.length){levelResult(pr,firstTry,pairs.length,mLevel,5,"setMatchLevel");}
+      else pr.textContent=`Coppie collegate: ${matched} di ${pairs.length}`;
+    } else {
+      spoiled.add(selEn);itBtn.classList.add("flash");
+      setTimeout(()=>itBtn.classList.remove("flash"),500);
+      enBtn.classList.remove("sel");selEn=null;
+    }
+  }
+
+  setListenLevel(0);setWriteLevel(0);setReadLevel(0,true);setMatchLevel(0);
+</script>
+<script>
+  if('serviceWorker' in navigator) navigator.serviceWorker.register('./service-worker.js');
+</script>
+</body>
+</html>
