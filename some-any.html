@@ -101,6 +101,24 @@
     <div class="tip">🎨 Non diciamo "two waters" ma "two glasses of water". L'acqua non si conta a pezzi!</div>
   </div>
 
+  <!-- OVERVIEW VOCALE + INFOGRAFICA -->
+  <div class="card">
+    <h2>🎧 Overview vocale</h2>
+    <p style="margin-top:0;color:#8a7f70;">Ascolta la spiegazione di Some / Any / Much / Many mentre studi o fai altro.</p>
+    <audio controls preload="none" style="width:100%;">
+      <source src="some-any-overview.mp3" type="audio/mpeg">
+      Il tuo browser non supporta l'audio.
+    </audio>
+    <h2 style="margin-top:18px;">🗺️ Infografica</h2>
+    <p style="margin-top:0;color:#8a7f70;">Lo schema completo di Some / Any / Much / Many in un'unica immagine.</p>
+    <a href="some-any-infografica.png" data-audio="some-any-overview.mp3" target="_blank" rel="noopener"
+       style="display:block;text-align:center;background:var(--green-soft);color:var(--green);
+       text-decoration:none;border:2px solid var(--green);border-radius:14px;
+       padding:16px;font-size:1.1rem;font-weight:bold;">
+      🗺️ Apri l'infografica →
+    </a>
+  </div>
+
   <!-- SOME / ANY -->
   <div class="card">
     <h2>✅ SOME e ANY</h2>
@@ -340,6 +358,7 @@
     navigator.serviceWorker.register('./service-worker.js');
   }
 </script>
+<script src="lightbox.js"></script>
 <script src="alert.js"></script>
 </body>
 </html>

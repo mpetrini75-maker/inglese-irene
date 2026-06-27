@@ -1,4 +1,4 @@
-const CACHE = 'inglese-irene-v52';
+const CACHE = 'inglese-irene-v53';
 
 const ASSETS = [
   './',
@@ -23,6 +23,16 @@ const ASSETS = [
   './present-continuous-infografica.png',
   './past-simple-overview.mp3',
   './past-simple-infografica.png',
+  './future-overview.mp3',
+  './future-infografica.png',
+  './comparativo-superlativo-overview.mp3',
+  './comparativo-superlativo-infografica.png',
+  './some-any-overview.mp3',
+  './some-any-infografica.png',
+  './there-is-there-are-overview.mp3',
+  './there-is-there-are-infografica.png',
+  './question-words-overview.mp3',
+  './question-words-infografica.png',
   './question-words.html',
   './there-is-there-are.html',
   './can-cant.html',
