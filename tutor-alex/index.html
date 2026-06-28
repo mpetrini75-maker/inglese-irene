@@ -916,7 +916,11 @@ function buildGreeting(topic) {
     const cont = lastT
       ? `Welcome back, Irene! 😊 Last time we worked on ${lastT.toLowerCase()}. `
       : `Welcome back, Irene! 😊 `;
-    return cont + base.replace(/^Hi Irene![^A-Za-z]*/, "");
+    // togli il saluto iniziale e l'eventuale ri-presentazione ("I'm Olivia…"):
+    // a chi torna non serve che Olivia si ripresenti.
+    return cont + base
+      .replace(/^Hi Irene![^A-Za-z]*/, "")
+      .replace(/^I'm Olivia[^.!?]*[.!?]\s*/, "");
   }
   return base;
 }
