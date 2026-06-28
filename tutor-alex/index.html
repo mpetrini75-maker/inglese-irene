@@ -90,6 +90,15 @@
         </button>
       </div>
 
+      <!-- Memoria di Irene -->
+      <div id="memoryCard" class="rounded-lg border border-emerald-200 bg-emerald-50/60 p-3 hidden">
+        <div class="flex items-center justify-between mb-1">
+          <span class="text-sm font-semibold text-emerald-800">🧠 Olivia ti conosce</span>
+          <button id="memoryReset" class="text-[11px] text-emerald-600 hover:text-emerald-800 underline" title="Cancella tutto quello che Olivia ricorda di Irene">dimentica</button>
+        </div>
+        <p id="memoryInfo" class="text-xs text-emerald-700 leading-relaxed"></p>
+      </div>
+
       <!-- My Corrections -->
       <div>
         <div class="flex items-center justify-between mb-1.5">
@@ -196,7 +205,36 @@ const state = {
   history: [],        // [{role:"user"|"assistant", content:string}]
   tips: [],           // correzioni estratte
   busy: false,
+  sessionLogged: false, // true dopo aver contato la sessione corrente in memoria
 };
+
+/* ================= MEMORIA PERSISTENTE DI IRENE ================= */
+// Profilo che dà continuità tra una sessione e l'altra (solo localStorage,
+// nessuna chiamata AI extra: viene iniettato nel prompt di sistema).
+const LS_MEMORY = "irene_memory";
+const todayISO = () => new Date().toISOString().slice(0, 10);
+
+function defaultMemory() {
+  return { sessions: 0, firstSeen: "", lastSeen: "", level: "", topics: {}, corrections: [], messages: 0 };
+}
+function loadMemory() {
+  try {
+    const raw = localStorage.getItem(LS_MEMORY);
+    return raw ? Object.assign(defaultMemory(), JSON.parse(raw)) : defaultMemory();
+  } catch { return defaultMemory(); }
+}
+function saveMemory() {
+  try { localStorage.setItem(LS_MEMORY, JSON.stringify(memory)); } catch {}
+  renderMemoryCard();
+}
+let memory = loadMemory();
+
+// Etichetta dell'argomento più praticato (o null se non ce ne sono)
+function topMemoryTopic() {
+  const entries = Object.entries(memory.topics)
+    .filter(([k]) => TOPICS[k]).sort((a, b) => b[1] - a[1]);
+  return entries.length ? TOPICS[entries[0][0]].label : null;
+}
 
 const TOPICS = {
   free:   { label: "Free Chat",        brief: "open, friendly free conversation about anything Irene wants" },
@@ -218,6 +256,25 @@ const GREETINGS = {
 
 /* ================= SYSTEM PROMPT ================= */
 
+// Blocco "memoria" iniettato nel prompt: vuoto nella primissima sessione,
+// poi dà a Olivia continuità ed errori ricorrenti da tenere d'occhio.
+function buildMemoryBlock() {
+  if (memory.sessions <= 1) return "";
+  const topics = Object.entries(memory.topics)
+    .filter(([k]) => TOPICS[k]).sort((a, b) => b[1] - a[1])
+    .slice(0, 4).map(([k, n]) => `${TOPICS[k].label} (${n}x)`).join(", ") || "various";
+  const recent = memory.corrections.slice(-8).reverse()
+    .map(c => `  - ${c.t}`).join("\n") || "  (none yet)";
+  return `
+
+MEMORY OF IRENE (from previous sessions — you are a tutor who KNOWS her; weave this in naturally, NEVER recite it as a list):
+- This is session #${memory.sessions}. You first met her on ${memory.firstSeen || "recently"}, last chatted on ${memory.lastSeen || "recently"}.
+- Topics she has practiced before: ${topics}.
+- Recurring corrections from past sessions to gently keep an eye on (most recent first):
+${recent}
+At the very start of a returning conversation, welcome her back warmly and, when it feels natural, refer to what you worked on before. During the chat, if she repeats one of the recurring mistakes above, address it kindly in the Quick Tip.`;
+}
+
 function buildSystemPrompt() {
   const t = TOPICS[state.topic];
   const levelNote = state.level === "beginner"
@@ -236,7 +293,7 @@ BEHAVIORAL RULES:
 
 SESSION SETTINGS (set by Irene in the app):
 - Topic of the day: ${t.label} — focus the conversation on ${t.brief}. If Irene drifts to another topic, follow her naturally, but gently steer back when there is a good moment.
-- Difficulty level: ${levelNote}
+- Difficulty level: ${levelNote}${buildMemoryBlock()}
 
 STYLE: Keep replies short and chatty (2-5 sentences before the optional Quick Tip). Use a few friendly emojis, but don't overdo it.`;
 }
@@ -266,6 +323,7 @@ $("sidebarBackdrop").onclick = closeSidebar;
 document.querySelectorAll(".level-btn").forEach(btn => {
   btn.onclick = () => {
     state.level = btn.dataset.level;
+    memory.level = state.level; saveMemory();
     document.querySelectorAll(".level-btn").forEach(b => {
       const active = b.dataset.level === state.level;
       b.className = "level-btn rounded-lg border p-2 text-sm font-medium transition " +
@@ -503,8 +561,13 @@ function typingIndicator() {
 function extractTip(text) {
   const m = text.split(TIP_MARKER);
   if (m.length > 1 && m[1].trim()) {
-    state.tips.push(m[1].trim());
+    const tip = m[1].trim();
+    state.tips.push(tip);
     renderTips();
+    // memoria persistente: tieni le ultime 40 correzioni tra le sessioni
+    memory.corrections.push({ t: tip.slice(0, 200), d: todayISO() });
+    if (memory.corrections.length > 40) memory.corrections = memory.corrections.slice(-40);
+    saveMemory();
   }
 }
 
@@ -520,6 +583,28 @@ function renderTips() {
       <span class="font-bold">#${i + 1}</span> ${escapeHtml(t)}
     </div>`).join("");
 }
+
+/* ---- riquadro "Olivia ti conosce" ---- */
+function renderMemoryCard() {
+  const card = $("memoryCard");
+  if (!card) return;
+  if (!memory.sessions) { card.classList.add("hidden"); return; }
+  card.classList.remove("hidden");
+  const topT = topMemoryTopic();
+  const parts = [`Vi conoscete da <b>${memory.sessions}</b> ${memory.sessions === 1 ? "sessione" : "sessioni"}.`];
+  if (topT) parts.push(`Argomento preferito: <b>${escapeHtml(topT)}</b>.`);
+  if (memory.corrections.length) parts.push(`Olivia tiene a mente <b>${memory.corrections.length}</b> correzioni.`);
+  $("memoryInfo").innerHTML = parts.join(" ");
+}
+
+$("memoryReset").onclick = () => {
+  if (confirm("Cancellare tutto quello che Olivia ricorda di Irene (sessioni, argomenti, correzioni)? L'azione non è reversibile.")) {
+    memory = defaultMemory();
+    localStorage.removeItem(LS_MEMORY);
+    renderMemoryCard();
+  }
+};
+renderMemoryCard();
 
 /* ================= TEXT-TO-SPEECH ================= */
 
@@ -822,8 +907,23 @@ if (SpeechRecognition) {
 
 /* ================= FLUSSO CONVERSAZIONE ================= */
 
+// Saluto: alla prima sessione quello standard; al ritorno una riga di
+// continuità ("Welcome back") che cita l'ultimo argomento praticato.
+function buildGreeting(topic) {
+  const base = GREETINGS[topic];
+  if (memory.sessions > 0) {
+    const lastT = topMemoryTopic();
+    const cont = lastT
+      ? `Welcome back, Irene! 😊 Last time we worked on ${lastT.toLowerCase()}. `
+      : `Welcome back, Irene! 😊 `;
+    return cont + base.replace(/^Hi Irene![^A-Za-z]*/, "");
+  }
+  return base;
+}
+
 function startConversation() {
-  const greeting = GREETINGS[state.topic];
+  state.sessionLogged = false;
+  const greeting = buildGreeting(state.topic);
   state.history.push({ role: "assistant", content: greeting });
   const wrap = addBubble("assistant", greeting);
   wireSpeakBtn(wrap, greeting);
@@ -844,6 +944,19 @@ async function sendMessage(text) {
 
   state.history.push({ role: "user", content: text });
   addBubble("user", text);
+
+  // memoria: conta la sessione al primo messaggio di Irene, poi i messaggi
+  if (!state.sessionLogged) {
+    state.sessionLogged = true;
+    memory.sessions += 1;
+    memory.lastSeen = todayISO();
+    if (!memory.firstSeen) memory.firstSeen = memory.lastSeen;
+    memory.topics[state.topic] = (memory.topics[state.topic] || 0) + 1;
+    if (!memory.level) memory.level = state.level;
+  }
+  memory.messages += 1;
+  saveMemory();
+
   setBusy(true);
 
   const typing = typingIndicator();
