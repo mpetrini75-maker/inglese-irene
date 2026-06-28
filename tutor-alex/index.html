@@ -658,11 +658,32 @@ function pickVoice(langTag, preferMale = false) {
 
 /* ---- ElevenLabs TTS ---- */
 let audioChain = Promise.resolve();
-let currentAudio = null;
+
+// Un SOLO elemento Audio riutilizzato. Su iOS Safari un elemento <audio>, una
+// volta "sbloccato" da un gesto utente, può riprodurre anche le clip successive
+// (che arrivano in modo asincrono dopo la rete) SENZA un nuovo tocco. Così la
+// risposta parte da sola e anche il Quick Tip (seconda clip) si sente.
+const ttsAudio = new Audio();
+ttsAudio.preload = "auto";
+// micro-clip silenziosa per "benedire" l'elemento durante il primo tocco (iOS)
+const SILENT_CLIP = "data:audio/wav;base64,UklGRiYAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQIAAACAgA==";
+let ttsUnlocked = false;
+
+function unlockTtsAudio() {
+  if (ttsUnlocked) return;
+  try {
+    ttsAudio.src = SILENT_CLIP;
+    const p = ttsAudio.play();
+    if (p && p.then) p.then(() => {
+      try { ttsAudio.pause(); ttsAudio.currentTime = 0; } catch {}
+      ttsUnlocked = true;
+    }).catch(() => {});
+  } catch {}
+}
 
 function stopAllAudio() {
   speechSynthesis.cancel();
-  if (currentAudio) { currentAudio.pause(); currentAudio = null; }
+  try { ttsAudio.pause(); } catch {}
   audioChain = Promise.resolve();
 }
 
@@ -689,11 +710,13 @@ async function elevenSpeak(text) {
   const blob = await res.blob();
   const url = URL.createObjectURL(blob);
   return new Promise((resolve, reject) => {
-    const audio = new Audio(url);
-    currentAudio = audio;
-    audio.onended = () => { URL.revokeObjectURL(url); currentAudio = null; resolve(); };
-    audio.onerror  = (e) => { URL.revokeObjectURL(url); currentAudio = null; reject(e); };
-    audio.play().catch(reject);
+    const done = () => { URL.revokeObjectURL(url); };
+    // riusa SEMPRE lo stesso elemento "benedetto" (chiave per iOS)
+    ttsAudio.onended = () => { done(); resolve(); };
+    ttsAudio.onerror = (e) => { done(); reject(e); };
+    ttsAudio.src = url;
+    const p = ttsAudio.play();
+    if (p && p.catch) p.catch(reject);
   });
 }
 
@@ -792,9 +815,14 @@ function unlockSpeech() {
 window.addEventListener("touchstart", unlockSpeech, { once: true, passive: true });
 window.addEventListener("pointerdown", unlockSpeech, { once: true });
 window.addEventListener("keydown",     unlockSpeech, { once: true });
+// "benedici" anche l'elemento Audio di ElevenLabs (early-return se già sbloccato)
+window.addEventListener("touchstart", unlockTtsAudio, { passive: true });
+window.addEventListener("pointerdown", unlockTtsAudio);
+window.addEventListener("keydown",     unlockTtsAudio);
 
 function speakResponse(fullText) {
-  // ElevenLabs: non richiede unlock (Audio API meno restrittiva di speechSynthesis su iOS)
+  // ElevenLabs: riproduce sull'elemento ttsAudio già "benedetto" da un gesto,
+  // così su iOS parte da solo (risposta automatica) e suona anche il Quick Tip
   if (localStorage.getItem(LS_ELEVEN)) { doSpeakNow(fullText); return; }
 
   if (!("speechSynthesis" in window)) return;
