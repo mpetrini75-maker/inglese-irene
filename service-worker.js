@@ -1,4 +1,4 @@
-const CACHE = 'inglese-irene-v59';
+const CACHE = 'inglese-irene-v60';
 
 const ASSETS = [
   './',
@@ -100,6 +100,8 @@ const ASSETS = [
   './zero-first-conditional-allenamento.html',
   './english-for-tourism.html',
   './english-for-tourism-allenamento.html',
+  './english-for-tourism-overview.mp3',
+  './english-for-tourism-infografica.png',
   './tutor-alex/index.html',
   './alert.js',
   './lightbox.js',
