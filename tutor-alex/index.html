@@ -156,7 +156,7 @@
           ➤
         </button>
       </form>
-      <p class="text-center text-[10px] text-slate-400 mt-1.5">Olivia può sbagliare: per i dubbi grossi chiedi conferma. · Powered by Claude</p>
+      <p class="text-center text-[10px] text-slate-400 mt-1.5">Olivia può sbagliare: per i dubbi grossi chiedi conferma. · Powered by Claude · v64</p>
     </footer>
   </main>
 </div>
@@ -656,52 +656,38 @@ function pickVoice(langTag, preferMale = false) {
   return pool[0];
 }
 
-/* ---- ElevenLabs TTS (Web Audio API: affidabile su iOS) ---- */
-// iOS Safari blocca l'audio che non parte da un gesto. Con la Web Audio API,
-// una volta "sbloccato" il contesto dentro un tocco (resume + buffer muto), si
-// può riprodurre QUALSIASI clip in seguito senza un nuovo gesto — anche la
-// risposta automatica e il Quick Tip. Più solido dell'elemento <audio>, che su
-// iPhone X si ri-bloccava al cambio di sorgente.
+/* ---- ElevenLabs TTS ---- */
+// UN SOLO elemento <audio> riutilizzato e "sbloccato" da un gesto utente: su
+// iOS resta sbloccato anche cambiando sorgente, quindi la risposta parte da
+// sola e suona anche il Quick Tip (seconda clip). A differenza della Web Audio
+// API, un elemento <audio> riproduce ANCHE con l'interruttore "silenzioso"
+// fisico attivo (è trattato come media), utile se il telefono è in silenzioso.
 let audioChain = Promise.resolve();
-let audioCtx = null;
-let ctxUnlocked = false;
-let currentSource = null;
+const ttsAudio = new Audio();
+ttsAudio.preload = "auto";
+ttsAudio.setAttribute("playsinline", "");
+// micro-clip silenziosa per "sbloccare" l'elemento durante il primo tocco (iOS)
+const SILENT_CLIP = "data:audio/wav;base64,UklGRiYAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQIAAACAgA==";
+let ttsUnlocked = false;
 
-function getAudioCtx() {
-  if (!audioCtx) {
-    const AC = window.AudioContext || window.webkitAudioContext;
-    if (AC) audioCtx = new AC();
-  }
-  return audioCtx;
-}
-
-// Da chiamare dentro un gesto utente: sblocca il contesto audio per sempre (iOS)
-function unlockAudioCtx() {
-  const ctx = getAudioCtx();
-  if (!ctx) return;
-  if (ctx.state === "suspended") ctx.resume().catch(() => {});
-  if (ctxUnlocked) return;
+// Da chiamare dentro un gesto utente: una riproduzione riuscita "benedice"
+// l'elemento e iOS gli consente le riproduzioni successive senza nuovo gesto.
+function unlockTtsAudio() {
+  if (ttsUnlocked) return;
   try {
-    const buf = ctx.createBuffer(1, 1, 22050);
-    const s = ctx.createBufferSource();
-    s.buffer = buf; s.connect(ctx.destination); s.start(0);
-    ctxUnlocked = true;
+    ttsAudio.src = SILENT_CLIP;
+    const p = ttsAudio.play();
+    if (p && p.then) p.then(() => {
+      try { ttsAudio.pause(); ttsAudio.currentTime = 0; } catch {}
+      ttsUnlocked = true;
+    }).catch(() => {});
   } catch {}
 }
 
 function stopAllAudio() {
   speechSynthesis.cancel();
-  if (currentSource) { try { currentSource.stop(); } catch {} currentSource = null; }
+  try { ttsAudio.pause(); } catch {}
   audioChain = Promise.resolve();
-}
-
-// decodeAudioData compatibile sia con la forma a Promise sia con quella a
-// callback (vecchie versioni di Safari/iOS)
-function decodeAudio(ctx, arrayBuf) {
-  return new Promise((resolve, reject) => {
-    const p = ctx.decodeAudioData(arrayBuf, resolve, reject);
-    if (p && p.then) p.then(resolve).catch(reject);
-  });
 }
 
 async function elevenSpeak(text) {
@@ -724,18 +710,16 @@ async function elevenSpeak(text) {
     const body = await res.text().catch(() => "");
     throw new Error(`ElevenLabs ${res.status}: ${body.slice(0, 80)}`);
   }
-  const ctx = getAudioCtx();
-  if (!ctx) throw new Error("AudioContext non disponibile");
-  if (ctx.state === "suspended") await ctx.resume().catch(() => {});
-  const arrayBuf = await res.arrayBuffer();
-  const audioBuf = await decodeAudio(ctx, arrayBuf);
+  const blob = await res.blob();
+  const url = URL.createObjectURL(blob);
   return new Promise((resolve, reject) => {
-    const s = ctx.createBufferSource();
-    currentSource = s;
-    s.buffer = audioBuf;
-    s.connect(ctx.destination);
-    s.onended = () => { if (currentSource === s) currentSource = null; resolve(); };
-    try { s.start(0); } catch (e) { reject(e); }
+    const done = () => { URL.revokeObjectURL(url); };
+    // riusa SEMPRE lo stesso elemento sbloccato (chiave per iOS)
+    ttsAudio.onended = () => { done(); resolve(); };
+    ttsAudio.onerror = (e) => { done(); reject(e); };
+    ttsAudio.src = url;
+    const p = ttsAudio.play();
+    if (p && p.catch) p.catch(reject);
   });
 }
 
@@ -834,13 +818,13 @@ function unlockSpeech() {
 window.addEventListener("touchstart", unlockSpeech, { once: true, passive: true });
 window.addEventListener("pointerdown", unlockSpeech, { once: true });
 window.addEventListener("keydown",     unlockSpeech, { once: true });
-// sblocca il contesto Web Audio al primo tocco (early-return se già sbloccato)
-window.addEventListener("touchstart", unlockAudioCtx, { passive: true });
-window.addEventListener("pointerdown", unlockAudioCtx);
-window.addEventListener("keydown",     unlockAudioCtx);
+// sblocca l'elemento Audio al primo tocco (early-return se già sbloccato)
+window.addEventListener("touchstart", unlockTtsAudio, { passive: true });
+window.addEventListener("pointerdown", unlockTtsAudio);
+window.addEventListener("keydown",     unlockTtsAudio);
 
 function speakResponse(fullText) {
-  // ElevenLabs: riproduce via Web Audio sul contesto già sbloccato da un gesto,
+  // ElevenLabs: riproduce sull'elemento ttsAudio già sbloccato da un gesto,
   // così su iOS parte da solo (risposta automatica) e suona anche il Quick Tip
   if (localStorage.getItem(LS_ELEVEN)) { doSpeakNow(fullText); return; }
 
