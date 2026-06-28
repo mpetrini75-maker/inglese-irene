@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English for Tourism — Allenamento</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#FAF6EE">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Inglese di Irene">
+<script src="alert.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FAF6EE; --card:#FFFFFF; --ink:#2F2A24;
+    --accent:#C96F35; --accent-soft:#F5E6D8;
+    --green:#3E8E5A; --green-soft:#E2F0E6;
+    --red:#C2492F; --red-soft:#F6E1DB;
+    --blue:#3B6EA5; --blue-soft:#E2ECF5;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:"Lexend","Trebuchet MS",Verdana,sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.7;letter-spacing:0.3px;padding:24px 14px 60px;}
+  .wrap{max-width:620px;margin:0 auto;}
+  .backbtn{display:inline-block;background:var(--accent-soft);color:var(--accent);
+    text-decoration:none;border-radius:12px;padding:8px 16px;font-size:0.98rem;font-weight:bold;margin-bottom:14px;}
+  h1{color:var(--accent);font-size:1.6rem;text-align:center;margin:0 0 6px;}
+  .sub{text-align:center;color:#8a7f70;margin:0 0 26px;font-size:1rem;}
+  .card{background:var(--card);border-radius:18px;padding:22px 20px;margin-bottom:22px;
+    box-shadow:0 4px 14px rgba(0,0,0,0.06);border:1px solid #efe7da;}
+  .card h2{margin:0 0 10px;font-size:1.25rem;color:var(--accent);display:flex;align-items:center;gap:8px;}
+  .card .lead{color:#8a7f70;margin:0 0 12px;font-size:0.97rem;}
+  .levelbar{margin:0 0 12px;}
+  .lvrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:0.98rem;color:var(--accent);}
+  .lvdots{display:inline-flex;gap:6px;}
+  .lvdot{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    background:var(--bg);border:2px solid var(--accent-soft);color:#b9ad9c;font-size:0.85rem;font-weight:bold;}
+  .lvdot.on{background:var(--accent-soft);border-color:var(--accent);color:var(--accent);}
+  .saybtn{background:var(--blue-soft);color:var(--blue);border:none;border-radius:10px;
+    padding:6px 12px;font-size:0.95rem;cursor:pointer;font-family:inherit;}
+  .big-listen{display:block;margin:6px auto 14px;background:var(--blue);color:#fff;
+    border:none;border-radius:16px;padding:18px 26px;font-size:1.2rem;font-weight:bold;
+    cursor:pointer;font-family:inherit;box-shadow:0 4px 12px rgba(59,110,165,0.3);}
+  .big-listen:hover{opacity:0.92;}
+  .ex{margin:14px 0;}
+  .qnum{font-weight:bold;color:var(--accent);}
+  .qtext{font-size:1.12rem;margin:6px 0 8px;}
+  .options{display:flex;flex-direction:column;gap:10px;}
+  .opt{background:var(--bg);border:2px solid var(--accent-soft);border-radius:12px;
+    padding:13px 14px;font-size:1.08rem;cursor:pointer;text-align:left;
+    font-family:inherit;color:var(--ink);transition:all .15s;}
+  .opt:hover{border-color:var(--accent);}
+  .opt.correct{background:var(--green-soft);border-color:var(--green);color:var(--green);font-weight:bold;}
+  .opt.wrong{background:var(--red-soft);border-color:var(--red);color:var(--red);}
+  .feedback{margin-top:10px;font-size:1.02rem;font-weight:bold;min-height:24px;}
+  .feedback.ok{color:var(--green);}
+  .feedback.no{color:var(--red);}
+  .progress{text-align:center;font-size:1.05rem;margin:12px 0 0;color:#8a7f70;}
+  .star{font-size:1.4rem;}
+  .write-input{width:100%;font-family:"Lexend",sans-serif;font-size:1.2rem;
+    padding:12px 14px;border:2px solid var(--accent-soft);border-radius:12px;
+    background:var(--bg);color:var(--ink);margin-top:4px;}
+  .write-input:focus{outline:none;border-color:var(--accent);}
+  .checkbtn{margin-top:10px;background:var(--accent);color:#fff;border:none;
+    border-radius:12px;padding:10px 20px;font-size:1rem;cursor:pointer;font-family:inherit;}
+  .write-input.okbox{border-color:var(--green);background:var(--green-soft);}
+  .write-input.nobox{border-color:var(--red);}
+  .reading{background:var(--bg);border-radius:14px;padding:16px 18px;font-size:1.12rem;
+    border:2px solid var(--accent-soft);margin-bottom:6px;}
+  .reading p{margin:0 0 6px;}
+  .match-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px;}
+  .match-col{display:flex;flex-direction:column;gap:10px;}
+  .match-btn{background:var(--bg);border:2px solid var(--accent-soft);border-radius:12px;
+    padding:12px;font-size:1.05rem;cursor:pointer;font-family:inherit;color:var(--ink);
+    display:flex;align-items:center;justify-content:space-between;gap:6px;transition:all .15s;}
+  .match-btn:hover{border-color:var(--accent);}
+  .match-btn.sel{border-color:var(--blue);background:var(--blue-soft);color:var(--blue);font-weight:bold;}
+  .match-btn.done{background:var(--green-soft);border-color:var(--green);color:var(--green);
+    font-weight:bold;cursor:default;opacity:0.85;}
+  .match-btn.flash{border-color:var(--red);background:var(--red-soft);}
+  .restart{display:inline-block;margin:12px auto 0;background:var(--accent);color:#fff;border:none;
+    border-radius:12px;padding:11px 22px;font-size:1rem;cursor:pointer;font-family:inherit;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="backbtn" href="english-for-tourism.html">← Torna alla lezione</a>
+  <h1>🏋️ English for Tourism — Allenamento</h1>
+  <p class="sub">4 livelli · 🏨 hotel · ✈️ aeroporto · 🗺️ indicazioni · 🍽️ ristorante</p>
+
+  <div class="card">
+    <h2>🎧 1. Ascolto</h2>
+    <p class="lead">Tocca il pulsante blu e ascolta. Scegli la frase giusta. Puoi riascoltare quante volte vuoi!</p>
+    <div class="levelbar" id="listen-level"></div>
+    <div id="listen-quiz"></div>
+    <div class="progress" id="listen-prog"></div>
+  </div>
+
+  <div class="card">
+    <h2>✏️ 2. Scrittura</h2>
+    <p class="lead">Scrivi la parola o le parole giuste. Non contano maiuscole o spazi extra. Poi tocca "Controlla".</p>
+    <div class="levelbar" id="write-level"></div>
+    <div id="write-list"></div>
+    <div class="progress" id="write-prog"></div>
+  </div>
+
+  <div class="card" id="read-card">
+    <h2>📖 3. Lettura</h2>
+    <p class="lead">Ascolta e leggi il testo, poi rispondi alle domande.</p>
+    <div class="levelbar" id="read-level"></div>
+    <div class="reading" id="reading-text"></div>
+    <button class="saybtn" onclick="event.stopPropagation();sayReading()">🔊 Ascolta tutto il testo</button>
+    <div id="read-list" style="margin-top:8px;"></div>
+    <div class="progress" id="read-prog"></div>
+  </div>
+
+  <div class="card">
+    <h2>🔤 4. Lessico</h2>
+    <p class="lead">Tocca una parola inglese (ascoltala con 🔊), poi il suo significato. Collega tutte le coppie!</p>
+    <div class="levelbar" id="match-level"></div>
+    <div class="match-grid" id="match-grid"></div>
+    <div class="progress" id="match-prog"></div>
+  </div>
+</div>
+
+<script>
+  function say(text){
+    try{
+      const u=new SpeechSynthesisUtterance(text);
+      u.lang="en-US"; u.rate=0.85;
+      speechSynthesis.cancel(); speechSynthesis.speak(u);
+    }catch(e){}
+  }
+  function escQ(s){ return s.replace(/'/g,"\\'"); }
+  function stars(correct,total){
+    const pct=correct/total;
+    return "⭐".repeat(pct===1?5:pct>=0.75?4:pct>=0.5?3:pct>=0.25?2:1);
+  }
+  const LV=["Hotel 🏨","Aeroporto ✈️","Indicazioni 🗺️","Ristorante 🍽️"];
+  function levelBar(level){
+    let dots="";
+    for(let i=0;i<4;i++) dots+=`<span class="lvdot ${i<=level?'on':''}">${i+1}</span>`;
+    return `<div class="lvrow"><b>Livello ${level+1} di 4 · ${LV[level]} 🔓</b><span class="lvdots">${dots}</span></div>`;
+  }
+  function levelResult(progEl,score,total,level,threshold,setFnName){
+    const passed=score>=threshold;
+    let html=`<div class="star">${stars(score,total)}</div>${score}/${total} giuste<br>`;
+    if(passed && level<3){
+      html+=`<b>Bravissima! Livello ${level+2} sbloccato 🔓</b><br>`;
+      html+=`<button class="restart" onclick="${setFnName}(${level+1})">➡️ Vai al Livello ${level+2}</button>`;
+    } else if(passed && level===3){
+      inviaAlertQuiz();
+      html+=`<b>🏆 Hai completato tutti i livelli!</b><br>`;
+      html+=`<button class="restart" onclick="${setFnName}(0)">🔄 Rigioca dal Livello 1</button>`;
+    } else {
+      html+=`<b>Ci sei quasi! Riprova questo livello, ce la fai 🌱</b><br>`;
+      html+=`<button class="restart" onclick="${setFnName}(${level})">🔄 Rifai il Livello ${level+1}</button>`;
+    }
+    progEl.innerHTML=html;
+  }
+
+  /* ============ SEZIONE 1 — ASCOLTO ============ */
+  const listenLevels=[
+    [ // L1 — Hotel
+      {audio:"I have a reservation.",opts:["I have a reservation.","I have a question.","I have a suitcase."],correct:0},
+      {audio:"I'd like a double room, please.",opts:["I'd like a double room, please.","I'd like a single room, please.","I'd like a double pizza, please."],correct:0},
+      {audio:"What time is breakfast?",opts:["What time is breakfast?","What time is the flight?","Where is breakfast?"],correct:0},
+      {audio:"Can I have the key, please?",opts:["Can I have the key, please?","Can I have the bill, please?","Can I have the menu, please?"],correct:0},
+      {audio:"The room is on the third floor.",opts:["The room is on the third floor.","The room is on the first floor.","The shop is on the third floor."],correct:0},
+      {audio:"Is breakfast included?",opts:["Is breakfast included?","Is the room included?","Is breakfast ready?"],correct:0},
+    ],
+    [ // L2 — Aeroporto
+      {audio:"Where is the check-in desk?",opts:["Where is the check-in desk?","Where is the check-in time?","Where is the ticket desk?"],correct:0},
+      {audio:"Here is my passport.",opts:["Here is my passport.","Here is my ticket.","Here is my luggage."],correct:0},
+      {audio:"What time does the flight leave?",opts:["What time does the flight leave?","What time does the train leave?","Where does the flight leave?"],correct:0},
+      {audio:"My flight is delayed.",opts:["My flight is delayed.","My flight is ready.","My train is delayed."],correct:0},
+      {audio:"I have one suitcase.",opts:["I have one suitcase.","I have one passport.","I have two suitcases."],correct:0},
+      {audio:"Which gate is it?",opts:["Which gate is it?","Which seat is it?","What gate is closed?"],correct:0},
+    ],
+    [ // L3 — Indicazioni
+      {audio:"Excuse me, where is the station?",opts:["Excuse me, where is the station?","Excuse me, where is the hotel?","Excuse me, when is the station?"],correct:0},
+      {audio:"Go straight on and turn left.",opts:["Go straight on and turn left.","Go straight on and turn right.","Go back and turn left."],correct:0},
+      {audio:"It's next to the bank.",opts:["It's next to the bank.","It's opposite the bank.","It's next to the park."],correct:0},
+      {audio:"How do I get to the museum?",opts:["How do I get to the museum?","How do I get to the market?","Where do I get the museum?"],correct:0},
+      {audio:"It's near the traffic lights.",opts:["It's near the traffic lights.","It's near the train.","It's far from the traffic lights."],correct:0},
+      {audio:"Turn right at the corner.",opts:["Turn right at the corner.","Turn left at the corner.","Turn right at the station."],correct:0},
+    ],
+    [ // L4 — Ristorante (frasi più lunghe)
+      {audio:"I'd like to book a table for two, please.",opts:["I'd like to book a table for two, please.","I'd like to book a table for ten, please.","I'd like to book a room for two, please."],correct:0},
+      {audio:"Can I see the menu, please?",opts:["Can I see the menu, please?","Can I see the bill, please?","Can I see the room, please?"],correct:0},
+      {audio:"I'll have the pizza and a sparkling water.",opts:["I'll have the pizza and a sparkling water.","I'll have the pizza and a still water.","I'll have the pasta and a sparkling water."],correct:0},
+      {audio:"Can I have the bill, please?",opts:["Can I have the bill, please?","Can I have the key, please?","Can I pay the menu, please?"],correct:0},
+      {audio:"For dessert I'd like some ice cream.",opts:["For dessert I'd like some ice cream.","For dinner I'd like some ice cream.","For dessert I'd like some bread."],correct:0},
+      {audio:"Could you bring us some still water, please?",opts:["Could you bring us some still water, please?","Could you bring us some sparkling water, please?","Could you bring us the bill, please?"],correct:0},
+    ],
+  ];
+  let lLevel=0,lc=0,ls=0,lCorrect=0,lAudio="";
+  function setListenLevel(lvl){lLevel=lvl;lc=0;ls=0;document.getElementById("listen-level").innerHTML=levelBar(lvl);showListen();}
+  function showListen(){
+    const data=listenLevels[lLevel],box=document.getElementById("listen-quiz"),pr=document.getElementById("listen-prog");
+    if(lc>=data.length){box.innerHTML="";levelResult(pr,ls,data.length,lLevel,4,"setListenLevel");return;}
+    const it=data[lc]; lAudio=it.audio;
+    const order=shuffle(it.opts.map((o,i)=>i)),shown=order.map(k=>it.opts[k]);
+    lCorrect=order.indexOf(it.correct);
+    pr.textContent=`Esercizio ${lc+1} di ${data.length}`;
+    box.innerHTML=`<div class="ex"><div class="qnum">Ascolto ${lc+1}</div>
+      <button class="big-listen" onclick="event.stopPropagation();say('${escQ(it.audio)}')">🔊 Ascolta la frase</button>
+      <div class="options">${shown.map((o,i)=>`<button class="opt" onclick="listenAns(${i})">${o}</button>`).join("")}</div>
+      <div class="feedback" id="lfb"></div></div>`;
+  }
+  function listenAns(i){
+    const opts=document.querySelectorAll("#listen-quiz .opt"),fb=document.getElementById("lfb");
+    if(i===lCorrect){
+      opts[i].classList.add("correct");fb.textContent="✅ Giusto! "+lAudio;fb.className="feedback ok";
+      ls++;say(lAudio);opts.forEach(o=>o.disabled=true);
+      setTimeout(()=>{lc++;showListen();},1800);
+    } else {opts[i].classList.add("wrong");fb.textContent="Riascolta e riprova 🙂";fb.className="feedback no";}
+  }
+
+  /* ============ SEZIONE 2 — SCRITTURA ============ */
+  const writeLevels=[
+    [ // L1 — Hotel
+      {q:"Arrivi in hotel: \"I have a ____ .\"  (prenotazione)", answers:["reservation","booking"], full:"I have a reservation.", hint:"prenotazione → reservation."},
+      {q:"Chiedi gentilmente una camera doppia: \"I'd ____ a double room, please.\"  (vorrei)", answers:["like"], full:"I'd like a double room, please.", hint:"I'd like = vorrei."},
+      {q:"Chiedi l'orario della colazione: \"What time is ____ ?\"", answers:["breakfast"], full:"What time is breakfast?", hint:"colazione → breakfast."},
+      {q:"Chiedi la chiave: \"Can I have the ____ , please?\"", answers:["key"], full:"Can I have the key, please?", hint:"chiave → key."},
+      {q:"La camera è al terzo piano: \"The room is on the third ____ .\"", answers:["floor"], full:"The room is on the third floor.", hint:"piano → floor."},
+      {q:"Sali in camera con l': \"____ \"  (ascensore)", answers:["lift","elevator"], full:"the lift", hint:"ascensore → lift (UK) / elevator (US)."},
+    ],
+    [ // L2 — Aeroporto
+      {q:"Cerchi il banco accettazione: \"Where is the ____ desk?\"", answers:["check-in","check in","checkin"], full:"Where is the check-in desk?", hint:"accettazione → check-in."},
+      {q:"Mostri il documento: \"Here is my ____ .\"  (passaporto)", answers:["passport"], full:"Here is my passport.", hint:"passaporto → passport."},
+      {q:"Chiedi l'orario di partenza: \"What time does the flight ____ ?\"  (partire)", answers:["leave"], full:"What time does the flight leave?", hint:"partire → leave."},
+      {q:"Il tuo volo è in ritardo: \"My flight is ____ .\"", answers:["delayed"], full:"My flight is delayed.", hint:"in ritardo → delayed."},
+      {q:"Hai una sola valigia: \"I have one ____ .\"", answers:["suitcase","bag"], full:"I have one suitcase.", hint:"valigia → suitcase."},
+      {q:"Chiedi qual è l'uscita d'imbarco: \"Which ____ is it?\"", answers:["gate"], full:"Which gate is it?", hint:"uscita d'imbarco → gate."},
+    ],
+    [ // L3 — Indicazioni
+      {q:"Inizi a chiedere la strada: \"____ me, where is the station?\"  (scusi)", answers:["excuse"], full:"Excuse me, where is the station?", hint:"scusi → excuse me."},
+      {q:"Ti dicono di andare dritto: \"Go ____ on.\"", answers:["straight"], full:"Go straight on.", hint:"dritto → straight."},
+      {q:"E poi di girare a sinistra: \"Turn ____ .\"", answers:["left"], full:"Turn left.", hint:"sinistra → left."},
+      {q:"Il museo è accanto alla banca: \"It's ____ ____ the bank.\"  (accanto a)", answers:["next to"], full:"It's next to the bank.", hint:"accanto a → next to."},
+      {q:"Chiedi come arrivarci: \"How do I ____ ____ the museum?\"  (arrivare a)", answers:["get to"], full:"How do I get to the museum?", hint:"arrivare a → get to."},
+      {q:"È vicino al semaforo: \"It's near the traffic ____ .\"", answers:["lights","light"], full:"It's near the traffic lights.", hint:"semaforo → traffic lights."},
+    ],
+    [ // L4 — Ristorante (Sfida)
+      {q:"Prenoti un tavolo per due: \"I'd like to ____ a table for two.\"  (prenotare)", answers:["book","reserve"], full:"I'd like to book a table for two.", hint:"prenotare un tavolo → book a table."},
+      {q:"Chiedi il menù: \"Can I see the ____ , please?\"", answers:["menu"], full:"Can I see the menu, please?", hint:"menù → menu."},
+      {q:"Ordini: \"____ ____ the pizza, please.\"  (prendo → I will…)", answers:["I'll have","i will have"], full:"I'll have the pizza, please.", hint:"per ordinare → I'll have."},
+      {q:"Chiedi il conto: \"Can I have the ____ , please?\"", answers:["bill","check"], full:"Can I have the bill, please?", hint:"conto → bill."},
+      {q:"Acqua frizzante: \"A bottle of ____ water, please.\"", answers:["sparkling"], full:"A bottle of sparkling water, please.", hint:"frizzante → sparkling."},
+      {q:"Non hai capito il cameriere: \"Could you ____ that, please?\"  (ripetere)", answers:["repeat"], full:"Could you repeat that, please?", hint:"ripetere → repeat."},
+    ],
+  ];
+  let wLevel=0,writeDone=[];
+  function norm(s){return s.trim().toLowerCase().replace(/…/g,"...").replace(/\.\.\./g," ").replace(/\s+/g," ");}
+  function setWriteLevel(lvl){
+    wLevel=lvl;const data=writeLevels[lvl];
+    writeDone=new Array(data.length).fill(false);
+    document.getElementById("write-level").innerHTML=levelBar(lvl);
+    document.getElementById("write-prog").textContent=`Completate 0 di ${data.length}`;
+    document.getElementById("write-list").innerHTML=data.map((it,i)=>`
+      <div class="ex"><div class="qnum">Frase ${i+1}</div><div class="qtext">${it.q}</div>
+      <input class="write-input" id="wi${i}" type="text" autocomplete="off" placeholder="scrivi qui…">
+      <button class="checkbtn" onclick="checkWrite(${i})">Controlla</button>
+      <div class="feedback" id="wfb${i}"></div></div>`).join("");
+  }
+  function checkWrite(i){
+    const it=writeLevels[wLevel][i],inp=document.getElementById("wi"+i),fb=document.getElementById("wfb"+i);
+    const ok=it.answers.some(a=>norm(a)===norm(inp.value));
+    if(ok){
+      inp.classList.add("okbox");inp.classList.remove("nobox");
+      fb.innerHTML="✅ Perfetto! "+it.full;fb.className="feedback ok";say(it.full);
+    } else {
+      inp.classList.add("nobox");
+      fb.innerHTML=`💛 Quasi! ${it.hint}<br>La risposta è: <b>${it.full}</b> <button class="saybtn" onclick="event.stopPropagation();say('${escQ(it.full)}')">🔊</button>`;
+      fb.className="feedback no";
+    }
+    if(!writeDone[i]){writeDone[i]=true;updateWrite();}
+  }
+  function updateWrite(){
+    const data=writeLevels[wLevel],pr=document.getElementById("write-prog");
+    const done=writeDone.filter(Boolean).length;
+    if(done<data.length){pr.textContent=`Completate ${done} di ${data.length}`;return;}
+    let correct=0;
+    data.forEach((it,i)=>{if(document.getElementById("wi"+i).classList.contains("okbox"))correct++;});
+    levelResult(pr,correct,data.length,wLevel,4,"setWriteLevel");
+  }
+
+  /* ============ SEZIONE 3 — LETTURA ============ */
+  const readLevels=[
+    { // L1 — Hotel
+      lines:["Anna arrives at the Sea View Hotel in the evening.","\"Good evening. I have a reservation,\" she says at the reception.","The receptionist gives her the key to a double room on the second floor.","\"Breakfast is from seven to ten,\" he explains with a smile.","Anna is happy: her room has a beautiful view of the sea!"],
+      q:[
+        {q:"What does Anna have at the hotel? 🏨",opts:["A reservation","A flight","A menu"],correct:0,full:"She has a reservation."},
+        {q:"Where is her room? 🛗",opts:["On the second floor","On the tenth floor","At the airport"],correct:0,full:"Her room is on the second floor."},
+        {q:"What time does breakfast start? 🍳",opts:["At seven","At ten","At noon"],correct:0,full:"Breakfast is from seven to ten."},
+      ]
+    },
+    { // L2 — Aeroporto
+      lines:["Tom is at the airport for his flight to London.","First, he goes to the check-in desk and shows his passport.","\"Your gate is number twelve,\" the woman tells him.","But there is a problem: the flight is delayed by one hour.","Tom buys a coffee and waits with his suitcase."],
+      q:[
+        {q:"What does Tom show at check-in? 🛂",opts:["His passport","His suitcase","His coffee"],correct:0,full:"He shows his passport."},
+        {q:"Which gate is his flight? 🚪",opts:["Number twelve","Number two","Number twenty"],correct:0,full:"His gate is number twelve."},
+        {q:"What is the problem? ⏰",opts:["The flight is delayed","The gate is closed","He lost his passport"],correct:0,full:"The flight is delayed by one hour."},
+      ]
+    },
+    { // L3 — Indicazioni
+      lines:["A tourist stops Marco in the street.","\"Excuse me, how do I get to the museum?\" she asks.","\"Go straight on and turn left at the traffic lights,\" Marco answers.","\"The museum is next to the big bank. It's not far.\"","\"Thank you very much!\" says the tourist, and she walks away happy."],
+      q:[
+        {q:"What is the tourist looking for? 🗺️",opts:["The museum","The hotel","The airport"],correct:0,full:"She is looking for the museum."},
+        {q:"Where does she turn left? 🚦",opts:["At the traffic lights","At the hotel","At the station"],correct:0,full:"She turns left at the traffic lights."},
+        {q:"Where is the museum? 🏛️",opts:["Next to the big bank","Far away","Opposite the sea"],correct:0,full:"It's next to the big bank."},
+      ]
+    },
+    { // L4 — Ristorante (Sfida)
+      lines:["In the evening, Sara and her friend go to an Italian restaurant.","\"I'd like to book a table for two,\" Sara says to the waiter.","They sit down and the waiter brings them the menu.","\"I'll have the pizza and a bottle of sparkling water, please,\" says Sara.","Her friend chooses pasta and, for dessert, some ice cream.","At the end, Sara asks: \"Can I have the bill, please?\""],
+      q:[
+        {q:"How many people is the table for? 🍽️",opts:["Two","Five","Ten"],correct:0,full:"A table for two."},
+        {q:"What does Sara order to drink? 💧",opts:["Sparkling water","Still water","Coffee"],correct:0,full:"She orders sparkling water."},
+        {q:"What does Sara ask for at the end? 🧾",opts:["The bill","The key","The gate"],correct:0,full:"Can I have the bill, please?"},
+      ]
+    },
+  ];
+  let rLevel=0,readDone=[],readingText="",readCorrect=[];
+  function sayReading(){say(readingText);}
+  function setReadLevel(lvl,noScroll){
+    rLevel=lvl;const data=readLevels[lvl];
+    readingText=data.lines.join(" ");
+    readDone=new Array(data.q.length).fill(false);
+    document.getElementById("read-level").innerHTML=levelBar(lvl);
+    document.getElementById("reading-text").innerHTML=data.lines.map(l=>`<p>${l}</p>`).join("");
+    document.getElementById("read-prog").textContent=`Risposte 0 di ${data.q.length}`;
+    readCorrect=[];
+    document.getElementById("read-list").innerHTML=data.q.map((it,i)=>{
+      const order=shuffle(it.opts.map((o,k)=>k)),shown=order.map(k=>it.opts[k]);
+      readCorrect[i]=order.indexOf(it.correct);
+      return `<div class="ex"><div class="qnum">Domanda ${i+1}</div><div class="qtext">${it.q}</div>
+        <div class="options">${shown.map((o,j)=>`<button class="opt" onclick="readAns(${i},${j})">${o}</button>`).join("")}</div>
+        <div class="feedback" id="rfb${i}"></div></div>`;
+    }).join("");
+    if(!noScroll){const card=document.getElementById("read-card");if(card)card.scrollIntoView({behavior:"smooth",block:"start"});}
+  }
+  function readAns(i,j){
+    const it=readLevels[rLevel].q[i];
+    const opts=document.querySelectorAll("#read-list .ex:nth-child("+(i+1)+") .opt");
+    const fb=document.getElementById("rfb"+i);
+    if(j===readCorrect[i]){
+      opts[j].classList.add("correct");
+      fb.innerHTML="✅ Giusto! "+it.full+` <button class="saybtn" onclick="event.stopPropagation();say('${escQ(it.full)}')">🔊</button>`;
+      fb.className="feedback ok";opts.forEach(o=>o.disabled=true);
+      if(!readDone[i]){readDone[i]=true;updateRead();}
+    } else {
+      opts[j].classList.add("wrong");fb.textContent="Rileggi il testo e riprova 🙂";fb.className="feedback no";
+    }
+  }
+  function updateRead(){
+    const data=readLevels[rLevel],pr=document.getElementById("read-prog");
+    const done=readDone.filter(Boolean).length;
+    if(done<data.q.length){pr.textContent=`Risposte ${done} di ${data.q.length}`;return;}
+    levelResult(pr,data.q.length,data.q.length,rLevel,2,"setReadLevel");
+  }
+
+  /* ============ SEZIONE 4 — LESSICO ============ */
+  const matchLevels=[
+    [ // L1 — Hotel
+      {en:"reservation",it:"prenotazione 📝"},{en:"reception",it:"la reception 🛎️"},
+      {en:"double room",it:"camera doppia 🛏️"},{en:"key",it:"chiave 🔑"},
+      {en:"breakfast",it:"colazione 🍳"},{en:"floor",it:"piano 🏢"},
+      {en:"lift",it:"ascensore 🛗"},{en:"towel",it:"asciugamano 🧖"},
+    ],
+    [ // L2 — Aeroporto
+      {en:"passport",it:"passaporto 🛂"},{en:"boarding pass",it:"carta d'imbarco 🎫"},
+      {en:"luggage",it:"bagaglio 🧳"},{en:"suitcase",it:"valigia 🧳"},
+      {en:"gate",it:"uscita d'imbarco 🚪"},{en:"flight",it:"volo ✈️"},
+      {en:"delayed",it:"in ritardo ⏰"},{en:"check-in desk",it:"banco accettazione 🛄"},
+    ],
+    [ // L3 — Indicazioni
+      {en:"go straight on",it:"vai dritto ⬆️"},{en:"turn left",it:"gira a sinistra ⬅️"},
+      {en:"turn right",it:"gira a destra ➡️"},{en:"next to",it:"accanto a ↔️"},
+      {en:"opposite",it:"di fronte a 🔄"},{en:"near / far",it:"vicino / lontano 📍"},
+      {en:"corner",it:"angolo 📐"},{en:"traffic lights",it:"semaforo 🚦"},
+    ],
+    [ // L4 — Ristorante
+      {en:"to book a table",it:"prenotare un tavolo 🍽️"},{en:"menu",it:"il menù 📋"},
+      {en:"waiter",it:"cameriere 🧑‍🍳"},{en:"starter",it:"antipasto 🥗"},
+      {en:"main course",it:"piatto principale 🍝"},{en:"dessert",it:"dolce 🍰"},
+      {en:"bill",it:"il conto 🧾"},{en:"sparkling water",it:"acqua frizzante 💧"},
+    ],
+  ];
+  let mLevel=0,selEn=null,matched=0,firstTry=0,spoiled;
+  function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+  function setMatchLevel(lvl){
+    mLevel=lvl;selEn=null;matched=0;firstTry=0;spoiled=new Set();
+    const pairs=matchLevels[lvl];
+    document.getElementById("match-level").innerHTML=levelBar(lvl);
+    const left=pairs.map((p,i)=>`<button class="match-btn" id="en${i}" onclick="pickEn(${i})">
+      <span>${p.en}</span><span class="saybtn" onclick="event.stopPropagation();say('${escQ(p.en)}')">🔊</span></button>`).join("");
+    const order=shuffle(pairs.map((p,i)=>i));
+    const right=order.map(i=>`<button class="match-btn" id="it${i}" onclick="pickIt(${i})">${pairs[i].it}</button>`).join("");
+    document.getElementById("match-grid").innerHTML=`<div class="match-col">${left}</div><div class="match-col">${right}</div>`;
+    document.getElementById("match-prog").textContent=`Coppie collegate: 0 di ${pairs.length}`;
+  }
+  function pickEn(i){
+    const btn=document.getElementById("en"+i);if(btn.classList.contains("done"))return;
+    document.querySelectorAll(".match-btn.sel").forEach(b=>b.classList.remove("sel"));
+    selEn=i;btn.classList.add("sel");
+  }
+  function pickIt(i){
+    if(selEn===null)return;
+    const itBtn=document.getElementById("it"+i),enBtn=document.getElementById("en"+selEn);
+    if(itBtn.classList.contains("done"))return;
+    const pairs=matchLevels[mLevel];
+    if(selEn===i){
+      enBtn.classList.remove("sel");enBtn.classList.add("done");itBtn.classList.add("done");
+      say(pairs[i].en);if(!spoiled.has(selEn))firstTry++;selEn=null;matched++;
+      const pr=document.getElementById("match-prog");
+      if(matched>=pairs.length){levelResult(pr,firstTry,pairs.length,mLevel,5,"setMatchLevel");}
+      else pr.textContent=`Coppie collegate: ${matched} di ${pairs.length}`;
+    } else {
+      spoiled.add(selEn);itBtn.classList.add("flash");
+      setTimeout(()=>itBtn.classList.remove("flash"),500);
+      enBtn.classList.remove("sel");selEn=null;
+    }
+  }
+
+  setListenLevel(0);setWriteLevel(0);setReadLevel(0,true);setMatchLevel(0);
+</script>
+<script>
+  if('serviceWorker' in navigator) navigator.serviceWorker.register('./service-worker.js');
+</script>
+</body>
+</html>

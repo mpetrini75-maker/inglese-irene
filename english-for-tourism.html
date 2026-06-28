@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inglese - English for Tourism</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#FAF6EE">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Inglese di Irene">
+<style>
+  :root{
+    --bg:#FAF6EE;
+    --card:#FFFFFF;
+    --ink:#2F2A24;
+    --accent:#C96F35;
+    --accent-soft:#F5E6D8;
+    --green:#3E8E5A;
+    --green-soft:#E2F0E6;
+    --red:#C2492F;
+    --red-soft:#F6E1DB;
+    --blue:#3B6EA5;
+    --blue-soft:#E2ECF5;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:"Trebuchet MS","Comic Sans MS",Verdana,sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.7;letter-spacing:0.3px;padding:24px 14px 60px;}
+  .wrap{max-width:620px;margin:0 auto;}
+  .backbtn{display:inline-block;background:var(--accent-soft);color:var(--accent);
+    text-decoration:none;border-radius:12px;padding:8px 16px;font-size:0.98rem;font-weight:bold;margin-bottom:14px;}
+  h1{color:var(--accent);font-size:1.7rem;text-align:center;margin:0 0 6px;}
+  .sub{text-align:center;color:#8a7f70;margin:0 0 26px;font-size:1rem;}
+  .card{background:var(--card);border-radius:18px;padding:22px 20px;margin-bottom:22px;
+    box-shadow:0 4px 14px rgba(0,0,0,0.06);border:1px solid #efe7da;}
+  .card h2{margin:0 0 14px;font-size:1.25rem;color:var(--accent);display:flex;align-items:center;gap:8px;}
+  table{width:100%;border-collapse:collapse;margin:6px 0;}
+  td,th{padding:10px;text-align:left;border-bottom:2px solid var(--accent-soft);font-size:1.02rem;}
+  th{color:var(--accent);}
+  td.c,th.c{text-align:center;}
+  .saybtn{background:var(--blue-soft);color:var(--blue);border:none;border-radius:10px;
+    padding:6px 12px;font-size:0.95rem;cursor:pointer;font-family:inherit;}
+  .ex{margin:18px 0;}
+  .qnum{font-weight:bold;color:var(--accent);}
+  .qtext{font-size:1.15rem;margin:6px 0 12px;}
+  .options{display:flex;gap:10px;flex-wrap:wrap;}
+  .opt{flex:1;min-width:80px;background:var(--bg);border:2px solid var(--accent-soft);
+    border-radius:12px;padding:14px;font-size:1.05rem;cursor:pointer;
+    text-align:center;font-family:inherit;color:var(--ink);transition:all .15s;}
+  .opt:hover{border-color:var(--accent);}
+  .opt.correct{background:var(--green-soft);border-color:var(--green);color:var(--green);font-weight:bold;}
+  .opt.wrong{background:var(--red-soft);border-color:var(--red);color:var(--red);}
+  .feedback{margin-top:12px;font-size:1.05rem;font-weight:bold;min-height:26px;}
+  .feedback.ok{color:var(--green);}
+  .feedback.no{color:var(--red);}
+  .progress{text-align:center;font-size:1.1rem;margin:10px 0 0;color:#8a7f70;}
+  .star{font-size:1.4rem;}
+  .restart{display:block;margin:20px auto 0;background:var(--accent);color:#fff;border:none;
+    border-radius:12px;padding:12px 24px;font-size:1.05rem;cursor:pointer;font-family:inherit;}
+  .tip{border-radius:10px;padding:10px 14px;font-size:0.98rem;margin-top:10px;}
+  .tip.orange{background:var(--accent-soft);color:var(--accent);}
+  .tip.green{background:var(--green-soft);color:#2a6040;}
+  .tip.blue{background:var(--blue-soft);color:var(--blue);}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0;}
+  .mini-card{border-radius:12px;padding:14px;font-size:0.96rem;}
+  .mini-card.a{background:var(--blue-soft);}
+  .mini-card.b{background:var(--accent-soft);}
+  .mini-card.c{background:var(--green-soft);}
+  .mini-card.d{background:var(--red-soft);}
+  .mini-card h3{margin:0 0 4px;font-size:1rem;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="backbtn" href="index.html">← Indice</a>
+  <h1>🧳 English for Tourism</h1>
+  <p class="sub">l'inglese per <b>viaggiare</b> — aeroporto, hotel, indicazioni e ristorante ✈️🏨🗺️🍽️</p>
+
+  <!-- LE 4 TAPPE -->
+  <div class="card">
+    <h2>💡 Le 4 tappe del viaggio</h2>
+    <p style="margin:0 0 10px;color:#8a7f70;">Quando viaggi all'estero ti servono poche frasi, ma quelle giuste. Le impariamo seguendo le 4 situazioni di un viaggio.</p>
+    <div class="two-col">
+      <div class="mini-card a">
+        <h3>✈️ Airport</h3>
+        in aeroporto e in viaggio<br>
+        <i>Where is the gate?</i>
+      </div>
+      <div class="mini-card b">
+        <h3>🏨 Hotel</h3>
+        check-in e camera<br>
+        <i>I have a reservation.</i>
+      </div>
+      <div class="mini-card c">
+        <h3>🗺️ Directions</h3>
+        chiedere la strada<br>
+        <i>How do I get to…?</i>
+      </div>
+      <div class="mini-card d">
+        <h3>🍽️ Restaurant</h3>
+        al ristorante<br>
+        <i>Can I have the bill?</i>
+      </div>
+    </div>
+    <div class="tip orange">🎒 <b>Trucco:</b> quasi tutte le richieste gentili iniziano con <b>"Excuse me…"</b> (Scusi…) o <b>"Can I have…?"</b> / <b>"I'd like…"</b> (Vorrei…). Con queste tre vai ovunque!</div>
+  </div>
+
+  <!-- AEROPORTO -->
+  <div class="card">
+    <h2>✈️ All'aeroporto / in viaggio</h2>
+    <table>
+      <tr><th>Inglese</th><th>Italiano</th><th class="c">🔊</th></tr>
+      <tr><td><b>passport</b></td><td>passaporto</td><td class="c"><button class="saybtn" onclick="say('passport')">🔊</button></td></tr>
+      <tr><td><b>boarding pass</b></td><td>carta d'imbarco</td><td class="c"><button class="saybtn" onclick="say('boarding pass')">🔊</button></td></tr>
+      <tr><td><b>luggage / suitcase</b></td><td>bagaglio / valigia</td><td class="c"><button class="saybtn" onclick="say('luggage, suitcase')">🔊</button></td></tr>
+      <tr><td><b>gate</b></td><td>uscita d'imbarco</td><td class="c"><button class="saybtn" onclick="say('gate')">🔊</button></td></tr>
+      <tr><td><b>flight</b></td><td>volo</td><td class="c"><button class="saybtn" onclick="say('flight')">🔊</button></td></tr>
+      <tr><td><b>delay / delayed</b></td><td>ritardo / in ritardo</td><td class="c"><button class="saybtn" onclick="say('delay, delayed')">🔊</button></td></tr>
+    </table>
+    <table style="margin-top:14px;">
+      <tr><th>Frase utile</th><th class="c">🔊</th></tr>
+      <tr><td><i>Where is the <b>check-in desk</b>?</i><br><span style="color:#8a7f70;font-size:0.92rem;">Dov'è il banco del check-in?</span></td><td class="c"><button class="saybtn" onclick="say('Where is the check-in desk?')">🔊</button></td></tr>
+      <tr><td><i>What time does the <b>flight leave</b>?</i><br><span style="color:#8a7f70;font-size:0.92rem;">A che ora parte il volo?</span></td><td class="c"><button class="saybtn" onclick="say('What time does the flight leave?')">🔊</button></td></tr>
+      <tr><td><i>Here is my <b>passport</b>.</i><br><span style="color:#8a7f70;font-size:0.92rem;">Ecco il mio passaporto.</span></td><td class="c"><button class="saybtn" onclick="say('Here is my passport.')">🔊</button></td></tr>
+    </table>
+    <div class="tip blue">💡 <b>boarding</b> = imbarco. Quando senti <i>"Boarding now"</i> all'aeroporto, vuol dire che puoi salire sull'aereo. 🛫</div>
+  </div>
+
+  <!-- HOTEL -->
+  <div class="card">
+    <h2>🏨 All'hotel</h2>
+    <table>
+      <tr><th>Inglese</th><th>Italiano</th><th class="c">🔊</th></tr>
+      <tr><td><b>reception</b></td><td>la reception</td><td class="c"><button class="saybtn" onclick="say('reception')">🔊</button></td></tr>
+      <tr><td><b>reservation / booking</b></td><td>prenotazione</td><td class="c"><button class="saybtn" onclick="say('reservation, booking')">🔊</button></td></tr>
+      <tr><td><b>single / double room</b></td><td>camera singola / doppia</td><td class="c"><button class="saybtn" onclick="say('single room, double room')">🔊</button></td></tr>
+      <tr><td><b>key</b></td><td>chiave</td><td class="c"><button class="saybtn" onclick="say('key')">🔊</button></td></tr>
+      <tr><td><b>breakfast</b></td><td>colazione</td><td class="c"><button class="saybtn" onclick="say('breakfast')">🔊</button></td></tr>
+      <tr><td><b>floor / lift</b></td><td>piano / ascensore</td><td class="c"><button class="saybtn" onclick="say('floor, lift')">🔊</button></td></tr>
+    </table>
+    <table style="margin-top:14px;">
+      <tr><th>Frase utile</th><th class="c">🔊</th></tr>
+      <tr><td><i>I have a <b>reservation</b>.</i><br><span style="color:#8a7f70;font-size:0.92rem;">Ho una prenotazione.</span></td><td class="c"><button class="saybtn" onclick="say('I have a reservation.')">🔊</button></td></tr>
+      <tr><td><i>I'd like a <b>double room</b>, please.</i><br><span style="color:#8a7f70;font-size:0.92rem;">Vorrei una camera doppia, per favore.</span></td><td class="c"><button class="saybtn" onclick="say('I would like a double room, please.')">🔊</button></td></tr>
+      <tr><td><i>What time is <b>breakfast</b>?</i><br><span style="color:#8a7f70;font-size:0.92rem;">A che ora è la colazione?</span></td><td class="c"><button class="saybtn" onclick="say('What time is breakfast?')">🔊</button></td></tr>
+    </table>
+    <div class="tip green">💡 <b>I'd like…</b> è la forma gentile di <i>I want</i> (voglio). Usa sempre <b>I'd like</b> + <b>please</b> per chiedere qualcosa con educazione. 🙏</div>
+  </div>
+
+  <!-- INDICAZIONI -->
+  <div class="card">
+    <h2>🗺️ Chiedere indicazioni</h2>
+    <table>
+      <tr><th>Inglese</th><th>Italiano</th><th class="c">🔊</th></tr>
+      <tr><td><b>go straight on</b></td><td>vai dritto</td><td class="c"><button class="saybtn" onclick="say('go straight on')">🔊</button></td></tr>
+      <tr><td><b>turn left / right</b></td><td>gira a sinistra / destra</td><td class="c"><button class="saybtn" onclick="say('turn left, turn right')">🔊</button></td></tr>
+      <tr><td><b>next to / opposite</b></td><td>accanto a / di fronte a</td><td class="c"><button class="saybtn" onclick="say('next to, opposite')">🔊</button></td></tr>
+      <tr><td><b>near / far</b></td><td>vicino / lontano</td><td class="c"><button class="saybtn" onclick="say('near, far')">🔊</button></td></tr>
+      <tr><td><b>corner</b></td><td>angolo</td><td class="c"><button class="saybtn" onclick="say('corner')">🔊</button></td></tr>
+      <tr><td><b>traffic lights</b></td><td>semaforo</td><td class="c"><button class="saybtn" onclick="say('traffic lights')">🔊</button></td></tr>
+    </table>
+    <table style="margin-top:14px;">
+      <tr><th>Frase utile</th><th class="c">🔊</th></tr>
+      <tr><td><i><b>Excuse me</b>, where is the station?</i><br><span style="color:#8a7f70;font-size:0.92rem;">Scusi, dov'è la stazione?</span></td><td class="c"><button class="saybtn" onclick="say('Excuse me, where is the station?')">🔊</button></td></tr>
+      <tr><td><i>How do I <b>get to</b> the museum?</i><br><span style="color:#8a7f70;font-size:0.92rem;">Come arrivo al museo?</span></td><td class="c"><button class="saybtn" onclick="say('How do I get to the museum?')">🔊</button></td></tr>
+      <tr><td><i>It's <b>next to</b> the bank.</i><br><span style="color:#8a7f70;font-size:0.92rem;">È accanto alla banca.</span></td><td class="c"><button class="saybtn" onclick="say('It is next to the bank.')">🔊</button></td></tr>
+    </table>
+    <div class="tip orange">🧭 <b>get to</b> = arrivare a un posto. <i>How do I get to…?</i> è il modo più usato per chiedere la strada. Più semplice di <i>Where is…?</i> quando il posto è lontano.</div>
+  </div>
+
+  <!-- RISTORANTE -->
+  <div class="card">
+    <h2>🍽️ Al ristorante</h2>
+    <table>
+      <tr><th>Inglese</th><th>Italiano</th><th class="c">🔊</th></tr>
+      <tr><td><b>menu</b></td><td>il menù</td><td class="c"><button class="saybtn" onclick="say('menu')">🔊</button></td></tr>
+      <tr><td><b>to book a table</b></td><td>prenotare un tavolo</td><td class="c"><button class="saybtn" onclick="say('to book a table')">🔊</button></td></tr>
+      <tr><td><b>starter / main course</b></td><td>antipasto / piatto principale</td><td class="c"><button class="saybtn" onclick="say('starter, main course')">🔊</button></td></tr>
+      <tr><td><b>dessert</b></td><td>dolce</td><td class="c"><button class="saybtn" onclick="say('dessert')">🔊</button></td></tr>
+      <tr><td><b>bill</b></td><td>il conto</td><td class="c"><button class="saybtn" onclick="say('bill')">🔊</button></td></tr>
+      <tr><td><b>still / sparkling water</b></td><td>acqua naturale / frizzante</td><td class="c"><button class="saybtn" onclick="say('still water, sparkling water')">🔊</button></td></tr>
+    </table>
+    <table style="margin-top:14px;">
+      <tr><th>Frase utile</th><th class="c">🔊</th></tr>
+      <tr><td><i>I'd like to <b>book a table</b> for two.</i><br><span style="color:#8a7f70;font-size:0.92rem;">Vorrei prenotare un tavolo per due.</span></td><td class="c"><button class="saybtn" onclick="say('I would like to book a table for two.')">🔊</button></td></tr>
+      <tr><td><i>Can I see the <b>menu</b>, please?</i><br><span style="color:#8a7f70;font-size:0.92rem;">Posso vedere il menù, per favore?</span></td><td class="c"><button class="saybtn" onclick="say('Can I see the menu, please?')">🔊</button></td></tr>
+      <tr><td><i>Can I have the <b>bill</b>, please?</i><br><span style="color:#8a7f70;font-size:0.92rem;">Posso avere il conto, per favore?</span></td><td class="c"><button class="saybtn" onclick="say('Can I have the bill, please?')">🔊</button></td></tr>
+    </table>
+    <div class="tip blue">💡 Per ordinare puoi dire <b>I'll have…</b> (Prendo…): <i>I'll have a pizza, please.</i> Semplice e perfetto al ristorante! 🍕</div>
+  </div>
+
+  <!-- FRASI DI SOPRAVVIVENZA -->
+  <div class="card">
+    <h2>🗣️ Le 6 frasi salva-viaggio</h2>
+    <p style="margin-top:0;color:#8a7f70;">Se ti ricordi solo queste, te la cavi in qualsiasi situazione. Ascoltale!</p>
+    <table>
+      <tr><th>Inglese</th><th>Italiano</th><th class="c">🔊</th></tr>
+      <tr><td><b>Excuse me…</b></td><td>Scusi… (per chiedere)</td><td class="c"><button class="saybtn" onclick="say('Excuse me')">🔊</button></td></tr>
+      <tr><td><b>How much is it?</b></td><td>Quanto costa?</td><td class="c"><button class="saybtn" onclick="say('How much is it?')">🔊</button></td></tr>
+      <tr><td><b>Can you help me, please?</b></td><td>Mi può aiutare, per favore?</td><td class="c"><button class="saybtn" onclick="say('Can you help me, please?')">🔊</button></td></tr>
+      <tr><td><b>I don't understand.</b></td><td>Non capisco.</td><td class="c"><button class="saybtn" onclick="say('I do not understand.')">🔊</button></td></tr>
+      <tr><td><b>Could you repeat that, please?</b></td><td>Può ripetere, per favore?</td><td class="c"><button class="saybtn" onclick="say('Could you repeat that, please?')">🔊</button></td></tr>
+      <tr><td><b>Thank you very much!</b></td><td>Grazie mille!</td><td class="c"><button class="saybtn" onclick="say('Thank you very much!')">🔊</button></td></tr>
+    </table>
+  </div>
+
+  <!-- QUIZ -->
+  <div class="card">
+    <h2>✅ Prova tu!</h2>
+    <p style="margin-top:0;color:#8a7f70;">Scegli la risposta giusta. Se sbagli, riprova: nessuna fretta! 🙂</p>
+    <div id="quiz"></div>
+    <div class="progress" id="progress"></div>
+    <button class="restart" id="restartBtn" style="display:none;" onclick="startQuiz()">🔄 Ricomincia</button>
+  </div>
+
+  <!-- CTA -->
+  <div class="card" style="text-align:center;">
+    <h2 style="justify-content:center;">🎧 Pronta ad allenarti?</h2>
+    <p style="margin:0 0 18px;color:#8a7f70;">Hai studiato il lessico del viaggio: ora mettiti alla prova con gli esercizi di ascolto, scrittura, lettura e lessico! 💪</p>
+    <a class="restart" href="english-for-tourism-allenamento.html" style="text-decoration:none;display:inline-block;font-size:1.25rem;padding:16px 34px;">Allenati! →</a>
+  </div>
+</div>
+
+<script>
+  function say(text){
+    try{
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = "en-US"; u.rate = 0.85;
+      speechSynthesis.cancel(); speechSynthesis.speak(u);
+    }catch(e){}
+  }
+
+  const questions = [
+    {q:"All'aeroporto, dove vai per fare il check-in? Chiedi: \"Where is the ____ ?\"", opts:["check-in desk","menu","key"], correct:0, full:"Where is the check-in desk?"},
+    {q:"In hotel arrivi e dici: \"I have a ____ .\" (prenotazione)", opts:["reservation","corner","starter"], correct:0, full:"I have a reservation."},
+    {q:"Per chiedere gentilmente una camera: \"____ a double room, please.\"", opts:["I'd like","Give me","I want"], correct:0, full:"I'd like a double room, please."},
+    {q:"Per strada chiedi come arrivare al museo: \"How do I ____ the museum?\"", opts:["get to","turn left","book"], correct:0, full:"How do I get to the museum?"},
+    {q:"Ti dicono dov'è la banca: \"Go straight on and ____ left.\"", opts:["turn","near","gate"], correct:0, full:"Go straight on and turn left."},
+    {q:"A fine cena vuoi pagare. Dici: \"Can I have the ____ , please?\"", opts:["bill","key","flight"], correct:0, full:"Can I have the bill, please?"},
+    {q:"Vuoi prenotare al ristorante: \"I'd like to ____ a table for two.\"", opts:["book","drive","open"], correct:0, full:"I'd like to book a table for two."},
+    {q:"Non hai capito il prezzo. La frase giusta è:", opts:["Could you repeat that, please?","Go straight on.","Here is my passport."], correct:0, full:"Could you repeat that, please?"},
+  ];
+
+  let current = 0, score = 0;
+
+  function startQuiz(){
+    current = 0; score = 0;
+    document.getElementById("restartBtn").style.display = "none";
+    showQuestion();
+  }
+  function showQuestion(){
+    const quiz = document.getElementById("quiz");
+    const prog = document.getElementById("progress");
+    if(current >= questions.length){
+      quiz.innerHTML = "";
+      const pct = score/questions.length;
+      const n = pct===1?5:pct>=0.75?4:pct>=0.5?3:pct>=0.25?2:1;
+      const msg = pct===1 ? "Perfetto! Sei pronta a viaggiare in inglese! 🏆✈️" :
+                  pct>=0.5 ? "Bravissima, ci sei quasi! 💪" :
+                  "Bene, riprova: si impara ripetendo! 🌱";
+      prog.innerHTML = `<div class="star">${"⭐".repeat(n)}</div>${score}/${questions.length} giuste<br><b>${msg}</b>`;
+      document.getElementById("restartBtn").style.display = "block";
+      if(window.inviaAlert) inviaAlert('fine-lezione');
+      return;
+    }
+    const item = questions[current];
+    prog.textContent = `Domanda ${current+1} di ${questions.length}`;
+    quiz.innerHTML = `
+      <div class="ex">
+        <div class="qnum">Domanda ${current+1}</div>
+        <div class="qtext">${item.q}</div>
+        <div class="options">
+          ${item.opts.map((o,i)=>`<button class="opt" onclick="answer(${i})">${o}</button>`).join("")}
+        </div>
+        <div class="feedback" id="fb"></div>
+      </div>`;
+  }
+  function answer(i){
+    const item = questions[current];
+    const opts = document.querySelectorAll(".opt");
+    const fb = document.getElementById("fb");
+    if(i === item.correct){
+      opts[i].classList.add("correct");
+      fb.textContent = "✅ Giusto! " + item.full;
+      fb.className = "feedback ok";
+      score++; say(item.full);
+      opts.forEach(o=>o.disabled=true);
+      setTimeout(()=>{ current++; showQuestion(); }, 1600);
+    } else {
+      opts[i].classList.add("wrong");
+      fb.textContent = "Riprova! 🙂";
+      fb.className = "feedback no";
+    }
+  }
+  startQuiz();
+</script>
+<script>
+  if ('serviceWorker' in navigator) navigator.serviceWorker.register('./service-worker.js');
+</script>
+<script src="lightbox.js"></script>
+<script src="alert.js"></script>
+</body>
+</html>
