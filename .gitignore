@@ -1,2 +1,8 @@
 # Configurazione locale di Claude Code (non va condivisa in git)
 .claude/
+
+# Verifiche stampabili con soluzioni: SOLO LOCALE, non devono finire online
+verifiche/
+
+# Materiale di Ricky, non fa parte dell'app
+examen-biologia-ricky/
