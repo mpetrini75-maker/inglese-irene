@@ -10,8 +10,8 @@
 <meta name="apple-mobile-web-app-title" content="Interrogazione">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="manifest" href="manifest.json">
-<link rel="apple-touch-icon" href="icon-180.png">
-<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-512.png">
+<link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
 <style>
   html, body { height: 100%; }
   body { overscroll-behavior: none; }
@@ -142,7 +142,8 @@
           ➤
         </button>
       </form>
-      <p class="text-center text-[10px] text-slate-400 mt-1.5">Voto di allenamento, non ufficiale · Powered by Claude · v1</p>
+      <p id="micHint" class="hidden text-center text-[11px] text-teal-700 mt-1">📱 Su iPhone: tocca la risposta e usa il 🎤 della tastiera per dettare a voce.</p>
+      <p class="text-center text-[10px] text-slate-400 mt-1.5">Voto di allenamento, non ufficiale · Powered by Claude · v2</p>
     </footer>
   </main>
 </div>
@@ -656,6 +657,16 @@ if (SpeechRecognition) {
     if (abort && recognition) { try { recognition.abort(); } catch (_) {} }
   }
   micBtn.onclick = () => { micActive ? stopMic() : startMic(); };
+}
+
+// iOS: la Web Speech API è inaffidabile (il microfono si apre ma non trascrive).
+// Nascondi il pulsante e guida alla dettatura della tastiera, che su iPhone funziona.
+const isIOS = /iP(hone|ad|od)/.test(navigator.userAgent) ||
+              (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+if (isIOS) {
+  micBtn.classList.add("hidden");
+  const h = document.getElementById("micHint");
+  if (h) h.classList.remove("hidden");
 }
 
 /* ================= FLUSSO INTERROGAZIONE ================= */
