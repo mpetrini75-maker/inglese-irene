@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Interrogazione — Ripasso orale di Irene</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<meta name="theme-color" content="#0f766e">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Interrogazione">
+<style>
+  html, body { height: 100%; }
+  body { overscroll-behavior: none; }
+  .bubble-prof  { border-radius: 1.25rem 1.25rem 1.25rem 0.25rem; }
+  .bubble-irene { border-radius: 1.25rem 1.25rem 0.25rem 1.25rem; }
+  .avatar { display:flex; align-items:center; justify-content:center; background:#ccfbf1; }
+  .typing-dot { animation: blink 1.2s infinite both; }
+  .typing-dot:nth-child(2) { animation-delay: .2s; }
+  .typing-dot:nth-child(3) { animation-delay: .4s; }
+  @keyframes blink { 0%,80%,100%{opacity:.25} 40%{opacity:1} }
+  #micBtn.recording { background:#ef4444!important; color:#fff!important; animation: pulse-mic 1s infinite; }
+  @keyframes pulse-mic { 0%,100%{opacity:1} 50%{opacity:.55} }
+</style>
+</head>
+<body class="bg-slate-100 font-sans">
+
+<div class="flex h-full">
+
+  <!-- ======== SIDEBAR ======== -->
+  <aside id="sidebar"
+         class="fixed inset-y-0 left-0 z-40 w-80 max-w-[85vw] bg-white border-r border-slate-200 flex flex-col
+                transform -translate-x-full transition-transform duration-200 md:relative md:translate-x-0 md:flex-shrink-0">
+    <div class="p-4 border-b border-slate-200 flex items-center justify-between">
+      <div>
+        <h1 class="text-lg font-bold text-slate-800">🎓 Interrogazione</h1>
+        <p class="text-xs text-slate-500">Ripasso orale con Olivia</p>
+      </div>
+      <button id="closeSidebar" class="md:hidden text-slate-400 hover:text-slate-600 text-2xl leading-none px-2">×</button>
+    </div>
+
+    <div class="flex-1 overflow-y-auto p-4 space-y-6">
+
+      <!-- Materia -->
+      <div>
+        <label class="block text-sm font-semibold text-slate-700 mb-1.5">📚 Materia</label>
+        <select id="materiaSelect" class="w-full rounded-lg border border-slate-300 bg-white p-2.5 text-sm focus:ring-2 focus:ring-teal-400 focus:outline-none">
+          <option value="fisica">🔬 Fisica</option>
+          <option value="matematica">🔢 Matematica</option>
+          <option value="inglese">🇬🇧 Inglese</option>
+        </select>
+      </div>
+
+      <!-- Argomento (mattoncino) -->
+      <div>
+        <label class="block text-sm font-semibold text-slate-700 mb-1.5">📌 Argomento (mattoncino)</label>
+        <select id="topicSelect" class="w-full rounded-lg border border-slate-300 bg-white p-2.5 text-sm focus:ring-2 focus:ring-teal-400 focus:outline-none">
+          <option value="">⌛ carico gli argomenti…</option>
+        </select>
+      </div>
+
+      <!-- Difficoltà -->
+      <div>
+        <label class="block text-sm font-semibold text-slate-700 mb-1.5">🎚️ Difficoltà</label>
+        <div class="grid grid-cols-2 gap-2">
+          <button data-level="facile"
+                  class="level-btn rounded-lg border p-2 text-sm font-medium transition border-teal-500 bg-teal-50 text-teal-700">
+            🌱 Ripasso
+          </button>
+          <button data-level="tosta"
+                  class="level-btn rounded-lg border p-2 text-sm font-medium transition border-slate-300 bg-white text-slate-600">
+            🔥 Sul serio
+          </button>
+        </div>
+      </div>
+
+      <!-- TTS -->
+      <div class="flex items-center justify-between">
+        <div>
+          <span class="text-sm font-semibold text-slate-700">🔊 Voce della prof</span>
+          <p class="text-xs text-slate-500">Legge le domande ad alta voce</p>
+        </div>
+        <button id="ttsToggle" role="switch" aria-checked="true"
+                class="relative inline-flex h-6 w-11 items-center rounded-full bg-teal-600 transition">
+          <span id="ttsKnob" class="inline-block h-5 w-5 transform rounded-full bg-white shadow transition translate-x-5"></span>
+        </button>
+      </div>
+
+      <!-- Voice picker -->
+      <div>
+        <label class="block text-sm font-semibold text-slate-700 mb-1.5">🎙️ Voce</label>
+        <select id="voicePicker" class="w-full rounded-lg border border-slate-300 bg-white p-2 text-xs focus:ring-2 focus:ring-teal-400 focus:outline-none">
+          <option value="">⭐ Automatica</option>
+        </select>
+        <button id="testVoiceBtn" class="mt-1.5 w-full rounded-lg border border-teal-300 text-teal-600 text-xs py-1.5 hover:bg-teal-50 transition">
+          ▶ Ascolta anteprima
+        </button>
+      </div>
+    </div>
+
+    <div class="p-4 border-t border-slate-200 space-y-2">
+      <button id="startBtn" class="w-full rounded-lg bg-teal-600 hover:bg-teal-700 text-white text-sm font-semibold py-2.5 transition">
+        🎤 Inizia interrogazione
+      </button>
+      <button id="apiKeyBtn" class="w-full rounded-lg border border-slate-300 hover:bg-slate-50 text-slate-600 text-xs font-medium py-2 transition">
+        🔑 Imposta chiave API
+      </button>
+      <a href="../index.html" class="block w-full text-center rounded-lg border border-slate-300 hover:bg-slate-50 text-slate-600 text-xs font-medium py-2 transition">
+        ← Indice
+      </a>
+    </div>
+  </aside>
+
+  <div id="sidebarBackdrop" class="fixed inset-0 z-30 bg-black/40 hidden md:hidden"></div>
+
+  <!-- ======== AREA CHAT ======== -->
+  <main class="flex-1 flex flex-col min-w-0">
+    <header class="bg-white border-b border-slate-200 px-4 py-3 flex items-center gap-3 shadow-sm">
+      <button id="openSidebar" class="md:hidden text-slate-500 text-2xl leading-none px-1">☰</button>
+      <div class="avatar h-10 w-10 rounded-full text-xl shadow flex-shrink-0">👩‍🏫</div>
+      <div class="min-w-0">
+        <h2 class="font-bold text-slate-800 leading-tight">Prof. Olivia</h2>
+        <p id="statusLine" class="text-xs text-teal-600">● pronta a interrogare</p>
+      </div>
+    </header>
+
+    <div id="chatBox" class="flex-1 overflow-y-auto px-4 py-5 space-y-4"></div>
+
+    <footer class="bg-white border-t border-slate-200 p-3">
+      <form id="chatForm" class="flex items-end gap-2 max-w-3xl mx-auto">
+        <textarea id="userInput" rows="1" placeholder="Rispondi qui… (o usa il microfono 🎤)"
+                  class="flex-1 resize-none rounded-2xl border border-slate-300 px-4 py-2.5 text-sm focus:ring-2 focus:ring-teal-400 focus:outline-none max-h-32"></textarea>
+        <button id="micBtn" type="button" title="Rispondi a voce"
+                class="rounded-full bg-slate-200 hover:bg-slate-300 text-slate-600 h-11 w-11 flex items-center justify-center text-xl shadow flex-shrink-0 hidden">
+          🎤
+        </button>
+        <button id="sendBtn" type="submit"
+                class="rounded-full bg-teal-600 hover:bg-teal-700 disabled:opacity-40 text-white h-11 w-11 flex items-center justify-center text-lg shadow transition flex-shrink-0">
+          ➤
+        </button>
+      </form>
+      <p class="text-center text-[10px] text-slate-400 mt-1.5">Voto di allenamento, non ufficiale · Powered by Claude · v1</p>
+    </footer>
+  </main>
+</div>
+
+<!-- ======== MODALE CHIAVE API ======== -->
+<div id="apiKeyModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50 p-4">
+  <div class="bg-white rounded-2xl shadow-xl w-full max-w-md p-6">
+    <h3 class="text-lg font-bold text-slate-800 mb-1">🔑 Chiave API Anthropic</h3>
+    <p class="text-sm text-slate-500 mb-4">
+      È la stessa chiave di Olivia. La trovi su
+      <a href="https://console.anthropic.com/settings/keys" target="_blank" class="text-teal-600 underline">console.anthropic.com</a>.
+      Resta salvata <strong>solo su questo dispositivo</strong>.
+    </p>
+    <input id="apiKeyInput" type="password" placeholder="sk-ant-…"
+           class="w-full rounded-lg border border-slate-300 p-2.5 text-sm mb-3 focus:ring-2 focus:ring-teal-400 focus:outline-none">
+    <div class="border-t border-slate-100 pt-3 mb-4">
+      <h4 class="text-sm font-semibold text-slate-700 mb-0.5">🎙️ ElevenLabs <span class="font-normal text-slate-400">(opzionale)</span></h4>
+      <p class="text-xs text-slate-400 mb-2">Voce naturale al posto di quella di sistema. Anche questa è la stessa di Olivia.</p>
+      <input id="elevenKeyInput" type="password" placeholder="sk_…"
+             class="w-full rounded-lg border border-slate-300 p-2.5 text-sm focus:ring-2 focus:ring-teal-400 focus:outline-none">
+    </div>
+    <div class="flex gap-2 justify-end">
+      <button id="apiKeyCancel" class="rounded-lg px-4 py-2 text-sm text-slate-500 hover:bg-slate-100">Annulla</button>
+      <button id="apiKeySave" class="rounded-lg bg-teal-600 hover:bg-teal-700 text-white px-4 py-2 text-sm font-semibold">Salva</button>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+import Anthropic from "https://esm.sh/@anthropic-ai/sdk";
+
+/* ================= STATO ================= */
+const MODEL = "claude-sonnet-4-6";
+// chiavi CONDIVISE con Olivia: Irene non deve reinserire nulla
+const LS_KEY = "alex_api_key";
+const LS_ELEVEN = "eleven_api_key";
+const LS_ELEVEN_VOICE = "eleven_voice_id";
+const LS_TTS = "interr_tts_on";
+const ELEVEN_DEFAULT_VOICE = "hpp4J3VqNfWAUOO0d1Us"; // Bella
+
+const MATERIE = { fisica: "Fisica", matematica: "Matematica", inglese: "Inglese" };
+// argomenti garantiti (fisica = priorità); per le altre materie li scopro dall'indice online
+const FALLBACK_TOPICS = {
+  fisica: [
+    { slug: "grandezze",  label: "Le grandezze fisiche" },
+    { slug: "strumenti",  label: "Gli strumenti della fisica" },
+    { slug: "movimenti",  label: "I movimenti" },
+    { slug: "forze",      label: "Le forze" },
+  ],
+  matematica: [],
+  inglese: [],
+};
+
+// errori ricorrenti da sondare (solo fisica)
+const ERRORI_FISICA = "ERRORI RICORRENTI DI IRENE (sondali se l'argomento li tocca, e nominali quando compaiono): " +
+  "errore assoluto = (max − min) ÷ 2 (spesso dimentica il ÷2); conversioni portate fino all'unità richiesta; " +
+  "notazione scientifica con esponente negativo per i numeri piccoli; etichette di unità corrette (kg/m³, non kg/cm³); " +
+  "segno NEGATIVO dell'accelerazione in frenata.";
+
+const state = {
+  materia: "fisica",
+  topic: "",
+  topicLabel: "",
+  level: "facile",
+  ttsOn: localStorage.getItem(LS_TTS) !== "0",
+  mattoncino: "",
+  history: [],
+  busy: false,
+};
+
+/* ================= CLIENT ================= */
+function getClient() {
+  const key = localStorage.getItem(LS_KEY);
+  if (!key) return null;
+  return new Anthropic({ apiKey: key, dangerouslyAllowBrowser: true });
+}
+
+/* ================= SYSTEM PROMPT ================= */
+function buildSystemPrompt() {
+  const errori = state.materia === "fisica" ? "\n- " + ERRORI_FISICA : "";
+  const liv = state.level === "facile"
+    ? "Fai domande semplici e dirette, un concetto per volta, con incoraggiamento extra."
+    : "Alza un po' l'asticella: chiedi anche il «perché» e qualche collegamento, non solo il «cosa».";
+  return `Sei "Olivia", una professoressa gentile ma seria che INTERROGA a voce Irene (2ª superiore, indirizzo tecnico) su un mattoncino di ${MATERIE[state.materia]}: «${state.topicLabel}».
+
+FONTE DI VERITÀ — il mattoncino su cui interroghi. Valuta SOLO in base a questo; non pretendere nozioni che qui non ci sono:
+"""
+${state.mattoncino}
+"""
+
+COME INTERROGHI:
+- UNA domanda per volta. Aspetta la risposta di Irene prima di proseguire. Mai raffiche di domande.
+- Dal generale al concreto: prima "spiegami con parole tue…", poi il dettaglio, poi un piccolo esercizio pratico.
+- In tutto 6–10 domande a copertura del mattoncino: una definizione, un "fammi un esempio tuo", una formula/equivalenza, un mini-calcolo, un vero/falso col perché.
+- Se la risposta è parziale, fai un follow-up ("bene, e l'unità di misura?") invece di bocciare.
+- Se è bloccata, dai un AIUTINO (un indizio), non la soluzione; se serve accompagnala al risultato spiegando.
+- Premia il metodo: ragionamento giusto ma conto sbagliato → riconoscilo e correggi solo il calcolo.${errori}
+- ${liv}
+
+TONO: caldo, incoraggiante, mai sarcastico. L'obiettivo è che Irene finisca più sicura di come ha iniziato. Battute BREVI (2–4 frasi): vengono lette ad alta voce.
+
+CHIUSURA: dopo 6–10 domande (o se Irene scrive "basta"/"finiamo"), chiudi con un referto. Inizia quel messaggio ESATTAMENTE con "REFERTO 📋:" e scrivi in modo caldo: (1) cosa ha fatto bene di concreto, (2) 2–3 cose da ripassare, (3) un VOTO ORIENTATIVO su 10 — di ALLENAMENTO, non ufficiale: dillo chiaramente — e una frase di incoraggiamento.
+
+Parla in italiano. Inizia SUBITO: presentati in una riga e fai la prima domanda.`;
+}
+
+/* ================= UI: ELEMENTI ================= */
+const $ = (id) => document.getElementById(id);
+const chatBox = $("chatBox"), userInput = $("userInput"), sendBtn = $("sendBtn");
+const statusLine = $("statusLine");
+
+/* ---- sidebar mobile ---- */
+$("openSidebar").onclick = () => { $("sidebar").classList.remove("-translate-x-full"); $("sidebarBackdrop").classList.remove("hidden"); };
+const closeSidebar = () => { $("sidebar").classList.add("-translate-x-full"); $("sidebarBackdrop").classList.add("hidden"); };
+$("closeSidebar").onclick = closeSidebar;
+$("sidebarBackdrop").onclick = closeSidebar;
+
+/* ---- difficoltà ---- */
+document.querySelectorAll(".level-btn").forEach(btn => {
+  btn.onclick = () => {
+    state.level = btn.dataset.level;
+    document.querySelectorAll(".level-btn").forEach(b => {
+      const active = b.dataset.level === state.level;
+      b.className = "level-btn rounded-lg border p-2 text-sm font-medium transition " +
+        (active ? "border-teal-500 bg-teal-50 text-teal-700" : "border-slate-300 bg-white text-slate-600");
+    });
+  };
+});
+
+/* ---- materia / argomento ---- */
+function htmlToText(html) {
+  return html
+    .replace(/<script[\s\S]*?<\/script>/gi, "")
+    .replace(/<style[\s\S]*?<\/style>/gi, "")
+    .replace(/<br\s*\/?>/gi, "\n")
+    .replace(/<\/(p|h1|h2|h3|h4|li|tr|div|table|section|pre)>/gi, "\n")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&nbsp;/gi, " ").replace(/&amp;/gi, "&").replace(/&lt;/gi, "<").replace(/&gt;/gi, ">").replace(/&middot;/gi, "·")
+    .replace(/[ \t]{2,}/g, " ").replace(/\n{3,}/g, "\n\n").trim();
+}
+
+function pagesBase(materia) { return `https://mpetrini75-maker.github.io/${materia}-irene/`; }
+
+async function discoverTopics(materia) {
+  try {
+    const res = await fetch(pagesBase(materia) + "index.html");
+    if (!res.ok) throw new Error(String(res.status));
+    const html = await res.text();
+    const doc = new DOMParser().parseFromString(html, "text/html");
+    const seen = new Set(), topics = [];
+    doc.querySelectorAll('a[href$=".html"]').forEach(a => {
+      const raw = a.getAttribute("href") || "";
+      if (/^https?:/i.test(raw)) return;               // link esterni
+      const slug = raw.split("/").pop().replace(/\.html$/i, "");
+      if (!slug || slug === "index" || /-allenamento$/i.test(slug)) return;
+      if (seen.has(slug)) return;
+      seen.add(slug);
+      // il titolo pulito sta in un heading dentro il link (es. <h2>); il testo
+      // completo del blocco includerebbe sottotitolo e badge "Vai →".
+      const head = a.querySelector("h2, h3, strong, b");
+      let label = ((head ? head.textContent : a.textContent) || "").replace(/\s+/g, " ").trim();
+      label = label.replace(/\s*Vai\s*→?$/i, "").replace(/^\d+[.)\s]*/, "").trim().slice(0, 60) || slug;
+      topics.push({ slug, label });
+    });
+    return topics.length ? topics : (FALLBACK_TOPICS[materia] || []);
+  } catch {
+    return FALLBACK_TOPICS[materia] || [];
+  }
+}
+
+async function populateTopics() {
+  const sel = $("topicSelect");
+  sel.innerHTML = '<option value="">⌛ carico gli argomenti…</option>';
+  const topics = await discoverTopics(state.materia);
+  if (!topics.length) {
+    sel.innerHTML = '<option value="">(nessun argomento trovato)</option>';
+    state.topic = ""; return;
+  }
+  sel.innerHTML = topics.map(t => `<option value="${t.slug}">${t.label}</option>`).join("");
+  state.topic = topics[0].slug;
+  state.topicLabel = topics[0].label;
+  sel._topics = topics;
+}
+
+$("materiaSelect").onchange = (e) => { state.materia = e.target.value; populateTopics(); };
+$("topicSelect").onchange = (e) => {
+  state.topic = e.target.value;
+  const t = ($("topicSelect")._topics || []).find(x => x.slug === state.topic);
+  state.topicLabel = t ? t.label : state.topic;
+};
+
+async function fetchMattoncino(materia, topic) {
+  const res = await fetch(pagesBase(materia) + topic + ".html");
+  if (!res.ok) throw new Error("pagina non raggiungibile (" + res.status + ")");
+  const txt = htmlToText(await res.text());
+  if (txt.length < 80) throw new Error("mattoncino vuoto");
+  return txt.slice(0, 9000);
+}
+
+/* ---- TTS toggle ---- */
+function renderTtsToggle() {
+  $("ttsToggle").classList.toggle("bg-teal-600", state.ttsOn);
+  $("ttsToggle").classList.toggle("bg-slate-300", !state.ttsOn);
+  $("ttsToggle").setAttribute("aria-checked", String(state.ttsOn));
+  $("ttsKnob").classList.toggle("translate-x-5", state.ttsOn);
+  $("ttsKnob").classList.toggle("translate-x-0.5", !state.ttsOn);
+}
+$("ttsToggle").onclick = () => {
+  state.ttsOn = !state.ttsOn;
+  localStorage.setItem(LS_TTS, state.ttsOn ? "1" : "0");
+  renderTtsToggle();
+  if (!state.ttsOn) stopAllAudio();
+};
+renderTtsToggle();
+
+/* ---- selettore voci (ElevenLabs / Web Speech) ---- */
+const LS_VOICE = "alex_voice_name";
+let selectedVoiceName = localStorage.getItem(LS_VOICE) || "";
+
+async function populateVoicePicker() {
+  const sel = $("voicePicker");
+  const elevenKey = localStorage.getItem(LS_ELEVEN);
+  if (elevenKey) {
+    sel.innerHTML = '<option value="">⌛ Caricamento voci…</option>';
+    try {
+      const res = await fetch("https://api.elevenlabs.io/v1/voices", { headers: { "xi-api-key": elevenKey } });
+      if (res.ok) {
+        const data = await res.json();
+        const saved = localStorage.getItem(LS_ELEVEN_VOICE);
+        sel.innerHTML = '<option value="">⭐ Bella (default)</option>';
+        (data.voices || []).filter(v => v.category === "premade")
+          .sort((a, b) => a.name.localeCompare(b.name))
+          .forEach(v => {
+            const opt = document.createElement("option");
+            opt.value = v.voice_id; opt.textContent = v.name;
+            if (v.voice_id === saved) opt.selected = true;
+            sel.appendChild(opt);
+          });
+        return;
+      }
+    } catch {}
+    sel.innerHTML = '<option value="">⭐ Bella (default)</option>';
+    return;
+  }
+  const voices = speechSynthesis.getVoices();
+  const itVoices = voices.filter(v => /^it[-_]/i.test(v.lang));
+  if (!itVoices.length) return;
+  sel.innerHTML = '<option value="">⭐ Automatica</option>';
+  itVoices.forEach(v => {
+    const opt = document.createElement("option");
+    opt.value = v.name; opt.textContent = `${v.name} (${v.lang})`;
+    if (v.name === selectedVoiceName) opt.selected = true;
+    sel.appendChild(opt);
+  });
+}
+$("voicePicker").onchange = (e) => {
+  if (localStorage.getItem(LS_ELEVEN)) localStorage.setItem(LS_ELEVEN_VOICE, e.target.value);
+  else { selectedVoiceName = e.target.value; localStorage.setItem(LS_VOICE, selectedVoiceName); }
+};
+$("testVoiceBtn").onclick = () => {
+  const testText = "Ciao Irene! Sono la prof. Quando sei pronta, cominciamo l'interrogazione.";
+  if (localStorage.getItem(LS_ELEVEN)) {
+    const btn = $("testVoiceBtn");
+    const pickerVal = $("voicePicker").value || ELEVEN_DEFAULT_VOICE;
+    localStorage.setItem(LS_ELEVEN_VOICE, pickerVal);
+    stopAllAudio();
+    btn.textContent = "⌛ Caricamento…"; btn.disabled = true;
+    elevenSpeak(cleanForTTS(testText))
+      .then(() => { btn.textContent = "▶ Ascolta anteprima"; btn.disabled = false; })
+      .catch(e => { btn.textContent = "⚠️ " + (e.message || "errore").slice(0, 40); btn.disabled = false;
+        setTimeout(() => { btn.textContent = "▶ Ascolta anteprima"; }, 6000); });
+    return;
+  }
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(testText);
+  u.lang = "it-IT"; u.pitch = 1.05;
+  const v = selectedVoiceName ? speechSynthesis.getVoices().find(v => v.name === selectedVoiceName) : pickVoice("it-IT");
+  if (v) u.voice = v;
+  speechSynthesis.speak(u);
+};
+populateVoicePicker();
+if ("speechSynthesis" in window) speechSynthesis.addEventListener("voiceschanged", populateVoicePicker);
+
+/* ---- chiave API ---- */
+function showKeyModal() {
+  $("apiKeyInput").value = localStorage.getItem(LS_KEY) || "";
+  $("elevenKeyInput").value = localStorage.getItem(LS_ELEVEN) || "";
+  $("apiKeyModal").classList.remove("hidden"); $("apiKeyModal").classList.add("flex");
+  $("apiKeyInput").focus();
+}
+function hideKeyModal() { $("apiKeyModal").classList.add("hidden"); $("apiKeyModal").classList.remove("flex"); }
+$("apiKeyBtn").onclick = showKeyModal;
+$("apiKeyCancel").onclick = hideKeyModal;
+$("apiKeySave").onclick = () => {
+  const v = $("apiKeyInput").value.trim();
+  if (v) localStorage.setItem(LS_KEY, v);
+  const ev = $("elevenKeyInput").value.trim();
+  if (ev) { localStorage.setItem(LS_ELEVEN, ev); localStorage.removeItem(LS_ELEVEN_VOICE); }
+  else localStorage.removeItem(LS_ELEVEN);
+  hideKeyModal(); populateVoicePicker();
+};
+
+/* ================= RENDERING ================= */
+function escapeHtml(s) {
+  return s.replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+}
+function mdLite(s) {
+  return escapeHtml(s)
+    .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+    .replace(/\*(.+?)\*/g, "<em>$1</em>")
+    .replace(/\n/g, "<br>");
+}
+function formatAssistant(text) {
+  const isReferto = /^\s*REFERTO/i.test(text);
+  const html = mdLite(text.trim());
+  return isReferto
+    ? `<div class="rounded-lg bg-emerald-50 border border-emerald-200 px-3 py-2 text-emerald-900">${html}</div>`
+    : html;
+}
+function addBubble(role, text = "") {
+  const wrap = document.createElement("div");
+  const isProf = role === "assistant";
+  wrap.className = "flex " + (isProf ? "justify-start" : "justify-end");
+  wrap.innerHTML = isProf
+    ? `<div class="flex items-end gap-2 max-w-[85%] md:max-w-[70%]">
+         <div class="avatar h-8 w-8 rounded-full text-base flex-shrink-0 shadow">👩‍🏫</div>
+         <div class="bubble-prof bg-white border border-slate-200 shadow-sm px-4 py-2.5 text-sm text-slate-800">
+           <div class="msg-body">${formatAssistant(text)}</div>
+           <button class="speak-btn mt-1 text-slate-400 hover:text-teal-600 text-xs hidden" title="Ascolta">🔊 ascolta</button>
+         </div>
+       </div>`
+    : `<div class="bubble-irene bg-teal-600 text-white shadow-sm px-4 py-2.5 text-sm max-w-[85%] md:max-w-[70%]">${escapeHtml(text).replace(/\n/g, "<br>")}</div>`;
+  chatBox.appendChild(wrap);
+  chatBox.scrollTop = chatBox.scrollHeight;
+  return wrap;
+}
+function systemNote(text) {
+  const div = document.createElement("div");
+  div.className = "text-center";
+  div.innerHTML = `<span class="inline-block text-[11px] text-slate-500 bg-slate-200/70 rounded-full px-3 py-1">${escapeHtml(text)}</span>`;
+  chatBox.appendChild(div); chatBox.scrollTop = chatBox.scrollHeight;
+}
+function typingIndicator() {
+  const wrap = document.createElement("div");
+  wrap.className = "flex justify-start";
+  wrap.innerHTML = `<div class="flex items-end gap-2">
+      <div class="avatar h-8 w-8 rounded-full text-base shadow">👩‍🏫</div>
+      <div class="bubble-prof bg-white border border-slate-200 px-4 py-3 flex gap-1">
+        <span class="typing-dot h-2 w-2 rounded-full bg-slate-400"></span>
+        <span class="typing-dot h-2 w-2 rounded-full bg-slate-400"></span>
+        <span class="typing-dot h-2 w-2 rounded-full bg-slate-400"></span>
+      </div></div>`;
+  chatBox.appendChild(wrap); chatBox.scrollTop = chatBox.scrollHeight;
+  return wrap;
+}
+
+/* ================= TEXT-TO-SPEECH (riuso da Olivia) ================= */
+function scoreVoice(v) {
+  const n = v.name.toLowerCase(); let s = 0;
+  if (n.includes("natural")) s += 100;
+  if (n.includes("enhanced") || n.includes("premium")) s += 60;
+  if (n.includes("google")) s += 50;
+  if (n.includes("online")) s += 30;
+  if (!v.localService) s += 20;
+  return s;
+}
+function pickVoice(langTag) {
+  const voices = speechSynthesis.getVoices();
+  const prefix = langTag.slice(0, 2).toLowerCase();
+  if (prefix === "it" && selectedVoiceName) {
+    const chosen = voices.find(v => v.name === selectedVoiceName);
+    if (chosen) return chosen;
+  }
+  let pool = voices.filter(v => v.lang.toLowerCase().replace("_", "-").startsWith(prefix));
+  if (!pool.length) return null;
+  pool.sort((a, b) => scoreVoice(b) - scoreVoice(a));
+  return pool[0];
+}
+// UN SOLO elemento <audio> sbloccato da un gesto: su iOS resta sbloccato anche
+// cambiando sorgente e suona anche con l'interruttore silenzioso (a differenza
+// della Web Audio API). Vedi memoria tutor-olivia-elevenlabs.
+let audioChain = Promise.resolve();
+const ttsAudio = new Audio();
+ttsAudio.preload = "auto";
+ttsAudio.setAttribute("playsinline", "");
+const SILENT_CLIP = "data:audio/wav;base64,UklGRiYAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQIAAACAgA==";
+let ttsUnlocked = false;
+function unlockTtsAudio() {
+  if (ttsUnlocked) return;
+  try {
+    ttsAudio.src = SILENT_CLIP;
+    const p = ttsAudio.play();
+    if (p && p.then) p.then(() => { try { ttsAudio.pause(); ttsAudio.currentTime = 0; } catch {} ttsUnlocked = true; }).catch(() => {});
+  } catch {}
+}
+function stopAllAudio() {
+  try { speechSynthesis.cancel(); } catch {}
+  try { ttsAudio.pause(); } catch {}
+  audioChain = Promise.resolve();
+}
+async function elevenSpeak(text) {
+  const key = localStorage.getItem(LS_ELEVEN);
+  const voiceId = localStorage.getItem(LS_ELEVEN_VOICE) || ELEVEN_DEFAULT_VOICE;
+  const res = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`, {
+    method: "POST",
+    headers: { "xi-api-key": key, "Content-Type": "application/json", "Accept": "audio/mpeg" },
+    body: JSON.stringify({ text, model_id: "eleven_multilingual_v2", voice_settings: { stability: 0.5, similarity_boost: 0.75 } })
+  });
+  if (!res.ok) { const b = await res.text().catch(() => ""); throw new Error(`ElevenLabs ${res.status}: ${b.slice(0, 80)}`); }
+  const url = URL.createObjectURL(await res.blob());
+  return new Promise((resolve, reject) => {
+    ttsAudio.onended = () => { URL.revokeObjectURL(url); resolve(); };
+    ttsAudio.onerror = (e) => { URL.revokeObjectURL(url); reject(e); };
+    ttsAudio.src = url;
+    const p = ttsAudio.play();
+    if (p && p.catch) p.catch(reject);
+  });
+}
+function cleanForTTS(text) {
+  return text
+    .replace(/REFERTO\s*📋:?/i, "Ecco com'è andata.")
+    .replace(/\*\*?/g, "")
+    .replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/gu, "")
+    .replace(/\s{2,}/g, " ").trim();
+}
+function speakChunked(text) {
+  const sentences = text.split(/(?<=[.!?…])\s+/).filter(s => s.trim());
+  for (const s of sentences) {
+    const u = new SpeechSynthesisUtterance(s);
+    u.lang = "it-IT"; u.pitch = 1.05; u.rate = 1.0;
+    const v = pickVoice("it-IT"); if (v) u.voice = v;
+    speechSynthesis.speak(u);
+  }
+}
+function queueElevenSpeak(text) {
+  const clean = cleanForTTS(text); if (!clean) return;
+  audioChain = audioChain.then(() => elevenSpeak(clean)).catch(e => {
+    console.warn("ElevenLabs:", e);
+    try { speechSynthesis.cancel(); speakChunked(clean); } catch {}
+  });
+}
+let speechUnlocked = false, pendingSpeech = null;
+function doSpeakNow(text) {
+  if (localStorage.getItem(LS_ELEVEN)) { stopAllAudio(); queueElevenSpeak(text); return; }
+  speechSynthesis.cancel(); speechSynthesis.resume();
+  const clean = cleanForTTS(text); if (clean) speakChunked(clean);
+}
+function unlockSpeech() { if (speechUnlocked) return; speechUnlocked = true; if (pendingSpeech) { const t = pendingSpeech; pendingSpeech = null; doSpeakNow(t); } }
+window.addEventListener("touchstart", unlockSpeech, { once: true, passive: true });
+window.addEventListener("pointerdown", unlockSpeech, { once: true });
+window.addEventListener("keydown", unlockSpeech, { once: true });
+window.addEventListener("touchstart", unlockTtsAudio, { passive: true });
+window.addEventListener("pointerdown", unlockTtsAudio);
+window.addEventListener("keydown", unlockTtsAudio);
+function speakResponse(text) {
+  if (localStorage.getItem(LS_ELEVEN)) { doSpeakNow(text); return; }
+  if (!("speechSynthesis" in window)) return;
+  const canSpeak = speechUnlocked || !!(navigator.userActivation && navigator.userActivation.hasBeenActive);
+  if (!canSpeak) { pendingSpeech = text; return; }
+  const voices = speechSynthesis.getVoices();
+  if (voices.length) doSpeakNow(text);
+  else { let done = false; const go = () => { if (done) return; done = true; doSpeakNow(text); };
+    speechSynthesis.addEventListener("voiceschanged", go, { once: true }); setTimeout(go, 600); }
+}
+function wireSpeakBtn(bubbleWrap, text) {
+  const btn = bubbleWrap.querySelector(".speak-btn"); if (!btn) return;
+  btn.classList.remove("hidden");
+  btn.onclick = () => speakResponse(text);
+}
+
+/* ================= RICONOSCIMENTO VOCALE (STT) ================= */
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+const micBtn = $("micBtn");
+let recognition = null, micActive = false, sttTranscript = "";
+if (SpeechRecognition) {
+  micBtn.classList.remove("hidden");
+  function buildRecognition() {
+    const r = new SpeechRecognition();
+    r.lang = "it-IT"; r.continuous = false; r.interimResults = true; r.maxAlternatives = 1;
+    r.onresult = (e) => {
+      const interim = Array.from(e.results).map(res => res[0].transcript).join("");
+      userInput.value = interim;
+      userInput.style.height = "auto"; userInput.style.height = Math.min(userInput.scrollHeight, 128) + "px";
+      const last = e.results[e.results.length - 1];
+      if (last.isFinal) sttTranscript = interim.trim();
+    };
+    r.onerror = (e) => {
+      if (e.error === "no-speech" && micActive) { try { recognition.start(); } catch (_) {} }
+      else { console.warn("STT:", e.error); stopMic(false); }
+    };
+    r.onend = () => {
+      if (!micActive) return;
+      if (sttTranscript) {
+        stopMic(false);
+        const text = sttTranscript; sttTranscript = "";
+        userInput.value = ""; userInput.style.height = "auto";
+        sendMessage(text);
+      } else { try { recognition.start(); } catch (_) { stopMic(false); } }
+    };
+    return r;
+  }
+  function startMic() {
+    if (micActive || state.busy) return;
+    stopAllAudio(); sttTranscript = ""; userInput.value = "";
+    micActive = true; micBtn.textContent = "🔴"; micBtn.classList.add("recording"); micBtn.title = "Tocca per fermare";
+    recognition = buildRecognition();
+    try { recognition.start(); } catch (e) { stopMic(false); console.warn(e); }
+  }
+  function stopMic(abort = true) {
+    micActive = false; micBtn.textContent = "🎤"; micBtn.classList.remove("recording"); micBtn.title = "Rispondi a voce";
+    if (abort && recognition) { try { recognition.abort(); } catch (_) {} }
+  }
+  micBtn.onclick = () => { micActive ? stopMic() : startMic(); };
+}
+
+/* ================= FLUSSO INTERROGAZIONE ================= */
+function setBusy(b) {
+  state.busy = b;
+  sendBtn.disabled = b; userInput.disabled = b;
+  statusLine.textContent = b ? "✍️ la prof sta pensando…" : "● pronta — rispondi pure";
+  statusLine.className = b ? "text-xs text-amber-500" : "text-xs text-teal-600";
+}
+
+async function streamAssistant() {
+  const client = getClient();
+  if (!client) { showKeyModal(); return; }
+  setBusy(true);
+  const typing = typingIndicator();
+  let bubble = null, body = null, acc = "";
+  try {
+    const stream = client.messages.stream({
+      model: MODEL, max_tokens: 4096, system: buildSystemPrompt(), messages: state.history,
+    });
+    stream.on("text", (delta) => {
+      if (!bubble) { typing.remove(); bubble = addBubble("assistant", ""); body = bubble.querySelector(".msg-body"); }
+      acc += delta; body.innerHTML = formatAssistant(acc); chatBox.scrollTop = chatBox.scrollHeight;
+    });
+    const final = await stream.finalMessage();
+    const fullText = final.content.filter(b => b.type === "text").map(b => b.text).join("");
+    if (!bubble) { typing.remove(); bubble = addBubble("assistant", fullText); }
+    else body.innerHTML = formatAssistant(fullText);
+    state.history.push({ role: "assistant", content: fullText });
+    wireSpeakBtn(bubble, fullText);
+    if (state.ttsOn) speakResponse(fullText);
+  } catch (err) {
+    typing.remove();
+    let msg = "Ops, qualcosa è andato storto. Riprova tra poco.";
+    if (err instanceof Anthropic.AuthenticationError) msg = "Chiave API non valida. Controllala con 🔑 nel pannello.";
+    else if (err instanceof Anthropic.RateLimitError) msg = "Troppe richieste: aspetta qualche secondo e riprova.";
+    else if (err instanceof Anthropic.APIConnectionError) msg = "Problema di connessione: controlla internet e riprova.";
+    else if (err instanceof Anthropic.APIError) msg = `Errore API (${err.status}): ${err.message}`;
+    systemNote("⚠️ " + msg);
+    if (state.history.length && state.history[state.history.length - 1].role === "user") state.history.pop();
+    console.error(err);
+  } finally {
+    setBusy(false); userInput.focus();
+  }
+}
+
+function sendMessage(text) {
+  if (!text || state.busy) return;
+  state.history.push({ role: "user", content: text });
+  addBubble("user", text);
+  streamAssistant();
+}
+
+async function startInterrogazione() {
+  const client = getClient();
+  if (!client) { showKeyModal(); return; }
+  if (!state.topic) { systemNote("Scegli prima un argomento nel pannello."); return; }
+  stopAllAudio();
+  closeSidebar();
+  chatBox.innerHTML = ""; state.history = [];
+  setBusy(true);
+  systemNote(`📚 Preparo l'interrogazione di ${MATERIE[state.materia]} — «${state.topicLabel}»…`);
+  try {
+    state.mattoncino = await fetchMattoncino(state.materia, state.topic);
+  } catch (e) {
+    setBusy(false);
+    systemNote("⚠️ Non riesco a leggere il mattoncino (" + e.message + "). Controlla la connessione e riprova.");
+    return;
+  }
+  systemNote("🎤 Via! Rispondi a voce o scrivendo. Quando vuoi chiudere, scrivi «basta».");
+  // primer nascosto: fa partire la prof con presentazione + prima domanda
+  state.history.push({ role: "user", content: "Sono pronta, puoi cominciare l'interrogazione." });
+  await streamAssistant();
+}
+$("startBtn").onclick = startInterrogazione;
+
+/* ---- input ---- */
+$("chatForm").onsubmit = (e) => {
+  e.preventDefault();
+  const text = userInput.value.trim();
+  if (!text || state.busy) return;
+  if (!state.history.length) { systemNote("Premi prima «🎤 Inizia interrogazione» nel pannello."); return; }
+  userInput.value = ""; userInput.style.height = "auto";
+  sendMessage(text);
+};
+userInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); $("chatForm").requestSubmit(); }
+});
+userInput.addEventListener("input", () => {
+  userInput.style.height = "auto"; userInput.style.height = Math.min(userInput.scrollHeight, 128) + "px";
+});
+
+/* ================= AVVIO ================= */
+populateTopics();
+if (!localStorage.getItem(LS_KEY)) {
+  showKeyModal();
+} else {
+  systemNote("👩‍🏫 Scegli materia e argomento, poi premi «🎤 Inizia interrogazione».");
+}
+</script>
+</body>
+</html>
