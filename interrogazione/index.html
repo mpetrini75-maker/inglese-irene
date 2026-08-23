@@ -297,6 +297,10 @@ async function discoverTopics(materia) {
     doc.querySelectorAll('a[href$=".html"]').forEach(a => {
       const raw = a.getAttribute("href") || "";
       if (/^https?:/i.test(raw)) return;               // link esterni
+      // pagine speciali (ripassi, schede, strumenti): stanno nell'indice ma non
+      // sono mattoncini, e il loro contenuto vive nel JS — come fonte di
+      // un'interrogazione darebbero una pagina quasi vuota.
+      if (a.hasAttribute("data-non-mattoncino")) return;
       const slug = raw.split("/").pop().replace(/\.html$/i, "");
       if (!slug || slug === "index" || /-allenamento$/i.test(slug)) return;
       if (seen.has(slug)) return;
